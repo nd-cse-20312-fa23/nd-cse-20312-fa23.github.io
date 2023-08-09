@@ -1,0 +1,208 @@
+- name:     Developer Tools
+  days:
+      - date:           Tue 08/22
+        topics:         Syllabus, Unix
+        assignment:     Reading 00
+
+      - date:           Wed 08/23
+        topics:         Git, Make
+
+      - date:           Fri 08/25
+        topics:         GDB, Valgrind
+
+- name:     Data Representation
+  days:
+      - date:           Mon 08/28
+        topics:         Types, Pointers, Arrays
+        assignment:     Reading 01
+
+      - date:           Wed 08/30
+        topics:         Strings, I/O, Address Space
+        assignment:     Homework 01
+        idea:           CLI Adventure (Navigation, Git, Make, GDB, Valgrind)
+
+      - date:           Fri 09/01
+        topics:         Structs
+
+- name:     Arrays, Stacks
+  days:
+      - date:           Mon 09/04
+        topics:         Dynamic Arrays
+        assignment:     Reading 02
+
+      - date:           Wed 09/06
+        topics:         Stacks
+        assignment:     Homework 02
+        idea:           Strings (Split, Concatenate, Join) / Cut
+
+      - date:           Fri 09/08
+        topics:         Circular Buffer
+
+- name:     Lists, Queues
+  days:
+      - date:           Mon 09/11
+        topics:         Linked Lists
+        assignment:     Reading 03
+
+      - date:           Wed 09/13
+        topics:         Queues
+        assignment:     Homework 03
+        idea:           Arrays / Stacks / RPN
+
+      - date:           Fri 09/15
+        topics:         Deques
+
+- name:     Search, Sets
+  days:
+      - date:           Mon 09/18
+        topics:         Linear and Binary Search
+        assignment:     Reading 04
+
+      - date:           Wed 09/20
+        topics:         Sets
+        assignment:     Homework 04
+        idea:           Linked Lists / Queues / Sliding Window
+
+      - date:           Fri 09/22
+        topics:         Bitsets
+
+- name:     Sorting
+  days:
+      - date:           Mon 09/25
+        topics:         Bubble, Insertion, Selection Sort
+        assignment:     Reading 05
+
+      - date:           Wed 09/27
+        topics:         Merge Sort
+        assignment:     Homework 05
+        idea:           Sets / Bitsets / Duplicates
+
+      - date:           Fri 09/29
+        topics:         Quick Sort
+
+- name:     Hash Tables
+  days:
+      - date:           Mon 10/02
+        topics:         Separate Chaining
+        assignment:     Reading 06
+
+      - date:           Wed 10/04
+        topics:         Linear Probing
+        assignment:     Homework 06
+        idea:           Sorting / Cards / Cookies
+
+      - date:           Fri 10/06
+        topics:         Memoization
+
+- name:     Exam 01
+  days:
+      - date:           Mon 10/09
+        topics:         Bucket Sorting
+        assignment:     Reading 07
+
+      - date:           Wed 10/11
+        topics:         Review
+        assignment:     Homework 07
+        idea:           Hash Table / Word Count / Collatz
+
+      - date:           Fri 10/13
+        items:
+          - name:       Exam 01
+
+- name:   Fall Break
+
+- name:     Python
+  days:
+      - date:           Mon 10/23
+        topics:         Variables, Control Flow
+        assignment:     Reading 08
+
+      - date:           Wed 10/25
+        topics:         Data Structures, Typing
+
+      - date:           Fri 10/27
+        topics:         Classes, Testing
+
+- name:     Binary Trees, Divide and Conquer
+  days:
+      - date:           Mon 10/30
+        topics:         Binary Trees
+        assignment:     Reading 09
+
+      - date:           Wed 11/01
+        topics:         Divide and Conquer
+        assignment:     Homework 08
+        idea:           Exam 01 analysis, Spell Check
+
+      - date:           Fri 11/03
+        topics:         Comprehensions, Generators
+
+- name:     Binary Heaps, Priority Queues
+  days:
+      - date:           Mon 11/06
+        topics:         Binary Heaps
+        assignment:     Reading 10
+
+      - date:           Wed 11/08
+        topics:         Priority Queues
+        assignment:     Homework 09
+        idea:           Representation, Traversal, Binary Christmas Trees
+
+      - date:           Fri 11/10
+        topics:         Compression
+
+- name:     Binary Search Trees
+  days:
+      - date:           Mon 11/13
+        topics:         Binary Search Trees
+        assignment:     Reading 11
+
+      - date:           Wed 11/15
+        topics:         Treaps
+        assignment:     Homework 10
+        idea:           Binary Heap / Huffman Code
+
+      - date:           Fri 11/17
+        topics:         Red-Black Trees
+
+- name:     Graphs - Representation
+  days:
+      - date:           Mon 11/20
+        topics:         Representation
+        assignment:     Reading 12
+
+      - date:           Wed 11/22
+        topics:         Thanksgiving
+        assignment:     Homework 11
+        idea:           Binary Search Trees / Treap / Lemmy Comments
+
+      - date:           Fri 11/24
+        topics:         Thanksgiving
+
+- name:     Graphs - Traverals
+  days:
+      - date:           Mon 11/27
+        topics:         DFS, BFS
+        assignment:     Reading 13
+
+      - date:           Wed 11/29
+        topics:         SSSP
+        assignment:     Homework 12
+        idea:           Star Graph, Reddit
+
+      - date:           Fri 12/01
+        topics:         MST
+
+- name:     Exam 02
+  days:
+      - date:           Mon 12/04
+        topics:         Topological Sort
+
+      - date:           Wed 12/06
+        topics:         Review
+        assignment:     Homework 13
+        idea:           Sim City, Passcodes
+
+      - date:           Thu 12/14
+        items:
+          - name:       Exam 02
