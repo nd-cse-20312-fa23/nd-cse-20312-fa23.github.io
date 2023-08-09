@@ -51,13 +51,16 @@ body:       |
     2. **Understand** how computers represent data and allocate memory.
 
     3. **Utilize** basic data structures such as arrays, lists, stacks, queues,
-    trees, and maps.
+    sets, and maps.
 
     4. **Apply** algorithms for searching and sorting data.
 
-    5. **Develop** software that employs objects or recursion.
+    5. **Represent** trees and graphs and **traverse** such data structures
+    using a variety of algorithms.
 
-    6. **Analyze** the efficiency and complexity of software implementations.
+    6. **Develop** software that employs objects or recursion.
+
+    7. **Analyze** the efficiency and complexity of software implementations.
 
     </div>
 
@@ -199,7 +202,7 @@ body:       |
                 {% end %}
                     <td class="text-center text-strong"><tt>{{ day['date'] }}</tt></td>
                     <td class="text-strong">
-                    {% if 'Easter' in day.get('topics', '') or 'Break' in day.get('topics', '') or 'Day' in day.get('topics', '') %}
+                    {% if 'Thanksgiving' == day.get('topics', '') or 'Break' in day.get('topics', '') or 'Day' in day.get('topics', '') %}
                     <i class="text-muted">{{ day.get('topics', '') }}</i>
                     {% else %}
                     {{ day.get('topics', '') }}

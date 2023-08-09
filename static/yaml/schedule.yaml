@@ -80,7 +80,7 @@
       - date:           Fri 09/29
         topics:         Quick Sort
 
-- name:     Hash Tables
+- name:     Hash Tables, Maps
   days:
       - date:           Mon 10/02
         topics:         Separate Chaining
