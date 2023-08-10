@@ -8,7 +8,7 @@
         topics:         Git, Make
 
       - date:           Fri 08/25
-        topics:         GDB, Valgrind
+        topics:         Complexity, GDB, Valgrind
 
 - name:     Data Representation
   days:
