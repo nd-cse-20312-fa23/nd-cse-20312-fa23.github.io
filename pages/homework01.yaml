@@ -1,0 +1,271 @@
+title:      "Homework 01: Development Tools"
+icon:       fa-code
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-linux"
+internal:
+external:
+body:       |
+
+  The goal of this homework assignment is to allow you to practice using common
+  development tools such as [git], [curl], [gcc], [make], [gdb], and [valgrind]
+  in a [Unix] programming environment.
+
+  For this assignment, you are to do your work in the `homework01` folder of
+  your **assignments** [GitHub] repository and push your work by **noon
+  Wednesday, August 30**.
+
+  [Unix]:     https://en.wikipedia.org/wiki/Unix
+  [GitHub]:   https://github.com
+  [curl]:     https://www.mankier.com/1/curl
+  [gcc]:      https://www.mankier.com/1/gcc
+  [make]:     https://www.mankier.com/1/make
+  [gdb]:      https://www.mankier.com/1/gdb
+  [valgrind]: https://www.mankier.com/1/valgrind
+
+  ## Activity 0: Branching
+
+  As discussed in class, each **reading** and **homework** assignment must be
+  completed in its own git [branch]; this will allow you to separate the work
+  of each assignment and for you to use the [Pull Request] workflow describe
+  in [Reading 01].
+
+  To create a `homework01` branch in your local repository, follow the
+  instructions below:
+
+      :::bash
+      $ cd path/to/cse-20312-fa23-assignments   # Go to assignments repository
+
+      $ git switch master                       # Make sure we are in master branch
+
+      $ git pull --rebase                       # Make sure we are up-to-date with GitHub
+
+      $ git checkout -b homework01              # Create homework01 branch and check it out
+
+      $ cd homework01                           # Go into homework01 folder
+
+  Once these commands have been successfully performed, you are now ready to
+  [add], [commit], and [push] any work required for this assignment.
+
+  ## Activity 1: Co-Pilot (10 Points)
+
+  The main activity for this assignment is to follow the prompts of your
+  **Co-Pilot**, which takes the form of a program located at:
+
+      https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/txt/COPILOT
+
+  You can use either [curl] to download this program to your `homework01`
+  folder in your **assignments** repository and execute it as follows:
+
+      :::bash
+      # Go to homework01 directory in assignments repository
+      $ cd path/to/assignments/homework01
+
+      # Download COPILOT
+      $ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/txt/COPILOT
+
+      # Make COPILOT executable
+      $ chmod +x COPILOT
+
+      # Run COPILOT
+      $ ./COPILOT
+      ...
+
+  As you can see in the demonstration video below, the `COPILOT` script will
+  prompt you to complete a series of tasks (**13** in total).  After you
+  complete each task, you must run the `COPILOT` script so it can verify your
+  work.  If it detects that you have completed the task, it will update the
+  `tasks.yaml` file with a specially encoded checkpoint payload associated with
+  your **netid** and the corresponding task.  It will then prompt you with the
+  next task.
+
+  <div class="thumbnail text-center">
+    <script async id="asciicast-386d9nO822xWbiWPem4tD3zBL" src="https://asciinema.org/a/386d9nO822xWbiWPem4tD3zBL.js"></script>
+  </div>
+
+  You are to follow the prompts specified by the `COPILOT` until you have
+  completed each of the tasks in the adventure.  Because some tasks depend on
+  others, there is no skipping ahead or going backwards.   That said, you can
+  always remove the checkpoints in the `tasks.yaml` file to go back to a
+  particular task.
+
+  At the end of this activity, you should see the following output from the `COPILOT`:
+
+      :::text
+      $ ./COPILOT
+      Checking homework01 tasks ...
+       Task 00 Checkout on homework01 branch            ... Completed
+       Task 01 Download file                            ... Completed
+       Task 02 Modify Makefile - Build                  ... Completed
+       Task 03 Modify Makefile - Clean                  ... Completed
+       Task 04 Trace - Warnings                         ... Completed
+       Task 05 Trace - GDB                              ... Completed
+       Task 06 Fix segfault                             ... Completed
+       Task 07 Redirection - Input                      ... Completed
+       Task 08 Trace - Valgrind                         ... Completed
+       Task 09 Fix error                                ... Completed
+       Task 10 Quiz                                     ... Completed
+         Score 12.00 / 12.00
+        Status Success
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-check-square-o"></i> Task Checkpoints
+
+  Note, that each task checkpoint in the `tasks.yaml` is specially encoded for
+  your **netid**.  This means that copying the checkpoint from another student
+  or from a previous task will not work and will lead to a **corruption**
+  warning that will anger the `COPILOT`.  The only way to proceed through the
+  activity is to actually do the tasks!
+
+  </div>
+
+  ### References
+
+  If you need additional reference information, please refer to the readings
+  from [Reading 00] along with the following:
+
+  1. [Beej's Quick Guide to GDB](https://beej.us/guide/bggdb/)
+
+  2. [Valgrind Quick Start Guide](http://valgrind.org/docs/manual/quick-start.html)
+
+  3. [Systems Programing - Memory Mistakes](https://github.com/angrave/SystemProgramming/wiki/C-Programming%2C-Part-3%3A-Common-Gotchas#memory-mistakes)
+
+  ## Activity 2: Quiz (2 Points)
+
+  Once you have completed all the tasks specified by the `COPILOT` in **Activity
+  1**, you are to complete the following *reflection quiz*:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/homework01.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  As with [Reading 01], you will need to store your answers in a
+  `homework01/answers.json` file.  You can use the form above to generate the
+  contents of this file, or you can write the [JSON] by hand.
+
+  To check your quiz directly, you can use the `check.py` script:
+
+      :::bash
+      $ ../.scripts/check.py
+      Checking homework01 quiz ...
+            Q1 0.70
+            Q2 0.50
+            Q3 0.30
+            Q4 0.50
+         Score 2.00 / 2.00
+        Status Success
+
+  ## Leet Point (1 Extra Credit Point)
+
+  For **extra credit**, you are to customize your favorite `$EDITOR` by adding
+  useful programming or development extensions and plugins that will make
+  your [Unix] programming environment more productive. Here are some
+  sources of inspiration:
+
+  ### Nano
+
+  - [Configure nano for Command Line Development](https://www.agnosticdev.com/content/configure-nano-command-line-development)
+  - [Customising Nano – Productivity Friday](https://timnash.co.uk/customising-nano-productivity-friday/)
+
+  ### Vim
+
+  - [Vimrc Configuration Guide](https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/)
+  - [Vim as an IDE](https://blog.jez.io/vim-as-an-ide/)
+  - [How to Turn Vim Into a Lightweight IDE](https://dane-bulat.medium.com/how-to-turn-vim-into-a-lightweight-ide-6185e0f47b79)
+
+  ### Emacs
+
+  - [C/C++ Development Environment for Emacs](http://tuhdo.github.io/c-ide.html)
+  - [Mastering Emacs](https://www.masteringemacs.org/all-articles)
+  - [Org mode](http://orgmode.org/)
+
+  If you come across any other tutorials or resources, please share them on [Slack].
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-check"></i> Verification
+
+  To get credit for this Leet Point, show your [text editor] customizations to
+  a TA to verify (or attached a video / screenshot to your **Pull Request**).
+  You have up until **two days after** this assignment is due to verify your
+  Leet Point.
+
+  </div>
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-calendar"></i> Self-Service Extension
+
+  Remember that you can always **forgo** this Leet Point for **two extra days**
+  to do the homework.  That is, if you need an extension, you can simply skip
+  the Leet Point and you will automatically have until Monday to complete the
+  assignment for full credit.
+
+  Just leave a note on your **Pull Request** of your intentions.
+
+  </div>
+
+  ## Submission
+
+  To submit your assignment, please commit your work to the `homework01` folder
+  of your `homework01` branch in your **assignments** [GitHub] repository:
+
+      :::bash
+      $ cd path/to/cse-20312-fa23-assignments     # Go to assignments repository
+      $ git checkout master                       # Make sure we are in master branch
+      $ git pull --rebase                         # Make sure we are up-to-date with GitHub
+      $ git checkout -b homework01                # Create homework01 branch and check it out
+      $ cd homework01                             # Go to homework01 directory
+      ...
+
+      $ git add Makefile                          # Mark changes for commit
+      $ git add COPILOT                           # Mark changes for commit
+      $ git add tasks.yaml                        # Mark changes for commit
+      $ git add sum.c                             # Mark changes for commit
+      $ git commit -m "Homework 01: Activity 1"   # Record changes
+      ...
+
+      $ git add answers.json                      # Mark changes for commit
+      $ git commit -m "Homework 01: Activity 2"   # Record changes
+      ...
+
+      $ git push -u origin homework01             # Push branch to GitHub
+
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Remember to create a [Pull Request] and assign the appropriate TA from the
+  [Reading 01 TA List].
+
+  **DO NOT MERGE** your own [Pull Request].  The TAs use open [Pull Request]s
+  to keep track of which assignments to grade.  Closing them yourself will
+  cause a delay in grading and confuse the TAs.
+
+  </div>
+
+  [Markdown]:   https://daringfireball.net/projects/markdown/
+  [git]:    https://git-scm.com/
+  [clone]:  https://git-scm.com/docs/git-clone
+  [commit]: https://git-scm.com/docs/git-commit
+  [push]:   https://git-scm.com/docs/git-push
+  [branching]:   https://git-scm.com/docs/git-branch
+  [code review]: https://en.wikipedia.org/wiki/Code_review
+  [GitHub]: https://github.com
+  [Linux]:  https://kernel.org
+  [branch]: https://git-scm.com/docs/git-branch
+  [add]:    https://git-scm.com/docs/git-add
+  [Pull Request]:  https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request
+  [Reading 00]:         reading00.html
+  [Reading 01]:         reading01.html
+  [Reading 01 TA List]: reading01_tas.html
+  [curl]:   http://man7.org/linux/man-pages/man1/curl.1.html
+  [JSON]: https://json.org/
+  [Slack]:  https://nd-cse.slack.com
+  [text editor]: https://en.wikipedia.org/wiki/Text_editor
