@@ -10,7 +10,7 @@
       - date:           Fri 08/25
         topics:         Complexity, GDB, Valgrind
 
-- name:     Data Representation
+- name:     Data Allocation
   days:
       - date:           Mon 08/28
         topics:         Types, Pointers, Arrays
