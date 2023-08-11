@@ -1,0 +1,77 @@
+{
+    "q1": {
+        "type": "blank",
+        "question": "\n<strong>\n\nGiven the following <tt>C</tt> code:\n\n</strong>\n\n<pre>\nchar C = '0';\n\nint main(int argc, char *argv[]) {\n    int    i      = 1;\n    double d      = 2.0;\n    int    ia[10] = {0};\n    int   *ip     = ia;\n    return 0;\n}\n</pre>\n\n<p>How many <b>bytes</b> are <b>allocated</b> for the following\n<b>variables</b>?</p>\n\n<ol>\n<li><tt>C</tt>: ____</li>\n<li><tt>i</tt>: ____</li>\n<li><tt>d</tt>: ____</li>\n<li><tt>ia</tt>: ____</li>\n<li><tt>ip</tt>: ____</li>\n</ol>\n"
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<strong>\nGive the <tt>C</tt> code above in <b>Q1</b>, which of the following\nstatements are true (select all that apply)?\n</strong>\n",
+        "responses": {
+            "c_stack": "<tt>C</tt> is allocated in the <b>stack</b> region of memory.",
+            "c_heap": "<tt>C</tt> is allocated in the <b>heap</b> region of memory.",
+            "c_data": "<tt>C</tt> is allocated in the <b>data</b> region of memory.",
+            "c_code": "<tt>C</tt> is allocated in the <b>code</b> region of memory.",
+            "d_stack": "<tt>d</tt> is allocated in the <b>stack</b> region of memory.",
+            "d_heap": "<tt>d</tt> is allocated in the <b>heap</b> region of memory.",
+            "d_data": "<tt>d</tt> is allocated in the <b>data</b> region of memory.",
+            "d_code": "<tt>d</tt> is allocated in the <b>code</b> region of memory.",
+            "ip_stack": "<tt>ip</tt> is allocated in the <b>stack</b> region of memory.",
+            "ip_heap": "<tt>ip</tt> is allocated in the <b>heap</b> region of memory.",
+            "ip_data": "<tt>ip</tt> is allocated in the <b>data</b> region of memory.",
+            "ip_code": "<tt>ip</tt> is allocated in the <b>code</b> region of memory."
+        }
+    },
+    "q3": {
+        "type": "blank",
+        "question": "\n<p>A <b>pointer</b> is a type of <b>variable</b> that holds the\n<b>location</b> or ____ of data stored in <b>memory</b>.</p>\n\n<p>To get the <b>location</b> of a <b>variable</b>, we can use the ____\nprefix operator.</p>\n\n<p>To get the <b>value</b> referenced by a <b>pointer</b>, we can use the\n____ prefix operator.</p>\n"
+    },
+    "q4": {
+        "type": "multiple",
+        "question": "\n<strong>\nWhich of the following statements regarding arrays in <tt>C</tt> is true\n(select all that apply)?\n</strong>\n",
+        "responses": {
+            "array_fixed": "<b>Arrays</b> are fixed sized blocks of contiguous memory.",
+            "array_locality": "<b>Arrays</b> typically exhibit good spatial locality.",
+            "array_random": "<b>Arrays</b> provide efficient random access.",
+            "array_front": "<b>Arrays</b> provide efficient insertion into the front of the sequence.",
+            "array_middle": "<b>Arrays</b> provide efficient deletion from the middle of the sequence.",
+            "array_labels": "<b>Array names</b> are <b>labels</b> to the first element in the <b>array</b>.",
+            "array_index": "The <b>Array index</b> operation <tt>a[i]</tt> is equivalent to <tt>*(a + i)</tt>."
+        }
+    },
+    "q5": {
+        "type": "order",
+        "question": "\n<p>Given the following <tt>C</tt> code, <tt>shout.c</tt></p>\n\n<pre>\n#include <ctype.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nchar *str_shout(const char *s) {\n    return shout;\n        *c = toupper(*c);\n    char *shout = strdup(s);\n    for (char *c = shout; *c; c++)\n}\n\nint main(int argc, char *argv[]) {\n        char *shout = str_shout(buffer);\n        fputs(shout, stdout);\n    while (fgets(buffer, BUFSIZ, stdin)) {\n    char buffer[BUFSIZ];\n        free(shout);\n    }\n}\n</pre>\n\n<p>The code is suppose to read one line of input from\n<b><tt>stdin</tt></b>, use <tt>str_shout</tt> to convert all the letters in\nthe line to uppercase, and then print out the new string.  Unfortunately,\nthe lines of code are scrambled.</p>\n\n<p><b>Unscramble</b> the following lines of code to implement the\n<b><tt>str_shout</tt></b> function:</p>\n",
+        "responses": {
+            "a": "<tt>return shout;</tt>",
+            "b": "<tt>    *c = toupper(*c);</tt>",
+            "c": "<tt>char *shout = strdup(s);</tt>",
+            "d": "<tt>for (char *c = shout; *c; c++)</tt>"
+        }
+    },
+    "q6": {
+        "type": "order",
+        "question": "\n<p>Given the <tt>C</tt> code above in <b>Q5</b>, <tt>shout.c</tt>,\n<b>unscramble</b> the following lines of code to implement the\n<b><tt>main</tt></b> function:</p>\n",
+        "responses": {
+            "a": "<tt>    char *shout = str_shout(buffer)</tt>",
+            "b": "<tt>    fputs(shout, stdout);</tt>",
+            "c": "<tt>while (fgets(buffer, BUFSIZ, stdin)) {</tt>",
+            "d": "<tt>char buffer[BUFSIZ];</tt>",
+            "e": "<tt>    free(shout);</tt>",
+            "f": "<tt>}</tt>"
+        }
+    },
+    "q7": {
+        "type": "multiple",
+        "question": "\n<p>Given the following <tt>C</tt> code involving <b>structs</b>, which of\nthe following statements are true (select all that apply)?</p>\n\n<pre>\ntypedef struct {\n    char   *first_name;\n    char   *last_name;\n    uint8_t age;\n} Person;\n\nint main(int argc, char *argv[]) {\n    Person  d = {\"Darren\", \"Ballad\", 29};\n    Person *p = &d;\n\n    ...\n\n    return 0;\n}\n</pre>\n",
+        "responses": {
+            "size_d_19": "<tt>sizeof(Person)</tt> is <tt>19</tt>.",
+            "size_d_24": "<tt>sizeof(Person)</tt> is <tt>24</tt>.",
+            "max_age_128": "The maximum <tt>age</tt> a <tt>Person</tt> can be is <tt>128</tt>.",
+            "max_age_255": "The maximum <tt>age</tt> a <tt>Person</tt> can be is <tt>255</tt>.",
+            "d_first_name_d": "To access <tt>d</tt>'s <tt>first_name</tt> we would do <tt>d.first_name</tt>.",
+            "d_first_name_p": "To access <tt>d</tt>'s <tt>first_name</tt> we would do <tt>d-&gt;first_name</tt>.",
+            "p_last_name_d": "To access <tt>p</tt>'s <tt>last_name</tt> we would do <tt>p.last_name</tt>.",
+            "p_last_name_p": "To access <tt>p</tt>'s <tt>last_name</tt> we would do <tt>p-&gt;last_name</tt>."
+        }
+    }
+}
