@@ -1,0 +1,49 @@
+{
+    "q1": {
+        "type": "order",
+        "question": "\n<p><b>Reorder the <tt>git</tt> commands below to correspond with the\nfollowing tasks:</b></p>\n\n<ol>\n  <li><b>Display</b> the branch you currently are on.</li>\n  <li><b>Change</b> from one branch to another.</li>\n  <li><b>See what</b> files have changed since the latest commit.</li>\n  <li><b>See how</b> files have changed since the latest commit.</li>\n  <li><b>Stage</b> the changes you have made.</li>\n  <li><b>Record</b> the changes you have made.</li>\n  <li><b>List</b> the commits recorded in the repository.</li>\n</ol>\n",
+        "responses": {
+            "add": "<tt>git add</tt>",
+            "branch": "<tt>git branch</tt>",
+            "commit": "<tt>git commit</tt>",
+            "diff": "<tt>git diff</tt>",
+            "log": "<tt>git log</tt>",
+            "status": "<tt>git status</tt>",
+            "switch": "<tt>git switch</tt>"
+        }
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements about <tt>make</tt>, <tt>gdb</tt>, and\n<tt>valgrind</tt> are true (select all that apply)?</p>\n",
+        "responses": {
+            "make_all": "<tt>make</tt> always rebuilds every target.",
+            "make_new": "<tt>make</tt> only rebuilds targets whose sources have been modified.",
+            "make_target": "<tt>make</tt> allows referencing the target of a rule with <tt>$@</tt>",
+            "make_source": "<tt>make</tt> allows referencing the source of a rule with <tt>$@</tt>",
+            "gdb_print": "<tt>gdb</tt> allows users to interactively print out the values of variables in memory.",
+            "valgrind_print": "<tt>gdb</tt> allows users to interactively print out the values of variables in memory.",
+            "gdb_symbols": "<tt>gdb</tt> requires the program to be compiled with the <tt>-g</tt> flag to be display line numbers.",
+            "valgrind_symbols": "<tt>valgrind</tt> requires the program to be compiled with the <tt>-g</tt> flag to be display line numbers."
+        }
+    },
+    "q3": {
+        "type": "blank",
+        "question": "\n<p><b>Considering the program <tt>sum</tt>, answer the following\nquestions:</b></p>\n\n<ol>\n  <li>What is the sum of the numbers between <tt>1</tt> and <tt>100</tt> (inclusive)? ____</li>\n  <li>What is the <b>maximum size</b> of the numbers array (ie. what is the value of <tt>(1<<10)</tt>? ____</li>\n  <li>What <b>key sequence</b> would you use to signal the end of input? ____</li>\n</ol>\n"
+    },
+    "q4": {
+        "type": "multiple",
+        "question": "\n<p><b>Which of the following statements about the course is true (select\nall that apply)?</b></p>\n",
+        "responses": {
+            "readings": "Students cannot drop any <b>reading</b> assignments.",
+            "homeworks": "Students cannot drop any <b>homework</b> assignments.",
+            "exams": "There are two <b>exams</b> in this class.",
+            "attendance": "Students are expected to <b>attend</b> class regularly and on-time.",
+            "office_hours": "There are in-person <b>office hours</b> and students may schedule appointments with the instructor if desired.",
+            "deadlines": "There are no <b>deadlines</b> in this class.",
+            "respect": "Students are expected to be <b>respectful</b> of their fellow classmates and the instructional staff.",
+            "video": "There is no <b>video capture</b> for this class.",
+            "references": "Students may consult online <b>references</b> or copy from resources if properly cited.",
+            "solutions": "Students may consult or copy from <b>solutions</b> found online or from other students or from AI tools."
+        }
+    }
+}

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Homework 01: Development Tools</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="static/css/blugold.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<style>
+	body {
+	    padding: 10px;
+	}
+	</style>
+    </head>
+    <body>
+	<div class="container">
+
+	    <div class="row">
+		<div class="page-header">
+		    <ul class="nav nav-pills pull-right">
+			
+			<li><a href="index.html"><i class="fa fa-linux"></i> <span class="visible-md-inline visible-lg-inline">Home</span></a></li>
+			
+		    </ul>
+		    <h1><i class="fa fa-code"></i> Homework 01: Development Tools</h1>
+		</div>
+	    </div>
+
+            
+<p>The goal of this homework assignment is to allow you to practice using common
+development tools such as <a href="https://git-scm.com/">git</a>, <a href="http://man7.org/linux/man-pages/man1/curl.1.html">curl</a>, <a href="https://www.mankier.com/1/gcc">gcc</a>, <a href="https://www.mankier.com/1/make">make</a>, <a href="https://www.mankier.com/1/gdb">gdb</a>, and <a href="https://www.mankier.com/1/valgrind">valgrind</a>
+in a <a href="https://en.wikipedia.org/wiki/Unix">Unix</a> programming environment.</p>
+<p>For this assignment, you are to do your work in the <code>homework01</code> folder of
+your <strong>assignments</strong> <a href="https://github.com">GitHub</a> repository and push your work by <strong>noon
+Wednesday, August 30</strong>.</p>
+<h2 id="activity-0-branching">Activity 0: Branching<a class="headerlink" href="#activity-0-branching" title="Permanent link">&para;</a></h2>
+<p>As discussed in class, each <strong>reading</strong> and <strong>homework</strong> assignment must be
+completed in its own git <a href="https://git-scm.com/docs/git-branch">branch</a>; this will allow you to separate the work
+of each assignment and for you to use the <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a> workflow describe
+in <a href="reading01.html">Reading 01</a>.</p>
+<p>To create a <code>homework01</code> branch in your local repository, follow the
+instructions below:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ <span style="color: #008000">cd</span> path/to/cse-20312-fa23-assignments   <span style="color: #3D7B7B; font-style: italic"># Go to assignments repository</span>
+
+$ git switch master                       <span style="color: #3D7B7B; font-style: italic"># Make sure we are in master branch</span>
+
+$ git pull --rebase                       <span style="color: #3D7B7B; font-style: italic"># Make sure we are up-to-date with GitHub</span>
+
+$ git checkout -b homework01              <span style="color: #3D7B7B; font-style: italic"># Create homework01 branch and check it out</span>
+
+$ <span style="color: #008000">cd</span> homework01                           <span style="color: #3D7B7B; font-style: italic"># Go into homework01 folder</span>
+</code></pre></div>
+
+<p>Once these commands have been successfully performed, you are now ready to
+<a href="https://git-scm.com/docs/git-add">add</a>, <a href="https://git-scm.com/docs/git-commit">commit</a>, and <a href="https://git-scm.com/docs/git-push">push</a> any work required for this assignment.</p>
+<h2 id="activity-1-co-pilot-10-points">Activity 1: Co-Pilot (10 Points)<a class="headerlink" href="#activity-1-co-pilot-10-points" title="Permanent link">&para;</a></h2>
+<p>The main activity for this assignment is to follow the prompts of your
+<strong>Co-Pilot</strong>, which takes the form of a program located at:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/txt/COPILOT
+</code></pre></div>
+
+<p>You can use either <a href="http://man7.org/linux/man-pages/man1/curl.1.html">curl</a> to download this program to your <code>homework01</code>
+folder in your <strong>assignments</strong> repository and execute it as follows:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Go to homework01 directory in assignments repository</span>
+$ <span style="color: #008000">cd</span> path/to/assignments/homework01
+
+<span style="color: #3D7B7B; font-style: italic"># Download COPILOT</span>
+$ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/txt/COPILOT
+
+<span style="color: #3D7B7B; font-style: italic"># Make COPILOT executable</span>
+$ chmod +x COPILOT
+
+<span style="color: #3D7B7B; font-style: italic"># Run COPILOT</span>
+$ ./COPILOT
+...
+</code></pre></div>
+
+<p>As you can see in the demonstration video below, the <code>COPILOT</code> script will
+prompt you to complete a series of tasks (<strong>13</strong> in total).  After you
+complete each task, you must run the <code>COPILOT</code> script so it can verify your
+work.  If it detects that you have completed the task, it will update the
+<code>tasks.yaml</code> file with a specially encoded checkpoint payload associated with
+your <strong>netid</strong> and the corresponding task.  It will then prompt you with the
+next task.</p>
+<div class="thumbnail text-center">
+  <script async id="asciicast-386d9nO822xWbiWPem4tD3zBL" src="https://asciinema.org/a/386d9nO822xWbiWPem4tD3zBL.js"></script>
+</div>
+
+<p>You are to follow the prompts specified by the <code>COPILOT</code> until you have
+completed each of the tasks in the adventure.  Because some tasks depend on
+others, there is no skipping ahead or going backwards.   That said, you can
+always remove the checkpoints in the <code>tasks.yaml</code> file to go back to a
+particular task.</p>
+<p>At the end of this activity, you should see the following output from the <code>COPILOT</code>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ ./COPILOT
+Checking homework01 tasks ...
+ Task 00 Checkout on homework01 branch            ... Completed
+ Task 01 Download file                            ... Completed
+ Task 02 Modify Makefile - Build                  ... Completed
+ Task 03 Modify Makefile - Clean                  ... Completed
+ Task 04 Trace - Warnings                         ... Completed
+ Task 05 Trace - GDB                              ... Completed
+ Task 06 Fix segfault                             ... Completed
+ Task 07 Redirection - Input                      ... Completed
+ Task 08 Trace - Valgrind                         ... Completed
+ Task 09 Fix error                                ... Completed
+ Task 10 Quiz                                     ... Completed
+   Score 12.00 / 12.00
+  Status Success
+</code></pre></div>
+
+<div class="alert alert-danger">
+<h4 id="task-checkpoints"><i class="fa fa-check-square-o"></i> Task Checkpoints<a class="headerlink" href="#task-checkpoints" title="Permanent link">&para;</a></h4>
+<p>Note, that each task checkpoint in the <code>tasks.yaml</code> is specially encoded for
+your <strong>netid</strong>.  This means that copying the checkpoint from another student
+or from a previous task will not work and will lead to a <strong>corruption</strong>
+warning that will anger the <code>COPILOT</code>.  The only way to proceed through the
+activity is to actually do the tasks!</p>
+</div>
+<h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
+<p>If you need additional reference information, please refer to the readings
+from <a href="reading00.html">Reading 00</a> along with the following:</p>
+<ol>
+<li>
+<p><a href="https://beej.us/guide/bggdb/">Beej's Quick Guide to GDB</a></p>
+</li>
+<li>
+<p><a href="http://valgrind.org/docs/manual/quick-start.html">Valgrind Quick Start Guide</a></p>
+</li>
+<li>
+<p><a href="https://github.com/angrave/SystemProgramming/wiki/C-Programming%2C-Part-3%3A-Common-Gotchas#memory-mistakes">Systems Programing - Memory Mistakes</a></p>
+</li>
+</ol>
+<h2 id="activity-2-quiz-2-points">Activity 2: Quiz (2 Points)<a class="headerlink" href="#activity-2-quiz-2-points" title="Permanent link">&para;</a></h2>
+<p>Once you have completed all the tasks specified by the <code>COPILOT</code> in <strong>Activity
+1</strong>, you are to complete the following <em>reflection quiz</em>:</p>
+<div id="quiz-questions"></div>
+
+<div id="quiz-responses"></div>
+
+<script src="static/js/dredd-quiz.js"></script>
+<script>
+loadQuiz('static/json/homework01.json');
+</script>
+
+<pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+<p>As with <a href="reading01.html">Reading 01</a>, you will need to store your answers in a
+<code>homework01/answers.json</code> file.  You can use the form above to generate the
+contents of this file, or you can write the <a href="https://json.org/">JSON</a> by hand.</p>
+<p>To check your quiz directly, you can use the <code>check.py</code> script:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ ../.scripts/check.py
+Checking homework01 quiz ...
+      Q1 <span style="color: #666666">0</span>.70
+      Q2 <span style="color: #666666">0</span>.50
+      Q3 <span style="color: #666666">0</span>.30
+      Q4 <span style="color: #666666">0</span>.50
+   Score <span style="color: #666666">2</span>.00 / <span style="color: #666666">2</span>.00
+  Status Success
+</code></pre></div>
+
+<h2 id="leet-point-1-extra-credit-point">Leet Point (1 Extra Credit Point)<a class="headerlink" href="#leet-point-1-extra-credit-point" title="Permanent link">&para;</a></h2>
+<p>For <strong>extra credit</strong>, you are to customize your favorite <code>$EDITOR</code> by adding
+useful programming or development extensions and plugins that will make
+your <a href="https://en.wikipedia.org/wiki/Unix">Unix</a> programming environment more productive. Here are some
+sources of inspiration:</p>
+<h3 id="nano">Nano<a class="headerlink" href="#nano" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://www.agnosticdev.com/content/configure-nano-command-line-development">Configure nano for Command Line Development</a></li>
+<li><a href="https://timnash.co.uk/customising-nano-productivity-friday/">Customising Nano – Productivity Friday</a></li>
+</ul>
+<h3 id="vim">Vim<a class="headerlink" href="#vim" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/">Vimrc Configuration Guide</a></li>
+<li><a href="https://blog.jez.io/vim-as-an-ide/">Vim as an IDE</a></li>
+<li><a href="https://dane-bulat.medium.com/how-to-turn-vim-into-a-lightweight-ide-6185e0f47b79">How to Turn Vim Into a Lightweight IDE</a></li>
+</ul>
+<h3 id="emacs">Emacs<a class="headerlink" href="#emacs" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="http://tuhdo.github.io/c-ide.html">C/C++ Development Environment for Emacs</a></li>
+<li><a href="https://www.masteringemacs.org/all-articles">Mastering Emacs</a></li>
+<li><a href="http://orgmode.org/">Org mode</a></li>
+</ul>
+<p>If you come across any other tutorials or resources, please share them on <a href="https://nd-cse.slack.com">Slack</a>.</p>
+<div class="alert alert-info">
+<h4 id="verification"><i class="fa fa-check"></i> Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h4>
+<p>To get credit for this Leet Point, show your <a href="https://en.wikipedia.org/wiki/Text_editor">text editor</a> customizations to
+a TA to verify (or attached a video / screenshot to your <strong>Pull Request</strong>).
+You have up until <strong>two days after</strong> this assignment is due to verify your
+Leet Point.</p>
+</div>
+<div class="alert alert-success">
+<h4 id="self-service-extension"><i class="fa fa-calendar"></i> Self-Service Extension<a class="headerlink" href="#self-service-extension" title="Permanent link">&para;</a></h4>
+<p>Remember that you can always <strong>forgo</strong> this Leet Point for <strong>two extra days</strong>
+to do the homework.  That is, if you need an extension, you can simply skip
+the Leet Point and you will automatically have until Monday to complete the
+assignment for full credit.</p>
+<p>Just leave a note on your <strong>Pull Request</strong> of your intentions.</p>
+</div>
+<h2 id="submission">Submission<a class="headerlink" href="#submission" title="Permanent link">&para;</a></h2>
+<p>To submit your assignment, please commit your work to the <code>homework01</code> folder
+of your <code>homework01</code> branch in your <strong>assignments</strong> <a href="https://github.com">GitHub</a> repository:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ <span style="color: #008000">cd</span> path/to/cse-20312-fa23-assignments     <span style="color: #3D7B7B; font-style: italic"># Go to assignments repository</span>
+$ git checkout master                       <span style="color: #3D7B7B; font-style: italic"># Make sure we are in master branch</span>
+$ git pull --rebase                         <span style="color: #3D7B7B; font-style: italic"># Make sure we are up-to-date with GitHub</span>
+$ git checkout -b homework01                <span style="color: #3D7B7B; font-style: italic"># Create homework01 branch and check it out</span>
+$ <span style="color: #008000">cd</span> homework01                             <span style="color: #3D7B7B; font-style: italic"># Go to homework01 directory</span>
+...
+
+$ git add Makefile                          <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git add COPILOT                           <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git add tasks.yaml                        <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git add sum.c                             <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 01: Activity 1&quot;</span>   <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+
+$ git add answers.json                      <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 01: Activity 2&quot;</span>   <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+
+$ git push -u origin homework01             <span style="color: #3D7B7B; font-style: italic"># Push branch to GitHub</span>
+</code></pre></div>
+
+<div class="alert alert-danger">
+<h4 id="pull-request"><i class="fa fa-github"></i> Pull Request<a class="headerlink" href="#pull-request" title="Permanent link">&para;</a></h4>
+<p>Remember to create a <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a> and assign the appropriate TA from the
+<a href="reading01_tas.html">Reading 01 TA List</a>.</p>
+<p><strong>DO NOT MERGE</strong> your own <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a>.  The TAs use open <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a>s
+to keep track of which assignments to grade.  Closing them yourself will
+cause a delay in grading and confuse the TAs.</p>
+</div>
+
+
+	    <div class="row">
+		<hr/>
+
+		<footer class="text-center">
+		    <p class="text-muted">
+		    <small>
+		    Built using
+		    <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>,
+		    <a href="http://fortawesome.github.com/Font-Awesome/">Font Awesome</a>, and
+		    <a href="http://www.python.org/">Python</a>.
+		    <br/>
+		    &copy; 2023 <a href="http://www.nd.edu">University of Notre Dame</a>
+		    </small>
+		    </p>
+		</footer>
+	    </div>
+
+	</div> <!-- /container -->
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+    </body>
+</html>
+
