@@ -1,0 +1,402 @@
+title:      "Reading 01: Data Allocation"
+icon:       fa-book
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  **Everyone**:
+
+  Next week, we will explore how data is allocated in a typical [C] program.
+  In particular, we will review [pointers], [arrays], [strings], and [structs]
+  and then discuss how all this data gets stored in the [address space] of a
+  typical [process].
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-search"></i> TL;DR
+
+  The focus of this reading is to review [pointers], [arrays], [strings], and
+  [structs] and then explore how variables of these types are allocated in an
+  [address space]. 
+
+  </div>
+
+  [C]: https://en.wikipedia.org/wiki/C_(programming_language)
+  [pointers]: https://en.wikipedia.org/wiki/C_(programming_language)#Pointers
+  [arrays]:   https://en.wikipedia.org/wiki/C_(programming_language)#Arrays
+  [strings]:  https://en.wikipedia.org/wiki/C_string_handling
+  [structs]:  https://en.wikipedia.org/wiki/Struct_(C_programming_language)
+  [address space]: https://en.wikipedia.org/wiki/Address_space
+  [process]:  https://en.wikipedia.org/wiki/Process_(computing)
+
+  ## Branching
+
+  As discussed in class, each **reading** and **homework** assignment must be
+  completed in its own git [branch]; this will allow you to separate the work
+  of each assignment and for you to use the [Pull Request] workflow describe
+  at the end of this document.
+
+  To create a branch in your local repository, follow the instructions below:
+
+      :::bash
+      $ cd path/to/cse-20312-fa23-assignments   # Go to assignments repository
+
+      $ git switch master                       # Make sure we are in master branch
+
+      $ git pull --rebase                       # Make sure we are up-to-date with GitHub
+
+      $ git checkout -b reading01               # Create reading01 branch and check it out
+
+      $ cd reading01                            # Go into reading01 folder
+
+  Once these commands have been successfully performed, you are now ready to
+  [add], [commit], and [push] any work required for this assignment.
+
+  <div class="alert alert-warning" markdown="1">
+  #### <i class="fa fa-code-fork"></i> Branching off Master
+
+  For the assignments in this class, you should always [branch] off the master
+  [branch].  To determine which branch you are on, you can do the following:
+
+      :::bash
+      $ git branch
+
+  To create and switch to a new branch, you can use the `git checkout -b
+  BRANCH` as described above.  Once you have performed this command, you can
+  check which branch you are on:
+
+      :::bash
+      $ git branch
+        master
+      * reading01
+
+  To change to another existing branch, you can use the `git switch BRANCH`
+  command.  Suppose you are on the `reading01` branch and want to switch back
+  to the `master` branch.  To do so, you can do the following:
+
+      :::bash
+      $ git switch master
+
+  Before switching branches, however, you may wish to [commit] your work or at
+  the very least [stash] it.
+
+  </div>
+
+  ## Python 3
+
+  Throughout the semester, we will be using [Python 3] for a variety of
+  purposes.  Because the student machines an older version of [Python 3] by
+  default, you will need to add the following line to your `~/.bashrc` file:
+
+      :::bash
+      export PATH=/escnfs/home/pbui/pub/pkgsrc/bin:$PATH
+
+  You can then source this file to load that environment variable:
+
+      :::bash
+      $ source ~/.bashrc
+
+  To check that [Python 3] works, you can run the following:
+
+      :::bash
+      $ python3 -V
+      Python 3.11.2
+
+  This will be necessary for the `.scripts/check.py` script in your
+  **assignments** repository.
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-archive"></i> Python Packages
+
+  If you wish to use your **local** machine for your work, you will need
+  [Python 3], [Requests], and [PyYAML].
+
+  Once you have [Python 3] installed, you can install the later two packages by
+  doing:
+
+      :::bash
+      $ pip3 install requests pyyaml
+
+  Alternatively, you can use the [Anaconda] distribution of [Python 3], which
+  will include the interpreter along with many other libraries including
+  [Requests] and [PyYAML].
+
+  </div>
+
+  <img src="static/img/c.png" class="pull-right">
+
+  ## Readings
+
+  The readings for **Monday, August 28** are:
+
+  1. [Beej's Guide to C Programming]
+
+      Most of this should be review from **Fundamentals of Computing**, so
+      *skim* through **Chapter 1** through **Chapter 12**. In particular, focus on:
+
+        - [Chapter 5. Pointers](https://beej.us/guide/bgc/html/index-wide.html#pointers)
+        - [Chapter 6. Arrays](https://beej.us/guide/bgc/html/index-wide.html#arrays)
+        - [Chapter 7. Strings](https://beej.us/guide/bgc/html/index-wide.html#strings)
+        - [Chapter 8. Structs](https://beej.us/guide/bgc/html/index-wide.html#structs)
+        - <p>[Chapter 12. Manual Memory Allocation](https://beej.us/guide/bgc/html/index-wide.html#manual-memory-allocation)</p>
+
+  2. [UIUC - CS 225 Resources (Fall 2022)](https://courses.engr.illinois.edu/cs225/fa2022/resources/)
+
+      - [Stack and Heap Memory](https://courses.engr.illinois.edu/cs225/fa2022/resources/stack-heap/)
+
+  <div class="alert alert-warning" markdown="1">
+  #### <i class="fa fa-flag"></i> Compiler Flags
+
+  We will be using [C99] version of the [C] programming language. This means that
+  when you compile your programs with [gcc], you should include the `-std=gnu99`
+  compiler flag:<br><br>
+
+      :::bash
+      $ gcc -Wall -g -std=gnu99 -o program source.c
+
+  **Note**: The `-Wall` flags enable most warnings while the `-g` flags
+  enable debugging symbols, which will come in handy when we need to use tools
+  such as [gdb] and [valgrind].
+  </div>
+
+  [Beej's Guide to C Programming]: https://beej.us/guide/bgc/html/index-wide.html
+  [C99]: https://en.wikipedia.org/wiki/C_(programming_language)#C99
+  [gcc]: https://gcc.gnu.org/
+  [gdb]: https://www.gnu.org/software/gdb/
+  [valgrind]: http://valgrind.org/
+
+  ### Optional References
+
+  - [The 5 Minute Guide to C
+    Pointers](http://denniskubes.com/2017/01/24/the-5-minute-guide-to-c-pointers/)
+
+      - [Basics of Pointers and Arrays in
+        C](http://denniskubes.com/2012/08/19/pointers-and-arrays-in-c/)</li>
+
+      - [Basics of Memory Addresses in
+        C](http://denniskubes.com/2012/08/17/basics-of-memory-addresses-in-c/)
+
+  - [Operating Systems: Three Easy Pieces](http://pages.cs.wisc.edu/~remzi/OSTEP/)
+
+      - <p>[Memory API](http://pages.cs.wisc.edu/~remzi/OSTEP/vm-api.pdf)</p>
+  
+  - [Memory Layout of C Programs](https://www.geeksforgeeks.org/memory-layout-of-c-program/)
+
+  ## Quiz
+
+  Once you have completed the readings, answer the following [Reading 01 Quiz]
+  questions:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/reading01.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  ## Submission
+
+  To submit your answers, you will need to create an `answers.json` file in the
+  `reading01` folder of your **assignments** repository:
+
+  1. If you have not already, follow the instructions at the top of this
+  document to create a `reading01` branch in your **assignments** [Git]
+  repository.
+
+  2. You can either hand-write the `answers.json` file using your favorite text
+  editor or you can use the online form to generate the [JSON] data, which should
+  look like the following:
+
+          :::json
+          {
+            "q1": [
+              "2",
+              "4",
+              "6",
+              "8",
+              "10"
+            ],
+            "q2": [
+              "c_heap",
+              "d_heap",
+              "ip_heap"
+            ],
+            "q3": [
+              "a",
+              "b",
+              "c"
+            ],
+            "q4": [
+              "array_locality",
+              "array_front",
+              "array_labels"
+            ],
+            "q5": [
+              "a",
+              "b",
+              "c",
+              "d"
+            ],
+            "q6": [
+              "a",
+              "b",
+              "c",
+              "d",
+              "e",
+              "f"
+            ],
+            "q7": [
+              "size_d_19",
+              "max_age_255",
+              "d_first_name_d",
+              "p_last_name_d",
+              "p_last_name_p"
+            ]
+          }
+
+      To determine which symbols correspond to which response, take a look at
+      the [Reading 01 Quiz] file.
+
+      To check your answers, you can use the provided `.scripts/check.py` script:
+
+          :::bash
+          $ cd reading01                        # Go into reading01 folder
+
+          $ $EDITOR answers.json                # Edit your answers.json file
+
+          $ ../.scripts/check.py                # Check reading01 quiz
+          Checking reading01 quiz ...
+               Q1 0.50
+               Q2 0.30
+               Q3 0.30
+               Q4 0.50
+               Q5 0.40
+               Q6 0.60
+               Q7 0.40
+            Score 3.00 / 3.00
+           Status Success
+
+      This script will check your responses by sending your
+      `reading01/answers.json` file to [dredd], which is the automated grading
+      system. [dredd] will take your answers and return to you a score and
+      overall status as shown above.
+
+      <div class="alert alert-success" markdown="1">
+      **Note**: The `Score` denotes how many points you received out of the
+        maximum number of attempted points, while `Status` is `Success` if you
+        have achieved full credit (otherwise, it will show `Failure`).
+      </div>
+
+      <div class="alert alert-warning" markdown="1">
+      #### <i class="fa fa-repeat"></i> Try, Try, Try Again
+
+      You may check your quiz answers as many times as you want; [dredd] does
+      not keep track of who submits what or how many times. It simply returns a
+      score.
+      </div>
+
+  3. Once you have your `answers` file, you need to [add], [commit] the file,
+      and [push] your commits to [GitHub]:
+
+          :::bash
+          $ git add answers.json                # Add answers.json to staging area
+
+          $ git commit -m "Reading 01: Quiz"    # Commit work
+
+          $ git push -u origin reading01        # Push branch to GitHub
+
+      <div class="alert alert-success" markdown="1">
+      #### <i class="fa fa-github"></i> Iterative Approach
+
+      You may edit and commit changes to your branch as many times as you wish.
+      Just make sure all of your work goes in the appropriate branch and then
+      perform a `git push` when you are done.
+      </div>
+
+  4. When you are ready for your final submission, you need to create a
+  [Pull Request] via the [GitHub] interface:
+
+      - If you have a **Compare & pull request** button corresponding to your
+        `reading01` branch on your repository page, then you can click on that
+        button.
+
+          <div class="thumbnail">
+            <img src="static/img/github-compare-pr.png" class="img-responsive">
+          </div>
+
+          <div class="alert alert-info" markdown="1">
+          #### <i class="fa fa-git"></i> Pull Request URL
+
+          As an alternative, when you first do a `git push` on the
+          command-line, [git] will also give you a **URL** that you can click
+          to create a **Pull Request**.
+      
+          Moreover, if you do not have the **Compare & pull request** button
+          after you do a `git push`, then go to your repository's **Branches**
+          page and then press the **New pull request** button for the
+          appropriate branch.
+
+          </div>
+
+      - Next, edit the **Pull Request** title to "Reading 01", write a comment
+        if necessary, assign the appropriate **TA**, and then press the "Create
+        pull request" button.
+
+          <div class="thumbnail">
+            <img src="static/img/github-pull-request.png" class="img-responsive">
+          </div>
+
+      - Every commit on [GitHub] will automatically submit your quiz or code to
+        [dredd] and the results of each run is displayed in the **Checks** tab of
+        each commit as shown below:
+
+          <div class="thumbnail">
+            <img src="static/img/github-checks.png" class="img-responsive">
+          </div>
+
+    Once you have made the **Pull Request**, the TA can verify your work and
+    provide feedback via the discussion form inside the **Pull Request**. If
+    necessary, you can update your submission by simply commit and pushing to
+    the appropriate branch; the **Pull Request** will automatically be updated
+    to match your latest work.
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Remember to create a **Pull Request** and assign the appropriate TA from the
+  [Reading 01 TA List].
+
+  This list changes each week, so be sure to consult the appropriate list for
+  each assignment.
+
+  **DO NOT MERGE your own Pull Requests**.  The TAs use open **Pull Requests**
+  to keep track of which assignments to grade.  Closing them yourself will
+  cause a delay in grading and confuse the TAs.
+
+  </div>
+
+  [Git]:                        https://git-scm.com/
+  [GitHub]:                     https://github.com/
+  [Linux]:  http://kernel.org
+  [branch]: https://git-scm.com/docs/git-branch
+  [add]: https://git-scm.com/docs/git-add
+  [commit]: https://git-scm.com/docs/git-commit
+  [push]: https://git-scm.com/docs/git-push
+  [Reading 01 Quiz]:    static/json/reading01.json
+  [dredd]:  https://dredd.h4x0r.space
+  [JSON]:   https://json.org/
+  [Python 3]:   https://python.org
+  [Reading 01 TA List]: reading01_tas.html
+  [Requests]:   http://docs.python-requests.org/en/master/
+  [PyYAML]:     https://github.com/yaml/pyyaml
+  [Anaconda]:   https://www.anaconda.com/download/
+  [commit]:     https://git-scm.com/docs/git-commit
+  [stash]:      https://www.git-scm.com/docs/git-stash
+  [Pull Request]: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request
