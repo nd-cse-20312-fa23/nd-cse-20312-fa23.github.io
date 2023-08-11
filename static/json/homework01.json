@@ -21,7 +21,7 @@
             "make_target": "<tt>make</tt> allows referencing the target of a rule with <tt>$@</tt>",
             "make_source": "<tt>make</tt> allows referencing the source of a rule with <tt>$@</tt>",
             "gdb_print": "<tt>gdb</tt> allows users to interactively print out the values of variables in memory.",
-            "valgrind_print": "<tt>gdb</tt> allows users to interactively print out the values of variables in memory.",
+            "valgrind_print": "<tt>valgrind</tt> allows users to interactively print out the values of variables in memory.",
             "gdb_symbols": "<tt>gdb</tt> requires the program to be compiled with the <tt>-g</tt> flag to be display line numbers.",
             "valgrind_symbols": "<tt>valgrind</tt> requires the program to be compiled with the <tt>-g</tt> flag to be display line numbers."
         }
