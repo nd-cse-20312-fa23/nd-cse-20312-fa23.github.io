@@ -187,6 +187,12 @@ body:       |
   - [Mastering Emacs](https://www.masteringemacs.org/all-articles)
   - [Org mode](http://orgmode.org/)
 
+  ### VS Code
+
+  - [Remote Development using SSH](https://code.visualstudio.com/docs/remote/ssh)
+  - [Using C++ on Linux in VS Code](https://code.visualstudio.com/docs/cpp/config-linux)
+  - [Terminal Appearance](https://code.visualstudio.com/docs/terminal/appearance)
+
   If you come across any other tutorials or resources, please share them on [Slack].
 
   <div class="alert alert-info" markdown="1">
