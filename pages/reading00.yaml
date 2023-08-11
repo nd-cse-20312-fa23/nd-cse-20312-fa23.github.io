@@ -1,0 +1,375 @@
+title:      "Reading 00: Slack, GitHub, Student Machines"
+icon:       fa-book
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+    **Everyone**:
+
+    Welcome to [CSE 20312 Data Structures](index.html), which (as the syllabus
+    states) is a course that "deepens and broadens student exposure to
+    imperative and object-oriented programming and data structures."
+
+    What this means is that you will learn how to **build** basic [data
+    structures] and [abstract data types] such as [dynamic arrays], [linked
+    lists], [stacks], [queues], [sets], [maps], [trees], and [graphs], and you
+    will learn how to **apply** them in solving interesting programming
+    challenges (that you may or may not face in a technical interview).
+    Additionally, you will learn how to **implement** problem solving
+    techniques such as [searching], [sorting], [divide-and-conquer], [greedy
+    algorithms], and [memoization] to effectively solve these types of
+    programming challenges.
+
+    [data structures]: https://en.wikipedia.org/wiki/Data_structure
+    [abstract data types]: https://en.wikipedia.org/wiki/Abstract_data_type
+    [dynamic arrays]: https://en.wikipedia.org/wiki/Dynamic_array
+    [linked lists]:   https://en.wikipedia.org/wiki/Linked_list
+    [stacks]:         https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
+    [queues]:         https://en.wikipedia.org/wiki/Queue_(abstract_data_type)
+    [sets]:           https://en.wikipedia.org/wiki/Set_(abstract_data_type)
+    [maps]:           https://en.wikipedia.org/wiki/Associative_array
+    [trees]:          https://en.wikipedia.org/wiki/Tree_(data_structure)
+    [graphs]:         https://en.wikipedia.org/wiki/Graph_(abstract_data_type)
+    [searching]:      https://en.wikipedia.org/wiki/Search_algorithm
+    [sorting]:        https://en.wikipedia.org/wiki/Sorting_algorithm
+    [divide-and-conquer]: https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm
+    [greedy algorithms]:  https://en.wikipedia.org/wiki/Greedy_algorithm
+    [memoization]:        https://en.wikipedia.org/wiki/Memoization
+    [algorithms]:     https://en.wikipedia.org/wiki/Algorithm
+
+    <img src="static/img/reading00-concept-stack.png" class="img-responsive pull-right">
+
+    ## Course Overview
+
+    Last semester, most of you took the **CSE 20311 Fundamentals of Computing**
+    course where you learned how to program in the [C] language.  After
+    *playing the Game of Life*, *generating anagrams*, and *building fractals*,
+    you should be capable of programming in a compiled language using
+    conditional statements, loops, and functions.  Moreover, you should be
+    somewhat familiar with [strings], [arrays], and those crazy [pointers].
+
+    In this course, we will build on this foundational knowledge by exploring a
+    variety of [data structures] and [abstract data types] and then using them
+    along side a number of [algorithms] to solve programming challenges.
+
+    The course can be broken down into the following halves:
+
+    1. [C]: During the first half of the course we will program in [C] and use
+      this *low-level* language to build fundamental [data structures] and
+      [abstract data types], along with exploring a few problem solving
+      techniques such as [searching], [sorting], [divide-and-conquer], and
+      [memoization].
+
+    2. [Python]: In the second half of the course, we will program in [Python]
+      and use this *high-level* language to take advantage of existing [data
+      structures] to build more complex [abstract data types] such as [graphs]
+      and to further practice problem solving techniques such as [greedy
+      algorithms], [divide-and-conquer], and [memoization].
+
+    Each week there will be a **Reading assignment** meant to give you a
+    context and reference into what we will be covering that upcoming week and
+    a corresponding **Homework assignment** that will provide you an
+    opportunity apply the material in (hopefully) interesting ways.  Morever,
+    each **Homework assignment** will also provide an **extra credit**
+    opportunity in the form of a [LeetCode] problem related to the topics
+    covered that week.
+
+    Of course, there are **two Exams** to assess your mastery of the material.
+
+    [strings]:  https://en.wikipedia.org/wiki/String_(computer_science)
+    [arrays]:   https://en.wikipedia.org/wiki/Array_data_structure
+    [pointers]: https://en.wikipedia.org/wiki/Pointer_(computer_programming)
+    [C]: https://en.wikipedia.org/wiki/C_(programming_language)
+    [Python]:       https://www.python.org/
+    [LeetCode]: https://leetcode.com
+
+    <div class="alert alert-info" markdown="1">
+    #### <i class="fa fa-bookmark"></i> TL;DR
+
+    For this week, you need to read about using the command line and [Git], and
+    then setup your [GitHub] repository.  There is **nothing to submit**.
+    </div>
+
+    [GitHub]:       https://github.com/
+    [Git]:          https://git-scm.com/
+    [Unix]:         https://en.wikipedia.org/wiki/Unix
+    [abstractions]: https://en.wikipedia.org/wiki/Abstraction_(software_engineering)
+    [files]:        https://en.wikipedia.org/wiki/Computer_file
+    [processes]:    https://en.wikipedia.org/wiki/Process_(computing)
+    [sockets]:      https://en.wikipedia.org/wiki/Network_socket
+    [C]:            https://isocpp.org/
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/320px-Git-logo.svg.png" class="img-responsive pull-right">
+
+    ## Readings
+
+    The readings for **Tuesday, August 22** are:
+
+    1. [A Linux Command Line Primer](https://www.digitalocean.com/community/tutorials/a-linux-command-line-primer)
+
+    2. [Git Handbook](https://guides.github.com/introduction/git-handbook/)
+
+    3. [A beginner's guide to Git version control](https://developers.redhat.com/articles/2023/08/02/beginners-guide-git-version-control)
+
+    The focus of the readings is to review the basics of using the [Unix
+    shell], which most of you used in **CSE 20311 Fundamentals of Computing**
+    last semester, and to introduce you to [Git], which we will be using
+    throughout the semester.
+
+    In addition to reading the above articles, it is recommended that you work
+    through the following tutorials:
+
+    1. [Command Line Crash Course]
+
+        This is a tutorial on using the command line interface on various
+        operating systems (you should focus on the [Unix shell]).
+
+    2. [Learn Git Branching]
+
+        This is an interactive tutorial on branching in [Git].
+
+    <div class="alert alert-success" markdown="1">
+    #### <i class="fa fa-terminal"></i> The Hands-on Imperative
+
+    To get the most out of your reading, you should be **typing** commands into
+    a terminal and **playing** around with the things you reading.
+
+    Passively reading will not be as fruitful as **actively** reading and
+    trying out things you are exploring.
+    </div>
+
+    ### Additional Resources
+
+    The following are additional resources that you may find useful:
+
+    #### Unix Shell
+
+    - [Learning the Shell](http://linuxcommand.org/lc3_learning_the_shell.php)
+
+    - [Survival guide for Unix newbies](http://matt.might.net/articles/basic-unix/)
+
+    #### Git
+
+    - [gittutorial](https://git-scm.com/docs/gittutorial)
+
+    - [Pro Git](https://git-scm.com/book/en/v2)
+
+    [Command Line Crash Course]:    https://learnpythonthehardway.org/book/appendixa.html
+    [Unix shell]:                   https://en.wikipedia.org/wiki/Unix_shell
+    [Learn Git Branching]:          https://learngitbranching.js.org/
+
+    ## Tasks
+
+    Normally, you would have **quiz** to complete after each reading. For this
+    initial reading, however, you only need do the following:
+
+    1. **Join** the class [Slack] channel.
+
+    2. **Create** your own **private assignments** [Git] repository on [GitHub].
+
+    3. **Clone** your **private assignments** [Git] repository to your local
+    computer or a **student machine**.
+
+    ### Task 1: Slack
+
+    For communication outside of our classroom, we will be using [Slack],
+    which is a real-time chat platform similar to **Discord**.  Your first task is
+    to create a **ND-CSE** [Slack] account (if you have not done so already)
+    and join the `#cse-20312-fa23` channel:
+
+    > [https://nd-cse.slack.com/messages/cse-20312-fa23/](https://nd-cse.slack.com/messages/cse-20312-fa23/)
+
+    <div class="alert alert-info" markdown="1">
+    #### <i class="fa fa-slack"></i> Slack Channel
+
+    There is a [class mailing list], but most day-to-day communication
+    (including office hours and homework help) should take place on [Slack].
+    Therefore, you should **check this channel regularly** as it is the primary
+    means of communication for the course.
+
+    </div>
+
+    [Slack]: https://nd-cse.slack.com
+    [class mailing list]: mailto:fa23-cse-20312-01-group@nd.edu
+
+    ### Task 2: GitHub
+
+    All of your work in this class will be submitted to [GitHub] using [git].
+    Your second task is to setup your [GitHub] **assignments** repository by doing
+    the following:
+
+    1. **Sign-in** or create a [GitHub] account if you do not already have one.
+
+        > [https://github.com/join](https://github.com/join)
+
+        You may associate this account with either your Notre Dame or personal
+        email address.  It is up to you.
+
+    2. **Fork** the class assignments repository from the following template:
+
+        > [https://classroom.github.com/a/aAv2ILty](https://classroom.github.com/a/aAv2ILty)
+
+        This will create a **private** `cse-20312-fa23-assignments-$USERNAME`
+        repository under your own account and linked to the [nd-cse-20312-fa23]
+        organization.
+
+    <div class="alert alert-danger" markdown="1">
+    #### <i class="fa fa-github"></i> GitHub Repository
+
+    The **assignments** repository will be used for your individual **reading**
+    and **homework** assignments. It must be kept **private** and only shared
+    with the **instructional staff**.
+
+    </div>
+
+    ### Task 3: Student Machines
+
+    While you are free to use any machine you wish to do your work, the
+    department provides a set of **student machines** that you can login to and
+    do remote work in an environment crafted for the course.  The following
+    steps allow you to **clone** the **assigments** you just created to any
+    machine of your choosing.
+
+    1. Before you can **clone** your [git] repository, you will need to
+    determine which form of **authentication**, you wish to use with [GitHub].
+
+        <div class="alert alert-danger" markdown="1">
+        **Note**, that [GitHub] has recently shutdown [password authentication].
+        </div>
+
+        To remotely access your repository from the command-line, you have two options:
+
+        1. [Setup a Personal Access Token]: With this method, [GitHub] will
+          generate an application specific passsword that you can use with
+          **HTTPS**.  As the **PAT** is a long string of characters, it is
+          recommended that you use it in conjunction with a **password
+          manager** or **keyring**.
+
+        2. [Setup SSH Keys]: With this method, you generate a local public and
+          private key pair on your computer and then upload the **public key**
+          to [GitHub].  When accessing [GitHub] from the command-line, you will
+          use the **private key** to authenticate to the server.
+
+            This is the **recommended** way to setup your repository as it will
+            allow for **passwordless** access.
+
+        <div class="alert alert-success" markdown="1">
+        #### <i class="fa fa-lock"></i> Setup SSH Keys
+
+        <p>Here is a quick tutorial on how to [Setup SSH Keys] on the student
+        machines (if you have not already):</p>
+
+        1. Generate SSH keys if you don't have them yet:
+
+                :::bash
+                # Accept the defaults, don't make a password if you want to go passwordless
+                $ ssh-keygen
+
+        2. Copy the contents of `~/.ssh/id_rsa.pub` to the SSH Keys section of
+        your [GitHub] settings page:
+
+            > [https://github.com/settings/keys](https://github.com/settings/keys)
+
+                :::bash
+                # Copy and paste the contents of this file into GitHub
+                $ cat ~/.ssh/id_rsa.pub
+
+        3. Edit/create `~/.ssh/config` to use this key with [GitHub]:
+
+                :::bash
+                # Add the following to your config (replace $NETID with your netid)
+                $ vim ~/.ssh/config
+                Host github.com
+                        User git
+                        Hostname github.com
+                        PreferredAuthentications publickey
+                        IdentityFile /escnfs/home/$NETID/.ssh/id_rsa
+
+        Once this is done, you should be able to do [git] operations without a password.
+        You will need to accept the host key the first time by typing in "yes".
+        </div>
+
+        <div class="alert alert-info" markdown="1">
+        #### <i class="fa fa-code"></i> Text Editor
+
+        Any time you see references to `vim` in example commands, remember that
+        you can use any text editor such as `nano` or `emacs` instead.
+
+        </div>
+
+    2. **Clone** your [git] repository to your local machine (or the student machines):
+
+            :::bash
+            # Example of cloning GitHub assignments repository to local or student machine
+            $ git clone git@github.com:nd-cse-20312-fa23/cse-20312-fa23-assignments-$USERNAME.git
+            remote: Enumerating objects: 70, done.
+            remote: Counting objects: 100% (70/70), done.
+            remote: Compressing objects: 100% (13/13), done.
+            Receiving objects: 100% (70/70), 6.25 KiB | 1.56 MiB/s, done.
+            Resolving deltas: 100% (4/4), done.
+            remote: Total 70 (delta 4), reused 70 (delta 4), pack-reused 0
+
+    3. **Edit** the `README.md` file in your **assignments** repository such
+    that the **Name** and **NetID** fields are completed (i.e. replace "Domer
+    McDomerson" and "dmcdomer"). You should **commit** your change and then
+    **push** them to [GitHub].
+
+            :::bash
+            # Example on editing README in assignments repository and pushing changes to GitHub
+
+            $ cd cse-20312-fa23-assignments-$USERNAME   # Go into the assignments directory
+
+            $ vim README.md                             # Edit the README.md file
+
+            $ git add README.md                         # Mark the file for recording
+
+            $ git commit -m "Update README"             # Record the change
+            [master c550fa1] Update README
+            1 file changed, 2 insertions(+), 2 deletions(-)
+
+            $ git push                                  # Send your local changes to GitHub
+
+    <div class="alert alert-warning" markdown="1">
+    #### <i class="fa fa-server"></i> Student Machines
+
+    As a reminder, students in this class have access to the following
+    **student** machines:
+
+    - `student05.cse.nd.edu`
+    - `student10.cse.nd.edu`
+    - `student11.cse.nd.edu`
+    - `student12.cse.nd.edu`
+    - `student13.cse.nd.edu`
+
+    </div>
+
+    The following is a video demonstration of the process of cloning your
+    [GitHub] repository and committing your first change.
+
+    <div class="thumbnail text-center">
+      <script async id="asciicast-i7lUUh88kwNnBGWQyw9XnemeB" src="https://asciinema.org/a/i7lUUh88kwNnBGWQyw9XnemeB.js"></script>
+    </div>
+
+    <div class="alert alert-success" markdown="1">
+    #### <i class="fa fa-check-square-o"></i> Tasks
+
+    Once you have setup [Slack], [GitHub], and have a working development
+    environment on your local machine or on a **student machine**, then you
+    have completed all the necessary tasks for this **reading assignment**.
+
+    </div>
+
+    [Bitbucket]:    https://bitbucket.org
+    [GitHub]:       https://github.com
+    [Markdown]:     https://daringfireball.net/projects/markdown/
+    [reference]:    https://guides.github.com/features/mastering-markdown/
+    [nd-cse-20312-fa23]: https://github.com/nd-cse-20312-fa23
+
+    [password authentication]: https://github.blog/changelog/2021-08-12-git-password-authentication-is-shutting-down/
+    [Setup a Personal Access Token]: https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
+    [Setup SSH Keys]: https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/about-ssh
+
