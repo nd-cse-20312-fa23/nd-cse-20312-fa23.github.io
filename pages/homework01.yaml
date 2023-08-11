@@ -3,7 +3,7 @@ icon:       fa-code
 navigation:
   - name: "Home"
     link: "index.html"
-    icon: "fa-linux"
+    icon: "fa-sitemap"
 internal:
 external:
 body:       |
