@@ -159,6 +159,14 @@ body:       |
     </div>
     </div>
 
+    <div class="row" markdown="1">
+    <div class="col-md-12" markdown="1">
+    <h3>Office Hours</h3>
+    <div class="thumbnail">
+    <img src="static/img/office-hours.svg">
+    </div>
+    <div>
+
     <div class="row">
         <div class="page-header">
             <h2 id="schedule"><i class="fa fa-calendar"></i> Schedule</h2>
