@@ -1,8 +1,13 @@
 - name:     Developer Tools
   days:
       - date:           Tue 08/22
-        topics:         Syllabus, Unix
+        topics:         Syllabus, Unix Programming Environment
         assignment:     Reading 00
+        items:
+          - name:       Slides 00
+            link:       https://docs.google.com/presentation/d/1J_xEgNfz_d1cZQL7iASz_av1ps2hWPsOXbkRRqO7CIA/edit?usp=sharing
+          - name:       Slides 01
+            link:       https://docs.google.com/presentation/d/13FivbIC9cu-BTUXqP9OKVItN-pnvRRzgATOLanD6T9g/edit?usp=sharing
 
       - date:           Wed 08/23
         topics:         Git, Make
