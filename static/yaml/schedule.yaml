@@ -17,6 +17,9 @@
 
       - date:           Fri 08/25
         topics:         Complexity, GDB, Valgrind
+        items:
+          - name:       Slides 03
+            link:       https://docs.google.com/presentation/d/1u_vNiPILy1EmcIAGyQdanRkFe6t_itvTFq1Rpfaivd0/edit?usp=sharing
 
 - name:     Data Allocation
   days:
