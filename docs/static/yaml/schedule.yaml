@@ -26,14 +26,23 @@
       - date:           Mon 08/28
         topics:         Types, Pointers, Arrays
         assignment:     Reading 01
+        items:
+          - name:       Slides 04
+            link:       https://docs.google.com/presentation/d/1HqeDbgaamJBKo4lG_iFTF-rRtIXeV6BMl36NWAjg3ns/edit?usp=sharing
 
       - date:           Wed 08/30
         topics:         Strings, I/O, Address Space
         assignment:     Homework 01
         idea:           CLI Adventure (Navigation, Git, Make, GDB, Valgrind)
+        items:
+          - name:       Slides 05
+            link:       https://docs.google.com/presentation/d/1Uq1YcDNv2maEkyU_arWvOJb3L_YXVm7O-IVNANAvvu4/edit?usp=sharing
 
       - date:           Fri 09/01
         topics:         Structs
+        items:
+          - name:       Slides 06
+            link:       https://docs.google.com/presentation/d/1M1Y3sseWsjfwBL5Yp7wJnukJeIROND-Rs5e2XZPRd-w/edit?usp=sharing
 
 - name:     Arrays, Stacks
   days:
