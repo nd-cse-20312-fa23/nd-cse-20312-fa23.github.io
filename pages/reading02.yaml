@@ -1,0 +1,107 @@
+title:      "Reading 02: Arrays, Stacks"
+icon:       fa-book
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  **Everyone**:
+
+  Next week, we will study [dynamic arrays], a fundamental [data structure],
+  and then discuss how to use them to implement [stacks], a common [abstract
+  data type].
+
+  [dynamic arrays]:     https://en.wikipedia.org/wiki/Dynamic_array
+  [data structure]:     https://en.wikipedia.org/wiki/Data_structure
+  [stacks]:             https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
+  [abstract data type]: https://en.wikipedia.org/wiki/Abstract_data_type
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-search"></i> TL;DR
+
+  The focus of this reading is [dynamic arrays] and [stacks].
+
+  </div>
+
+  <img src="static/img/reading02-dynamic-array.png" class="img-responsive pull-right" />
+
+  ## Readings
+
+  The readings for this week are:
+
+  1. [Data Structures Handbook](https://thedshandbook.com)
+
+      - [Arrays](https://www.thedshandbook.com/arrays/)
+      - <p>[Stacks](https://www.thedshandbook.com/stacks/)</p>
+
+  2. [Interview Cake](https://interviewcake.com)
+
+      - [Dynamic Array](https://www.interviewcake.com/concept/c/dynamic-array)
+      - <p>[Stack](https://www.interviewcake.com/concept/c/stack)</p>
+
+  ### Optional References
+
+  1. [Learn DS & Algorithms](https://www.programiz.com/dsa)
+
+      - [Stack Data Structure](https://www.programiz.com/dsa/stack)
+
+  ## Quiz
+
+  Once you have completed the readings, answer the following [Reading 02 Quiz]
+  questions:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/reading02.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  ## Submission
+
+  To submit your work, follow the same process outlined in [Reading 01]:
+
+      :::bash
+      $ git checkout master                 # Make sure we are in master branch
+      $ git pull --rebase                   # Make sure we are up-to-date with GitHub
+
+      $ git checkout -b reading02           # Create reading02 branch and check it out
+
+      $ cd reading02                        # Go into reading02 folder
+      $ $EDITOR answers.json                # Edit your answers.json file
+
+      $ ../.scripts/check.py                # Check reading02 quiz
+      Checking reading02 quiz ...
+            Q1 0.75
+            Q2 0.75
+            Q3 0.75
+            Q4 0.75
+         Score 3.00 / 3.00
+        Status Success
+
+      $ git add answers.json                # Add answers.json to staging area
+      $ git commit -m "Reading 02: Done"    # Commit work
+
+      $ git push -u origin reading02        # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Once you have committed your work and pushed it to [GitHub], remember to
+  create a **pull request** and assign it to the appropriate **teaching
+  assistant** from the [Reading 02 TA List].
+
+  </div>
+
+  [Git]:                https://git-scm.com/
+  [GitHub]:             https://github.com/
+  [Reading 01]:         reading01.html
+  [Reading 02 Quiz]:    static/json/reading02.json
+  [Reading 02 TA List]: reading02_tas.html
