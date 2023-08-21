@@ -79,8 +79,11 @@ body:       |
             <dt><i class="fa fa-clock-o"></i> Lecture</dt>
             <dd><strong>M/W/F</strong> 10:30 AM - 11:20 AM</dd>
 
-            <dt><i class="fa fa-home"></i> Location</dt>
+            <dt><i class="fa fa-home"></i> Location (Lecture)</dt>
             <dd>136 DeBartolo Hall</dd>
+
+            <dt><i class="fa fa-flask"></i> Location (Lab)</dt>
+            <dd>228 DeBartolo Hall</dd>
 
             <dt><i class="fa fa-video-camera"></i> Zoom Meeting</dt>
             <dd><a href="https://notredame.zoom.us/j/98585740080">985 8574 0080</a></dd>
