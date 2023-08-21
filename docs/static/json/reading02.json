@@ -1,0 +1,51 @@
+{
+    "q1": {
+        "type": "multiple",
+        "question": "\n<p><strong>Given the following <tt>C</tt> code:</strong></p>\n\n<pre>\nint numbers[5];\n</pre>\n\n<p><strong>Which of the following statements regarding arrays are true\n(select all that apply)?</strong></p>\n",
+        "responses": {
+            "initial_zero": "<tt>numbers[0]</tt> is guaranteed to be <tt>0</tt>.",
+            "initial_garbage": "<tt>numbers[0]</tt> is probably <b>garbage</b>.",
+            "sizeof_array_5": "<tt>sizeof(numbers)</tt> is <tt>5</tt>.",
+            "sizeof_array_20": "<tt>sizeof(numbers)</tt> is <tt>20</tt>.",
+            "accessing_1": "<b>Accessing</b> any element in <tt>numbers</tt> is <tt>O(1)</tt>.",
+            "accessing_n": "<b>Accessing</b> any element in <tt>numbers</tt> is <tt>O(n)</tt>.",
+            "searching_1": "<b>Searching</b> for any element in <tt>numbers</tt> is <tt>O(1)</tt>.",
+            "searching_n": "<b>Searching</b> for any element in <tt>numbers</tt> is <tt>O(n)</tt>.",
+            "inserting_1": "<b>Inserting</b> an element in the middle of <tt>numbers</tt> is <tt>O(1)</tt>.",
+            "inserting_n": "<b>Inserting</b> an element in the middle of <tt>numbers</tt> is <tt>O(n)</tt>.",
+            "deleting_1": "<b>Deleting</b> an element from the end of <tt>numbers</tt> is <tt>O(1)</tt>.",
+            "deleting_n": "<b>Deleting</b> an element from the end of <tt>numbers</tt> is <tt>O(n)</tt>."
+        }
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<p><strong>Which of the following statements regarding dynamic arrays are\ntrue (select all that apply)?</strong></p>\n",
+        "responses": {
+            "resizing": "Dynamic arrays are arrays that <b>automatically resize</b> when necessary.",
+            "appending_worst_1": "<b>Appending</b> an element to a dynamic array is <tt>O(1)</tt> in the <b>worst case</b>.",
+            "appending_worst_n": "<b>Appending</b> an element to a dynamic array is <tt>O(n)</tt> in the <b>worst case</b>.",
+            "appending_average_1": "<b>Appending</b> an element to a dynamic array is <tt>O(1)</tt> in the <b>average case</b>.",
+            "appending_average_n": "<b>Appending</b> an element to a dynamic array is <tt>O(n)</tt> in the <b>average case</b>.",
+            "size_elements": "Dynamic arrays have a <tt>size</tt> attribute to track the <b>number of elements stored</b> in the internal array.",
+            "capacity_elements": "Dynamic arrays have a <tt>capacity</tt> attribute to track the <b>number of elements stored</b> in the internal array.",
+            "size_allocation": "Dynamic arrays have a <tt>size</tt> attribute to track the <b>maximum number of elements allocated</b> for the internal array.",
+            "capacity_allocation": "Dynamic arrays have a <tt>capacity</tt> attribute to track the <b>maximum number of elements allocated</b> for the internal array."
+        }
+    },
+    "q3": {
+        "type": "blank",
+        "question": "\n<p><strong>Given the following <tt>C</tt> code involving a stack:</strong></p>\n\n<pre>\n// Assume we have the operations:\n//  push(int *stack, int value) -> Adds value to the top of stack\n//  pop(int *stack)             -> Removes value at the top of stack and returns it\n//  peek(int *stack)            -> Returns value at the top of stack\n//  empty(int *stack)           -> Returns whether or not the stack is empty\n\nint stack[5] = {1, 2, 3};\n\nprintf(\"%d\\n\", peek(stack));  // 1. ____\n\npush(stack, 4);\nprintf(\"%d\\n\", peek(stack));  // 2. ____\n\nprintf(\"%d\\n\", pop(stack));   // 3. ____\nprintf(\"%d\\n\", peek(stack));  // 4. ____\n\npop(stack);\nprintf(\"%d\\n\", pop(stack));   // 5. ____\n</pre>\n\n<p>Fill in the blanks corresponding to trace the output of the\n<tt>printf</tt> statements.</p>\n"
+    },
+    "q4": {
+        "type": "order",
+        "question": "\n<p><strong>Given the following <tt>C</tt> code involving a stack:</strong></p>\n\n<pre>\n// Assume we have the operations:\n//  push(int *stack, int value) -> Adds value to the top of stack\n//  pop(int *stack)             -> Removes value at the top of stack and returns it\n//  peek(int *stack)            -> Returns value at the top of stack\n//  empty(int *stack)           -> Returns whether or not the stack is empty\n\nvoid reverse_array(int *array, size_t n) {\n    int stack[n];\n\n    for (size_t i = 0; !empty(stack); i++)\n    for (size_t i = 0; i < n; i++)\n    memset(stack, 0, sizeof(int)*n);\n\n      push(stack, array[i]);\n      array[i] = pop(stack);\n}\n</pre>\n\n<p>The code is suppose to reverse all the elements in <tt>array</tt> (ie.\n<tt>{1, 2, 3}</tt> becomes <tt>{3, 2, 1}</tt>. Unfortunately, the lines of\ncode are scrambled.</p>\n\n<p>Unscramble the following lines of code to implement the\n<tt>reverse_array</tt> function:</p>\n",
+        "responses": {
+            "a": "<tt>int stack[n];</tt>",
+            "b": "<tt>for (size_t i = 0; !empty(stack); i++)</tt>",
+            "c": "<tt>for (size_t i = 0; i < n; i++)</tt>",
+            "d": "<tt>memset(stack, 0, sizeof(int)*n);</tt>",
+            "e": "<tt>push(stack, array[i]);</tt>",
+            "f": "<tt>array[i] = pop(stack);</tt>"
+        }
+    }
+}
