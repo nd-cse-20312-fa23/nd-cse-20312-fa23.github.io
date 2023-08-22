@@ -8,6 +8,10 @@
             link:       https://docs.google.com/presentation/d/1J_xEgNfz_d1cZQL7iASz_av1ps2hWPsOXbkRRqO7CIA/edit?usp=sharing
           - name:       Slides 01
             link:       https://docs.google.com/presentation/d/13FivbIC9cu-BTUXqP9OKVItN-pnvRRzgATOLanD6T9g/edit?usp=sharing
+          - name:       Panopto 01
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8983d5b6-394b-4845-a021-b066013ef45b
+          - name:       Panopto 02
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4f5ef19a-f178-4083-8bbb-b0660152d63e
 
       - date:           Wed 08/23
         topics:         Git, Make
