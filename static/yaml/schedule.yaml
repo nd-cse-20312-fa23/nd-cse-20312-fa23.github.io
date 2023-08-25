@@ -65,9 +65,15 @@
         topics:         Stacks
         assignment:     Homework 02
         idea:           Strings (Split, Concatenate, Join) / Cut
+        items:
+          - name:       Slides 08
+            link:       https://docs.google.com/presentation/d/1sASRqKNfzjkOEWkMB204FQm83tKbjQBWzZ4QRH0iJdA/edit?usp=sharing
 
       - date:           Fri 09/08
         topics:         Circular Buffer
+        items:
+          - name:       Slides 09
+            link:       https://docs.google.com/presentation/d/1xulukev0BwohzvF1FfBozY9bUd5BYJMI1z3ev_LgsL8/edit?usp=sharing
 
 - name:     Lists, Queues
   days:
