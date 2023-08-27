@@ -1,0 +1,40 @@
+{
+    "q1": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding <b>memory management</b>\nfunctions are true (select all that apply)?</p>\n",
+        "responses": {
+            "malloc_bytes": "<tt>malloc</tt> allocates the specified number of <b>bytes</b> on the <b>heap</b>.",
+            "malloc_objects": "<tt>malloc</tt> allocates the specified number of <b>objects</b> on the <b>heap</b>.",
+            "calloc_garbage": "<tt>calloc</tt> allocates memory on the heap that is <b>uninitialized</b>.",
+            "calloc_zeroed": "<tt>calloc</tt> allocates memory on the heap that is <b>initialized</b> to <b>zero</b>.",
+            "realloc_allocate": "<tt>realloc</tt> can be used to <b>allocate</b> a new memory block on the <b>heap</b>.",
+            "realloc_grow": "<tt>realloc</tt> can be used to <b>grow</b> an existing memory block on the <b>heap</b>.",
+            "realloc_free": "<tt>realloc</tt> can be used to <b>release</b> an existing memory block from the <b>heap</b>.",
+            "free_stack": "<tt>free</tt> can be used to <b>release</b> a memory block allocated on either the <b>stack</b> or <b>heap</b>."
+        }
+    },
+    "q2": {
+        "type": "blank",
+        "question": "\n<p>Complete the following code snippets regarding <b>allocating strings</b>:</p>\n\n<pre>\n// Allocate a string \"s1\" with the contents \"slices\" on the stack\n____ = \"slices\";\n\n// Allocate a string \"s2\" with the contents \"slices\" in the data segment\n____ = \"slices\";\n\n// Allocate and copy the string \"s1\" to a new string \"c3\" whose contents\n// are on the heap\n____ = ____;\n\n// Allocate an array of 10 strings \"sv\" on the heap such that each string\n// is initially NULL\n____ = ____(10, ____);\n</pre>\n"
+    },
+    "q3": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time</b> and <b>space\ncomplexities</b> of the <tt>string</tt> functions are true (select all that\napply)?</p>\n",
+        "responses": {
+            "string_chomp_1": "<tt>string_chomp</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "string_chomp_n": "<tt>string_chomp</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "string_split_1": "<tt>string_split</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>.",
+            "string_split_n": "<tt>string_split</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>.",
+            "strings_free_1": "<tt>strings_free</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "strings_free_n": "<tt>strings_free</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "strings_size_1": "<tt>strings_size</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>.",
+            "strings_size_n": "<tt>strings_size</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>.",
+            "strings_join_1": "<tt>strings_join</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "strings_join_n": "<tt>strings_join</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>."
+        }
+    },
+    "q4": {
+        "type": "blank",
+        "question": "\n<p>Given the following input:</p>\n\n<pre>\nBaby, I'm just gonna shake, shake, shake, shake, shake\n</pre>\n\n<p>Answer the following questions using your <tt>slices</tt> utliity:</p>\n\n<ol>\n  <li>What is the output of <tt>slices -d ',' -f 1,5</tt> with the input above? ____</li>\n  <li>What is the output of <tt>slices -d ' ' -f 3,4</tt>  with the input above? ____</li>\n  <li>What is the output of <tt>slices -d ' ' -f 2,4,1</tt>  with the input above? ____</li>\n</ol>\n"
+    }
+}

@@ -1,0 +1,690 @@
+title:      "Homework 02: Strings, Slice"
+icon:       fa-code
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  The goal of this homework assignment is to allow you to practice using
+  [pointers], [arrays], and [strings] in [C], and to practice managing memory
+  on the [heap].  The first activity involves building a string library, while
+  the second activity requires you to use this library to implement a `slice`
+  program similar to [cut].  After these two activities, there is a quiz where
+  you will have an opportunity to reflect on the code you have written for the
+  his homework assignment.
+
+  For this assignment, you are to do your work in the `homework02` folder of
+  your **assignments** [GitHub] repository and push your work by **noon
+  Wednesday, September 6**.
+
+  [GitHub]:   https://github.com
+  [pointers]: https://en.wikipedia.org/wiki/C_(programming_language)#Pointers
+  [arrays]:   https://en.wikipedia.org/wiki/C_(programming_language)#Arrays
+  [strings]:  https://en.wikipedia.org/wiki/C_string_handling
+  [C]:        https://en.wikipedia.org/wiki/C_(programming_language)
+  [heap]:     https://en.wikipedia.org/wiki/Memory_management#HEAP
+  [cut]:      https://www.mankier.com/1/cut
+
+  ## Activity 0: Preparation
+
+  Before starting this homework assignment, you should first perform a `git
+  pull` to retrieve any changes in your remote [GitHub] repository:
+
+      :::bash
+      $ cd path/to/repository                   # Go to assignments repository
+
+      $ git switch master                       # Make sure we are in master branch
+
+      $ git pull --rebase                       # Get any remote changes not present locally
+
+  Next, create a new branch for this assignment:
+
+      :::bash
+      $ git checkout -b homework02              # Create homework02 branch and check it out
+
+  ## Activity 1: String Library (6 Points)
+
+  In high-level languages such as [Python], we have the luxury of [strings]
+  being first-class objects with all sorts of useful methods such as
+  [str.split] and [str.join]:
+
+      :::python
+      # Define a string
+      >>> s = "we never go out of style"
+
+      # Split string into an array of strings based on delimiter
+      >>> sv = s.split(' ')
+      >>> sv
+      ['we', 'never', 'go', 'out', 'of', 'style']
+
+      # Combine strings in array into a single string with words separated by
+      # delimiter
+      >>> ','.join(sv)
+      'we,never,go,out,of,style'
+
+  Unfortunately, [strings] in [C] are just [arrays] that utilize the [sentinel
+  pattern] for denoting the end of the [strings], and the [standard library] is
+  a bit bare when it comes to manipulating [strings].
+
+  To rectify this situation, for the first activity, you are to create a string
+  library, `lib/libds.a` which contains functions such as `string_split` and
+  `strings_join` which implement some of the functionality present in [Python]
+  but missing in [C].
+
+  [Python]: https://www.python.org/
+  [str.split]: https://docs.python.org/3/library/stdtypes.html#str.split
+  [str.join]:  https://docs.python.org/3/library/stdtypes.html#str.join
+  [sentinel pattern]: https://en.wikipedia.org/wiki/Sentinel_value
+  [sentinel]: https://en.wikipedia.org/wiki/Sentinel_value
+  [standard library]: https://en.wikipedia.org/wiki/C_standard_library
+
+  #### Skeleton Code
+
+  To help you get started, the instructor has provided you with the following [skeleton code]:
+
+      :::bash
+      # Go to assignments repository
+      $ cd path/to/assignments/repository
+
+      # ------------------------------------------------
+      # MAKE SURE YOU ARE NOT INSIDE homework02
+      # ------------------------------------------------
+      # MAKE SURE YOU ARE AT THE TOP-LEVEL DIRECTORY
+      # ------------------------------------------------
+
+      # Download skeleton code tarball
+      $ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework02.tar.gz
+
+      # Extract skeleton code tarball
+      $ tar xzvf homework02.tar.gz
+
+  Once downloaded and extracted, you should see the following files in your
+  `homework02` directory:
+
+      :::bash
+      homework02
+          \_ Makefile             # This is the Makefile for building all the project artifacts
+          \_ bin                  # This contains the project binary executables and test scripts
+              \_ test_slice.sh    # This is the shell script for testing the slice utility
+              \_ test_string.sh   # This is the shell script for testing the string library
+          \_ include              # This contains the project header files
+              \_ ds               # This contains the project data structure header files
+                  \_ string.h     # This is the C header file for the string library
+          \_ lib                  # This contains the project library files
+          \_ src                  # This contains the project source code
+              \_ slice.c          # This is the C source code for the slice utility
+              \_ string.c         # This is the C source code for the string library
+          \_ tests                # This contains the project unit tests
+              \_ unit_string.c    # This is the unit test for the string library
+
+  The details on what you need to implement are described in the following
+  sections.
+
+  [skeleton code]: https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework02.tar.gz
+
+  ### Task 0: `include/ds/string.h`
+
+  The `include/ds/string.h` file is the [header] file for the strings library,
+  which contains the function [prototypes]:
+
+      :::c
+      /* string.h: C-Strings */
+
+      #pragma once
+
+      #include <stdlib.h>
+
+      /* Functions */
+
+      void    string_chomp(char *s);
+      char**  string_split(char *s, char delim);
+      void    strings_free(char **sv);
+      size_t  strings_size(char **sv);
+      char*   strings_join(char **sv, char delim);
+
+  Other programs will `#include` this file in order to use the functions we
+  will be implementing in this library.
+
+  <div class="alert alert-info" markdown="1">
+
+  **Note**: For this task, you **do not** need to modify this file. Instead,
+  you should review it and ensure you understand the provided code.
+
+  </div>
+
+  [header]: https://en.wikipedia.org/wiki/Include_directive#C.2FC.2B.2B
+  [prototypes]: https://en.wikipedia.org/wiki/Function_prototype
+
+  ### Task 1: `Makefile`
+
+  The Makefile contains all the rules or recipes for building the project
+  artifacts (e.g. `slice`, `libds.a`, `unit_string`, etc.):
+
+      :::make
+      CC=             gcc
+      CFLAGS=         -Wall -std=gnu99 -g -Iinclude
+      AR=             ar
+      ARFLAGS=        rcs
+      LD=             gcc
+      LDFLAGS=        -Llib
+
+      all:            bin/slice
+
+      test:
+              @$(MAKE) -sk test-all
+
+      test-all:       test-string test-slice
+
+      # TODO: Pattern rule for object files
+
+      # TODO: Rule for lib/libds.a
+
+      # TODO: Rule for bin/slice
+
+      bin/unit_string: tests/unit_string.o lib/libds.a
+              $(LD) $(LDFLAGS) -o $@ $^
+
+      test-string:    bin/unit_string
+              bin/test_string.sh
+
+      test-slice:     bin/slice
+              bin/test_slice.sh
+
+      clean:
+              rm -f bin/unit_* bin/slice lib/*.a src/*.o tests/*.o
+
+  For this task, you will need to add [rules] for building the [static library]
+  `lib/libds.a`, the [unit test] `bin/unit_string`, and the program
+  `bin/slice`. Be sure to have a **recipe** for any *intermediate* [object]
+  files that libraries require as shown in the [DAG] below:
+
+  <div class="thumbnail">
+    <img src="static/img/homework02-makefile.png" class="img-responsive">
+  </div>
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-cogs"></i> Makefile Variables
+
+  You **must** use the `CC`, `CFLAGS`, `LD`, `LDFLAGS`, `AR`, and `ARFLAGS`
+  variables when appropriate in your rules. You **should** also consider using
+  [automatic variables] such as `$@` and `$<` as well.
+
+  </div>
+
+  Once you have a working `Makefile`, you should be able to run the following
+  commands:
+
+      :::bash
+      # Build all TARGETS
+      $ make
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/slice.o src/slice.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/string.o src/string.c
+      ar rcs lib/libds.a src/string.o
+      gcc -Llib -o bin/slice src/slice.o lib/libds.a
+
+      # Run all tests
+      $ make test
+      Testing string...
+      ...
+
+      # Remove generated artifacts
+      $ make clean
+      rm -f bin/unit_* bin/slice lib/*.a src/*.o tests/*.o
+
+  <div class="alert alert-danger" markdown="1">
+
+  **Note**: The tests will **fail** if you haven't implemented string library
+    or the `slice` utility.
+
+  </div>
+
+  <div class="alert alert-warning" markdown="1">
+  #### <i class="fa fa-warning"></i> Warnings
+
+  You must include the `-Wall` flag in your `CFLAGS` when you compile. This
+  also means that your code must **compile without any warnings**, otherwise
+  points will be deducted.
+
+  </div>
+
+  [rules]: https://www.gnu.org/software/make/manual/html_node/Rule-Example.html#Rule-Example
+  [static library]: https://en.wikipedia.org/wiki/Static_library#Creating_static_libraries_in_C.2FC.2B.2B
+  [unit test]: https://en.wikipedia.org/wiki/Unit_testing
+  [object]: https://en.wikipedia.org/wiki/Object_file
+  [DAG]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
+
+  [automatic variables]: https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
+
+  ### Task 2: `src/string.c`
+
+  The `src/string.c` file contains the [C] implementation for the string
+  library.
+
+  <div class="thumbnail">
+    <img src="static/img/homework02-string-library.png" class="img-responsive">
+  </div>
+
+  For this task, you will need to implement the following functions:
+
+  1. `void string_chomp(char *s)`
+
+      > This function removes a trailing newline character from `s` if one is
+      present (e.g. `s[:-1] if s[-1] == '\n' else s` in [Python]).
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use [strlen] to get the length of the string and then do some
+        pointer arithmetic.
+
+      </div>
+
+  2. `char** string_split(char *s, char delim)`
+
+      > This function splits the string `s` into individual words delimited by
+      `delim` (e.g. `s.split(delim)` in [Python]).  These words are stored in a
+      new **array** terminated by a `NULL` pointer as shown in the diagram above.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: First, determine the number of words and then allocate an array
+      with that length (accounting for the `NULL` pointer at the end).
+      Finally, scan the string and copy words over to the new array.
+
+      Consider using [strdup] to allocate and copy [strings].
+
+      </div>
+
+  3. `void strings_free(char **sv)`
+
+      > This function deallocates each word in the string array `sv` and then
+      releases the array itself.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Remember that the string array is terminated by a `NULL`
+      pointer.
+
+      </div>
+
+  4. `size_t strings_size(char **sv)`
+
+      > This function returns the size of the string array `sv` (ie. number of
+      words) (e.g. `len(sv)` in [Python]).
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Remember that the string array is terminated by a `NULL`
+      pointer.
+
+      </div>
+
+  5. `char * strings_join(char **sv, char delim)`
+
+      > This function combines all the strings in `sv` into a single **string**
+      with each string separated by `delim` as shown in the diagram above (e.g.
+      `delim.join(sv)` in [Python]).
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Allocate and copy the first string using [strdup].  Then for
+        each subsequent string in the array first grow the current string with
+        [realloc], and then append the delimiter and next string to the current
+        string with [sprintf].
+
+      </div>
+
+  [strlen]: https://www.mankier.com/3/strlen
+  [strdup]: https://www.mankier.com/3/strdup
+  [realloc]: https://www.mankier.com/3/malloc
+  [sprintf]: https://www.mankier.com/3/printf
+
+  ### Task 3: Testing
+
+  As you implement the functions in `src/string.c`, you should use
+  `bin/unit_string.sh` to test each function:
+
+      :::bash
+      # Build unit-test
+      $ make bin/unit_string
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o tests/unit_string.o tests/unit_string.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/string.o src/string.c
+      ar rcs lib/libds.a src/string.o
+      gcc -Llib -o bin/unit_string tests/unit_string.o lib/libds.a
+
+      # Run test script manually
+      $ ./bin/test_string.sh
+      Testing string...
+       string_chomp                             ... Success
+       string_split                             ... Success
+       strings_free                             ... Success
+       strings_size                             ... Success
+       strings_join                             ... Success
+
+         Score 6.00 / 6.00
+        Status Success
+
+  Alternatively, you can both build the artifacts and run the test script by doing the following:
+
+      :::bash
+      # Build and run test scripts
+      $ make test
+      ...
+
+  If one of the functions fails, and you need to **debug** the [unit tests], you
+  can run the `bin/unit_string` command directly:
+
+      :::bash
+      # Display usage message
+      $ ./bin/unit_string
+      Usage: ./bin/unit_string NUMBER
+
+      Where NUMBER is right of the following:
+          0  Test string_chomp
+          1  Test string_split
+          2  Test strings_free
+          3  Test strings_size
+          4  Test strings_join
+
+      # Run test for string_chomp
+      $ ./bin/unit_string 0
+
+      # Run test for string_chomp using GDB
+      $ gdb ./bin/unit_string
+      ...
+      (gdb) run 0
+
+      # Run test for string_chomp using Valgrind
+      $ valgrind --leak-check=full ./bin/unit_string 0
+
+  Of course, you are free to create your own test programs to debug and test
+  your string library.
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-repeat"></i> Iterative Development
+
+  You should practice [iterative development]. That is, rather than writing a
+  bunch of code and then debugging it all at once, you should concentrate on
+  one function at a time and then test that **one thing at a time**. The provided
+  [unit tests] allow you to check on the correctness of the individual functions
+  without implementing everything at once. Take advantage of this and build one
+  thing at a time.
+
+  </div>
+
+  [iterative development]: https://en.wikipedia.org/wiki/Iterative_and_incremental_development
+  [unit tests]: https://en.wikipedia.org/wiki/Unit_testing
+
+  ## Activity 2: Slice Utility (4 Points)
+
+  Once you have a working string library, you are to complete the `src/slice.c` program:
+
+      :::bash
+      # Display usage
+      $ ./bin/slice
+      Usage: slice -d DELIMITER -f FIELDS
+
+      # Slice text by spaces and select last three fields
+      $ ./bin/slice -d ' ' -f 4,5,6
+      we never go out of style
+      out of style
+
+      # Slice text by spaces and select sixth and second fields
+      $ ./bin/slice -d ' ' -f 6,2 <<<"we never go out of style"
+      style never
+
+  The `bin/slice` program processes each line from [standard input] by
+  splitting each line by the specified `DELIMITER` and the selecting the words
+  specified by `FIELDS`.
+
+  The `DELIMITER` parameter is a single character.
+
+  The `FIELDS` parameter is a comma separated list of integers with `1`
+  indicating the first field.
+
+  This program is meant to be analogous to the traditional [cut] utility.
+
+  <div class="alert alert-info" markdown="1">
+
+  **Note**: `<<<STRING` is a feature of [bash] that redirects `STRING` into the
+  program's [standard input].
+
+  </div>
+
+  [bash]: https://www.gnu.org/software/bash/
+  [standard input]: https://en.wikipedia.org/wiki/Standard_streams#Standard_input_(stdin)
+
+  ### Task 1: `src/slice.c`
+
+  The `src/slice.c` file contains the [C] implementation of the `slice` utility
+  described above.
+
+  The command-line argument parsing in the `main` function is **provided for
+  you**.  Therefore, you will need to implement the following functions:
+
+  1. `int * string_to_fields(char *s)`
+
+      > This function converts a comma separated string of numbers into an
+      array of integer indices (e.g. `[int(i) - 1 for i in s.split(',')]` in
+      [Python]).
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use `string_split` to get an array of string numbers, then use
+        `strings_size` to determine the size of the new integer array.  Next,
+        allocate the new integer array using [calloc], and then fill in the
+        this new array with the string numbers.  Be sure to place a `-1` at the
+        end of the array as a [sentinel] value.
+
+        Consider using [atoi] to convert strings into integers.
+
+      </div>
+
+  2. `void slice_line(char *line, char delim, int *fields)`
+
+      > This function splits the `line` string by the specified `delim`,
+      selects the words based on the given `fields` and then prints out
+      combined words as a single string (e.g. `delim.join([sv.split(delim)[i]
+      for i in fields])` in [Python]).
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use `string_split` to get an array of string words, then use
+        `strings_size` to determine the size of the new words array.  Next,
+        allocate a new words array using [calloc], then copy the selected
+        fields into this new array.  Finally, use `strings_join` to form a new
+        string and print it out.
+
+      </div>
+
+  [atoi]: https://www.mankier.com/3/atoi
+  [calloc]: https://www.mankier.com/3/malloc
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-bomb"></i> Memory Management
+
+  In addition to meeting the functional requirements of the assignment (as
+  described above), your program **must not exhibit any memory leaks** or **invalid
+  memory accesses** as would be detected by [Valgrind].
+
+  Be sure to [free] any memory that has been allocated on the [heap] and to
+  initialize any allocate memory appropriately.
+
+  </div>
+
+  [Valgrind]: http://valgrind.org/
+  [free]: https://www.mankier.com/3/malloc
+
+  ### Task 2: Testing
+
+  As you implement `src/slice.c, you can test it by running the `test-slice`
+  target:
+
+      :::bash
+      # Build artifact and run test
+      $ make test-slice
+      Testing slice ...
+       slice -d ' '                 (usage)     ... Success
+       slice -f 1                   (usage)     ... Success
+       slice -d ' ' -f 1            (output)    ... Success
+       slice -d ' ' -f 1            (valgrind)  ... Success
+       slice -d ' ' -f 1,2          (output)    ... Success
+       slice -d ' ' -f 1,2          (valgrind)  ... Success
+       slice -d ' ' -f 2,4,6        (output)    ... Success
+       slice -d ' ' -f 2,4,6        (valgrind)  ... Success
+       slice -d ' ' -f 1,3,5,7,9    (output)    ... Success
+       slice -d ' ' -f 1,3,5,7,9    (valgrind)  ... Success
+       slice -d ' ' -f 1,2,3,10     (output)    ... Success
+       slice -d ' ' -f 1,2,3,10     (valgrind)  ... Success
+       slice -d ',' -f 1            (output)    ... Success
+       slice -d ',' -f 1            (valgrind)  ... Success
+       slice -d ',' -f 1,3          (output)    ... Success
+       slice -d ',' -f 1,3          (valgrind)  ... Success
+
+        Score 4.00 / 4.00
+       Status Success
+
+  Remember that you can run the `bin/slice` command manually:
+
+      :::bash
+      # Split lines by space and select the first field
+      $ ./bin/slice -d ' ' -f 1
+      Hello world
+      Hello
+
+      # Run the utility with GDB
+      $ gdb ./bin/slice
+      ...
+      (gdb) run -d ' ' -f 1
+
+      # Run the utility with Valgrind
+      $ valgrind --leak-check=full ./bin/slice -d ' ' -f 1
+
+  ## Activity 3: Quiz (2 Points)
+
+  Once you have completed all the activities above, you are to complete the
+  following **reflection quiz**:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/homework02.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  As with [Reading 01], you will need to store your answers in a
+  `homework02/answers.json` file.  You can use the form above to generate the
+  contents of this file, or you can write the [JSON] by hand.
+
+  To check your quiz directly, you can use the `check.py` script:
+
+      :::bash
+      $ ../.scripts/check.py
+      Checking homework02 quiz ...
+            Q1 0.50
+            Q2 0.50
+            Q3 0.70
+            Q4 0.30
+         Score 2.00 / 2.00
+        Status Success
+
+  ## Leet Point (1 Extra Credit Point)
+
+  For **extra credit**, you are to solve the following [LeetCode] problem in [C].
+
+  > [1108. Defanging an IP Address](https://leetcode.com/problems/defanging-an-ip-address/)
+
+  To receive credit, you must pass on [LeetCode] and achieve an **Accepted**
+  attempt.
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-check"></i> Verification
+
+  To get credit for this Leet Point, show your solution and the [LeetCode]
+  acceptance page to a TA to verify (or attached a screenshot with both to your
+  **Pull Request**).  You have up until **two days after** this assignment is
+  due to verify your Leet Point.
+
+  </div>
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-calendar"></i> Self-Service Extension
+
+  Remember that you can always **forgo** this Leet Point for **two extra days**
+  to do the homework.  That is, if you need an extension, you can simply skip
+  the Leet Point and you will automatically have until Monday to complete the
+  assignment for full credit.
+
+  Just leave a note on your **Pull Request** of your intentions.
+
+  </div>
+
+  [LeetCode]: https://leetcode.com/
+
+  ## Submission
+
+  To submit your assignment, please commit your work to the `homework02` folder
+  of your `homework02` branch in your **assignments** [GitHub] repository:
+
+      :::bash
+      $ cd path/to/cse-20312-fa23-assignments       # Go to assignments repository
+      $ git checkout master                         # Make sure we are in master branch
+      $ git pull --rebase                           # Make sure we are up-to-date with GitHub
+      $ git checkout -b homework02                  # Create homework02 branch and check it out
+      $ cd homework02                               # Go to homework02 directory
+      ...
+      $ git add Makefile                            # Mark changes for commit
+      $ git add bin/*.sh                            # Mark changes for commit
+      $ git add include/ds/*.h                      # Mark changes for commit
+      $ git add lib/.gitkeep                        # Mark changes for commit
+      $ git add tests/*.c                           # Mark changes for commit
+      $ git commit -m "Homework 02: Initial Import" # Record changes
+      ...
+      $ git add src/string.c                        # Mark changes for commit
+      $ git commit -m "Homework 02: Activity 1"     # Record changes
+      ...
+      $ git add src/slice.c                         # Mark changes for commit
+      $ git commit -m "Homework 02: Activity 2"     # Record changes
+      ...
+      $ git add answers.json                        # Mark changes for commit
+      $ git commit -m "Homework 02: Activity 3"     # Record changes
+      ...
+
+      $ git push -u origin homework02               # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Remember to create a [Pull Request] and assign the appropriate TA from the
+  [Reading 02 TA List].
+
+  **DO NOT MERGE** your own [Pull Request].  The TAs use open [Pull Request]s
+  to keep track of which assignments to grade.  Closing them yourself will
+  cause a delay in grading and confuse the TAs.
+
+  </div>
+
+  [Markdown]:   https://daringfireball.net/projects/markdown/
+  [git]:    https://git-scm.com/
+  [clone]:  https://git-scm.com/docs/git-clone
+  [commit]: https://git-scm.com/docs/git-commit
+  [push]:   https://git-scm.com/docs/git-push
+  [branching]:   https://git-scm.com/docs/git-branch
+  [code review]: https://en.wikipedia.org/wiki/Code_review
+  [GitHub]: https://github.com
+  [Linux]:  https://kernel.org
+  [branch]: https://git-scm.com/docs/git-branch
+  [add]:    https://git-scm.com/docs/git-add
+  [Pull Request]:  https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request
+  [Reading 01]:         reading01.html
+  [Reading 02 TA List]: reading02_tas.html
+  [curl]:   http://man7.org/linux/man-pages/man1/curl.1.html
+  [JSON]: https://json.org/
+  [Slack]:  https://nd-cse.slack.com
+  [text editor]: https://en.wikipedia.org/wiki/Text_editor
