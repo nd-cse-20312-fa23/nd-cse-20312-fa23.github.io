@@ -15,7 +15,7 @@
     },
     "q2": {
         "type": "blank",
-        "question": "\n<p>Complete the following code snippets regarding <b>allocating strings</b>:</p>\n\n<pre>\n// Allocate a string \"s1\" with the contents \"slices\" on the stack\n____ = \"slices\";\n\n// Allocate a string \"s2\" with the contents \"slices\" in the data segment\n____ = \"slices\";\n\n// Allocate and copy the string \"s1\" to a new string \"c3\" whose contents\n// are on the heap\n____ = ____;\n\n// Allocate an array of 10 strings \"sv\" on the heap such that each string\n// is initially NULL\n____ = ____(10, ____);\n</pre>\n"
+        "question": "\n<p>Complete the following code snippets regarding <b>allocating strings</b>:</p>\n\n<pre>\n// Allocate a string \"s1\" with the contents \"slices\" on the stack\n____ = \"slices\";\n\n// Allocate a string \"s2\" with the contents \"slices\" in the data segment\n____ = \"slices\";\n\n// Allocate and copy the string \"s1\" to a new string \"s3\" whose contents\n// are on the heap\n____ = ____;\n\n// Allocate an array of 10 strings \"sv\" on the heap such that each string\n// is initially NULL\n____ = ____(10, ____);\n</pre>\n"
     },
     "q3": {
         "type": "multiple",
