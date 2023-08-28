@@ -37,6 +37,8 @@
         items:
           - name:       Slides 04
             link:       https://docs.google.com/presentation/d/1HqeDbgaamJBKo4lG_iFTF-rRtIXeV6BMl36NWAjg3ns/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=2739a5ef-69e3-49cd-a911-b06c010614d3
 
       - date:           Wed 08/30
         topics:         Strings, I/O, Address Space
