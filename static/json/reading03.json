@@ -1,0 +1,44 @@
+{
+    "q1": {
+        "type": "blank",
+        "question": "\n<p>\n\nComplete the following program, <tt>node.c</tt>, which is suppose to\ndeclare a <tt>struct Node</tt> that stores <int> data, define a\n<tt>node_create</tt> constructor function, uses this function to make a\n<b>singly linked list</b> with a few values, and then loops through the\nlist and prints out the data associated with each <tt>Node</tt>.\n\n</p>\n\n<pre>\n/* Node structure */\n\ntypedef struct Node Node;\nstruct Node {\n    int   data;\n    ____  next;               // 1.\n};\n\nNode *  node_create(int data, Node *next) {\n    Node * n = malloc(____);  // 2.\n    if (n) {\n        n->data = data;\n        n->next = next;\n    }\n    return n;\n}\n\n/* Main Execution */\n\nint main(int argc, char *argv[]) {\n    Node *head = node_create(7, node_create(1, node_create(5, ____)));  // 3.\n\n    for (Node *curr = ____; ____; ____ = ____) {  // 4. 5. 6. 7.\n      printf(\"%d\", ____);                         // 8.\n    }\n\n    return 0;\n}\n\n</pre>\n"
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<p>Given a completed version of the program <tt>node.c</tt> above, which of\nthe following statements are true (select all that apply)?</p>\n",
+        "responses": {
+            "valgrind_leak": "There is a <b>memory leak</b>.",
+            "valgrind_invalid": "There is an <b>invalid memory access</b>.",
+            "valgrind_init": "There is an <b>uninitialized memory access</b>.",
+            "output_517": "The output of the program is <tt>517</tt>.",
+            "output_715": "The output of the program is <tt>715</tt>.",
+            "output_segfault": "The program <b>segfaults</b>."
+        }
+    },
+    "q3": {
+        "type": "order",
+        "question": "\n<p>Suppose we extended the program above into a new program called\n<tt>queue.c</tt> and used the <tt>Node</tt> structure implement a\n<b><tt>Queue</tt></b> with the following code:</p>\n\n<pre>\n/* Queue Structure */\n\ntypedef struct {\n    Node *head;\n} Queue;\n\nvoid\tqueue_push(Queue *q, int value) {\n      q->head = node_create(value, NULL);\n      curr->next = node_create(value, NULL);\n          curr = curr->next;\n    } else {\n      while (curr && curr->next)\n    if (!q->head) {\n    }\n      Node *curr = q->head;\n}\n\nint\tqueue_pop(Queue *q) {\n    int value = q->head->data;\n    q->head   = q->head->next;\n    return value;\n}\n</pre>\n\n<p>Unfortunately, the code for <tt>queue_push</tt> is <b>scrambled</b>.\n<b>Reorder</b> the following lines of code to properly implement\n<tt>queue_push</tt>:</p>\n",
+        "responses": {
+            "a": "<tt>q->head = node_create(value, NULL);</tt>",
+            "b": "<tt>curr->next = node_create(value, NULL);</tt>",
+            "c": "<tt>curr = curr->next;</tt>",
+            "d": "<tt>} else {</tt>",
+            "e": "<tt>while (curr && curr->next)</tt>",
+            "f": "<tt>if (!q->head) {</tt>",
+            "g": "<tt>}</tt>",
+            "h": "<tt>Node *curr = q->head;</tt>"
+        }
+    },
+    "q4": {
+        "type": "multiple",
+        "question": "\n<p>Given a completed version of the program <tt>queue.c</tt> above, which of\nthe following statements are true (select all that apply)?</p>\n",
+        "responses": {
+            "queue_push_time_1": "The <b>average time complexity</b> of <tt>queue_push</tt> is <tt>O(1)</tt>.",
+            "queue_push_time_n": "The <b>average time complexity</b> of <tt>queue_push</tt> is <tt>O(n)</tt>.",
+            "queue_pop_time_1": "The <b>average time complexity</b> of <tt>queue_pop</tt> is <tt>O(1)</tt>.",
+            "queue_pop_time_n": "The <b>average time complexity</b> of <tt>queue_pop</tt> is <tt>O(n)</tt>.",
+            "queue_push_segfault": "<tt>queue_push</tt> will segfault if we call it on an empty <b><tt>Queue</tt></b>.",
+            "queue_pop_segfault": "<tt>queue_pop</tt> will segfault if we call it on an empty <b><tt>Queue</tt></b>."
+        }
+    }
+}
