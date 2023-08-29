@@ -36,7 +36,7 @@ body:       |
 
       - [Linked Lists](https://www.thedshandbook.com/linked-lists/)
       - <p>[Queues](https://www.thedshandbook.com/queues/)</p>
-  
+
   2. [Learn DS & Algorithms](https://www.programiz.com/dsa)
 
       - [Linked list Data Structure](https://www.programiz.com/dsa/linked-list)
@@ -81,10 +81,10 @@ body:       |
 
       $ ../.scripts/check.py                # Check reading03 quiz
       Checking reading03 quiz ...
-            Q1 0.75
-            Q2 0.75
-            Q3 0.75
-            Q4 0.75
+            Q1 0.90
+            Q2 0.50
+            Q3 1.00
+            Q4 0.60
          Score 3.00 / 3.00
         Status Success
 
