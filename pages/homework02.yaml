@@ -14,7 +14,7 @@ body:       |
   the second activity requires you to use this library to implement a `slice`
   program similar to [cut].  After these two activities, there is a quiz where
   you will have an opportunity to reflect on the code you have written for the
-  his homework assignment.
+  this homework assignment.
 
   For this assignment, you are to do your work in the `homework02` folder of
   your **assignments** [GitHub] repository and push your work by **noon
@@ -197,12 +197,31 @@ body:       |
               rm -f bin/unit_* bin/slice lib/*.a src/*.o tests/*.o
 
   For this task, you will need to add [rules] for building the [static library]
-  `lib/libds.a`, the [unit test] `bin/unit_string`, and the program
-  `bin/slice`. Be sure to have a **recipe** for any *intermediate* [object]
-  files that libraries require as shown in the [DAG] below:
+  `lib/libds.a` and the program `bin/slice`. Be sure to have a **recipe** for
+  any *intermediate* [object] files that libraries require as shown in the
+  [DAG] below:
 
   <div class="thumbnail">
     <img src="static/img/homework02-makefile.png" class="img-responsive">
+  </div>
+  
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-archive"></i> Archives
+  
+  `lib/libds.a` is an **archive** or [static library].  You can think of these
+  as a combination of multiple [object] files.  To compile an **archive**, you
+  can use the `ar` command as follows:
+
+      ::bash
+      $ ar rcs lib/libds.a src/string.o
+
+  Since the `Makefile` has `AR` and `ARFLAGS` variables, we can have the
+  following rule:
+
+      :::make
+      lib/libds.a:  src/string.o
+              $(AR) $(ARFLAGS) lib/libds.a src/string.o
+
   </div>
 
   <div class="alert alert-info" markdown="1">
