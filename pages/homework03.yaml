@@ -1,0 +1,899 @@
+title:      "Homework 03: Arrays, Stacks, RPN"
+icon:       fa-code
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  The goal of this homework assignment is to allow you to explore building both
+  a [dynamic array] and a [stack], and then using these [data structure]s to
+  implement a [RPN] calculator.  The first two activities involve implementing
+  first a [dynamic array] and then using this [data structure] to implement a
+  [stack].  Once you have a working [data structure] library, you will then use
+  it implement a simple calculator that can evaluate [RPN] expressions.  After
+  these coding activities, there is a quiz where you will have an opportunity
+  to reflect on the code you have written for this homework assignment.
+
+  For this assignment, you are to do your work in the `homework03` folder of
+  your **assignments** [GitHub] repository and push your work by **noon
+  Wednesday, September 13**.
+
+  [GitHub]:         https://github.com
+  [dynamic array]:  https://en.wikipedia.org/wiki/Dynamic_array
+  [stack]:          https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
+  [RPN]:            https://en.wikipedia.org/wiki/Reverse_Polish_notation
+  [data structure]: https://en.wikipedia.org/wiki/Data_structure
+
+  ## Activity 0: Preparation
+
+  Before starting this homework assignment, you should first perform a `git
+  pull` to retrieve any changes in your remote [GitHub] repository:
+
+      :::bash
+      $ cd path/to/repository                   # Go to assignments repository
+
+      $ git switch master                       # Make sure we are in master branch
+
+      $ git pull --rebase                       # Get any remote changes not present locally
+
+  Next, create a new branch for this assignment:
+
+      :::bash
+      $ git checkout -b homework03              # Create homework03 branch and check it out
+
+  ## Activity 1: Dynamic Array (4 Points)
+
+  In high-level languages such as [Python], we have built-in implementations of
+  [dynamic array]s which support a variety of methods:
+
+      :::python
+      # Define a dynamic array
+      >>> array = [4, 6, 6, 3, 7]
+
+      # Add a new value to the end of the array
+      >>> array.append(9)
+      >>> array
+      [4, 6, 6, 3, 7, 9]
+
+      # Remove the value at index 0
+      >>> array.pop(0)
+      >>> array
+      [6, 6, 3, 7, 9]
+
+      # Access the last element
+      >>> array[-1]
+      9
+
+  Unfortunately, [C] only has fixed [arrays] that do not support `append` or
+  `pop` or **negative indexing** (ie. `array[-index]` is translated to
+  `array[len(array) - index]`).
+
+  <div class="thumbnail">
+    <img src="static/img/reading02-dynamic-array.png" class="img-responsive">
+  </div>
+
+  As discussed in class, we can use fixed [arrays] in [C] to implement [dynamic
+  array]s by introducing an `Array` [struct] with the following attributes:
+
+  1. `data`: This is the internal fixed-sized [array] that we will need to
+    periodically resize or grow.
+
+  2. `capacity`: This is the total number of possible elements in the
+    internal fixed-size [array].
+
+  3. `size`: This is the number of valid elements stored in the internal
+    fixed-size [array].
+
+  With this `Array` [struct] in mind, for the first activity, you are to create
+  a [dynamic array] library, `lib/libds.a`, which contains functions such as
+  `array_append` and `array_pop` which implement some of the functionality
+  present in [Python] but missing in [C].
+
+  [Python]: https://www.python.org/
+  [array]:  https://en.wikipedia.org/wiki/C_(programming_language)#Arrays
+  [arrays]: https://en.wikipedia.org/wiki/C_(programming_language)#Arrays
+  [C]:      https://en.wikipedia.org/wiki/C_(programming_language)
+  [struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
+
+  #### Skeleton Code
+
+  To help you get started, the instructor has provided you with the following [skeleton code]:
+
+      :::bash
+      # Go to assignments repository
+      $ cd path/to/assignments/repository
+
+      # ------------------------------------------------
+      # MAKE SURE YOU ARE NOT INSIDE homework03
+      # ------------------------------------------------
+      # MAKE SURE YOU ARE AT THE TOP-LEVEL DIRECTORY
+      # ------------------------------------------------
+
+      # Download skeleton code tarball
+      $ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework03.tar.gz
+
+      # Extract skeleton code tarball
+      $ tar xzvf homework03.tar.gz
+
+  Once downloaded and extracted, you should see the following files in your
+  `homework03` directory:
+
+      :::bash
+      homework03
+          \_ Makefile             # This is the Makefile for building all the project artifacts
+          \_ bin                  # This contains the project binary executables and test scripts
+              \_ test_array.sh    # This is the shell script for testing the array library
+              \_ test_stack.sh    # This is the shell script for testing the stack utility
+              \_ test_rpn.sh      # This is the shell script for testing the rpn program
+          \_ include              # This contains the project header files
+              \_ ds               # This contains the project data structure header files
+                  \_ array.h      # This is the C header file for the array library
+                  \_ stack.h      # This is the C header file for the stack library
+          \_ lib                  # This contains the project library files
+          \_ src                  # This contains the project source code
+              \_ array.c          # This is the C source code for the array library
+              \_ rpn.c            # This is the C source code for the rpn program
+              \_ stack.c          # This is the C source code for the stack library
+          \_ tests                # This contains the project unit tests
+              \_ unit_array.c     # This is the unit test for the array library
+              \_ unit_stack.c     # This is the unit test for the stack library
+
+  The details on what you need to implement are described in the following
+  sections.
+
+  [skeleton code]: https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework03.tar.gz
+
+  ### Task 0: `include/ds/array.h`
+
+  The `include/ds/array.h` file is the [header] file for the [dynamic array] library,
+  which contains the following [structs] and function [prototypes]:
+
+      :::c
+      /* array.h: Dynamic Array */
+
+      #pragma once
+
+      #include <stdbool.h>
+      #include <stdint.h>
+      #include <stdlib.h>
+
+      /* Structures */
+
+      typedef struct {
+          int64_t *data;        // Internal array
+          size_t   capacity;    // Total number of elements
+          size_t   size;        // Number of valid elements
+      } Array;
+
+      /* Constants */
+
+      extern const size_t ARRAY_DEFAULT_CAPACITY;
+
+      /* Functions */
+
+      Array   *array_create(size_t capacity);
+      void     array_delete(Array *array);
+
+      int64_t  array_at(Array *array, ssize_t index);
+
+      void     array_resize(Array *array, size_t capacity);
+
+      void     array_append(Array *array, int64_t value);
+      int64_t  array_pop(Array *array, ssize_t index);
+
+  Other programs will `#include` this file in order to use the functions we
+  will be implementing in this library.
+
+  <div class="alert alert-info" markdown="1">
+
+  **Note**: For this task, you **do not** need to modify this file. Instead,
+  you should review it and ensure you understand the provided code.
+
+  </div>
+
+  [header]: https://en.wikipedia.org/wiki/Include_directive#C.2FC.2B.2B
+  [prototypes]: https://en.wikipedia.org/wiki/Function_prototype
+  [structs]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
+
+  ### Task 1: `Makefile`
+
+  The Makefile contains all the rules or recipes for building the project
+  artifacts (e.g. `rpn`, `libds.a`, `unit_array`, `unit_stack`, etc.):
+
+      :::make
+      CC=             gcc
+      CFLAGS=         -Wall -std=gnu99 -g -Iinclude
+      AR=             ar
+      ARFLAGS=        rcs
+      LD=             gcc
+      LDFLAGS=        -Llib
+
+      all:            bin/rpn
+
+      test:
+              @$(MAKE) -sk test-all
+
+      test-all:       test-array test-stack test-rpn
+
+      # TODO: Pattern rule for object files
+
+      # TODO: Rule for lib/libds.a
+
+      # TODO: Rule for bin/rpn
+
+      bin/unit_array: tests/unit_array.o lib/libds.a
+              $(LD) $(LDFLAGS) -o $@ $^
+
+      bin/unit_stack: tests/unit_stack.o lib/libds.a
+              $(LD) $(LDFLAGS) -o $@ $^
+
+      test-array:     bin/unit_array
+              bin/test_array.sh
+
+      test-stack:     bin/unit_stack
+              bin/test_stack.sh
+
+      test-rpn:       bin/rpn
+              bin/test_rpn.sh
+
+      clean:
+              rm -f bin/unit_* bin/rpn lib/*.a src/*.o tests/*.o
+
+  For this task, you will need to add [rules] for building the [static library]
+  `lib/libds.a` and the program `bin/rpn`. Be sure to have a **recipe** for any
+  *intermediate* [object] files that libraries require as shown in the [DAG]
+  below:
+
+  <div class="thumbnail">
+    <img src="static/img/homework03-makefile.png" class="img-responsive">
+  </div>
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-archive"></i> Archives
+
+  `lib/libds.a` is an **archive** or [static library].  You can think of these
+  as a combination of multiple [object] files.  To compile an **archive**, you
+  can use the `ar` command as follows:
+
+      ::bash
+      $ ar rcs lib/libds.a src/array.o src/stack.o
+
+  Since the `Makefile` has `AR` and `ARFLAGS` variables, we can have the
+  following rule:
+
+      :::make
+      lib/libds.a:  src/array.o src/stack.o
+              $(AR) $(ARFLAGS) lib/libds.a src/array.o src/stack.o
+
+  </div>
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-cogs"></i> Makefile Variables
+
+  You **must** use the `CC`, `CFLAGS`, `LD`, `LDFLAGS`, `AR`, and `ARFLAGS`
+  variables when appropriate in your rules. You **should** also consider using
+  [automatic variables] such as `$@` and `$<` as well.
+
+  </div>
+
+  Once you have a working `Makefile`, you should be able to run the following
+  commands:
+
+      :::bash
+      # Build all TARGETS
+      $ make
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/rpn.o src/rpn.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/array.o src/array.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/stack.o src/stack.c
+      ar rcs lib/libds.a src/array.o src/stack.o
+      gcc -Llib -o bin/rpn src/rpn.o lib/libds.a
+
+      # Run all tests
+      $ make test
+      Testing array...
+      ...
+
+      # Remove generated artifacts
+      $ make clean
+      rm -f bin/unit_* bin/rpn lib/*.a src/*.o tests/*.o
+
+  <div class="alert alert-danger" markdown="1">
+
+  **Note**: The tests will **fail** if you haven't implemented array or stack
+    libraries or the `rpn` utility.
+
+  </div>
+
+  <div class="alert alert-warning" markdown="1">
+  #### <i class="fa fa-warning"></i> Warnings
+
+  You must include the `-Wall` flag in your `CFLAGS` when you compile. This
+  also means that your code must **compile without any warnings**, otherwise
+  points will be deducted.
+
+  </div>
+
+  [rules]: https://www.gnu.org/software/make/manual/html_node/Rule-Example.html#Rule-Example
+  [static library]: https://en.wikipedia.org/wiki/Static_library#Creating_static_libraries_in_C.2FC.2B.2B
+  [unit test]: https://en.wikipedia.org/wiki/Unit_testing
+  [object]: https://en.wikipedia.org/wiki/Object_file
+  [DAG]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
+
+  [automatic variables]: https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
+
+  ### Task 2: `src/array.c`
+
+  The `src/array.c` file contains the [C] implementation for the [dynamic array] library.
+
+  <div class="thumbnail">
+    <img src="static/img/homework03-array-library.png" class="img-responsive">
+  </div>
+
+  For this task, you will need to implement the following functions:
+
+  1. `Array* array_create(size_t capacity)`
+
+      > This function allocates a new `Array` [struct] and initializes its
+      > attributes: `data`, `capacity`, and `size` as described above.
+      > If the `capacity` of the internal `data` [array] is `0`, then the
+      > `ARRAY_DEFAULT_CAPACITY` should be used as the `capacity`.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [malloc] or [calloc] to allocate data on the [heap].
+      </div>
+
+  2. `void array_delete(Array *array)`
+
+      > This function deallocates the given `Array` [struct] along with its
+      internal `data` [array].
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [free] to release data allocated on the [heap].
+      </div>
+
+  3. `int64_t array_at(Array *array, ssize_t index)`
+
+      > This function returns the value in the `array` at the specified
+      > `index` (e.g. `array[index]` in [Python]).
+      >
+      > **Note**: If `index` is negative, then offset it relative to size of `array`.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [assert] to verify `index` is valid.
+      </div>
+
+  4. `void array_resize(Array *array, size_t capacity)`
+
+      > This function resizes the given `array` to the specified `capacity`.
+      >
+      > **Note**: the `array` could grow or shrink.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [realloc] to resize the `array`.
+      </div>
+
+  5. `void array_append(Array *array, int64_t value)`
+
+      > This function adds `value` to the end of the `array` (e.g.
+      > `array.append(value)` in [Python]).
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use `array_resize` when necessary (e.g. double its `capacity`)
+      as shown in the diagram above.
+      </div>
+
+  6. `int64_t array_pop(Array *array, ssize_t index)`
+
+      > This function removes the `value` in the `array` at the specified
+      > `index` (e.g. `array.pop(index)` in [Python]).
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [memmove] to shift elements in the internal `array`.
+      </div>
+
+  [malloc]:   https://www.mankier.com/3/malloc
+  [calloc]:   https://www.mankier.com/3/malloc
+  [free]:     https://www.mankier.com/3/malloc
+  [realloc]:  https://www.mankier.com/3/malloc
+  [assert]:   https://www.mankier.com/3/assert
+  [memmove]:  https://www.mankier.com/3/memmove
+  [heap]:     https://en.wikipedia.org/wiki/Memory_management#HEAP
+
+  ### Task 3: Testing
+
+  As you implement the functions in `src/array.c`, you should use
+  `bin/unit_array.sh` to test each function:
+
+      :::bash
+      # Build unit-test
+      $ make bin/unit_array
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o tests/unit_array.o tests/unit_array.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/array.o src/array.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/stack.o src/stack.c
+      ar rcs lib/libds.a src/array.o src/stack.o
+      gcc -Llib -o bin/unit_array tests/unit_array.o lib/libds.a
+
+      # Run test script manually
+      $ ./bin/test_array.sh
+      Testing array...
+       array_create                             ... Success
+       array_delete                             ... Success
+       array_at                                 ... Success
+       array_resize                             ... Success
+       array_append                             ... Success
+       array_pop                                ... Success
+
+         Score 4.00 / 4.00
+        Status Success
+
+  Alternatively, you can both build the artifacts and run the test script by doing the following:
+
+      :::bash
+      # Build and run test scripts
+      $ make test
+      ...
+
+  If one of the functions fails, and you need to **debug** the [unit tests], you
+  can run the `bin/unit_array` command directly:
+
+      :::bash
+      # Display usage message
+      $ ./bin/unit_array
+      Usage: ./bin/unit_array NUMBER
+
+      Where NUMBER is right of the following:
+          0  Test array_create
+          1  Test array_delete
+          2  Test array_at
+          3  Test array_resize
+          4  Test array_append
+          5  Test array_pop
+
+      # Run test for array_create
+      $ ./bin/unit_array 0
+
+      # Run test for array_create using GDB
+      $ gdb ./bin/unit_array
+      ...
+      (gdb) run 0
+
+      # Run test for array_create using Valgrind
+      $ valgrind --leak-check=full ./bin/unit_array 0
+
+  Of course, you are free to create your own test programs to debug and test
+  your [dynamic array] library.
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-repeat"></i> Iterative Development
+
+  You should practice [iterative development]. That is, rather than writing a
+  bunch of code and then debugging it all at once, you should concentrate on
+  one function at a time and then test that **one thing at a time**. The provided
+  [unit tests] allow you to check on the correctness of the individual functions
+  without implementing everything at once. Take advantage of this and build one
+  thing at a time.
+
+  </div>
+
+  [iterative development]: https://en.wikipedia.org/wiki/Iterative_and_incremental_development
+  [unit tests]: https://en.wikipedia.org/wiki/Unit_testing
+
+  ## Activity 2: Stack Library (2 Points)
+
+  Once you have completed the [dynamic array] library, you are to implement a
+  [stack] for the second activity using the `Array` [struct].
+
+  ### Task 1: `include/ds/stack.h`
+
+  The `include/ds/stack.h` file is the [header] file for the [stack] library,
+  which contains the following [structs] and function [prototypes]:
+
+      :::c
+      /* stack.h: Stack */
+
+      #pragma once
+
+      #include "array.h"
+
+      /* Structures */
+
+      typedef Array Stack;
+
+      /* Functions */
+
+      Stack   *stack_create();
+      void     stack_delete(Stack *stack);
+
+      bool     stack_empty(Stack *stack);
+      int64_t  stack_top(Stack *stack);
+
+      void     stack_push(Stack *stack, int64_t value);
+      int64_t  stack_pop(Stack *stack);
+
+  As can been seen, the `Stack` is just a [type definition] or **alias** for
+  our existing `Array` [struct].  This means any of the operations we
+  previously defined in our [dynamic array] library should work on your new
+  [stack] library.
+
+  [type definition]: https://en.wikipedia.org/wiki/Typedef
+
+  <div class="alert alert-info" markdown="1">
+
+  **Note**: For this task, you **do not** need to modify this file. Instead,
+  you should review it and ensure you understand the provided code.
+
+  </div>
+
+  ### Task 2: `src/stack.c`
+
+  The `src/stack.c` file contains the [C] implementation for the [stack]
+  library.  For this task, you will need to implement the following functions:
+
+  1. `Stack* stack_create()`
+
+      > This function allocates a new `Stack` [struct].
+
+  2. `void stack_delete(Stack *s)`
+
+      > This function deallocates the given `Stack` [struct].
+
+  3. `bool stack_empty(Stack *s)`
+
+      > This function returns `true` if the `Stack` [struct] has no values,
+      otherwise `false`.
+
+  4. `int64_t stack_top(Stack *s)`
+
+      > This function returns the value at the top of the `Stack` [struct].
+
+  5. `void stack_push(Stack *s, int64_t value)`
+
+      > This function adds a new `value` to the top of the `Stack` [struct].
+
+  6. `int64_t stack_pop(Stack *s)`
+
+      > This function removes the value at the top of the `Stack` [struct] and returns it.
+
+  <div class="alert alert-success" markdown="1">
+  **Hint**: All of these functions should be **one line**.
+  </div>
+
+  ### Task 3: Testing
+
+  As you implement the functions in `src/stack.c`, you should use
+  `bin/unit_stack.sh` to test each function:
+
+      :::bash
+      # Build unit-test
+      $ make bin/unit_stack
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o tests/unit_stack.o tests/unit_stack.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/array.o src/array.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/stack.o src/stack.c
+      ar rcs lib/libds.a src/array.o src/stack.o
+      gcc -Llib -o bin/unit_stack tests/unit_stack.o lib/libds.a
+
+      # Run test script manually
+      $ ./bin/test_stack.sh
+      Testing stack...
+       stack_create                             ... Success
+       stack_delete                             ... Success
+       stack_empty                              ... Success
+       stack_top                                ... Success
+       stack_push                               ... Success
+       stack_pop                                ... Success
+
+         Score 2.00 / 2.00
+        Status Success
+
+  Alternatively, you can both build the artifacts and run the test script by doing the following:
+
+      :::bash
+      # Build and run test scripts
+      $ make test
+      ...
+
+  If one of the functions fails, and you need to **debug** the [unit tests], you
+  can run the `bin/unit_stack` command directly:
+
+      :::bash
+      # Display usage message
+      $ ./bin/unit_stack
+      Usage: ./bin/unit_stack NUMBER
+
+      Where NUMBER is right of the following:
+          0  Test stack_create
+          1  Test stack_delete
+          2  Test stack_empty
+          3  Test stack_top
+          4  Test stack_push
+          5  Test stack_pop
+
+      # Run test for array_create
+      $ ./bin/unit_array 0
+
+      # Run test for array_create using GDB
+      $ gdb ./bin/unit_array
+      ...
+      (gdb) run 0
+
+      # Run test for array_create using Valgrind
+      $ valgrind --leak-check=full ./bin/unit_array 0
+
+  Of course, you are free to create your own test programs to debug and test
+  your [stack] library.
+
+  <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/HP_35_Calculator.jpg/180px-HP_35_Calculator.jpg" class="pull-right" />
+
+  ## Activity 3: RPN Calculator (4 Points)
+
+  Back in the day, when phones were [landlines], computers were the size of
+  minivans, and the instructor was just a twinkle in his parents' eye, the
+  pride and joy of every engineering geek was their [HP] scientific calculator.
+  Even the mighty [Woz][^1] [cherished] his legendary [HP-35].
+
+  Of course, since the old timers back then were super awesome (unlike today's
+  [zoomers]), they didn't use the standard *lame* [infix notation] to perform their
+  calculations; instead, they used the uber `1337` [reverse polish notation].
+
+  That is, rather than entering in `<operand> <operation> <operand>`, you would
+  enter in `<operand> <operand> <operation>` to perform a calculation on the
+  [RPN] calculator. Using [RPN] eliminates the need for paretheses and orders
+  of operation since it is never ambiguous what operands are used with which
+  operation; the operation is always applied to the previous arguments.
+
+  This means that if you wanted to perform `3 + 4`, you would have to enter in:
+
+      :::text
+      3 4 +
+
+  To implement such a [RPN] calculator, you can use a [stack] to evaluate the
+  expression using the process shown below for: `5 1 2 + 4 * + 3 -`:
+
+  <div class="thumbnail">
+    <img src="static/img/homework03-rpn.png" class="img-responsive">
+  </div>
+
+  To prove that you too are uber awesome and to relive some of the glory days,
+  you are to create a [RPN] calulator that can perform the following arithmetic
+  operations: `+`, `-`, `*`, `/`.
+
+  ### Task 1: `src/rpn.c`
+
+  Once you have a working [array] and [stack] library, you are to complete the
+  `src/rpn.c` program:
+
+      :::bash
+      $ ./bin/rpn
+      4
+      4
+      5 8 * 1 +
+      41
+
+  In the example above, the user first entered in `4` and this evaluates to `4`
+  and is displayed back to the user.  Next, the user enters the [RPN]
+  expression `5 8 * 1 +` which evaluates to `41`.
+
+  You are to implement the `bin/rpn` program to support reading [standard
+  input] line by line and evaluating each line as a [RPN] expression and
+  printing out the result.
+
+  [landlines]: https://en.wikipedia.org/wiki/Landline
+  [HP]: http://www.hp.com/
+  [HP-35]: http://h20331.www2.hp.com/Hpsub/cache/457246-0-0-225-121.html?jumpid=ex_r2845_go/35celebration/calculators
+  [Woz]: http://en.wikipedia.org/wiki/Woz
+  [cherished]: http://gizmodo.com/5306520/my-most-memorable-gadgets-by-steve-wozniak
+  [standard input]: https://en.wikipedia.org/wiki/Standard_streams#Standard_input_(stdin)
+  [zoomers]: https://www.urbandictionary.com/define.php?term=Zoomer
+  [infix notation]: http://en.wikipedia.org/wiki/Infix_notation
+  [reverse polish notation]: http://en.wikipedia.org/wiki/Reverse_Polish_notation
+
+  [^1]: Woz spilled my french fries. I will never forget.
+
+  <div class="alert alert-warning" markdown="1">
+  #### <i class="fa fa-warning"></i> Invalid Input
+
+  For our class, you do not need to worry about (ie. handle) invalid input.
+  You can assume the user will only enter in valid [RPN] expressions.
+
+  </div>
+
+  The `src/rpn.c` file contains the [C] implementation of the `rpn` program
+  described above.  You will need to implement the following functions:
+
+  1. `int64_t evaluate_expression(char *expression)`
+
+      > This function uses a [stack] to evaluate the given [RPN] expression and
+      > returns the result of the evaluation.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use [strtok] to split the expression into individual *tokens*.
+        For each *token*, consider what to do if it is an *integer* vs if it is
+        an *operation*.
+
+        To determine if a *token* is an *integer* or an *operation*, you can
+        use [sscanf] to parse strings into integers (and check if it succeeds).
+      </div>
+
+  2. `int main(int argc, char *argv[])`
+
+      > This function reads one line at a time from `stdin`, evaluates each
+      > line as a [RPN] expression, and then outputs the result.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [fgets] to read from [standard input].
+      </div>
+
+  [sscanf]: https://www.mankier.com/3/sscanf
+  [strtok]: https://www.mankier.com/3/strtok
+  [fgets]:  https://www.mankier.com/3/fgetc
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-bomb"></i> Memory Management
+
+  In addition to meeting the functional requirements of the assignment (as
+  described above), your program **must not exhibit any memory leaks** or **invalid
+  memory accesses** as would be detected by [Valgrind].
+
+  Be sure to [free] any memory that has been allocated on the [heap] and to
+  initialize any allocate memory appropriately.
+
+  </div>
+
+  [Valgrind]: http://valgrind.org/
+  [free]: https://www.mankier.com/3/malloc
+
+  ### Task 2: Testing
+
+  As you implement `src/rpn.c`, you can test it by running the `test-rpn`
+  target:
+
+      :::bash
+      # Build artifact and run test
+      $ make test-rpn
+      Testing rpn ...
+       expressions 1 (output)                   ... Success
+       expressions 1 (valgrind)                 ... Success
+       expressions 2 (output)                   ... Success
+       expressions 2 (valgrind)                 ... Success
+       expressions 3 (output)                   ... Success
+       expressions 3 (valgrind)                 ... Success
+       expressions 4 (output)                   ... Success
+       expressions 4 (valgrind)                 ... Success
+
+        Score 4.00 / 4.00
+       Status Success
+
+  ## Activity 4: Quiz (2 Points)
+
+  Once you have completed all the activities above, you are to complete the
+  following **reflection quiz**:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/homework03.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  As with [Reading 01], you will need to store your answers in a
+  `homework03/answers.json` file.  You can use the form above to generate the
+  contents of this file, or you can write the [JSON] by hand.
+
+  To check your quiz directly, you can use the `check.py` script:
+
+      :::bash
+      $ ../.scripts/check.py
+      Checking homework03 quiz ...
+            Q1 0.40
+            Q2 0.40
+            Q3 0.20
+            Q4 0.20
+            Q5 0.80
+         Score 2.00 / 2.00
+        Status Success
+
+  ## Leet Point (1 Extra Credit Point)
+
+  For **extra credit**, you are to solve the following [LeetCode] problem in [C].
+
+  > [1614. Maximum Nesting Depth of the Parentheses](https://leetcode.com/problems/maximum-nesting-depth-of-the-parentheses/)
+
+  To receive credit, you must pass on [LeetCode] and achieve an **Accepted**
+  attempt.
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-check"></i> Verification
+
+  To get credit for this Leet Point, show your solution and the [LeetCode]
+  acceptance page to a TA to verify (or attached a screenshot with both to your
+  **Pull Request**).  You have up until **two days after** this assignment is
+  due to verify your Leet Point.
+
+  </div>
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-calendar"></i> Self-Service Extension
+
+  Remember that you can always **forgo** this Leet Point for **two extra days**
+  to do the homework.  That is, if you need an extension, you can simply skip
+  the Leet Point and you will automatically have until Monday to complete the
+  assignment for full credit.
+
+  Just leave a note on your **Pull Request** of your intentions.
+
+  </div>
+
+  [LeetCode]: https://leetcode.com/
+
+  ## Submission
+
+  To submit your assignment, please commit your work to the `homework03` folder
+  of your `homework03` branch in your **assignments** [GitHub] repository:
+
+      :::bash
+      $ cd path/to/cse-20312-fa23-assignments       # Go to assignments repository
+      $ git checkout master                         # Make sure we are in master branch
+      $ git pull --rebase                           # Make sure we are up-to-date with GitHub
+      $ git checkout -b homework03                  # Create homework03 branch and check it out
+      $ cd homework03                               # Go to homework03 directory
+      ...
+      $ git add Makefile                            # Mark changes for commit
+      $ git add bin/*.sh                            # Mark changes for commit
+      $ git add include/ds/*.h                      # Mark changes for commit
+      $ git add lib/.gitkeep                        # Mark changes for commit
+      $ git add tests/*.c                           # Mark changes for commit
+      $ git commit -m "Homework 02: Initial Import" # Record changes
+      ...
+      $ git add src/array.c                         # Mark changes for commit
+      $ git commit -m "Homework 02: Activity 1"     # Record changes
+      ...
+      $ git add src/stack.c                         # Mark changes for commit
+      $ git commit -m "Homework 02: Activity 2"     # Record changes
+      ...
+      $ git add src/rpn.c                           # Mark changes for commit
+      $ git commit -m "Homework 02: Activity 3"     # Record changes
+      ...
+      $ git add answers.json                        # Mark changes for commit
+      $ git commit -m "Homework 02: Activity 4"     # Record changes
+      ...
+
+      $ git push -u origin homework03               # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Remember to create a [Pull Request] and assign the appropriate TA from the
+  [Reading 03 TA List].
+
+  **DO NOT MERGE** your own [Pull Request].  The TAs use open [Pull Request]s
+  to keep track of which assignments to grade.  Closing them yourself will
+  cause a delay in grading and confuse the TAs.
+
+  </div>
+
+  [Markdown]:   https://daringfireball.net/projects/markdown/
+  [git]:    https://git-scm.com/
+  [clone]:  https://git-scm.com/docs/git-clone
+  [commit]: https://git-scm.com/docs/git-commit
+  [push]:   https://git-scm.com/docs/git-push
+  [branching]:   https://git-scm.com/docs/git-branch
+  [code review]: https://en.wikipedia.org/wiki/Code_review
+  [GitHub]: https://github.com
+  [Linux]:  https://kernel.org
+  [branch]: https://git-scm.com/docs/git-branch
+  [add]:    https://git-scm.com/docs/git-add
+  [Pull Request]:  https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request
+  [Reading 01]:         reading01.html
+  [Reading 03 TA List]: reading03_tas.html
+  [curl]:   http://man7.org/linux/man-pages/man1/curl.1.html
+  [JSON]: https://json.org/
+  [Slack]:  https://nd-cse.slack.com
+  [text editor]: https://en.wikipedia.org/wiki/Text_editor

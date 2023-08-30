@@ -1,0 +1,50 @@
+{
+    "q1": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <tt>array</tt> functions\nare true (select all that apply)?</p>\n",
+        "responses": {
+            "array_at_1": "<tt>array_at</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "array_at_n": "<tt>array_at</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "array_resize_1": "<tt>array_resize</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "array_resize_n": "<tt>array_resize</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "array_append_1": "<tt>array_append</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "array_append_n": "<tt>array_append</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "array_pop_1": "<tt>array_pop</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "array_pop_n": "<tt>array_pop</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>."
+        }
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <tt>stack</tt> functions\nare true (select all that apply)?</p>\n",
+        "responses": {
+            "stack_empty_1": "<tt>stack_empty</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "stack_empty_n": "<tt>stack_empty</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "stack_top_1": "<tt>stack_top</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "stack_top_n": "<tt>stack_top</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "stack_push_1": "<tt>stack_push</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "stack_push_n": "<tt>stack_push</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "stack_pop_1": "<tt>stack_pop</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "stack_pop_n": "<tt>stack_pop</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>."
+        }
+    },
+    "q3": {
+        "type": "blank",
+        "question": "\n<p>Given the following code:</p>\n\n<pre>\nStack *s = stack_create();\n\nstack_push(s, 7);\nstack_push(s, 1);\nstack_push(s, 4);\n\n// 1. What is s->capacity? ____\n// 2. Which array index corresponds to the top of the stack? ____\n</pre>\n"
+    },
+    "q4": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <tt>evaluate_rpn</tt> function\nare true (select all that apply)?</p>\n",
+        "responses": {
+            "rpn_time_1": "<tt>evaluate_expression</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "rpn_time_n": "<tt>evaluate_expression</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "rpn_time_n2": "<tt>evaluate_expression</tt> has an average <b>time complexity</b> of <tt>O(n^2)</tt>.",
+            "rpn_space_1": "<tt>evaluate_expression</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>.",
+            "rpn_space_n": "<tt>evaluate_expression</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>.",
+            "rpn_space_n2": "<tt>evaluate_expression</tt> has an average <b>space complexity</b> of <tt>O(n^2)</tt>."
+        }
+    },
+    "q5": {
+        "type": "blank",
+        "question": "\n<p>Use your <tt>bin/rpn</tt> to evaluate the following expressions:</p>\n\n<ol>\n<li><tt>RPN Expression: 5 1 2 + 4 * 2 - + ____</tt></li>\n<li><tt>RPN Expression: 41 3 * 15 + 6 5 - * ____</tt></li>\n<li><tt>RPN Expression: 5 17 - 42 8 9 6 7 * + - + * ____</tt></li>\n<li><tt>RPN Expression: 10 8 6 4 + -4 * / * 16 + 8 + ____</tt></li>\n</ol>\n"
+    }
+}
