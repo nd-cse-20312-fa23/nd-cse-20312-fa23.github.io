@@ -662,6 +662,7 @@ body:       |
       $ git add bin/*.sh                            # Mark changes for commit
       $ git add include/ds/*.h                      # Mark changes for commit
       $ git add lib/.gitkeep                        # Mark changes for commit
+      $ git add src/*.c                             # Mark changes for commit
       $ git add tests/*.c                           # Mark changes for commit
       $ git commit -m "Homework 02: Initial Import" # Record changes
       ...
