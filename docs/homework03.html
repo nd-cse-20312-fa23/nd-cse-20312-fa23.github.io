@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Homework 03: Arrays, Stacks, RPN</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="static/css/blugold.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<style>
+	body {
+	    padding: 10px;
+	}
+	</style>
+    </head>
+    <body>
+	<div class="container">
+
+	    <div class="row">
+		<div class="page-header">
+		    <ul class="nav nav-pills pull-right">
+			
+			<li><a href="index.html"><i class="fa fa-sitemap"></i> <span class="visible-md-inline visible-lg-inline">Home</span></a></li>
+			
+		    </ul>
+		    <h1><i class="fa fa-code"></i> Homework 03: Arrays, Stacks, RPN</h1>
+		</div>
+	    </div>
+
+            
+<p>The goal of this homework assignment is to allow you to explore building both
+a <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> and a <a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)">stack</a>, and then using these <a href="https://en.wikipedia.org/wiki/Data_structure">data structure</a>s to
+implement a <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">RPN</a> calculator.  The first two activities involve implementing
+first a <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> and then using this <a href="https://en.wikipedia.org/wiki/Data_structure">data structure</a> to implement a
+<a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)">stack</a>.  Once you have a working <a href="https://en.wikipedia.org/wiki/Data_structure">data structure</a> library, you will then use
+it implement a simple calculator that can evaluate <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">RPN</a> expressions.  After
+these coding activities, there is a quiz where you will have an opportunity
+to reflect on the code you have written for this homework assignment.</p>
+<p>For this assignment, you are to do your work in the <code>homework03</code> folder of
+your <strong>assignments</strong> <a href="https://github.com">GitHub</a> repository and push your work by <strong>noon
+Wednesday, September 13</strong>.</p>
+<h2 id="activity-0-preparation">Activity 0: Preparation<a class="headerlink" href="#activity-0-preparation" title="Permanent link">&para;</a></h2>
+<p>Before starting this homework assignment, you should first perform a <code>git
+pull</code> to retrieve any changes in your remote <a href="https://github.com">GitHub</a> repository:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ <span style="color: #008000">cd</span> path/to/repository                   <span style="color: #3D7B7B; font-style: italic"># Go to assignments repository</span>
+
+$ git switch master                       <span style="color: #3D7B7B; font-style: italic"># Make sure we are in master branch</span>
+
+$ git pull --rebase                       <span style="color: #3D7B7B; font-style: italic"># Get any remote changes not present locally</span>
+</code></pre></div>
+
+<p>Next, create a new branch for this assignment:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ git checkout -b homework03              <span style="color: #3D7B7B; font-style: italic"># Create homework03 branch and check it out</span>
+</code></pre></div>
+
+<h2 id="activity-1-dynamic-array-4-points">Activity 1: Dynamic Array (4 Points)<a class="headerlink" href="#activity-1-dynamic-array-4-points" title="Permanent link">&para;</a></h2>
+<p>In high-level languages such as <a href="https://www.python.org/">Python</a>, we have built-in implementations of
+<a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a>s which support a variety of methods:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Define a dynamic array</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> array <span style="color: #666666">=</span> [<span style="color: #666666">4</span>, <span style="color: #666666">6</span>, <span style="color: #666666">6</span>, <span style="color: #666666">3</span>, <span style="color: #666666">7</span>]
+
+<span style="color: #3D7B7B; font-style: italic"># Add a new value to the end of the array</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> array<span style="color: #666666">.</span>append(<span style="color: #666666">9</span>)
+<span style="color: #666666">&gt;&gt;&gt;</span> array
+[<span style="color: #666666">4</span>, <span style="color: #666666">6</span>, <span style="color: #666666">6</span>, <span style="color: #666666">3</span>, <span style="color: #666666">7</span>, <span style="color: #666666">9</span>]
+
+<span style="color: #3D7B7B; font-style: italic"># Remove the value at index 0</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> array<span style="color: #666666">.</span>pop(<span style="color: #666666">0</span>)
+<span style="color: #666666">&gt;&gt;&gt;</span> array
+[<span style="color: #666666">6</span>, <span style="color: #666666">6</span>, <span style="color: #666666">3</span>, <span style="color: #666666">7</span>, <span style="color: #666666">9</span>]
+
+<span style="color: #3D7B7B; font-style: italic"># Access the last element</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> array[<span style="color: #666666">-1</span>]
+<span style="color: #666666">9</span>
+</code></pre></div>
+
+<p>Unfortunately, <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> only has fixed <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">arrays</a> that do not support <code>append</code> or
+<code>pop</code> or <strong>negative indexing</strong> (ie. <code>array[-index]</code> is translated to
+<code>array[len(array) - index]</code>).</p>
+<div class="thumbnail">
+  <img src="static/img/reading02-dynamic-array.png" class="img-responsive">
+</div>
+
+<p>As discussed in class, we can use fixed <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">arrays</a> in <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> to implement <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic
+array</a>s by introducing an <code>Array</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> with the following attributes:</p>
+<ol>
+<li>
+<p><code>data</code>: This is the internal fixed-sized <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a> that we will need to
+  periodically resize or grow.</p>
+</li>
+<li>
+<p><code>capacity</code>: This is the total number of possible elements in the
+  internal fixed-size <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a>.</p>
+</li>
+<li>
+<p><code>size</code>: This is the number of valid elements stored in the internal
+  fixed-size <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a>.</p>
+</li>
+</ol>
+<p>With this <code>Array</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> in mind, for the first activity, you are to create
+a <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> library, <code>lib/libds.a</code>, which contains functions such as
+<code>array_append</code> and <code>array_pop</code> which implement some of the functionality
+present in <a href="https://www.python.org/">Python</a> but missing in <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a>.</p>
+<h4 id="skeleton-code">Skeleton Code<a class="headerlink" href="#skeleton-code" title="Permanent link">&para;</a></h4>
+<p>To help you get started, the instructor has provided you with the following <a href="https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework03.tar.gz">skeleton code</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Go to assignments repository</span>
+$ <span style="color: #008000">cd</span> path/to/assignments/repository
+
+<span style="color: #3D7B7B; font-style: italic"># ------------------------------------------------</span>
+<span style="color: #3D7B7B; font-style: italic"># MAKE SURE YOU ARE NOT INSIDE homework03</span>
+<span style="color: #3D7B7B; font-style: italic"># ------------------------------------------------</span>
+<span style="color: #3D7B7B; font-style: italic"># MAKE SURE YOU ARE AT THE TOP-LEVEL DIRECTORY</span>
+<span style="color: #3D7B7B; font-style: italic"># ------------------------------------------------</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Download skeleton code tarball</span>
+$ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework03.tar.gz
+
+<span style="color: #3D7B7B; font-style: italic"># Extract skeleton code tarball</span>
+$ tar xzvf homework03.tar.gz
+</code></pre></div>
+
+<p>Once downloaded and extracted, you should see the following files in your
+<code>homework03</code> directory:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>homework03
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> Makefile             <span style="color: #3D7B7B; font-style: italic"># This is the Makefile for building all the project artifacts</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> bin                  <span style="color: #3D7B7B; font-style: italic"># This contains the project binary executables and test scripts</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> test_array.sh    <span style="color: #3D7B7B; font-style: italic"># This is the shell script for testing the array library</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> test_stack.sh    <span style="color: #3D7B7B; font-style: italic"># This is the shell script for testing the stack utility</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> test_rpn.sh      <span style="color: #3D7B7B; font-style: italic"># This is the shell script for testing the rpn program</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> include              <span style="color: #3D7B7B; font-style: italic"># This contains the project header files</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> ds               <span style="color: #3D7B7B; font-style: italic"># This contains the project data structure header files</span>
+            <span style="color: #AA5D1F; font-weight: bold">\_</span> array.h      <span style="color: #3D7B7B; font-style: italic"># This is the C header file for the array library</span>
+            <span style="color: #AA5D1F; font-weight: bold">\_</span> stack.h      <span style="color: #3D7B7B; font-style: italic"># This is the C header file for the stack library</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> lib                  <span style="color: #3D7B7B; font-style: italic"># This contains the project library files</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> src                  <span style="color: #3D7B7B; font-style: italic"># This contains the project source code</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> array.c          <span style="color: #3D7B7B; font-style: italic"># This is the C source code for the array library</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> rpn.c            <span style="color: #3D7B7B; font-style: italic"># This is the C source code for the rpn program</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> stack.c          <span style="color: #3D7B7B; font-style: italic"># This is the C source code for the stack library</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> tests                <span style="color: #3D7B7B; font-style: italic"># This contains the project unit tests</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> unit_array.c     <span style="color: #3D7B7B; font-style: italic"># This is the unit test for the array library</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> unit_stack.c     <span style="color: #3D7B7B; font-style: italic"># This is the unit test for the stack library</span>
+</code></pre></div>
+
+<p>The details on what you need to implement are described in the following
+sections.</p>
+<h3 id="task-0-includedsarrayh">Task 0: <code>include/ds/array.h</code><a class="headerlink" href="#task-0-includedsarrayh" title="Permanent link">&para;</a></h3>
+<p>The <code>include/ds/array.h</code> file is the <a href="https://en.wikipedia.org/wiki/Include_directive#C.2FC.2B.2B">header</a> file for the <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> library,
+which contains the following <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">structs</a> and function <a href="https://en.wikipedia.org/wiki/Function_prototype">prototypes</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic">/* array.h: Dynamic Array */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #9C6500">#pragma once</span>
+
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdbool.h&gt;</span><span style="color: #9C6500"></span>
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdint.h&gt;</span><span style="color: #9C6500"></span>
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdlib.h&gt;</span><span style="color: #9C6500"></span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Structures */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #008000; font-weight: bold">typedef</span><span style="color: #bbbbbb"> </span><span style="color: #008000; font-weight: bold">struct</span><span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb"></span>
+<span style="color: #bbbbbb">    </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>data;<span style="color: #bbbbbb">        </span><span style="color: #3D7B7B; font-style: italic">// Internal array</span>
+<span style="color: #bbbbbb">    </span><span style="color: #B00040">size_t</span><span style="color: #bbbbbb">   </span>capacity;<span style="color: #bbbbbb">    </span><span style="color: #3D7B7B; font-style: italic">// Total number of elements</span>
+<span style="color: #bbbbbb">    </span><span style="color: #B00040">size_t</span><span style="color: #bbbbbb">   </span>size;<span style="color: #bbbbbb">        </span><span style="color: #3D7B7B; font-style: italic">// Number of valid elements</span>
+}<span style="color: #bbbbbb"> </span>Array;<span style="color: #bbbbbb"></span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Constants */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #008000; font-weight: bold">extern</span><span style="color: #bbbbbb"> </span><span style="color: #008000; font-weight: bold">const</span><span style="color: #bbbbbb"> </span><span style="color: #B00040">size_t</span><span style="color: #bbbbbb"> </span>ARRAY_DEFAULT_CAPACITY;<span style="color: #bbbbbb"></span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Functions */</span><span style="color: #bbbbbb"></span>
+
+Array<span style="color: #bbbbbb">   </span><span style="color: #666666">*</span><span style="color: #0000FF">array_create</span>(<span style="color: #B00040">size_t</span><span style="color: #bbbbbb"> </span>capacity);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">     </span><span style="color: #0000FF">array_delete</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array);<span style="color: #bbbbbb"></span>
+
+<span style="color: #B00040">int64_t</span><span style="color: #bbbbbb">  </span><span style="color: #0000FF">array_at</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array,<span style="color: #bbbbbb"> </span><span style="color: #B00040">ssize_t</span><span style="color: #bbbbbb"> </span>index);<span style="color: #bbbbbb"></span>
+
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">     </span><span style="color: #0000FF">array_resize</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array,<span style="color: #bbbbbb"> </span><span style="color: #B00040">size_t</span><span style="color: #bbbbbb"> </span>capacity);<span style="color: #bbbbbb"></span>
+
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">     </span><span style="color: #0000FF">array_append</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array,<span style="color: #bbbbbb"> </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span>value);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">int64_t</span><span style="color: #bbbbbb">  </span><span style="color: #0000FF">array_pop</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array,<span style="color: #bbbbbb"> </span><span style="color: #B00040">ssize_t</span><span style="color: #bbbbbb"> </span>index);<span style="color: #bbbbbb"></span>
+</code></pre></div>
+
+<p>Other programs will <code>#include</code> this file in order to use the functions we
+will be implementing in this library.</p>
+<div class="alert alert-info">
+<p><strong>Note</strong>: For this task, you <strong>do not</strong> need to modify this file. Instead,
+you should review it and ensure you understand the provided code.</p>
+</div>
+<h3 id="task-1-makefile">Task 1: <code>Makefile</code><a class="headerlink" href="#task-1-makefile" title="Permanent link">&para;</a></h3>
+<p>The Makefile contains all the rules or recipes for building the project
+artifacts (e.g. <code>rpn</code>, <code>libds.a</code>, <code>unit_array</code>, <code>unit_stack</code>, etc.):</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #19177C">CC</span><span style="color: #666666">=</span>             gcc
+<span style="color: #19177C">CFLAGS</span><span style="color: #666666">=</span>         -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude
+<span style="color: #19177C">AR</span><span style="color: #666666">=</span>             ar
+<span style="color: #19177C">ARFLAGS</span><span style="color: #666666">=</span>        rcs
+<span style="color: #19177C">LD</span><span style="color: #666666">=</span>             gcc
+<span style="color: #19177C">LDFLAGS</span><span style="color: #666666">=</span>        -Llib
+
+<span style="color: #0000FF">all</span><span style="color: #666666">:</span>            bin/rpn
+
+<span style="color: #0000FF">test</span><span style="color: #666666">:</span>
+        @<span style="color: #008000; font-weight: bold">$(</span>MAKE<span style="color: #008000; font-weight: bold">)</span> -sk test-all
+
+<span style="color: #0000FF">test-all</span><span style="color: #666666">:</span>       test-array test-stack test-rpn
+
+<span style="color: #3D7B7B; font-style: italic"># TODO: Pattern rule for object files</span>
+
+<span style="color: #3D7B7B; font-style: italic"># TODO: Rule for lib/libds.a</span>
+
+<span style="color: #3D7B7B; font-style: italic"># TODO: Rule for bin/rpn</span>
+
+<span style="color: #0000FF">bin/unit_array</span><span style="color: #666666">:</span> tests/unit_array.o lib/libds.a
+        <span style="color: #008000; font-weight: bold">$(</span>LD<span style="color: #008000; font-weight: bold">)</span> <span style="color: #008000; font-weight: bold">$(</span>LDFLAGS<span style="color: #008000; font-weight: bold">)</span> -o <span style="color: #19177C">$@</span> $^
+
+<span style="color: #0000FF">bin/unit_stack</span><span style="color: #666666">:</span> tests/unit_stack.o lib/libds.a
+        <span style="color: #008000; font-weight: bold">$(</span>LD<span style="color: #008000; font-weight: bold">)</span> <span style="color: #008000; font-weight: bold">$(</span>LDFLAGS<span style="color: #008000; font-weight: bold">)</span> -o <span style="color: #19177C">$@</span> $^
+
+<span style="color: #0000FF">test-array</span><span style="color: #666666">:</span>     bin/unit_array
+        bin/test_array.sh
+
+<span style="color: #0000FF">test-stack</span><span style="color: #666666">:</span>     bin/unit_stack
+        bin/test_stack.sh
+
+<span style="color: #0000FF">test-rpn</span><span style="color: #666666">:</span>       bin/rpn
+        bin/test_rpn.sh
+
+<span style="color: #0000FF">clean</span><span style="color: #666666">:</span>
+        rm -f bin/unit_* bin/rpn lib/*.a src/*.o tests/*.o
+</code></pre></div>
+
+<p>For this task, you will need to add <a href="https://www.gnu.org/software/make/manual/html_node/Rule-Example.html#Rule-Example">rules</a> for building the <a href="https://en.wikipedia.org/wiki/Static_library#Creating_static_libraries_in_C.2FC.2B.2B">static library</a>
+<code>lib/libds.a</code> and the program <code>bin/rpn</code>. Be sure to have a <strong>recipe</strong> for any
+<em>intermediate</em> <a href="https://en.wikipedia.org/wiki/Object_file">object</a> files that libraries require as shown in the <a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">DAG</a>
+below:</p>
+<div class="thumbnail">
+  <img src="static/img/homework03-makefile.png" class="img-responsive">
+</div>
+
+<div class="alert alert-success">
+<h4 id="archives"><i class="fa fa-archive"></i> Archives<a class="headerlink" href="#archives" title="Permanent link">&para;</a></h4>
+<p><code>lib/libds.a</code> is an <strong>archive</strong> or <a href="https://en.wikipedia.org/wiki/Static_library#Creating_static_libraries_in_C.2FC.2B.2B">static library</a>.  You can think of these
+as a combination of multiple <a href="https://en.wikipedia.org/wiki/Object_file">object</a> files.  To compile an <strong>archive</strong>, you
+can use the <code>ar</code> command as follows:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ ar rcs lib/libds.a src/array.o src/stack.o
+</code></pre></div>
+
+<p>Since the <code>Makefile</code> has <code>AR</code> and <code>ARFLAGS</code> variables, we can have the
+following rule:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #0000FF">lib/libds.a</span><span style="color: #666666">:</span>  src/array.o src/stack.o
+        <span style="color: #008000; font-weight: bold">$(</span>AR<span style="color: #008000; font-weight: bold">)</span> <span style="color: #008000; font-weight: bold">$(</span>ARFLAGS<span style="color: #008000; font-weight: bold">)</span> lib/libds.a src/array.o src/stack.o
+</code></pre></div>
+
+</div>
+<div class="alert alert-info">
+<h4 id="makefile-variables"><i class="fa fa-cogs"></i> Makefile Variables<a class="headerlink" href="#makefile-variables" title="Permanent link">&para;</a></h4>
+<p>You <strong>must</strong> use the <code>CC</code>, <code>CFLAGS</code>, <code>LD</code>, <code>LDFLAGS</code>, <code>AR</code>, and <code>ARFLAGS</code>
+variables when appropriate in your rules. You <strong>should</strong> also consider using
+<a href="https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html">automatic variables</a> such as <code>$@</code> and <code>$&lt;</code> as well.</p>
+</div>
+<p>Once you have a working <code>Makefile</code>, you should be able to run the following
+commands:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build all TARGETS</span>
+$ make
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/rpn.o src/rpn.c
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/array.o src/array.c
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/stack.o src/stack.c
+ar rcs lib/libds.a src/array.o src/stack.o
+gcc -Llib -o bin/rpn src/rpn.o lib/libds.a
+
+<span style="color: #3D7B7B; font-style: italic"># Run all tests</span>
+$ make <span style="color: #008000">test</span>
+Testing array...
+...
+
+<span style="color: #3D7B7B; font-style: italic"># Remove generated artifacts</span>
+$ make clean
+rm -f bin/unit_* bin/rpn lib/*.a src/*.o tests/*.o
+</code></pre></div>
+
+<div class="alert alert-danger">
+<p><strong>Note</strong>: The tests will <strong>fail</strong> if you haven't implemented array or stack
+  libraries or the <code>rpn</code> utility.</p>
+</div>
+<div class="alert alert-warning">
+<h4 id="warnings"><i class="fa fa-warning"></i> Warnings<a class="headerlink" href="#warnings" title="Permanent link">&para;</a></h4>
+<p>You must include the <code>-Wall</code> flag in your <code>CFLAGS</code> when you compile. This
+also means that your code must <strong>compile without any warnings</strong>, otherwise
+points will be deducted.</p>
+</div>
+<h3 id="task-2-srcarrayc">Task 2: <code>src/array.c</code><a class="headerlink" href="#task-2-srcarrayc" title="Permanent link">&para;</a></h3>
+<p>The <code>src/array.c</code> file contains the <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> implementation for the <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> library.</p>
+<div class="thumbnail">
+  <img src="static/img/homework03-array-library.png" class="img-responsive">
+</div>
+
+<p>For this task, you will need to implement the following functions:</p>
+<ol>
+<li>
+<p><code>Array* array_create(size_t capacity)</code></p>
+<blockquote>
+<p>This function allocates a new <code>Array</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> and initializes its
+attributes: <code>data</code>, <code>capacity</code>, and <code>size</code> as described above.
+If the <code>capacity</code> of the internal <code>data</code> <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a> is <code>0</code>, then the
+<code>ARRAY_DEFAULT_CAPACITY</code> should be used as the <code>capacity</code>.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use <a href="https://www.mankier.com/3/malloc">malloc</a> or <a href="https://www.mankier.com/3/malloc">calloc</a> to allocate data on the <a href="https://en.wikipedia.org/wiki/Memory_management#HEAP">heap</a>.
+</div></p>
+</li>
+<li>
+<p><code>void array_delete(Array *array)</code></p>
+<blockquote>
+<p>This function deallocates the given <code>Array</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> along with its
+internal <code>data</code> <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a>.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use <a href="https://www.mankier.com/3/malloc">free</a> to release data allocated on the <a href="https://en.wikipedia.org/wiki/Memory_management#HEAP">heap</a>.
+</div></p>
+</li>
+<li>
+<p><code>int64_t array_at(Array *array, ssize_t index)</code></p>
+<blockquote>
+<p>This function returns the value in the <code>array</code> at the specified
+<code>index</code> (e.g. <code>array[index]</code> in <a href="https://www.python.org/">Python</a>).</p>
+<p><strong>Note</strong>: If <code>index</code> is negative, then offset it relative to size of <code>array</code>.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use <a href="https://www.mankier.com/3/assert">assert</a> to verify <code>index</code> is valid.
+</div></p>
+</li>
+<li>
+<p><code>void array_resize(Array *array, size_t capacity)</code></p>
+<blockquote>
+<p>This function resizes the given <code>array</code> to the specified <code>capacity</code>.</p>
+<p><strong>Note</strong>: the <code>array</code> could grow or shrink.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use <a href="https://www.mankier.com/3/malloc">realloc</a> to resize the <code>array</code>.
+</div></p>
+</li>
+<li>
+<p><code>void array_append(Array *array, int64_t value)</code></p>
+<blockquote>
+<p>This function adds <code>value</code> to the end of the <code>array</code> (e.g.
+<code>array.append(value)</code> in <a href="https://www.python.org/">Python</a>).</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use <code>array_resize</code> when necessary (e.g. double its <code>capacity</code>)
+as shown in the diagram above.
+</div></p>
+</li>
+<li>
+<p><code>int64_t array_pop(Array *array, ssize_t index)</code></p>
+<blockquote>
+<p>This function removes the <code>value</code> in the <code>array</code> at the specified
+<code>index</code> (e.g. <code>array.pop(index)</code> in <a href="https://www.python.org/">Python</a>).</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use <a href="https://www.mankier.com/3/memmove">memmove</a> to shift elements in the internal <code>array</code>.
+</div></p>
+</li>
+</ol>
+<h3 id="task-3-testing">Task 3: Testing<a class="headerlink" href="#task-3-testing" title="Permanent link">&para;</a></h3>
+<p>As you implement the functions in <code>src/array.c</code>, you should use
+<code>bin/unit_array.sh</code> to test each function:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build unit-test</span>
+$ make bin/unit_array
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o tests/unit_array.o tests/unit_array.c
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/array.o src/array.c
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/stack.o src/stack.c
+ar rcs lib/libds.a src/array.o src/stack.o
+gcc -Llib -o bin/unit_array tests/unit_array.o lib/libds.a
+
+<span style="color: #3D7B7B; font-style: italic"># Run test script manually</span>
+$ ./bin/test_array.sh
+Testing array...
+ array_create                             ... Success
+ array_delete                             ... Success
+ array_at                                 ... Success
+ array_resize                             ... Success
+ array_append                             ... Success
+ array_pop                                ... Success
+
+   Score <span style="color: #666666">4</span>.00 / <span style="color: #666666">4</span>.00
+  Status Success
+</code></pre></div>
+
+<p>Alternatively, you can both build the artifacts and run the test script by doing the following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build and run test scripts</span>
+$ make <span style="color: #008000">test</span>
+...
+</code></pre></div>
+
+<p>If one of the functions fails, and you need to <strong>debug</strong> the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>, you
+can run the <code>bin/unit_array</code> command directly:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Display usage message</span>
+$ ./bin/unit_array
+Usage: ./bin/unit_array NUMBER
+
+Where NUMBER is right of the following:
+    <span style="color: #666666">0</span>  Test array_create
+    <span style="color: #666666">1</span>  Test array_delete
+    <span style="color: #666666">2</span>  Test array_at
+    <span style="color: #666666">3</span>  Test array_resize
+    <span style="color: #666666">4</span>  Test array_append
+    <span style="color: #666666">5</span>  Test array_pop
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for array_create</span>
+$ ./bin/unit_array <span style="color: #666666">0</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for array_create using GDB</span>
+$ gdb ./bin/unit_array
+...
+<span style="color: #666666">(</span>gdb<span style="color: #666666">)</span> run <span style="color: #666666">0</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for array_create using Valgrind</span>
+$ valgrind --leak-check<span style="color: #666666">=</span>full ./bin/unit_array <span style="color: #666666">0</span>
+</code></pre></div>
+
+<p>Of course, you are free to create your own test programs to debug and test
+your <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> library.</p>
+<div class="alert alert-success">
+<h4 id="iterative-development"><i class="fa fa-repeat"></i> Iterative Development<a class="headerlink" href="#iterative-development" title="Permanent link">&para;</a></h4>
+<p>You should practice <a href="https://en.wikipedia.org/wiki/Iterative_and_incremental_development">iterative development</a>. That is, rather than writing a
+bunch of code and then debugging it all at once, you should concentrate on
+one function at a time and then test that <strong>one thing at a time</strong>. The provided
+<a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a> allow you to check on the correctness of the individual functions
+without implementing everything at once. Take advantage of this and build one
+thing at a time.</p>
+</div>
+<h2 id="activity-2-stack-library-2-points">Activity 2: Stack Library (2 Points)<a class="headerlink" href="#activity-2-stack-library-2-points" title="Permanent link">&para;</a></h2>
+<p>Once you have completed the <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> library, you are to implement a
+<a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)">stack</a> for the second activity using the <code>Array</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a>.</p>
+<h3 id="task-1-includedsstackh">Task 1: <code>include/ds/stack.h</code><a class="headerlink" href="#task-1-includedsstackh" title="Permanent link">&para;</a></h3>
+<p>The <code>include/ds/stack.h</code> file is the <a href="https://en.wikipedia.org/wiki/Include_directive#C.2FC.2B.2B">header</a> file for the <a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)">stack</a> library,
+which contains the following <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">structs</a> and function <a href="https://en.wikipedia.org/wiki/Function_prototype">prototypes</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic">/* stack.h: Stack */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #9C6500">#pragma once</span>
+
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&quot;array.h&quot;</span><span style="color: #9C6500"></span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Structures */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #008000; font-weight: bold">typedef</span><span style="color: #bbbbbb"> </span>Array<span style="color: #bbbbbb"> </span>Stack;<span style="color: #bbbbbb"></span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Functions */</span><span style="color: #bbbbbb"></span>
+
+Stack<span style="color: #bbbbbb">   </span><span style="color: #666666">*</span><span style="color: #0000FF">stack_create</span>();<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">     </span><span style="color: #0000FF">stack_delete</span>(Stack<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>stack);<span style="color: #bbbbbb"></span>
+
+<span style="color: #B00040">bool</span><span style="color: #bbbbbb">     </span><span style="color: #0000FF">stack_empty</span>(Stack<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>stack);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">int64_t</span><span style="color: #bbbbbb">  </span><span style="color: #0000FF">stack_top</span>(Stack<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>stack);<span style="color: #bbbbbb"></span>
+
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">     </span><span style="color: #0000FF">stack_push</span>(Stack<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>stack,<span style="color: #bbbbbb"> </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span>value);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">int64_t</span><span style="color: #bbbbbb">  </span><span style="color: #0000FF">stack_pop</span>(Stack<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>stack);<span style="color: #bbbbbb"></span>
+</code></pre></div>
+
+<p>As can been seen, the <code>Stack</code> is just a <a href="https://en.wikipedia.org/wiki/Typedef">type definition</a> or <strong>alias</strong> for
+our existing <code>Array</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a>.  This means any of the operations we
+previously defined in our <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> library should work on your new
+<a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)">stack</a> library.</p>
+<div class="alert alert-info">
+<p><strong>Note</strong>: For this task, you <strong>do not</strong> need to modify this file. Instead,
+you should review it and ensure you understand the provided code.</p>
+</div>
+<h3 id="task-2-srcstackc">Task 2: <code>src/stack.c</code><a class="headerlink" href="#task-2-srcstackc" title="Permanent link">&para;</a></h3>
+<p>The <code>src/stack.c</code> file contains the <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> implementation for the <a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)">stack</a>
+library.  For this task, you will need to implement the following functions:</p>
+<ol>
+<li>
+<p><code>Stack* stack_create()</code></p>
+<blockquote>
+<p>This function allocates a new <code>Stack</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>void stack_delete(Stack *s)</code></p>
+<blockquote>
+<p>This function deallocates the given <code>Stack</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>bool stack_empty(Stack *s)</code></p>
+<blockquote>
+<p>This function returns <code>true</code> if the <code>Stack</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> has no values,
+otherwise <code>false</code>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>int64_t stack_top(Stack *s)</code></p>
+<blockquote>
+<p>This function returns the value at the top of the <code>Stack</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>void stack_push(Stack *s, int64_t value)</code></p>
+<blockquote>
+<p>This function adds a new <code>value</code> to the top of the <code>Stack</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>int64_t stack_pop(Stack *s)</code></p>
+<blockquote>
+<p>This function removes the value at the top of the <code>Stack</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> and returns it.</p>
+</blockquote>
+</li>
+</ol>
+<div class="alert alert-success">
+<p><strong>Hint</strong>: All of these functions should be <strong>one line</strong>.</p>
+</div>
+<h3 id="task-3-testing_1">Task 3: Testing<a class="headerlink" href="#task-3-testing_1" title="Permanent link">&para;</a></h3>
+<p>As you implement the functions in <code>src/stack.c</code>, you should use
+<code>bin/unit_stack.sh</code> to test each function:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build unit-test</span>
+$ make bin/unit_stack
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o tests/unit_stack.o tests/unit_stack.c
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/array.o src/array.c
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/stack.o src/stack.c
+ar rcs lib/libds.a src/array.o src/stack.o
+gcc -Llib -o bin/unit_stack tests/unit_stack.o lib/libds.a
+
+<span style="color: #3D7B7B; font-style: italic"># Run test script manually</span>
+$ ./bin/test_stack.sh
+Testing stack...
+ stack_create                             ... Success
+ stack_delete                             ... Success
+ stack_empty                              ... Success
+ stack_top                                ... Success
+ stack_push                               ... Success
+ stack_pop                                ... Success
+
+   Score <span style="color: #666666">2</span>.00 / <span style="color: #666666">2</span>.00
+  Status Success
+</code></pre></div>
+
+<p>Alternatively, you can both build the artifacts and run the test script by doing the following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build and run test scripts</span>
+$ make <span style="color: #008000">test</span>
+...
+</code></pre></div>
+
+<p>If one of the functions fails, and you need to <strong>debug</strong> the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>, you
+can run the <code>bin/unit_stack</code> command directly:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Display usage message</span>
+$ ./bin/unit_stack
+Usage: ./bin/unit_stack NUMBER
+
+Where NUMBER is right of the following:
+    <span style="color: #666666">0</span>  Test stack_create
+    <span style="color: #666666">1</span>  Test stack_delete
+    <span style="color: #666666">2</span>  Test stack_empty
+    <span style="color: #666666">3</span>  Test stack_top
+    <span style="color: #666666">4</span>  Test stack_push
+    <span style="color: #666666">5</span>  Test stack_pop
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for array_create</span>
+$ ./bin/unit_array <span style="color: #666666">0</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for array_create using GDB</span>
+$ gdb ./bin/unit_array
+...
+<span style="color: #666666">(</span>gdb<span style="color: #666666">)</span> run <span style="color: #666666">0</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for array_create using Valgrind</span>
+$ valgrind --leak-check<span style="color: #666666">=</span>full ./bin/unit_array <span style="color: #666666">0</span>
+</code></pre></div>
+
+<p>Of course, you are free to create your own test programs to debug and test
+your <a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)">stack</a> library.</p>
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/HP_35_Calculator.jpg/180px-HP_35_Calculator.jpg" class="pull-right" /></p>
+<h2 id="activity-3-rpn-calculator-4-points">Activity 3: RPN Calculator (4 Points)<a class="headerlink" href="#activity-3-rpn-calculator-4-points" title="Permanent link">&para;</a></h2>
+<p>Back in the day, when phones were <a href="https://en.wikipedia.org/wiki/Landline">landlines</a>, computers were the size of
+minivans, and the instructor was just a twinkle in his parents' eye, the
+pride and joy of every engineering geek was their <a href="http://www.hp.com/">HP</a> scientific calculator.
+Even the mighty <a href="http://en.wikipedia.org/wiki/Woz">Woz</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> <a href="http://gizmodo.com/5306520/my-most-memorable-gadgets-by-steve-wozniak">cherished</a> his legendary <a href="http://h20331.www2.hp.com/Hpsub/cache/457246-0-0-225-121.html?jumpid=ex_r2845_go/35celebration/calculators">HP-35</a>.</p>
+<p>Of course, since the old timers back then were super awesome (unlike today's
+<a href="https://www.urbandictionary.com/define.php?term=Zoomer">zoomers</a>), they didn't use the standard <em>lame</em> <a href="http://en.wikipedia.org/wiki/Infix_notation">infix notation</a> to perform their
+calculations; instead, they used the uber <code>1337</code> <a href="http://en.wikipedia.org/wiki/Reverse_Polish_notation">reverse polish notation</a>.</p>
+<p>That is, rather than entering in <code>&lt;operand&gt; &lt;operation&gt; &lt;operand&gt;</code>, you would
+enter in <code>&lt;operand&gt; &lt;operand&gt; &lt;operation&gt;</code> to perform a calculation on the
+<a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">RPN</a> calculator. Using <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">RPN</a> eliminates the need for paretheses and orders
+of operation since it is never ambiguous what operands are used with which
+operation; the operation is always applied to the previous arguments.</p>
+<p>This means that if you wanted to perform <code>3 + 4</code>, you would have to enter in:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>3 4 +
+</code></pre></div>
+
+<p>To implement such a <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">RPN</a> calculator, you can use a <a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)">stack</a> to evaluate the
+expression using the process shown below for: <code>5 1 2 + 4 * + 3 -</code>:</p>
+<div class="thumbnail">
+  <img src="static/img/homework03-rpn.png" class="img-responsive">
+</div>
+
+<p>To prove that you too are uber awesome and to relive some of the glory days,
+you are to create a <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">RPN</a> calulator that can perform the following arithmetic
+operations: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>.</p>
+<h3 id="task-1-srcrpnc">Task 1: <code>src/rpn.c</code><a class="headerlink" href="#task-1-srcrpnc" title="Permanent link">&para;</a></h3>
+<p>Once you have a working <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a> and <a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)">stack</a> library, you are to complete the
+<code>src/rpn.c</code> program:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ ./bin/rpn
+<span style="color: #666666">4</span>
+<span style="color: #666666">4</span>
+<span style="color: #666666">5</span> <span style="color: #666666">8</span> * <span style="color: #666666">1</span> +
+<span style="color: #666666">41</span>
+</code></pre></div>
+
+<p>In the example above, the user first entered in <code>4</code> and this evaluates to <code>4</code>
+and is displayed back to the user.  Next, the user enters the <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">RPN</a>
+expression <code>5 8 * 1 +</code> which evaluates to <code>41</code>.</p>
+<p>You are to implement the <code>bin/rpn</code> program to support reading <a href="https://en.wikipedia.org/wiki/Standard_streams#Standard_input_(stdin)">standard
+input</a> line by line and evaluating each line as a <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">RPN</a> expression and
+printing out the result.</p>
+<div class="alert alert-warning">
+<h4 id="invalid-input"><i class="fa fa-warning"></i> Invalid Input<a class="headerlink" href="#invalid-input" title="Permanent link">&para;</a></h4>
+<p>For our class, you do not need to worry about (ie. handle) invalid input.
+You can assume the user will only enter in valid <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">RPN</a> expressions.</p>
+</div>
+<p>The <code>src/rpn.c</code> file contains the <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> implementation of the <code>rpn</code> program
+described above.  You will need to implement the following functions:</p>
+<ol>
+<li>
+<p><code>int64_t evaluate_expression(char *expression)</code></p>
+<blockquote>
+<p>This function uses a <a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)">stack</a> to evaluate the given <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">RPN</a> expression and
+returns the result of the evaluation.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<p><strong>Hint</strong>: Use <a href="https://www.mankier.com/3/strtok">strtok</a> to split the expression into individual <em>tokens</em>.
+  For each <em>token</em>, consider what to do if it is an <em>integer</em> vs if it is
+  an <em>operation</em>.</p>
+<p>To determine if a <em>token</em> is an <em>integer</em> or an <em>operation</em>, you can
+  use <a href="https://www.mankier.com/3/sscanf">sscanf</a> to parse strings into integers (and check if it succeeds).
+</div></p>
+</li>
+<li>
+<p><code>int main(int argc, char *argv[])</code></p>
+<blockquote>
+<p>This function reads one line at a time from <code>stdin</code>, evaluates each
+line as a <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">RPN</a> expression, and then outputs the result.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use <a href="https://www.mankier.com/3/fgetc">fgets</a> to read from <a href="https://en.wikipedia.org/wiki/Standard_streams#Standard_input_(stdin)">standard input</a>.
+</div></p>
+</li>
+</ol>
+<div class="alert alert-danger">
+<h4 id="memory-management"><i class="fa fa-bomb"></i> Memory Management<a class="headerlink" href="#memory-management" title="Permanent link">&para;</a></h4>
+<p>In addition to meeting the functional requirements of the assignment (as
+described above), your program <strong>must not exhibit any memory leaks</strong> or <strong>invalid
+memory accesses</strong> as would be detected by <a href="http://valgrind.org/">Valgrind</a>.</p>
+<p>Be sure to <a href="https://www.mankier.com/3/malloc">free</a> any memory that has been allocated on the <a href="https://en.wikipedia.org/wiki/Memory_management#HEAP">heap</a> and to
+initialize any allocate memory appropriately.</p>
+</div>
+<h3 id="task-2-testing">Task 2: Testing<a class="headerlink" href="#task-2-testing" title="Permanent link">&para;</a></h3>
+<p>As you implement <code>src/rpn.c</code>, you can test it by running the <code>test-rpn</code>
+target:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build artifact and run test</span>
+$ make test-rpn
+Testing rpn ...
+ expressions <span style="color: #666666">1</span> <span style="color: #666666">(</span>output<span style="color: #666666">)</span>                   ... Success
+ expressions <span style="color: #666666">1</span> <span style="color: #666666">(</span>valgrind<span style="color: #666666">)</span>                 ... Success
+ expressions <span style="color: #666666">2</span> <span style="color: #666666">(</span>output<span style="color: #666666">)</span>                   ... Success
+ expressions <span style="color: #666666">2</span> <span style="color: #666666">(</span>valgrind<span style="color: #666666">)</span>                 ... Success
+ expressions <span style="color: #666666">3</span> <span style="color: #666666">(</span>output<span style="color: #666666">)</span>                   ... Success
+ expressions <span style="color: #666666">3</span> <span style="color: #666666">(</span>valgrind<span style="color: #666666">)</span>                 ... Success
+ expressions <span style="color: #666666">4</span> <span style="color: #666666">(</span>output<span style="color: #666666">)</span>                   ... Success
+ expressions <span style="color: #666666">4</span> <span style="color: #666666">(</span>valgrind<span style="color: #666666">)</span>                 ... Success
+
+  Score <span style="color: #666666">4</span>.00 / <span style="color: #666666">4</span>.00
+ Status Success
+</code></pre></div>
+
+<h2 id="activity-4-quiz-2-points">Activity 4: Quiz (2 Points)<a class="headerlink" href="#activity-4-quiz-2-points" title="Permanent link">&para;</a></h2>
+<p>Once you have completed all the activities above, you are to complete the
+following <strong>reflection quiz</strong>:</p>
+<div id="quiz-questions"></div>
+
+<div id="quiz-responses"></div>
+
+<script src="static/js/dredd-quiz.js"></script>
+<script>
+loadQuiz('static/json/homework03.json');
+</script>
+
+<pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+<p>As with <a href="reading01.html">Reading 01</a>, you will need to store your answers in a
+<code>homework03/answers.json</code> file.  You can use the form above to generate the
+contents of this file, or you can write the <a href="https://json.org/">JSON</a> by hand.</p>
+<p>To check your quiz directly, you can use the <code>check.py</code> script:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ ../.scripts/check.py
+Checking homework03 quiz ...
+      Q1 <span style="color: #666666">0</span>.40
+      Q2 <span style="color: #666666">0</span>.40
+      Q3 <span style="color: #666666">0</span>.20
+      Q4 <span style="color: #666666">0</span>.20
+      Q5 <span style="color: #666666">0</span>.80
+   Score <span style="color: #666666">2</span>.00 / <span style="color: #666666">2</span>.00
+  Status Success
+</code></pre></div>
+
+<h2 id="leet-point-1-extra-credit-point">Leet Point (1 Extra Credit Point)<a class="headerlink" href="#leet-point-1-extra-credit-point" title="Permanent link">&para;</a></h2>
+<p>For <strong>extra credit</strong>, you are to solve the following <a href="https://leetcode.com/">LeetCode</a> problem in <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a>.</p>
+<blockquote>
+<p><a href="https://leetcode.com/problems/maximum-nesting-depth-of-the-parentheses/">1614. Maximum Nesting Depth of the Parentheses</a></p>
+</blockquote>
+<p>To receive credit, you must pass on <a href="https://leetcode.com/">LeetCode</a> and achieve an <strong>Accepted</strong>
+attempt.</p>
+<div class="alert alert-info">
+<h4 id="verification"><i class="fa fa-check"></i> Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h4>
+<p>To get credit for this Leet Point, show your solution and the <a href="https://leetcode.com/">LeetCode</a>
+acceptance page to a TA to verify (or attached a screenshot with both to your
+<strong>Pull Request</strong>).  You have up until <strong>two days after</strong> this assignment is
+due to verify your Leet Point.</p>
+</div>
+<div class="alert alert-success">
+<h4 id="self-service-extension"><i class="fa fa-calendar"></i> Self-Service Extension<a class="headerlink" href="#self-service-extension" title="Permanent link">&para;</a></h4>
+<p>Remember that you can always <strong>forgo</strong> this Leet Point for <strong>two extra days</strong>
+to do the homework.  That is, if you need an extension, you can simply skip
+the Leet Point and you will automatically have until Monday to complete the
+assignment for full credit.</p>
+<p>Just leave a note on your <strong>Pull Request</strong> of your intentions.</p>
+</div>
+<h2 id="submission">Submission<a class="headerlink" href="#submission" title="Permanent link">&para;</a></h2>
+<p>To submit your assignment, please commit your work to the <code>homework03</code> folder
+of your <code>homework03</code> branch in your <strong>assignments</strong> <a href="https://github.com">GitHub</a> repository:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ <span style="color: #008000">cd</span> path/to/cse-20312-fa23-assignments       <span style="color: #3D7B7B; font-style: italic"># Go to assignments repository</span>
+$ git checkout master                         <span style="color: #3D7B7B; font-style: italic"># Make sure we are in master branch</span>
+$ git pull --rebase                           <span style="color: #3D7B7B; font-style: italic"># Make sure we are up-to-date with GitHub</span>
+$ git checkout -b homework03                  <span style="color: #3D7B7B; font-style: italic"># Create homework03 branch and check it out</span>
+$ <span style="color: #008000">cd</span> homework03                               <span style="color: #3D7B7B; font-style: italic"># Go to homework03 directory</span>
+...
+$ git add Makefile                            <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git add bin/*.sh                            <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git add include/ds/*.h                      <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git add lib/.gitkeep                        <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git add tests/*.c                           <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 02: Initial Import&quot;</span> <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add src/array.c                         <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 02: Activity 1&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add src/stack.c                         <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 02: Activity 2&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add src/rpn.c                           <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 02: Activity 3&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add answers.json                        <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 02: Activity 4&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+
+$ git push -u origin homework03               <span style="color: #3D7B7B; font-style: italic"># Push branch to GitHub</span>
+</code></pre></div>
+
+<div class="alert alert-danger">
+<h4 id="pull-request"><i class="fa fa-github"></i> Pull Request<a class="headerlink" href="#pull-request" title="Permanent link">&para;</a></h4>
+<p>Remember to create a <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a> and assign the appropriate TA from the
+<a href="reading03_tas.html">Reading 03 TA List</a>.</p>
+<p><strong>DO NOT MERGE</strong> your own <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a>.  The TAs use open <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a>s
+to keep track of which assignments to grade.  Closing them yourself will
+cause a delay in grading and confuse the TAs.</p>
+</div>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Woz spilled my french fries. I will never forget.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+	    <div class="row">
+		<hr/>
+
+		<footer class="text-center">
+		    <p class="text-muted">
+		    <small>
+		    Built using
+		    <a href="https://getbootstrap.com/">Bootstrap</a>,
+		    <a href="https://fontawesome.com/">Font Awesome</a>, and
+		    <a href="http://www.python.org/">Python</a>.
+		    <br/>
+		    &copy; 2023 <a href="http://www.nd.edu">University of Notre Dame</a>
+		    </small>
+		    </p>
+		</footer>
+	    </div>
+
+	</div> <!-- /container -->
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+    </body>
+</html>
+
