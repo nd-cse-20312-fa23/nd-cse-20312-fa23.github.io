@@ -485,6 +485,10 @@ body:       |
 
   Once you have completed the [dynamic array] library, you are to implement a
   [stack] for the second activity using the `Array` [struct].
+  
+  <div class="thumbnail">
+    <img src="static/img/homework03-stack.png" class="img-responsive">
+  </div>
 
   ### Task 1: `include/ds/stack.h`
 
