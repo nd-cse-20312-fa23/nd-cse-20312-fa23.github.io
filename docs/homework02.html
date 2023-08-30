@@ -46,7 +46,7 @@ on the <a href="https://en.wikipedia.org/wiki/Memory_management#HEAP">heap</a>. 
 the second activity requires you to use this library to implement a <code>slice</code>
 program similar to <a href="https://www.mankier.com/1/cut">cut</a>.  After these two activities, there is a quiz where
 you will have an opportunity to reflect on the code you have written for the
-his homework assignment.</p>
+this homework assignment.</p>
 <p>For this assignment, you are to do your work in the <code>homework02</code> folder of
 your <strong>assignments</strong> <a href="https://github.com">GitHub</a> repository and push your work by <strong>noon
 Wednesday, September 6</strong>.</p>
@@ -188,13 +188,28 @@ artifacts (e.g. <code>slice</code>, <code>libds.a</code>, <code>unit_string</cod
 </code></pre></div>
 
 <p>For this task, you will need to add <a href="https://www.gnu.org/software/make/manual/html_node/Rule-Example.html#Rule-Example">rules</a> for building the <a href="https://en.wikipedia.org/wiki/Static_library#Creating_static_libraries_in_C.2FC.2B.2B">static library</a>
-<code>lib/libds.a</code>, the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit test</a> <code>bin/unit_string</code>, and the program
-<code>bin/slice</code>. Be sure to have a <strong>recipe</strong> for any <em>intermediate</em> <a href="https://en.wikipedia.org/wiki/Object_file">object</a>
-files that libraries require as shown in the <a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">DAG</a> below:</p>
+<code>lib/libds.a</code> and the program <code>bin/slice</code>. Be sure to have a <strong>recipe</strong> for
+any <em>intermediate</em> <a href="https://en.wikipedia.org/wiki/Object_file">object</a> files that libraries require as shown in the
+<a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">DAG</a> below:</p>
 <div class="thumbnail">
   <img src="static/img/homework02-makefile.png" class="img-responsive">
 </div>
 
+<div class="alert alert-success">
+<h4 id="archives"><i class="fa fa-archive"></i> Archives<a class="headerlink" href="#archives" title="Permanent link">&para;</a></h4>
+<p><code>lib/libds.a</code> is an <strong>archive</strong> or <a href="https://en.wikipedia.org/wiki/Static_library#Creating_static_libraries_in_C.2FC.2B.2B">static library</a>.  You can think of these
+as a combination of multiple <a href="https://en.wikipedia.org/wiki/Object_file">object</a> files.  To compile an <strong>archive</strong>, you
+can use the <code>ar</code> command as follows:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ ar rcs lib/libds.a src/string.o
+</code></pre></div>
+
+<p>Since the <code>Makefile</code> has <code>AR</code> and <code>ARFLAGS</code> variables, we can have the
+following rule:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #0000FF">lib/libds.a</span><span style="color: #666666">:</span>  src/string.o
+        <span style="color: #008000; font-weight: bold">$(</span>AR<span style="color: #008000; font-weight: bold">)</span> <span style="color: #008000; font-weight: bold">$(</span>ARFLAGS<span style="color: #008000; font-weight: bold">)</span> lib/libds.a src/string.o
+</code></pre></div>
+
+</div>
 <div class="alert alert-info">
 <h4 id="makefile-variables"><i class="fa fa-cogs"></i> Makefile Variables<a class="headerlink" href="#makefile-variables" title="Permanent link">&para;</a></h4>
 <p>You <strong>must</strong> use the <code>CC</code>, <code>CFLAGS</code>, <code>LD</code>, <code>LDFLAGS</code>, <code>AR</code>, and <code>ARFLAGS</code>
