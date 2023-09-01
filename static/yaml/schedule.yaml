@@ -41,7 +41,7 @@
             link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=2739a5ef-69e3-49cd-a911-b06c010614d3
 
       - date:           Wed 08/30
-        topics:         Strings, I/O, Address Space
+        topics:         Strings, I/O
         assignment:     Homework 01
         idea:           CLI Adventure (Navigation, Git, Make, GDB, Valgrind)
         items:
@@ -51,33 +51,35 @@
             link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=5c839926-f1f8-48a1-a173-b06e0105593d
 
       - date:           Fri 09/01
-        topics:         Structs
+        topics:         Address Space
         items:
-          - name:       Slides 06
-            link:       https://docs.google.com/presentation/d/1M1Y3sseWsjfwBL5Yp7wJnukJeIROND-Rs5e2XZPRd-w/edit?usp=sharing
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d1c4fb57-55ae-4186-98b7-b070010ae687
+          - name:       Slides 05
+            link:       https://docs.google.com/presentation/d/1Uq1YcDNv2maEkyU_arWvOJb3L_YXVm7O-IVNANAvvu4/edit?usp=sharing
+
 
 - name:     Arrays, Stacks
   days:
       - date:           Mon 09/04
-        topics:         Dynamic Arrays
+        topics:         Structs
         assignment:     Reading 02
+        items:
+          - name:       Slides 06
+            link:       https://docs.google.com/presentation/d/1M1Y3sseWsjfwBL5Yp7wJnukJeIROND-Rs5e2XZPRd-w/edit?usp=sharing
+
+      - date:           Wed 09/06
+        topics:         Dynamic Arrays
+        assignment:     Homework 02
+        idea:           Strings (Split, Concatenate, Join) / Cut
         items:
           - name:       Slides 07
             link:       https://docs.google.com/presentation/d/1j-mZws8_ykOLLQCIO8tngCZ_hiKC18z0MfCbwlKoxP8/edit?usp=sharing
 
-      - date:           Wed 09/06
+      - date:           Fri 09/08
         topics:         Stacks
-        assignment:     Homework 02
-        idea:           Strings (Split, Concatenate, Join) / Cut
         items:
           - name:       Slides 08
             link:       https://docs.google.com/presentation/d/1sASRqKNfzjkOEWkMB204FQm83tKbjQBWzZ4QRH0iJdA/edit?usp=sharing
-
-      - date:           Fri 09/08
-        topics:         Circular Buffer
-        items:
-          - name:       Slides 09
-            link:       https://docs.google.com/presentation/d/1xulukev0BwohzvF1FfBozY9bUd5BYJMI1z3ev_LgsL8/edit?usp=sharing
 
 - name:     Lists, Queues
   days:
