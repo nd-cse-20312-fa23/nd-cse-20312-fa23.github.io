@@ -446,6 +446,19 @@ for i in fields])</code> in <a href="https://www.python.org/">Python</a>).</p>
   string and print it out.</p>
 </div>
 </li>
+<li>
+<p><code>int main(int argc, char *argv[])</code></p>
+<blockquote>
+<p>After the command-line parsing, you will need convert the
+<code>fields_strings</code> into an array of integers using <code>string_to_fields</code>.
+Then, you will need to read <a href="https://en.wikipedia.org/wiki/Standard_streams#Standard_input_(stdin)">standard input</a>, one line at a time, and
+then use <code>string_chomp</code> and <code>slice_line</code> on the line to complete the
+<code>slice</code> utility.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<p><strong>Hint</strong>: Use <a href="https://www.mankier.com/3/fgets">fgets</a> to read <a href="https://en.wikipedia.org/wiki/Standard_streams#Standard_input_(stdin)">standard input</a> line by line.</p>
+</div>
+</li>
 </ol>
 <div class="alert alert-danger">
 <h4 id="memory-management"><i class="fa fa-bomb"></i> Memory Management<a class="headerlink" href="#memory-management" title="Permanent link">&para;</a></h4>
