@@ -518,8 +518,23 @@ body:       |
 
       </div>
 
+  3. `int main(int argc, char *argv[])`
+
+      > After the command-line parsing, you will need convert the
+      `fields_strings` into an array of integers using `string_to_fields`.
+      Then, you will need to read [standard input], one line at a time, and
+      then use `string_chomp` and `slice_line` on the line to complete the
+      `slice` utility.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use [fgets] to read [standard input] line by line.
+
+      </div>
+
   [atoi]: https://www.mankier.com/3/atoi
   [calloc]: https://www.mankier.com/3/malloc
+  [fgets]: https://www.mankier.com/3/fgets
 
   <div class="alert alert-danger" markdown="1">
   #### <i class="fa fa-bomb"></i> Memory Management
