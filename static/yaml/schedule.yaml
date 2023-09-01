@@ -53,9 +53,10 @@
       - date:           Fri 09/01
         topics:         Address Space
         items:
-            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d1c4fb57-55ae-4186-98b7-b070010ae687
           - name:       Slides 05
             link:       https://docs.google.com/presentation/d/1Uq1YcDNv2maEkyU_arWvOJb3L_YXVm7O-IVNANAvvu4/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d1c4fb57-55ae-4186-98b7-b070010ae687
 
 
 - name:     Arrays, Stacks
