@@ -62,7 +62,7 @@
 - name:     Arrays, Stacks
   days:
       - date:           Mon 09/04
-        topics:         Structs
+        topics:         Structs, OOP
         assignment:     Reading 02
         items:
           - name:       Slides 06
@@ -87,14 +87,23 @@
       - date:           Mon 09/11
         topics:         Linked Lists
         assignment:     Reading 03
+        items:
+          - name:       Slides 09
+            link:       https://docs.google.com/presentation/d/1lZLZOG0sMsLnqJGeXqn-O6hgqo3H0PxUfdjtXCtBGyk/edit?usp=sharing
 
       - date:           Wed 09/13
         topics:         Queues
         assignment:     Homework 03
         idea:           Arrays / Stacks / RPN
+        items:
+          - name:       Slides 10
+            link:       https://docs.google.com/presentation/d/1TC__yl0aI-JTD2U6Bk8-b4BNY19LBHAaluPangUmaPQ/edit?usp=sharing
 
       - date:           Fri 09/15
         topics:         Deques
+        items:
+          - name:       Slides 11
+            link:       https://docs.google.com/presentation/d/1goQ-Ua2XF7X6BPKbhICGbCDLcYu0Ww9SyXR0PTM_CXI/edit?usp=sharing
 
 - name:     Search, Sets
   days:
