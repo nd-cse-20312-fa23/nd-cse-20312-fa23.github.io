@@ -67,6 +67,8 @@
         items:
           - name:       Slides 06
             link:       https://docs.google.com/presentation/d/1M1Y3sseWsjfwBL5Yp7wJnukJeIROND-Rs5e2XZPRd-w/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8c85224d-96a5-4529-93cb-b07301050a4a
 
       - date:           Wed 09/06
         topics:         Dynamic Arrays
