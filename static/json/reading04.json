@@ -1,0 +1,52 @@
+{
+    "q1": {
+        "type": "blank",
+        "question": "\n<p>Given the following <b>linked list</b> code:</p>\n\n<pre>\n/* Structures */\n\ntypedef struct Node Node;\nstruct Node {\n    int   data;\n    Node *next;\n};\n\n/* Functions */\n\nNode *node_create(int data, Node *next) {\n    Node *n = malloc(sizeof(Node));                                                          \n    if (n) {\n        n->data = data;\n        n->next = next;\n    }   \n    return n;\n}\n</pre>\n\n<p>Complete the following <tt>node_search</tt> function, which performs an\n<b>iterative</b> version of <b>linear search</b>:</p>\n\n<pre>\nNode *node_search(Node *head, int value) {\n    for (Node *curr = ____; ____; curr = ____) {  // 1. 2. 3.\n        if (____ == value) {                      // 4.\n            return ____;                          // 5.\n        }   \n    }   \n    return ____;                                  // 6.\n}\n</pre>\n"
+    },
+    "q2": {
+        "type": "blank",
+        "question": "\n<p>Given the <b>linked list</b> code above, complete the following\n<tt>node_search_r</tt> function, which performs a <b>recursive</b> version\nof <b>linear search</b>:</p>\n\n<pre>\nNode *node_search_r(Node *n, int value) {\n    // Base case: invalid node\n    if (____) {                                   // 1.\n        return ____;                              // 2.\n    }\n\n    // Base case: found value\n    if (____) {                                   // 3.\n        return ____;                              // 4.\n    }\n\n    // Recursive: keep searching\n    return ____;                                  // 5.\n}\n</pre>\n"
+    },
+    "q3": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements about the <b>time</b> and <b>space</b>\ncomplexities of the <tt>node_search</tt> and <tt>node_search_r</tt>\nfunctions are true (select all that apply)?</p>\n",
+        "responses": {
+            "ns_time_1": "The average <b>time complexity</b> of <tt>node_search</tt> is <tt>O(1)</tt>.",
+            "ns_time_n": "The average <b>time complexity</b> of <tt>node_search</tt> is <tt>O(n)</tt>.",
+            "ns_space_1": "The average <b>space complexity</b> of <tt>node_search</tt> is <tt>O(1)</tt>.",
+            "ns_space_n": "The average <b>space complexity</b> of <tt>node_search</tt> is <tt>O(n)</tt>.",
+            "nsr_time_1": "The average <b>time complexity</b> of <tt>node_search_r</tt> is <tt>O(1)</tt>.",
+            "nsr_time_n": "The average <b>time complexity</b> of <tt>node_search_r</tt> is <tt>O(n)</tt>.",
+            "nsr_space_1": "The average <b>space complexity</b> of <tt>node_search_r</tt> is <tt>O(1)</tt>.",
+            "nsr_space_n": "The average <b>space complexity</b> of <tt>node_search_r</tt> is <tt>O(n)</tt>."
+        }
+    },
+    "q4": {
+        "type": "order",
+        "question": "\n<p>The following <tt>binary_search</tt> function implements <b>binary\nsearch</b> recursively given an array of <tt>data</tt>, a <tt>target</tt>,\na <tt>start</tt> index, and an <tt>end</tt> index:</p>\n\n<pre>\nbool binary_search(int *data, int target, int start, int end) {\n    if (start > end)\n    if (midpoint == target)\n    if (midpoint > target)\n    else\n\n    int middle   = (start + end) / 2;\n    int midpoint = data[middle];\n\n        return binary_search(data, target, start, middle - 1); \n        return binary_search(data, target, middle + 1, end);\n        return false;\n        return true;\n}\n</pre>\n\n<p>Unfortunately, the code for <tt>binary_search</tt>is <b>scrambled</b>.\n<b>Reorder</b> the following lines of code to properly implement <tt>binary_search</tt>:</p>\n",
+        "responses": {
+            "a": "<tt>if (start > end)</tt>",
+            "b": "<tt>if (midpoint == target)</tt>",
+            "c": "<tt>if (midpoint > target)</tt>",
+            "d": "<tt>else</tt>",
+            "e": "<tt>int middle   = (start + end) / 2;</tt>",
+            "f": "<tt>int midpoint = data[middle];</tt>",
+            "g": "<tt>return binary_search(data, target, start, middle - 1);</tt>",
+            "h": "<tt>return binary_search(data, target, middle + 1, end);</tt>",
+            "i": "<tt>return false;</tt>",
+            "j": "<tt>return true;</tt>"
+        }
+    },
+    "q5": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements about <b>sets</b> are true (select all that apply)?</p>\n",
+        "responses": {
+            "sets_unique": "A <b>set</b> only contains <b>unique</b> values.",
+            "sets_duplicate": "A <b>set</b> may contain <b>duplicate</b> values.",
+            "sets_ordered": "A <b>set</b> stores an <b>ordered sequence</b> of values.",
+            "sets_unordered": "A <b>set</b> stores an <b>unordered collection</b> of values.",
+            "sets_membership": "A <b>set</b> is often used to test a value for <b>membership</b>.",
+            "sets_retrieval": "A <b>set</b> is often used to <b>retrieve</b> a specific value</b>."
+        }
+    }
+}

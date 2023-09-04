@@ -1,0 +1,108 @@
+title:      "Reading 04: Searching, Sets"
+icon:       fa-book
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  **Everyone**:
+
+  Next week, we will study [linear search] and [binary search], two common
+  [algorithms], and discuss how to use them to implement [sets], a common and
+  useful [abstract data type].
+
+  [linear search]:      https://en.wikipedia.org/wiki/Linear_search
+  [binary search]:      https://en.wikipedia.org/wiki/Binary_search_algorithm
+  [algorithms]:         https://en.wikipedia.org/wiki/Algorithm
+  [sets]:               https://en.wikipedia.org/wiki/Set_(abstract_data_type)
+  [abstract data type]: https://en.wikipedia.org/wiki/Abstract_data_type
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-search"></i> TL;DR
+
+  The focus of this reading is [linear search], [binary search], and [sets].
+
+  </div>
+
+  <img src="static/img/reading04-binary-search.png" class="img-responsive pull-right" />
+
+  ## Readings
+
+  The readings for this week are:
+
+  1. [Data Structures Handbook](https://thedshandbook.com)
+
+      - <p>[Searching in Arrays](https://www.thedshandbook.com/searching-in-arrays/)</p>
+
+  2. [Learn DS & Algorithms](https://www.programiz.com/dsa)
+
+      - [Linear Search](https://www.programiz.com/dsa/linear-search)
+      - <p>[Binary Search](https://www.programiz.com/dsa/binary-search)</p>
+
+  ### Optional References
+
+  1. [Interview Cake](https://interviewcake.com)
+
+      - [Binary Search](interviewcake.com/concept/c/binary-search)
+
+  ## Quiz
+
+  Once you have completed the readings, answer the following [Reading 04 Quiz]
+  questions:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/reading04.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  ## Submission
+
+  To submit your work, follow the same process outlined in [Reading 01]:
+
+      :::bash
+      $ git checkout master                 # Make sure we are in master branch
+      $ git pull --rebase                   # Make sure we are up-to-date with GitHub
+
+      $ git checkout -b reading04           # Create reading04 branch and check it out
+
+      $ cd reading04                        # Go into reading04 folder
+      $ $EDITOR answers.json                # Edit your answers.json file
+
+      $ ../.scripts/check.py                # Check reading04 quiz
+      Checking reading04 quiz ...
+            Q1 0.60
+            Q2 0.50
+            Q3 0.40
+            Q4 1.20
+            Q5 0.30
+         Score 3.00 / 3.00
+        Status Success
+
+      $ git add answers.json                # Add answers.json to staging area
+      $ git commit -m "Reading 04: Done"    # Commit work
+
+      $ git push -u origin reading04        # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Once you have committed your work and pushed it to [GitHub], remember to
+  create a **pull request** and assign it to the appropriate **teaching
+  assistant** from the [Reading 04 TA List].
+
+  </div>
+
+  [Git]:                https://git-scm.com/
+  [GitHub]:             https://github.com/
+  [Reading 01]:         reading01.html
+  [Reading 04 Quiz]:    static/json/reading04.json
+  [Reading 04 TA List]: reading04_tas.html
