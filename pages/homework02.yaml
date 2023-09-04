@@ -89,11 +89,11 @@ body:       |
       # Go to assignments repository
       $ cd path/to/assignments/repository
 
-      # ------------------------------------------------
-      # MAKE SURE YOU ARE NOT INSIDE homework02
-      # ------------------------------------------------
+      # -----------------------------------------------------
+      # MAKE SURE YOU ARE NOT INSIDE THE homework02 DIRECTORY
+      # -----------------------------------------------------
       # MAKE SURE YOU ARE AT THE TOP-LEVEL DIRECTORY
-      # ------------------------------------------------
+      # -----------------------------------------------------
 
       # Download skeleton code tarball
       $ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework02.tar.gz
