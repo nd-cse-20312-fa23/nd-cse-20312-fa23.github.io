@@ -433,7 +433,7 @@ body:       |
 
       :::bash
       # Build and run test scripts
-      $ make test
+      $ make test-array
       ...
 
   If one of the functions fails, and you need to **debug** the [unit tests], you
@@ -596,7 +596,7 @@ body:       |
 
       :::bash
       # Build and run test scripts
-      $ make test
+      $ make test-stack
       ...
 
   If one of the functions fails, and you need to **debug** the [unit tests], you
@@ -855,19 +855,19 @@ body:       |
       $ git add lib/.gitkeep                        # Mark changes for commit
       $ git add src/*.c                             # Mark changes for commit
       $ git add tests/*.c                           # Mark changes for commit
-      $ git commit -m "Homework 02: Initial Import" # Record changes
+      $ git commit -m "Homework 03: Initial Import" # Record changes
       ...
       $ git add src/array.c                         # Mark changes for commit
-      $ git commit -m "Homework 02: Activity 1"     # Record changes
+      $ git commit -m "Homework 03: Activity 1"     # Record changes
       ...
       $ git add src/stack.c                         # Mark changes for commit
-      $ git commit -m "Homework 02: Activity 2"     # Record changes
+      $ git commit -m "Homework 03: Activity 2"     # Record changes
       ...
       $ git add src/rpn.c                           # Mark changes for commit
-      $ git commit -m "Homework 02: Activity 3"     # Record changes
+      $ git commit -m "Homework 03: Activity 3"     # Record changes
       ...
       $ git add answers.json                        # Mark changes for commit
-      $ git commit -m "Homework 02: Activity 4"     # Record changes
+      $ git commit -m "Homework 03: Activity 4"     # Record changes
       ...
 
       $ git push -u origin homework03               # Push branch to GitHub
