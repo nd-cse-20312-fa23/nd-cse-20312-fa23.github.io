@@ -622,8 +622,8 @@ body:       |
       $ ../.scripts/check.py
       Checking homework02 quiz ...
             Q1 0.50
-            Q2 0.50
-            Q3 0.70
+            Q2 0.70
+            Q3 0.50
             Q4 0.30
          Score 2.00 / 2.00
         Status Success
