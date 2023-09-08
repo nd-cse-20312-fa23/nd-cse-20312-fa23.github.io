@@ -141,12 +141,30 @@ body:       |
               \_ unit_array.c     # This is the unit test for the array library
               \_ unit_stack.c     # This is the unit test for the stack library
 
+  [skeleton code]: https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework03.tar.gz
+
+  ### Task 0: Initial Import
+
+  Now that the files are extracted into the `homework03` folder, you can **commit**
+  them to your [git] repository:
+
+      :::bash
+      # Go into homework03 folder
+      $ cd homework03
+
+      # Add and commit initial skeleton files
+      $ git add Makefile                            # Mark changes for commit
+      $ git add bin/*.sh                            # Mark changes for commit
+      $ git add include/ds/*.h                      # Mark changes for commit
+      $ git add lib/.gitkeep                        # Mark changes for commit
+      $ git add src/*.c                             # Mark changes for commit
+      $ git add tests/*.c                           # Mark changes for commit
+      $ git commit -m "Homework 03: Initial Import" # Record changes
+
   The details on what you need to implement are described in the following
   sections.
 
-  [skeleton code]: https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework03.tar.gz
-
-  ### Task 0: `include/ds/array.h`
+  ### Task 1: `include/ds/array.h`
 
   The `include/ds/array.h` file is the [header] file for the [dynamic array] library,
   which contains the following [structs] and function [prototypes]:
@@ -198,7 +216,7 @@ body:       |
   [prototypes]: https://en.wikipedia.org/wiki/Function_prototype
   [structs]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
 
-  ### Task 1: `Makefile`
+  ### Task 2: `Makefile`
 
   The Makefile contains all the rules or recipes for building the project
   artifacts (e.g. `rpn`, `libds.a`, `unit_array`, `unit_stack`, etc.):
@@ -324,7 +342,7 @@ body:       |
 
   [automatic variables]: https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
 
-  ### Task 2: `src/array.c`
+  ### Task 3: `src/array.c`
 
   The `src/array.c` file contains the [C] implementation for the [dynamic array] library.
 
@@ -402,7 +420,7 @@ body:       |
   [memmove]:  https://www.mankier.com/3/memmove
   [heap]:     https://en.wikipedia.org/wiki/Memory_management#HEAP
 
-  ### Task 3: Testing
+  ### Task 4: Testing
 
   As you implement the functions in `src/array.c`, you should use
   `bin/unit_array.sh` to test each function:
@@ -485,7 +503,7 @@ body:       |
 
   Once you have completed the [dynamic array] library, you are to implement a
   [stack] for the second activity using the `Array` [struct].
-  
+
   <div class="thumbnail">
     <img src="static/img/homework03-stack.png" class="img-responsive">
   </div>
@@ -812,7 +830,7 @@ body:       |
 
   To receive credit, you must pass on [LeetCode] and achieve an **Accepted**
   attempt.
-  
+
   <div class="alert alert-info" markdown="1">
   #### <i class="fa fa-check"></i> Verification
 
@@ -844,19 +862,11 @@ body:       |
   of your `homework03` branch in your **assignments** [GitHub] repository:
 
       :::bash
-      $ cd path/to/cse-20312-fa23-assignments       # Go to assignments repository
-      $ git checkout master                         # Make sure we are in master branch
-      $ git pull --rebase                           # Make sure we are up-to-date with GitHub
-      $ git checkout -b homework03                  # Create homework03 branch and check it out
-      $ cd homework03                               # Go to homework03 directory
-      ...
-      $ git add Makefile                            # Mark changes for commit
-      $ git add bin/*.sh                            # Mark changes for commit
-      $ git add include/ds/*.h                      # Mark changes for commit
-      $ git add lib/.gitkeep                        # Mark changes for commit
-      $ git add src/*.c                             # Mark changes for commit
-      $ git add tests/*.c                           # Mark changes for commit
-      $ git commit -m "Homework 03: Initial Import" # Record changes
+      #-----------------------------------------------------------------------
+      # Make sure you have already completed:
+      #   1. Activity 0: Preparation
+      #   2. Activity 1, Task 0: Initial Import
+      #-----------------------------------------------------------------------
       ...
       $ git add src/array.c                         # Mark changes for commit
       $ git commit -m "Homework 03: Activity 1"     # Record changes
