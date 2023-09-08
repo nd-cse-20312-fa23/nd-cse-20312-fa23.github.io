@@ -642,16 +642,16 @@ body:       |
           4  Test stack_push
           5  Test stack_pop
 
-      # Run test for array_create
-      $ ./bin/unit_array 0
+      # Run test for stack_create
+      $ ./bin/unit_stack 0
 
-      # Run test for array_create using GDB
-      $ gdb ./bin/unit_array
+      # Run test for stack_create using GDB
+      $ gdb ./bin/unit_stack
       ...
       (gdb) run 0
 
-      # Run test for array_create using Valgrind
-      $ valgrind --leak-check=full ./bin/unit_array 0
+      # Run test for stack_create using Valgrind
+      $ valgrind --leak-check=full ./bin/unit_stack 0
 
   Of course, you are free to create your own test programs to debug and test
   your [stack] library.
