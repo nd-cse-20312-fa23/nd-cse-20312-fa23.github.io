@@ -44,61 +44,7 @@ body:       |
       :::bash
       $ git checkout -b homework03              # Create homework03 branch and check it out
 
-  ## Activity 1: Dynamic Array (4 Points)
-
-  In high-level languages such as [Python], we have built-in implementations of
-  [dynamic array]s which support a variety of methods:
-
-      :::python
-      # Define a dynamic array
-      >>> array = [4, 6, 6, 3, 7]
-
-      # Add a new value to the end of the array
-      >>> array.append(9)
-      >>> array
-      [4, 6, 6, 3, 7, 9]
-
-      # Remove the value at index 0
-      >>> array.pop(0)
-      >>> array
-      [6, 6, 3, 7, 9]
-
-      # Access the last element
-      >>> array[-1]
-      9
-
-  Unfortunately, [C] only has fixed [arrays] that do not support `append` or
-  `pop` or **negative indexing** (ie. `array[-index]` is translated to
-  `array[len(array) - index]`).
-
-  <div class="thumbnail">
-    <img src="static/img/reading02-dynamic-array.png" class="img-responsive">
-  </div>
-
-  As discussed in class, we can use fixed [arrays] in [C] to implement [dynamic
-  array]s by introducing an `Array` [struct] with the following attributes:
-
-  1. `data`: This is the internal fixed-sized [array] that we will need to
-    periodically resize or grow.
-
-  2. `capacity`: This is the total number of possible elements in the
-    internal fixed-size [array].
-
-  3. `size`: This is the number of valid elements stored in the internal
-    fixed-size [array].
-
-  With this `Array` [struct] in mind, for the first activity, you are to create
-  a [dynamic array] library, `lib/libds.a`, which contains functions such as
-  `array_append` and `array_pop` which implement some of the functionality
-  present in [Python] but missing in [C].
-
-  [Python]: https://www.python.org/
-  [array]:  https://en.wikipedia.org/wiki/C_(programming_language)#Arrays
-  [arrays]: https://en.wikipedia.org/wiki/C_(programming_language)#Arrays
-  [C]:      https://en.wikipedia.org/wiki/C_(programming_language)
-  [struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
-
-  #### Skeleton Code
+  ### Task 1: Skeleton Code
 
   To help you get started, the instructor has provided you with the following [skeleton code]:
 
@@ -143,7 +89,7 @@ body:       |
 
   [skeleton code]: https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework03.tar.gz
 
-  ### Task 0: Initial Import
+  ### Task 2: Initial Import
 
   Now that the files are extracted into the `homework03` folder, you can **commit**
   them to your [git] repository:
@@ -164,59 +110,11 @@ body:       |
   The details on what you need to implement are described in the following
   sections.
 
-  ### Task 1: `include/ds/array.h`
+  ### Task 3: `Makefile`
 
-  The `include/ds/array.h` file is the [header] file for the [dynamic array] library,
-  which contains the following [structs] and function [prototypes]:
-
-      :::c
-      /* array.h: Dynamic Array */
-
-      #pragma once
-
-      #include <stdbool.h>
-      #include <stdint.h>
-      #include <stdlib.h>
-
-      /* Structures */
-
-      typedef struct {
-          int64_t *data;        // Internal array
-          size_t   capacity;    // Total number of elements
-          size_t   size;        // Number of valid elements
-      } Array;
-
-      /* Constants */
-
-      extern const size_t ARRAY_DEFAULT_CAPACITY;
-
-      /* Functions */
-
-      Array   *array_create(size_t capacity);
-      void     array_delete(Array *array);
-
-      int64_t  array_at(Array *array, ssize_t index);
-
-      void     array_resize(Array *array, size_t capacity);
-
-      void     array_append(Array *array, int64_t value);
-      int64_t  array_pop(Array *array, ssize_t index);
-
-  Other programs will `#include` this file in order to use the functions we
-  will be implementing in this library.
-
-  <div class="alert alert-info" markdown="1">
-
-  **Note**: For this task, you **do not** need to modify this file. Instead,
-  you should review it and ensure you understand the provided code.
-
-  </div>
-
-  [header]: https://en.wikipedia.org/wiki/Include_directive#C.2FC.2B.2B
-  [prototypes]: https://en.wikipedia.org/wiki/Function_prototype
-  [structs]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
-
-  ### Task 2: `Makefile`
+  Before you begin coding, you should first make sure you complete the
+  `Makefile` that will be used to build all the software artifacts in this
+  assignment.
 
   The Makefile contains all the rules or recipes for building the project
   artifacts (e.g. `rpn`, `libds.a`, `unit_array`, `unit_stack`, etc.):
@@ -334,6 +232,10 @@ body:       |
 
   </div>
 
+  After completing the `Makefile` and verifying that you can produce all the
+  specified artifacts, you may begin implementing the [data structure]s and
+  applications for this assignment.
+
   [rules]: https://www.gnu.org/software/make/manual/html_node/Rule-Example.html#Rule-Example
   [static library]: https://en.wikipedia.org/wiki/Static_library#Creating_static_libraries_in_C.2FC.2B.2B
   [unit test]: https://en.wikipedia.org/wiki/Unit_testing
@@ -342,7 +244,114 @@ body:       |
 
   [automatic variables]: https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
 
-  ### Task 3: `src/array.c`
+  ## Activity 1: Dynamic Array (4 Points)
+
+  In high-level languages such as [Python], we have built-in implementations of
+  [dynamic array]s which support a variety of methods:
+
+      :::python
+      # Define a dynamic array
+      >>> array = [4, 6, 6, 3, 7]
+
+      # Add a new value to the end of the array
+      >>> array.append(9)
+      >>> array
+      [4, 6, 6, 3, 7, 9]
+
+      # Remove the value at index 0
+      >>> array.pop(0)
+      >>> array
+      [6, 6, 3, 7, 9]
+
+      # Access the last element
+      >>> array[-1]
+      9
+
+  Unfortunately, [C] only has fixed [arrays] that do not support `append` or
+  `pop` or **negative indexing** (ie. `array[-index]` is translated to
+  `array[len(array) - index]`).
+
+  <div class="thumbnail">
+    <img src="static/img/reading02-dynamic-array.png" class="img-responsive">
+  </div>
+
+  As discussed in class, we can use fixed [arrays] in [C] to implement [dynamic
+  array]s by introducing an `Array` [struct] with the following attributes:
+
+  1. `data`: This is the internal fixed-sized [array] that we will need to
+    periodically resize or grow.
+
+  2. `capacity`: This is the total number of possible elements in the
+    internal fixed-size [array].
+
+  3. `size`: This is the number of valid elements stored in the internal
+    fixed-size [array].
+
+  With this `Array` [struct] in mind, for the first activity, you are to create
+  a [dynamic array] library, `lib/libds.a`, which contains functions such as
+  `array_append` and `array_pop` which implement some of the functionality
+  present in [Python] but missing in [C].
+
+  [Python]: https://www.python.org/
+  [array]:  https://en.wikipedia.org/wiki/C_(programming_language)#Arrays
+  [arrays]: https://en.wikipedia.org/wiki/C_(programming_language)#Arrays
+  [C]:      https://en.wikipedia.org/wiki/C_(programming_language)
+  [struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
+
+
+  ### Task 1: `include/ds/array.h`
+
+  The `include/ds/array.h` file is the [header] file for the [dynamic array] library,
+  which contains the following [structs] and function [prototypes]:
+
+      :::c
+      /* array.h: Dynamic Array */
+
+      #pragma once
+
+      #include <stdbool.h>
+      #include <stdint.h>
+      #include <stdlib.h>
+
+      /* Structures */
+
+      typedef struct {
+          int64_t *data;        // Internal array
+          size_t   capacity;    // Total number of elements
+          size_t   size;        // Number of valid elements
+      } Array;
+
+      /* Constants */
+
+      extern const size_t ARRAY_DEFAULT_CAPACITY;
+
+      /* Functions */
+
+      Array   *array_create(size_t capacity);
+      void     array_delete(Array *array);
+
+      int64_t  array_at(Array *array, ssize_t index);
+
+      void     array_resize(Array *array, size_t capacity);
+
+      void     array_append(Array *array, int64_t value);
+      int64_t  array_pop(Array *array, ssize_t index);
+
+  Other programs will `#include` this file in order to use the functions we
+  will be implementing in this library.
+
+  <div class="alert alert-info" markdown="1">
+
+  **Note**: For this task, you **do not** need to modify this file. Instead,
+  you should review it and ensure you understand the provided code.
+
+  </div>
+
+  [header]: https://en.wikipedia.org/wiki/Include_directive#C.2FC.2B.2B
+  [prototypes]: https://en.wikipedia.org/wiki/Function_prototype
+  [structs]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
+
+  ### Task 2: `src/array.c`
 
   The `src/array.c` file contains the [C] implementation for the [dynamic array] library.
 
@@ -420,10 +429,10 @@ body:       |
   [memmove]:  https://www.mankier.com/3/memmove
   [heap]:     https://en.wikipedia.org/wiki/Memory_management#HEAP
 
-  ### Task 4: Testing
+  ### Task 3: Testing
 
   As you implement the functions in `src/array.c`, you should use
-  `bin/unit_array.sh` to test each function:
+  `bin/test_array.sh` to test each function:
 
       :::bash
       # Build unit-test
@@ -586,7 +595,7 @@ body:       |
   ### Task 3: Testing
 
   As you implement the functions in `src/stack.c`, you should use
-  `bin/unit_stack.sh` to test each function:
+  `bin/test_stack.sh` to test each function:
 
       :::bash
       # Build unit-test
@@ -863,9 +872,7 @@ body:       |
 
       :::bash
       #-----------------------------------------------------------------------
-      # Make sure you have already completed:
-      #   1. Activity 0: Preparation
-      #   2. Activity 1, Task 0: Initial Import
+      # Make sure you have already completed Activity 0: Preparation
       #-----------------------------------------------------------------------
       ...
       $ git add src/array.c                         # Mark changes for commit
