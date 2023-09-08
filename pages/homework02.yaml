@@ -363,7 +363,7 @@ body:       |
   ### Task 3: Testing
 
   As you implement the functions in `src/string.c`, you should use
-  `bin/unit_string.sh` to test each function:
+  `bin/test_string.sh` to test each function:
 
       :::bash
       # Build unit-test

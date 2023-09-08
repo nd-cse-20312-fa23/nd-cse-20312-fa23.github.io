@@ -289,7 +289,7 @@ body:       |
 
   With this `Array` [struct] in mind, for the first activity, you are to create
   a [dynamic array] library, `lib/libds.a`, which contains functions such as
-  `array_append` and `array_pop` which implement some of the functionality
+  `array_append` and `array_pop` that implements some of the functionality
   present in [Python] but missing in [C].
 
   [Python]: https://www.python.org/
