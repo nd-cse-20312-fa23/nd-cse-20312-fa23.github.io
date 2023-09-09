@@ -114,16 +114,25 @@
 - name:     Search, Sets
   days:
       - date:           Mon 09/18
-        topics:         Linear and Binary Search
+        topics:         Search
         assignment:     Reading 04
+        items:
+          - name:       Slides 12
+            link:       https://docs.google.com/presentation/d/1prA8N8WaiFn2xF962ak7cRenVz8UBLaS5pw9K-YkuBs/edit?usp=sharing
 
       - date:           Wed 09/20
         topics:         Sets
         assignment:     Homework 04
         idea:           Linked Lists / Queues / Sliding Window
+        items:
+          - name:       Slides 13
+            link:       https://docs.google.com/presentation/d/1jw0HLyFZniby_7ktu_KMfQinCbCvSSOl8oThU5KDLIQ/edit?usp=sharing
 
       - date:           Fri 09/22
         topics:         Bitsets
+        items:
+          - name:       Slides 14
+            link:       https://docs.google.com/presentation/d/1ch0hlw0i97ZGbH20OznliEw_utDhCRlNgVTRmZTdmgg/edit?usp=sharing
 
 - name:     Sorting
   days:
