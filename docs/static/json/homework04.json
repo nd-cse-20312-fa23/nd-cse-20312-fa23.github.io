@@ -1,0 +1,30 @@
+{
+    "q1": {
+        "type": "blank",
+        "question": "\n<p>Given the following code:</p>\n\n<pre>\nNode *n = node_create(\"sentinel\", NULL, NULL);\n</pre>\n\n<p>How much memory is allocated by the line of code above (assume it is in\nthe <tt>main</tt> function)?</p>\n\n<ul>\n<li><b>Stack</b> ____</li>\n<li><b>Heap</b> ____</li>\n<li><b>Data</b> ____</li>\n</ul>\n"
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <tt>queue</tt> functions are true\n(select all that apply)?</p>\n",
+        "responses": {
+            "queue_push_1": "<tt>queue_push</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "queue_push_n": "<tt>queue_push</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "queue_pop_1": "<tt>queue_pop</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "queue_pop_n": "<tt>queue_pop</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "queue_empty_1": "<tt>queue_empty</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "queue_empty_n": "<tt>queue_empty</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "queue_dump_1": "<tt>queue_dump</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "queue_dump_n": "<tt>queue_dump</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "queue_reverse_1": "<tt>queue_reverse</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "queue_reverse_n": "<tt>queue_reverse</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q3": {
+        "type": "blank",
+        "question": "\n<p>Given the following code:</p>\n\n<pre>\nQueue *q = queue_create(2);\n\nqueue_push(q, \"Go\");\nqueue_push(q, \"Irish\");\nqueue_push(q, \"Beat\");\nqueue_push(q, \"Buckeyes\");\n</pre>\n\n<p>Answer the following questions:</p>\n\n<ol>\n<li>What is the <tt>capacity</tt> of <tt>q</tt>? ____</li>\n<li>What is the <tt>size</tt> of <tt>q</tt>? ____</li>\n<li>How would you access the <b>first item</b> in <tt>q</tt>? ____</li>\n<li>What is the <b>first item</b> in <tt>q</tt>? ____</li>\n<li>How would you access the <b>last item</b> in <tt>q</tt>? ____</li>\n<li>What is the <b>last item</b> in <tt>q</tt>? ____</li>\n</ol>\n"
+    },
+    "q4": {
+        "type": "blank",
+        "question": "\n<p>Use your <tt>bin/tail</tt> and <tt>bin/tac</tt> to evaluate the\nfollowing <b>pipelines</b>:</p>\n\n<ol>\n  <li>Pipeline: <tt>seq 1 100 | ./bin/tac | ./bin/tail -n 10 | ./bin/tac | ./bin/tail -n 1</tt> ____</li>\n  <li>Pipeline: <tt>seq 1 100 | ./bin/tail | ./bin/tac | ./bin/tac | ./bin/tail -n 1</tt> ____</li>\n</ol>\n"
+    }
+}

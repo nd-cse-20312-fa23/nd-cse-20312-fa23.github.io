@@ -65,55 +65,7 @@ $ git pull --rebase                       <span style="color: #3D7B7B; font-styl
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ git checkout -b homework03              <span style="color: #3D7B7B; font-style: italic"># Create homework03 branch and check it out</span>
 </code></pre></div>
 
-<h2 id="activity-1-dynamic-array-4-points">Activity 1: Dynamic Array (4 Points)<a class="headerlink" href="#activity-1-dynamic-array-4-points" title="Permanent link">&para;</a></h2>
-<p>In high-level languages such as <a href="https://www.python.org/">Python</a>, we have built-in implementations of
-<a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a>s which support a variety of methods:</p>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Define a dynamic array</span>
-<span style="color: #666666">&gt;&gt;&gt;</span> array <span style="color: #666666">=</span> [<span style="color: #666666">4</span>, <span style="color: #666666">6</span>, <span style="color: #666666">6</span>, <span style="color: #666666">3</span>, <span style="color: #666666">7</span>]
-
-<span style="color: #3D7B7B; font-style: italic"># Add a new value to the end of the array</span>
-<span style="color: #666666">&gt;&gt;&gt;</span> array<span style="color: #666666">.</span>append(<span style="color: #666666">9</span>)
-<span style="color: #666666">&gt;&gt;&gt;</span> array
-[<span style="color: #666666">4</span>, <span style="color: #666666">6</span>, <span style="color: #666666">6</span>, <span style="color: #666666">3</span>, <span style="color: #666666">7</span>, <span style="color: #666666">9</span>]
-
-<span style="color: #3D7B7B; font-style: italic"># Remove the value at index 0</span>
-<span style="color: #666666">&gt;&gt;&gt;</span> array<span style="color: #666666">.</span>pop(<span style="color: #666666">0</span>)
-<span style="color: #666666">&gt;&gt;&gt;</span> array
-[<span style="color: #666666">6</span>, <span style="color: #666666">6</span>, <span style="color: #666666">3</span>, <span style="color: #666666">7</span>, <span style="color: #666666">9</span>]
-
-<span style="color: #3D7B7B; font-style: italic"># Access the last element</span>
-<span style="color: #666666">&gt;&gt;&gt;</span> array[<span style="color: #666666">-1</span>]
-<span style="color: #666666">9</span>
-</code></pre></div>
-
-<p>Unfortunately, <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> only has fixed <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">arrays</a> that do not support <code>append</code> or
-<code>pop</code> or <strong>negative indexing</strong> (ie. <code>array[-index]</code> is translated to
-<code>array[len(array) - index]</code>).</p>
-<div class="thumbnail">
-  <img src="static/img/reading02-dynamic-array.png" class="img-responsive">
-</div>
-
-<p>As discussed in class, we can use fixed <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">arrays</a> in <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> to implement <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic
-array</a>s by introducing an <code>Array</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> with the following attributes:</p>
-<ol>
-<li>
-<p><code>data</code>: This is the internal fixed-sized <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a> that we will need to
-  periodically resize or grow.</p>
-</li>
-<li>
-<p><code>capacity</code>: This is the total number of possible elements in the
-  internal fixed-size <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a>.</p>
-</li>
-<li>
-<p><code>size</code>: This is the number of valid elements stored in the internal
-  fixed-size <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a>.</p>
-</li>
-</ol>
-<p>With this <code>Array</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> in mind, for the first activity, you are to create
-a <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> library, <code>lib/libds.a</code>, which contains functions such as
-<code>array_append</code> and <code>array_pop</code> which implement some of the functionality
-present in <a href="https://www.python.org/">Python</a> but missing in <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a>.</p>
-<h4 id="skeleton-code">Skeleton Code<a class="headerlink" href="#skeleton-code" title="Permanent link">&para;</a></h4>
+<h3 id="task-1-skeleton-code">Task 1: Skeleton Code<a class="headerlink" href="#task-1-skeleton-code" title="Permanent link">&para;</a></h3>
 <p>To help you get started, the instructor has provided you with the following <a href="https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework03.tar.gz">skeleton code</a>:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Go to assignments repository</span>
 $ <span style="color: #008000">cd</span> path/to/assignments/repository
@@ -153,7 +105,7 @@ $ tar xzvf homework03.tar.gz
         <span style="color: #AA5D1F; font-weight: bold">\_</span> unit_stack.c     <span style="color: #3D7B7B; font-style: italic"># This is the unit test for the stack library</span>
 </code></pre></div>
 
-<h3 id="task-0-initial-import">Task 0: Initial Import<a class="headerlink" href="#task-0-initial-import" title="Permanent link">&para;</a></h3>
+<h3 id="task-2-initial-import">Task 2: Initial Import<a class="headerlink" href="#task-2-initial-import" title="Permanent link">&para;</a></h3>
 <p>Now that the files are extracted into the <code>homework03</code> folder, you can <strong>commit</strong>
 them to your <a href="https://git-scm.com/">git</a> repository:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Go into homework03 folder</span>
@@ -171,49 +123,10 @@ $ git commit -m <span style="color: #BA2121">&quot;Homework 03: Initial Import&q
 
 <p>The details on what you need to implement are described in the following
 sections.</p>
-<h3 id="task-1-includedsarrayh">Task 1: <code>include/ds/array.h</code><a class="headerlink" href="#task-1-includedsarrayh" title="Permanent link">&para;</a></h3>
-<p>The <code>include/ds/array.h</code> file is the <a href="https://en.wikipedia.org/wiki/Include_directive#C.2FC.2B.2B">header</a> file for the <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> library,
-which contains the following <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">structs</a> and function <a href="https://en.wikipedia.org/wiki/Function_prototype">prototypes</a>:</p>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic">/* array.h: Dynamic Array */</span><span style="color: #bbbbbb"></span>
-
-<span style="color: #9C6500">#pragma once</span>
-
-<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdbool.h&gt;</span><span style="color: #9C6500"></span>
-<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdint.h&gt;</span><span style="color: #9C6500"></span>
-<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdlib.h&gt;</span><span style="color: #9C6500"></span>
-
-<span style="color: #3D7B7B; font-style: italic">/* Structures */</span><span style="color: #bbbbbb"></span>
-
-<span style="color: #008000; font-weight: bold">typedef</span><span style="color: #bbbbbb"> </span><span style="color: #008000; font-weight: bold">struct</span><span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb"></span>
-<span style="color: #bbbbbb">    </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>data;<span style="color: #bbbbbb">        </span><span style="color: #3D7B7B; font-style: italic">// Internal array</span>
-<span style="color: #bbbbbb">    </span><span style="color: #B00040">size_t</span><span style="color: #bbbbbb">   </span>capacity;<span style="color: #bbbbbb">    </span><span style="color: #3D7B7B; font-style: italic">// Total number of elements</span>
-<span style="color: #bbbbbb">    </span><span style="color: #B00040">size_t</span><span style="color: #bbbbbb">   </span>size;<span style="color: #bbbbbb">        </span><span style="color: #3D7B7B; font-style: italic">// Number of valid elements</span>
-}<span style="color: #bbbbbb"> </span>Array;<span style="color: #bbbbbb"></span>
-
-<span style="color: #3D7B7B; font-style: italic">/* Constants */</span><span style="color: #bbbbbb"></span>
-
-<span style="color: #008000; font-weight: bold">extern</span><span style="color: #bbbbbb"> </span><span style="color: #008000; font-weight: bold">const</span><span style="color: #bbbbbb"> </span><span style="color: #B00040">size_t</span><span style="color: #bbbbbb"> </span>ARRAY_DEFAULT_CAPACITY;<span style="color: #bbbbbb"></span>
-
-<span style="color: #3D7B7B; font-style: italic">/* Functions */</span><span style="color: #bbbbbb"></span>
-
-Array<span style="color: #bbbbbb">   </span><span style="color: #666666">*</span><span style="color: #0000FF">array_create</span>(<span style="color: #B00040">size_t</span><span style="color: #bbbbbb"> </span>capacity);<span style="color: #bbbbbb"></span>
-<span style="color: #B00040">void</span><span style="color: #bbbbbb">     </span><span style="color: #0000FF">array_delete</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array);<span style="color: #bbbbbb"></span>
-
-<span style="color: #B00040">int64_t</span><span style="color: #bbbbbb">  </span><span style="color: #0000FF">array_at</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array,<span style="color: #bbbbbb"> </span><span style="color: #B00040">ssize_t</span><span style="color: #bbbbbb"> </span>index);<span style="color: #bbbbbb"></span>
-
-<span style="color: #B00040">void</span><span style="color: #bbbbbb">     </span><span style="color: #0000FF">array_resize</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array,<span style="color: #bbbbbb"> </span><span style="color: #B00040">size_t</span><span style="color: #bbbbbb"> </span>capacity);<span style="color: #bbbbbb"></span>
-
-<span style="color: #B00040">void</span><span style="color: #bbbbbb">     </span><span style="color: #0000FF">array_append</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array,<span style="color: #bbbbbb"> </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span>value);<span style="color: #bbbbbb"></span>
-<span style="color: #B00040">int64_t</span><span style="color: #bbbbbb">  </span><span style="color: #0000FF">array_pop</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array,<span style="color: #bbbbbb"> </span><span style="color: #B00040">ssize_t</span><span style="color: #bbbbbb"> </span>index);<span style="color: #bbbbbb"></span>
-</code></pre></div>
-
-<p>Other programs will <code>#include</code> this file in order to use the functions we
-will be implementing in this library.</p>
-<div class="alert alert-info">
-<p><strong>Note</strong>: For this task, you <strong>do not</strong> need to modify this file. Instead,
-you should review it and ensure you understand the provided code.</p>
-</div>
-<h3 id="task-2-makefile">Task 2: <code>Makefile</code><a class="headerlink" href="#task-2-makefile" title="Permanent link">&para;</a></h3>
+<h3 id="task-3-makefile">Task 3: <code>Makefile</code><a class="headerlink" href="#task-3-makefile" title="Permanent link">&para;</a></h3>
+<p>Before you begin coding, you should first make sure you complete the
+<code>Makefile</code> that will be used to build all the software artifacts in this
+assignment.</p>
 <p>The Makefile contains all the rules or recipes for building the project
 artifacts (e.g. <code>rpn</code>, <code>libds.a</code>, <code>unit_array</code>, <code>unit_stack</code>, etc.):</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #19177C">CC</span><span style="color: #666666">=</span>             gcc
@@ -314,7 +227,100 @@ rm -f bin/unit_* bin/rpn lib/*.a src/*.o tests/*.o
 also means that your code must <strong>compile without any warnings</strong>, otherwise
 points will be deducted.</p>
 </div>
-<h3 id="task-3-srcarrayc">Task 3: <code>src/array.c</code><a class="headerlink" href="#task-3-srcarrayc" title="Permanent link">&para;</a></h3>
+<p>After completing the <code>Makefile</code> and verifying that you can produce all the
+specified artifacts, you may begin implementing the <a href="https://en.wikipedia.org/wiki/Data_structure">data structure</a>s and
+applications for this assignment.</p>
+<h2 id="activity-1-dynamic-array-4-points">Activity 1: Dynamic Array (4 Points)<a class="headerlink" href="#activity-1-dynamic-array-4-points" title="Permanent link">&para;</a></h2>
+<p>In high-level languages such as <a href="https://www.python.org/">Python</a>, we have built-in implementations of
+<a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a>s which support a variety of methods:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Define a dynamic array</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> array <span style="color: #666666">=</span> [<span style="color: #666666">4</span>, <span style="color: #666666">6</span>, <span style="color: #666666">6</span>, <span style="color: #666666">3</span>, <span style="color: #666666">7</span>]
+
+<span style="color: #3D7B7B; font-style: italic"># Add a new value to the end of the array</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> array<span style="color: #666666">.</span>append(<span style="color: #666666">9</span>)
+<span style="color: #666666">&gt;&gt;&gt;</span> array
+[<span style="color: #666666">4</span>, <span style="color: #666666">6</span>, <span style="color: #666666">6</span>, <span style="color: #666666">3</span>, <span style="color: #666666">7</span>, <span style="color: #666666">9</span>]
+
+<span style="color: #3D7B7B; font-style: italic"># Remove the value at index 0</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> array<span style="color: #666666">.</span>pop(<span style="color: #666666">0</span>)
+<span style="color: #666666">&gt;&gt;&gt;</span> array
+[<span style="color: #666666">6</span>, <span style="color: #666666">6</span>, <span style="color: #666666">3</span>, <span style="color: #666666">7</span>, <span style="color: #666666">9</span>]
+
+<span style="color: #3D7B7B; font-style: italic"># Access the last element</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> array[<span style="color: #666666">-1</span>]
+<span style="color: #666666">9</span>
+</code></pre></div>
+
+<p>Unfortunately, <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> only has fixed <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">arrays</a> that do not support <code>append</code> or
+<code>pop</code> or <strong>negative indexing</strong> (ie. <code>array[-index]</code> is translated to
+<code>array[len(array) - index]</code>).</p>
+<div class="thumbnail">
+  <img src="static/img/reading02-dynamic-array.png" class="img-responsive">
+</div>
+
+<p>As discussed in class, we can use fixed <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">arrays</a> in <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> to implement <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic
+array</a>s by introducing an <code>Array</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> with the following attributes:</p>
+<ol>
+<li>
+<p><code>data</code>: This is the internal fixed-sized <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a> that we will need to
+  periodically resize or grow.</p>
+</li>
+<li>
+<p><code>capacity</code>: This is the total number of possible elements in the
+  internal fixed-size <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a>.</p>
+</li>
+<li>
+<p><code>size</code>: This is the number of valid elements stored in the internal
+  fixed-size <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a>.</p>
+</li>
+</ol>
+<p>With this <code>Array</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> in mind, for the first activity, you are to create
+a <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> library, <code>lib/libds.a</code>, which contains functions such as
+<code>array_append</code> and <code>array_pop</code> that implements some of the functionality
+present in <a href="https://www.python.org/">Python</a> but missing in <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a>.</p>
+<h3 id="task-1-includedsarrayh">Task 1: <code>include/ds/array.h</code><a class="headerlink" href="#task-1-includedsarrayh" title="Permanent link">&para;</a></h3>
+<p>The <code>include/ds/array.h</code> file is the <a href="https://en.wikipedia.org/wiki/Include_directive#C.2FC.2B.2B">header</a> file for the <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> library,
+which contains the following <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">structs</a> and function <a href="https://en.wikipedia.org/wiki/Function_prototype">prototypes</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic">/* array.h: Dynamic Array */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #9C6500">#pragma once</span>
+
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdbool.h&gt;</span><span style="color: #9C6500"></span>
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdint.h&gt;</span><span style="color: #9C6500"></span>
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdlib.h&gt;</span><span style="color: #9C6500"></span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Structures */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #008000; font-weight: bold">typedef</span><span style="color: #bbbbbb"> </span><span style="color: #008000; font-weight: bold">struct</span><span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb"></span>
+<span style="color: #bbbbbb">    </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>data;<span style="color: #bbbbbb">        </span><span style="color: #3D7B7B; font-style: italic">// Internal array</span>
+<span style="color: #bbbbbb">    </span><span style="color: #B00040">size_t</span><span style="color: #bbbbbb">   </span>capacity;<span style="color: #bbbbbb">    </span><span style="color: #3D7B7B; font-style: italic">// Total number of elements</span>
+<span style="color: #bbbbbb">    </span><span style="color: #B00040">size_t</span><span style="color: #bbbbbb">   </span>size;<span style="color: #bbbbbb">        </span><span style="color: #3D7B7B; font-style: italic">// Number of valid elements</span>
+}<span style="color: #bbbbbb"> </span>Array;<span style="color: #bbbbbb"></span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Constants */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #008000; font-weight: bold">extern</span><span style="color: #bbbbbb"> </span><span style="color: #008000; font-weight: bold">const</span><span style="color: #bbbbbb"> </span><span style="color: #B00040">size_t</span><span style="color: #bbbbbb"> </span>ARRAY_DEFAULT_CAPACITY;<span style="color: #bbbbbb"></span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Functions */</span><span style="color: #bbbbbb"></span>
+
+Array<span style="color: #bbbbbb">   </span><span style="color: #666666">*</span><span style="color: #0000FF">array_create</span>(<span style="color: #B00040">size_t</span><span style="color: #bbbbbb"> </span>capacity);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">     </span><span style="color: #0000FF">array_delete</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array);<span style="color: #bbbbbb"></span>
+
+<span style="color: #B00040">int64_t</span><span style="color: #bbbbbb">  </span><span style="color: #0000FF">array_at</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array,<span style="color: #bbbbbb"> </span><span style="color: #B00040">ssize_t</span><span style="color: #bbbbbb"> </span>index);<span style="color: #bbbbbb"></span>
+
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">     </span><span style="color: #0000FF">array_resize</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array,<span style="color: #bbbbbb"> </span><span style="color: #B00040">size_t</span><span style="color: #bbbbbb"> </span>capacity);<span style="color: #bbbbbb"></span>
+
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">     </span><span style="color: #0000FF">array_append</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array,<span style="color: #bbbbbb"> </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span>value);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">int64_t</span><span style="color: #bbbbbb">  </span><span style="color: #0000FF">array_pop</span>(Array<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>array,<span style="color: #bbbbbb"> </span><span style="color: #B00040">ssize_t</span><span style="color: #bbbbbb"> </span>index);<span style="color: #bbbbbb"></span>
+</code></pre></div>
+
+<p>Other programs will <code>#include</code> this file in order to use the functions we
+will be implementing in this library.</p>
+<div class="alert alert-info">
+<p><strong>Note</strong>: For this task, you <strong>do not</strong> need to modify this file. Instead,
+you should review it and ensure you understand the provided code.</p>
+</div>
+<h3 id="task-2-srcarrayc">Task 2: <code>src/array.c</code><a class="headerlink" href="#task-2-srcarrayc" title="Permanent link">&para;</a></h3>
 <p>The <code>src/array.c</code> file contains the <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> implementation for the <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> library.</p>
 <div class="thumbnail">
   <img src="static/img/homework03-array-library.png" class="img-responsive">
@@ -387,9 +393,9 @@ as shown in the diagram above.
 </div></p>
 </li>
 </ol>
-<h3 id="task-4-testing">Task 4: Testing<a class="headerlink" href="#task-4-testing" title="Permanent link">&para;</a></h3>
+<h3 id="task-3-testing">Task 3: Testing<a class="headerlink" href="#task-3-testing" title="Permanent link">&para;</a></h3>
 <p>As you implement the functions in <code>src/array.c</code>, you should use
-<code>bin/unit_array.sh</code> to test each function:</p>
+<code>bin/test_array.sh</code> to test each function:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build unit-test</span>
 $ make bin/unit_array
 gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o tests/unit_array.o tests/unit_array.c
@@ -540,9 +546,9 @@ otherwise <code>false</code>.</p>
 <div class="alert alert-success">
 <p><strong>Hint</strong>: All of these functions should be <strong>one line</strong>.</p>
 </div>
-<h3 id="task-3-testing">Task 3: Testing<a class="headerlink" href="#task-3-testing" title="Permanent link">&para;</a></h3>
+<h3 id="task-3-testing_1">Task 3: Testing<a class="headerlink" href="#task-3-testing_1" title="Permanent link">&para;</a></h3>
 <p>As you implement the functions in <code>src/stack.c</code>, you should use
-<code>bin/unit_stack.sh</code> to test each function:</p>
+<code>bin/test_stack.sh</code> to test each function:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build unit-test</span>
 $ make bin/unit_stack
 gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o tests/unit_stack.o tests/unit_stack.c
@@ -585,16 +591,16 @@ Where NUMBER is right of the following:
     <span style="color: #666666">4</span>  Test stack_push
     <span style="color: #666666">5</span>  Test stack_pop
 
-<span style="color: #3D7B7B; font-style: italic"># Run test for array_create</span>
-$ ./bin/unit_array <span style="color: #666666">0</span>
+<span style="color: #3D7B7B; font-style: italic"># Run test for stack_create</span>
+$ ./bin/unit_stack <span style="color: #666666">0</span>
 
-<span style="color: #3D7B7B; font-style: italic"># Run test for array_create using GDB</span>
-$ gdb ./bin/unit_array
+<span style="color: #3D7B7B; font-style: italic"># Run test for stack_create using GDB</span>
+$ gdb ./bin/unit_stack
 ...
 <span style="color: #666666">(</span>gdb<span style="color: #666666">)</span> run <span style="color: #666666">0</span>
 
-<span style="color: #3D7B7B; font-style: italic"># Run test for array_create using Valgrind</span>
-$ valgrind --leak-check<span style="color: #666666">=</span>full ./bin/unit_array <span style="color: #666666">0</span>
+<span style="color: #3D7B7B; font-style: italic"># Run test for stack_create using Valgrind</span>
+$ valgrind --leak-check<span style="color: #666666">=</span>full ./bin/unit_stack <span style="color: #666666">0</span>
 </code></pre></div>
 
 <p>Of course, you are free to create your own test programs to debug and test
@@ -757,9 +763,7 @@ assignment for full credit.</p>
 <p>To submit your assignment, please commit your work to the <code>homework03</code> folder
 of your <code>homework03</code> branch in your <strong>assignments</strong> <a href="https://github.com">GitHub</a> repository:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic">#-----------------------------------------------------------------------</span>
-<span style="color: #3D7B7B; font-style: italic"># Make sure you have already completed:</span>
-<span style="color: #3D7B7B; font-style: italic">#   1. Activity 0: Preparation</span>
-<span style="color: #3D7B7B; font-style: italic">#   2. Activity 1, Task 0: Initial Import</span>
+<span style="color: #3D7B7B; font-style: italic"># Make sure you have already completed Activity 0: Preparation</span>
 <span style="color: #3D7B7B; font-style: italic">#-----------------------------------------------------------------------</span>
 ...
 $ git add src/array.c                         <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
