@@ -1,0 +1,115 @@
+title:      "Reading 05: Sorting"
+icon:       fa-book
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  **Everyone**:
+
+  Next week, we will study various [sorting] algorithms, including: [bubble
+    sort], [selection sort], [insertion sort], [merge sort], and [quick sort].
+    During our exploration, we will also be introduced to the
+    [divide-and-conquer] approach to problem solving.
+
+  [sorting]: https://en.wikipedia.org/wiki/Sorting_algorithm
+  [bubble sort]: https://en.wikipedia.org/wiki/Bubble_sort
+  [selection sort]: https://en.wikipedia.org/wiki/Selection_sort
+  [insertion sort]: https://en.wikipedia.org/wiki/Insertion_sort
+  [merge sort]:     https://en.wikipedia.org/wiki/Merge_sort
+  [quick sort]:     https://en.wikipedia.org/wiki/Quicksort
+  [divide-and-conquer]: https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-search"></i> TL;DR
+
+  The focus of this reading is [sorting] algorithms.
+
+  </div>
+
+  <img src="static/img/reading05-sorting.png" class="img-responsive pull-right" />
+
+  ## Readings
+
+  The readings for this week are:
+
+  1. [Data Structures Handbook](https://thedshandbook.com)
+
+      - <p>[Sorting in Arrays](https://www.thedshandbook.com/sorting-in-arrays/)</p>
+
+  2. [Learn DS & Algorithms](https://www.programiz.com/dsa)
+
+      - [Bubble Sort](https://www.programiz.com/dsa/bubble-sort)
+      - [Selection Sort](https://www.programiz.com/dsa/selection-sort)
+      - [Insertion Sort](https://www.programiz.com/dsa/insertion-sort)
+      - [Merge Sort](https://www.programiz.com/dsa/merge-sort)
+      - [Quick Sort](https://www.programiz.com/dsa/quick-sort)
+
+  ### Optional References
+
+  1. [Interview Cake](https://interviewcake.com)
+
+      - [Sorting Algorithm Cheat Sheet](https://www.interviewcake.com/sorting-algorithm-cheat-sheet)
+
+  ## Quiz
+
+  Once you have completed the readings, answer the following [Reading 05 Quiz]
+  questions:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/reading05.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  ## Submission
+
+  To submit your work, follow the same process outlined in [Reading 01]:
+
+      :::bash
+      $ git checkout master                 # Make sure we are in master branch
+      $ git pull --rebase                   # Make sure we are up-to-date with GitHub
+
+      $ git checkout -b reading05           # Create reading05 branch and check it out
+
+      $ cd reading05                        # Go into reading05 folder
+      $ $EDITOR answers.json                # Edit your answers.json file
+
+      $ ../.scripts/check.py                # Check reading05 quiz
+      Checking reading05 quiz ...
+            Q1 0.40
+            Q2 0.60
+            Q3 0.50
+            Q4 0.50
+            Q5 0.50
+            Q6 0.50
+         Score 3.00 / 3.00
+        Status Success
+
+      $ git add answers.json                # Add answers.json to staging area
+      $ git commit -m "Reading 05: Done"    # Commit work
+
+      $ git push -u origin reading05        # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Once you have committed your work and pushed it to [GitHub], remember to
+  create a **pull request** and assign it to the appropriate **teaching
+  assistant** from the [Reading 05 TA List].
+
+  </div>
+
+  [Git]:                https://git-scm.com/
+  [GitHub]:             https://github.com/
+  [Reading 01]:         reading01.html
+  [Reading 05 Quiz]:    static/json/reading05.json
+  [Reading 05 TA List]: reading05_tas.html

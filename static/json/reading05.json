@@ -1,0 +1,59 @@
+{
+    "q1": {
+        "type": "blank",
+        "question": "\n<p><b>Sorting</b> algorithms often require <b>swapping</b> or switching\nvalues as part of the process of ordering values. Complete the following\ncode that implements a <tt>swap</tt> function for two <tt>ints</tt>:</p>\n\n<pre>\nvoid swap(int *a, int *b) {\n    int tmp = ____;\n    ____ = ____;\n    ____ = tmp;\n}\n</pre>\n"
+    },
+    "q2": {
+        "type": "order",
+        "question": "\n<p>Given the following <b>traces</b> of arrays being sorted, identify the\nalgorithm used for each <b>trace</b> (the array is printed after each\niteration through the array):</p>\n\n<pre>\nTrace 1:\n\n  5 7 4 0 1\n  5 7 4 0 1\n  4 5 7 0 1\n  0 4 5 7 1\n  0 1 4 5 7\n\nTrace 2:\n\n  5 7 4 0 1\n  0 7 4 5 1\n  0 1 4 5 7\n  0 1 4 5 7\n  0 1 4 5 7\n  0 1 4 5 7\n\nTrace 3:\n\n  5 7 4 0 1\n  5 4 0 1 7\n  4 0 1 5 7\n  0 1 4 5 7\n  0 1 4 5 7\n\n</pre>\n",
+        "responses": {
+            "bubble_sort": "Bubble Sort",
+            "insertion_sort": "Insertion Sort",
+            "selection_sort": "Selection Sort"
+        }
+    },
+    "q3": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>stability</b> of\n<b>sorting algorithms</b> are true (select all that apply)?</p>\n",
+        "responses": {
+            "bubble_sort": "<b>Bubble sort</b> is considered a <b>stable</b> sorting algorithm.",
+            "insertion_sort": "<b>Insertion sort</b> is considered a <b>stable</b> sorting algorithm.",
+            "selection_sort": "<b>Selection sort</b> is considered a <b>stable</b> sorting algorithm.",
+            "merge_sort": "<b>Merge sort</b> is considered a <b>stable</b> sorting algorithm.",
+            "quick_sort": "<b>Quick sort</b> is considered a <b>stable</b> sorting algorithm."
+        }
+    },
+    "q4": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the use of\n<b>divide-and-conquer</b> in <b>sorting algorithms</b> are true (select all\nthat apply)?</p>\n",
+        "responses": {
+            "bubble_sort": "<b>Bubble sort</b> is considered a <b>divide-and-conquer</b> sorting algorithm.",
+            "insertion_sort": "<b>Insertion sort</b> is considered a <b>divide-and-conquer</b> sorting algorithm.",
+            "selection_sort": "<b>Selection sort</b> is considered a <b>divide-and-conquer</b> sorting algorithm.",
+            "merge_sort": "<b>Merge sort</b> is considered a <b>divide-and-conquer</b> sorting algorithm.",
+            "quick_sort": "<b>Quick sort</b> is considered a <b>divide-and-conquer</b> sorting algorithm."
+        }
+    },
+    "q5": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>average time complexities</b>\nof <b>sorting algorithms</b> are true (select all that apply)?</p>\n",
+        "responses": {
+            "bubble_sort": "<b>Bubble sort</b> has an <b>average time complexity</b> of <tt>O(nlogn)</tt>.",
+            "insertion_sort": "<b>Insertion sort</b> has an <b>average time complexity</b> of <tt>O(nlogn)</tt>.",
+            "selection_sort": "<b>Selection sort</b> has an <b>average time complexity</b> of <tt>O(nlogn)</tt>.",
+            "merge_sort": "<b>Merge sort</b> has an <b>average time complexity</b> of <tt>O(nlogn)</tt>.",
+            "quick_sort": "<b>Quick sort</b> has an <b>average time complexity</b> of <tt>O(nlogn)</tt>."
+        }
+    },
+    "q6": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>average space complexities</b>\nof <b>sorting algorithms</b> are true (select all that apply)?</p>\n",
+        "responses": {
+            "bubble_sort": "<b>Bubble sort</b> has an <b>average space complexity</b> of <tt>O(1)</tt>.",
+            "insertion_sort": "<b>Insertion sort</b> has an <b>average space complexity</b> of <tt>O(1)</tt>.",
+            "selection_sort": "<b>Selection sort</b> has an <b>average space complexity</b> of <tt>O(1)</tt>.",
+            "merge_sort": "<b>Merge sort</b> has an <b>average space complexity</b> of <tt>O(1)</tt>.",
+            "quick_sort": "<b>Quick sort</b> has an <b>average space complexity</b> of <tt>O(1)</tt>."
+        }
+    }
+}
