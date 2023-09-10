@@ -7,7 +7,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Reading 04: Searching, Sets</title>
+	<title>Reading 05: Sorting</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="static/css/blugold.css" rel="stylesheet">
@@ -35,34 +35,38 @@
 			<li><a href="index.html"><i class="fa fa-sitemap"></i> <span class="visible-md-inline visible-lg-inline">Home</span></a></li>
 			
 		    </ul>
-		    <h1><i class="fa fa-book"></i> Reading 04: Searching, Sets</h1>
+		    <h1><i class="fa fa-book"></i> Reading 05: Sorting</h1>
 		</div>
 	    </div>
 
             
 <p><strong>Everyone</strong>:</p>
-<p>Next week, we will study <a href="https://en.wikipedia.org/wiki/Linear_search">linear search</a> and <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">binary search</a>, two common
-<a href="https://en.wikipedia.org/wiki/Algorithm">algorithms</a>, and discuss how to use them to implement <a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)">sets</a>, a common and
-useful <a href="https://en.wikipedia.org/wiki/Abstract_data_type">abstract data type</a>.</p>
+<p>Next week, we will study various <a href="https://en.wikipedia.org/wiki/Sorting_algorithm">sorting</a> algorithms, including: <a href="https://en.wikipedia.org/wiki/Bubble_sort">bubble
+  sort</a>, <a href="https://en.wikipedia.org/wiki/Selection_sort">selection sort</a>, <a href="https://en.wikipedia.org/wiki/Insertion_sort">insertion sort</a>, <a href="https://en.wikipedia.org/wiki/Merge_sort">merge sort</a>, and <a href="https://en.wikipedia.org/wiki/Quicksort">quick sort</a>.
+  During our exploration, we will also be introduced to the
+  <a href="https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm">divide-and-conquer</a> approach to problem solving.</p>
 <div class="alert alert-info">
 <h4 id="tldr"><i class="fa fa-search"></i> TL;DR<a class="headerlink" href="#tldr" title="Permanent link">&para;</a></h4>
-<p>The focus of this reading is <a href="https://en.wikipedia.org/wiki/Linear_search">linear search</a>, <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">binary search</a>, and <a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)">sets</a>.</p>
+<p>The focus of this reading is <a href="https://en.wikipedia.org/wiki/Sorting_algorithm">sorting</a> algorithms.</p>
 </div>
-<p><img src="static/img/reading04-binary-search.png" class="img-responsive pull-right" /></p>
+<p><img src="static/img/reading05-sorting.png" class="img-responsive pull-right" /></p>
 <h2 id="readings">Readings<a class="headerlink" href="#readings" title="Permanent link">&para;</a></h2>
 <p>The readings for this week are:</p>
 <ol>
 <li>
 <p><a href="https://thedshandbook.com">Data Structures Handbook</a></p>
 <ul>
-<li><p><a href="https://www.thedshandbook.com/searching-in-arrays/">Searching in Arrays</a></p></li>
+<li><p><a href="https://www.thedshandbook.com/sorting-in-arrays/">Sorting in Arrays</a></p></li>
 </ul>
 </li>
 <li>
 <p><a href="https://www.programiz.com/dsa">Learn DS &amp; Algorithms</a></p>
 <ul>
-<li><a href="https://www.programiz.com/dsa/linear-search">Linear Search</a></li>
-<li><p><a href="https://www.programiz.com/dsa/binary-search">Binary Search</a></p></li>
+<li><a href="https://www.programiz.com/dsa/bubble-sort">Bubble Sort</a></li>
+<li><a href="https://www.programiz.com/dsa/selection-sort">Selection Sort</a></li>
+<li><a href="https://www.programiz.com/dsa/insertion-sort">Insertion Sort</a></li>
+<li><a href="https://www.programiz.com/dsa/merge-sort">Merge Sort</a></li>
+<li><a href="https://www.programiz.com/dsa/quick-sort">Quick Sort</a></li>
 </ul>
 </li>
 </ol>
@@ -71,12 +75,12 @@ useful <a href="https://en.wikipedia.org/wiki/Abstract_data_type">abstract data 
 <li>
 <p><a href="https://interviewcake.com">Interview Cake</a></p>
 <ul>
-<li><a href="https://interviewcake.com/concept/c/binary-search">Binary Search</a></li>
+<li><a href="https://www.interviewcake.com/sorting-algorithm-cheat-sheet">Sorting Algorithm Cheat Sheet</a></li>
 </ul>
 </li>
 </ol>
 <h2 id="quiz">Quiz<a class="headerlink" href="#quiz" title="Permanent link">&para;</a></h2>
-<p>Once you have completed the readings, answer the following <a href="static/json/reading04.json">Reading 04 Quiz</a>
+<p>Once you have completed the readings, answer the following <a href="static/json/reading05.json">Reading 05 Quiz</a>
 questions:</p>
 <div id="quiz-questions"></div>
 
@@ -84,7 +88,7 @@ questions:</p>
 
 <script src="static/js/dredd-quiz.js"></script>
 <script>
-loadQuiz('static/json/reading04.json');
+loadQuiz('static/json/reading05.json');
 </script>
 
 <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
@@ -94,32 +98,33 @@ loadQuiz('static/json/reading04.json');
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ git checkout master                 <span style="color: #3D7B7B; font-style: italic"># Make sure we are in master branch</span>
 $ git pull --rebase                   <span style="color: #3D7B7B; font-style: italic"># Make sure we are up-to-date with GitHub</span>
 
-$ git checkout -b reading04           <span style="color: #3D7B7B; font-style: italic"># Create reading04 branch and check it out</span>
+$ git checkout -b reading05           <span style="color: #3D7B7B; font-style: italic"># Create reading05 branch and check it out</span>
 
-$ <span style="color: #008000">cd</span> reading04                        <span style="color: #3D7B7B; font-style: italic"># Go into reading04 folder</span>
+$ <span style="color: #008000">cd</span> reading05                        <span style="color: #3D7B7B; font-style: italic"># Go into reading05 folder</span>
 $ <span style="color: #19177C">$EDITOR</span> answers.json                <span style="color: #3D7B7B; font-style: italic"># Edit your answers.json file</span>
 
-$ ../.scripts/check.py                <span style="color: #3D7B7B; font-style: italic"># Check reading04 quiz</span>
-Checking reading04 quiz ...
-      Q1 <span style="color: #666666">0</span>.60
-      Q2 <span style="color: #666666">0</span>.50
-      Q3 <span style="color: #666666">0</span>.40
-      Q4 <span style="color: #666666">1</span>.20
-      Q5 <span style="color: #666666">0</span>.30
+$ ../.scripts/check.py                <span style="color: #3D7B7B; font-style: italic"># Check reading05 quiz</span>
+Checking reading05 quiz ...
+      Q1 <span style="color: #666666">0</span>.40
+      Q2 <span style="color: #666666">0</span>.60
+      Q3 <span style="color: #666666">0</span>.50
+      Q4 <span style="color: #666666">0</span>.50
+      Q5 <span style="color: #666666">0</span>.50
+      Q6 <span style="color: #666666">0</span>.50
    Score <span style="color: #666666">3</span>.00 / <span style="color: #666666">3</span>.00
   Status Success
 
 $ git add answers.json                <span style="color: #3D7B7B; font-style: italic"># Add answers.json to staging area</span>
-$ git commit -m <span style="color: #BA2121">&quot;Reading 04: Done&quot;</span>    <span style="color: #3D7B7B; font-style: italic"># Commit work</span>
+$ git commit -m <span style="color: #BA2121">&quot;Reading 05: Done&quot;</span>    <span style="color: #3D7B7B; font-style: italic"># Commit work</span>
 
-$ git push -u origin reading04        <span style="color: #3D7B7B; font-style: italic"># Push branch to GitHub</span>
+$ git push -u origin reading05        <span style="color: #3D7B7B; font-style: italic"># Push branch to GitHub</span>
 </code></pre></div>
 
 <div class="alert alert-danger">
 <h4 id="pull-request"><i class="fa fa-github"></i> Pull Request<a class="headerlink" href="#pull-request" title="Permanent link">&para;</a></h4>
 <p>Once you have committed your work and pushed it to <a href="https://github.com/">GitHub</a>, remember to
 create a <strong>pull request</strong> and assign it to the appropriate <strong>teaching
-assistant</strong> from the <a href="reading04_tas.html">Reading 04 TA List</a>.</p>
+assistant</strong> from the <a href="reading05_tas.html">Reading 05 TA List</a>.</p>
 </div>
 
 
