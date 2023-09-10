@@ -875,6 +875,9 @@ body:       |
       # Make sure you have already completed Activity 0: Preparation
       #-----------------------------------------------------------------------
       ...
+      $ git add Makefile                            # Mark changes for commit
+      $ git commit -m "Homework 03: Activity 0"     # Record changes
+      ...
       $ git add src/array.c                         # Mark changes for commit
       $ git commit -m "Homework 03: Activity 1"     # Record changes
       ...
