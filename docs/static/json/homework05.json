@@ -1,0 +1,90 @@
+{
+    "q1": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <tt>ArraySet</tt> functions are true (select all that apply)?</p>\n",
+        "responses": {
+            "as_contains_1": "<tt>arrayset_contains</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "as_contains_logn": "<tt>arrayset_contains</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>",
+            "as_contains_n": "<tt>arrayset_contains</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "as_add_1": "<tt>arrayset_add</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "as_add_logn": "<tt>arrayset_add</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>",
+            "as_add_n": "<tt>arrayset_add</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "as_remove_1": "<tt>arrayset_remove</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "as_remove_logn": "<tt>arrayset_remove</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>",
+            "as_remove_n": "<tt>arrayset_remove</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>space complexities</b>\nof the <tt>ArraySet</tt> functions are true (select all that apply)?</p>\n",
+        "responses": {
+            "as_contains_1": "<tt>arrayset_contains</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>",
+            "as_contains_logn": "<tt>arrayset_contains</tt> has an average <b>space complexity</b> of <tt>O(logn)</tt>",
+            "as_contains_n": "<tt>arrayset_contains</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>",
+            "as_add_1": "<tt>arrayset_add</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>",
+            "as_add_logn": "<tt>arrayset_add</tt> has an average <b>space complexity</b> of <tt>O(logn)</tt>",
+            "as_add_n": "<tt>arrayset_add</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>",
+            "as_remove_1": "<tt>arrayset_remove</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>",
+            "as_remove_logn": "<tt>arrayset_remove</tt> has an average <b>space complexity</b> of <tt>O(logn)</tt>",
+            "as_remove_n": "<tt>arrayset_remove</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q3": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <tt>ListSet</tt> functions are true (select all that apply)?</p>\n",
+        "responses": {
+            "ls_contains_1": "<tt>listset_contains</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "ls_contains_logn": "<tt>listset_contains</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>",
+            "ls_contains_n": "<tt>listset_contains</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "ls_add_1": "<tt>listset_add</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "ls_add_logn": "<tt>listset_add</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>",
+            "ls_add_n": "<tt>listset_add</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "ls_remove_1": "<tt>listset_remove</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "ls_remove_logn": "<tt>listset_remove</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>",
+            "ls_remove_n": "<tt>listset_remove</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q4": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>space complexities</b>\nof the <tt>ListSet</tt> functions are true (select all that apply)?</p>\n",
+        "responses": {
+            "ls_contains_1": "<tt>listset_contains</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>",
+            "ls_contains_logn": "<tt>listset_contains</tt> has an average <b>space complexity</b> of <tt>O(logn)</tt>",
+            "ls_contains_n": "<tt>listset_contains</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>",
+            "ls_add_1": "<tt>listset_add</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>",
+            "ls_add_logn": "<tt>listset_add</tt> has an average <b>space complexity</b> of <tt>O(logn)</tt>",
+            "ls_add_n": "<tt>listset_add</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>",
+            "ls_remove_1": "<tt>listset_remove</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>",
+            "ls_remove_logn": "<tt>listset_remove</tt> has an average <b>space complexity</b> of <tt>O(logn)</tt>",
+            "ls_remove_n": "<tt>listset_remove</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q5": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <tt>BitSet</tt> functions are true (select all that apply)?</p>\n",
+        "responses": {
+            "bs_contains_1": "<tt>bitset_contains</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "bs_contains_logn": "<tt>bitset_contains</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>",
+            "bs_contains_n": "<tt>bitset_contains</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "bs_add_1": "<tt>bitset_add</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "bs_add_logn": "<tt>bitset_add</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>",
+            "bs_add_n": "<tt>bitset_add</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "bs_remove_1": "<tt>bitset_remove</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "bs_remove_logn": "<tt>bitset_remove</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>",
+            "bs_remove_n": "<tt>bitset_remove</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q6": {
+        "type": "blank",
+        "question": "\n<p>For each of the following words, fill in \"YEAH\" if it has a\n<b>palindromic permutation</b> or \"NOPE\" if it does not.</p>\n\n<ol>\n<li><b>Palindromic Permutation?</b>: <tt>annnanaaannnnaaaannnaaannnanaannana</tt> ____</li>\n<li><b>Palindromic Permutation?</b>: <tt>wowowowowowwwwwooooooowwwwooowwowow</tt> ____</li>\n</ol>\n"
+    },
+    "q7": {
+        "type": "order",
+        "question": "\n<p>Add the <tt>-O2</tt> compiler file to your <tt>Makefile</tt> and then\nrebuild everything with <tt>make clean ; make</tt>.  Next, run the provided\n<tt>bin/benchmark.py</tt> script to measure the runtimes of the various\n<b>set</b> types in <tt>bin/palindromic</tt>.  Perform this measurement a\nfew times until a pattern emerges.</p>\n\n<p>Order the following <b>Set</b> implementations from <b>fastest</b> to\n<b>slowest</b>.</p>\n",
+        "responses": {
+            "arrayset": "ArraySet",
+            "listset": "ListSet",
+            "bitset": "BitSet"
+        }
+    }
+}

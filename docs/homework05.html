@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Homework 05: Sets, Palindromes</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="static/css/blugold.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<style>
+	body {
+	    padding: 10px;
+	}
+	</style>
+    </head>
+    <body>
+	<div class="container">
+
+	    <div class="row">
+		<div class="page-header">
+		    <ul class="nav nav-pills pull-right">
+			
+			<li><a href="index.html"><i class="fa fa-sitemap"></i> <span class="visible-md-inline visible-lg-inline">Home</span></a></li>
+			
+		    </ul>
+		    <h1><i class="fa fa-code"></i> Homework 05: Sets, Palindromes</h1>
+		</div>
+	    </div>
+
+            
+<p>The goal of this homework assignment is to allow you to explore building
+<a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)">sets</a> using a <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a>, a <a href="https://en.wikipedia.org/wiki/Linked_list">linked list</a>, and a <a href="https://en.wikipedia.org/wiki/Bit_array">bitset</a> and then
+utilizing this <a href="https://en.wikipedia.org/wiki/Abstract_data_type">abstract data type</a> to solve the infamous <a href="https://leetcode.com/problems/palindrome-permutation/">palindromic
+permutation</a> programming challenge.</p>
+<p>In high-level languages such as <a href="https://www.python.org/">Python</a>, we have a built-in implementation
+of <a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)">sets</a> which support a variety of methods:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Define a set</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> s <span style="color: #666666">=</span> <span style="color: #008000">set</span>([<span style="color: #666666">5</span>, <span style="color: #666666">7</span>, <span style="color: #666666">4</span>])
+<span style="color: #666666">&gt;&gt;&gt;</span> s
+{<span style="color: #666666">4</span>, <span style="color: #666666">5</span>, <span style="color: #666666">7</span>}
+
+<span style="color: #3D7B7B; font-style: italic"># Add values to set</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> s<span style="color: #666666">.</span>add(<span style="color: #666666">0</span>)
+<span style="color: #666666">&gt;&gt;&gt;</span> s<span style="color: #666666">.</span>add(<span style="color: #666666">1</span>)
+<span style="color: #666666">&gt;&gt;&gt;</span> s
+{<span style="color: #666666">0</span>, <span style="color: #666666">1</span>, <span style="color: #666666">4</span>, <span style="color: #666666">5</span>, <span style="color: #666666">7</span>}
+
+<span style="color: #3D7B7B; font-style: italic"># Check if set contains value</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #666666">4</span> <span style="color: #AA22FF; font-weight: bold">in</span> s
+<span style="color: #008000; font-weight: bold">True</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #666666">0</span> <span style="color: #AA22FF; font-weight: bold">in</span> s
+<span style="color: #008000; font-weight: bold">True</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #666666">7</span> <span style="color: #AA22FF; font-weight: bold">in</span> s
+<span style="color: #008000; font-weight: bold">True</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #666666">9</span> <span style="color: #AA22FF; font-weight: bold">in</span> s
+<span style="color: #008000; font-weight: bold">False</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Remove values from set</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> s<span style="color: #666666">.</span>remove(<span style="color: #666666">4</span>)
+<span style="color: #666666">&gt;&gt;&gt;</span> s<span style="color: #666666">.</span>remove(<span style="color: #666666">7</span>)
+<span style="color: #666666">&gt;&gt;&gt;</span> s
+{<span style="color: #666666">0</span>, <span style="color: #666666">1</span>, <span style="color: #666666">5</span>}
+</code></pre></div>
+
+<p>Because <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> does not have any builtin implementations of a <a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)">set</a>, you are to
+implement <strong>three</strong> different versions:</p>
+<ol>
+<li>
+<p><code>ArraySet</code>: This uses a <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> and <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">binary search</a> internally to
+  implement the <a href="https://en.wikipedia.org/wiki/Abstract_data_type">set</a>.</p>
+</li>
+<li>
+<p><code>ListSet</code>: This uses a <a href="https://en.wikipedia.org/wiki/Linked_list">linked list</a>, <a href="https://en.wikipedia.org/wiki/Linear_search">linear search</a>, and <a href="https://en.wikipedia.org/wiki/Recursion">recursion</a>
+  internally to implement the <a href="https://en.wikipedia.org/wiki/Abstract_data_type">set</a>.</p>
+</li>
+<li>
+<p><code>BitSet</code>: This uses a <a href="https://en.wikipedia.org/wiki/Bit_array">bitset</a> with <a href="https://en.wikipedia.org/wiki/Bitwise_operation">bit operations</a> internally to
+  implement the <a href="https://en.wikipedia.org/wiki/Abstract_data_type">set</a>.</p>
+</li>
+</ol>
+<p>For this assignment, you are to do your work in the <code>homework05</code> folder of
+your <strong>assignments</strong> <a href="https://github.com">GitHub</a> repository and push your work by <strong>noon
+Wednesday, September 27</strong>.</p>
+<h2 id="activity-0-preparation">Activity 0: Preparation<a class="headerlink" href="#activity-0-preparation" title="Permanent link">&para;</a></h2>
+<p>Before starting this homework assignment, you should first perform a <code>git
+pull</code> to retrieve any changes in your remote <a href="https://github.com">GitHub</a> repository:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ <span style="color: #008000">cd</span> path/to/repository                   <span style="color: #3D7B7B; font-style: italic"># Go to assignments repository</span>
+
+$ git switch master                       <span style="color: #3D7B7B; font-style: italic"># Make sure we are in master branch</span>
+
+$ git pull --rebase                       <span style="color: #3D7B7B; font-style: italic"># Get any remote changes not present locally</span>
+</code></pre></div>
+
+<p>Next, create a new branch for this assignment:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ git checkout -b homework05              <span style="color: #3D7B7B; font-style: italic"># Create homework05 branch and check it out</span>
+</code></pre></div>
+
+<h3 id="task-1-skeleton-code">Task 1: Skeleton Code<a class="headerlink" href="#task-1-skeleton-code" title="Permanent link">&para;</a></h3>
+<p>To help you get started, the instructor has provided you with the following <a href="https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework05.tar.gz">skeleton code</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Go to assignments repository</span>
+$ <span style="color: #008000">cd</span> path/to/assignments/repository
+
+<span style="color: #3D7B7B; font-style: italic"># -----------------------------------------------------</span>
+<span style="color: #3D7B7B; font-style: italic"># MAKE SURE YOU ARE NOT INSIDE THE homework05 DIRECTORY</span>
+<span style="color: #3D7B7B; font-style: italic"># -----------------------------------------------------</span>
+<span style="color: #3D7B7B; font-style: italic"># MAKE SURE YOU ARE AT THE TOP-LEVEL DIRECTORY</span>
+<span style="color: #3D7B7B; font-style: italic"># -----------------------------------------------------</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Download skeleton code tarball</span>
+$ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework05.tar.gz
+
+<span style="color: #3D7B7B; font-style: italic"># Extract skeleton code tarball</span>
+$ tar xzvf homework05.tar.gz
+</code></pre></div>
+
+<p>Once downloaded and extracted, you should see the following files in your
+<code>homework05</code> directory:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>homework05
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> Makefile                 <span style="color: #3D7B7B; font-style: italic"># This is the Makefile for building all the project artifacts</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> bin                      <span style="color: #3D7B7B; font-style: italic"># This contains the project binary executables and test scripts</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> benchmark.py         <span style="color: #3D7B7B; font-style: italic"># This is the Python script for benchmarking the palindromic program</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> test_arrayset.sh     <span style="color: #3D7B7B; font-style: italic"># This is the shell script for testing the ArraySet library</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> test_bitset.sh       <span style="color: #3D7B7B; font-style: italic"># This is the shell script for testing the BitSet library</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> test_listset.sh      <span style="color: #3D7B7B; font-style: italic"># This is the shell script for testing the ListSet library</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> test_palindromic.sh  <span style="color: #3D7B7B; font-style: italic"># This is the shell script for testing the palindromic program</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> include                  <span style="color: #3D7B7B; font-style: italic"># This contains the project header files</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> ds                   <span style="color: #3D7B7B; font-style: italic"># This contains the project data structure header files</span>
+            <span style="color: #AA5D1F; font-weight: bold">\_</span> arrayset.h       <span style="color: #3D7B7B; font-style: italic"># This is the C header file for the ArraySet library</span>
+            <span style="color: #AA5D1F; font-weight: bold">\_</span> bitset.h         <span style="color: #3D7B7B; font-style: italic"># This is the C header file for the BitSet library</span>
+            <span style="color: #AA5D1F; font-weight: bold">\_</span> listset.h        <span style="color: #3D7B7B; font-style: italic"># This is the C header file for the ListSet library</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> lib                      <span style="color: #3D7B7B; font-style: italic"># This contains the project library files</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> src                      <span style="color: #3D7B7B; font-style: italic"># This contains the project source code</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> arrayset.c           <span style="color: #3D7B7B; font-style: italic"># This is the C source code for the ArraySet library</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> bitset.c             <span style="color: #3D7B7B; font-style: italic"># This is the C source code for the BitSet library</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> listset.c            <span style="color: #3D7B7B; font-style: italic"># This is the C source code for the ListSet library</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> palindromic.c        <span style="color: #3D7B7B; font-style: italic"># This is the C source code for the palindromic program</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> tests                    <span style="color: #3D7B7B; font-style: italic"># This contains the project unit tests</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> unit_arrayset.c      <span style="color: #3D7B7B; font-style: italic"># This is the unit test for the ArraySet library</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> unit_bitset.c        <span style="color: #3D7B7B; font-style: italic"># This is the unit test for the BitSet library</span>
+        <span style="color: #AA5D1F; font-weight: bold">\_</span> unit_listset.c       <span style="color: #3D7B7B; font-style: italic"># This is the unit test for the ListSet library</span>
+</code></pre></div>
+
+<h3 id="task-2-initial-import">Task 2: Initial Import<a class="headerlink" href="#task-2-initial-import" title="Permanent link">&para;</a></h3>
+<p>Now that the files are extracted into the <code>homework05</code> folder, you can
+<strong>commit</strong> them to your <a href="https://git-scm.com/">git</a> repository:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Go into homework05 folder</span>
+$ <span style="color: #008000">cd</span> homework05
+
+<span style="color: #3D7B7B; font-style: italic"># Add and commit initial skeleton files</span>
+$ git add Makefile                            <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git add bin/*.sh bin/*.py                   <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git add include/ds/*.h                      <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git add lib/.gitkeep                        <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git add src/*.c                             <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git add tests/*.c                           <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 05: Initial Import&quot;</span> <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+</code></pre></div>
+
+<p>The details on what you need to implement are described in the following
+sections.</p>
+<h3 id="task-3-makefile">Task 3: <code>Makefile</code><a class="headerlink" href="#task-3-makefile" title="Permanent link">&para;</a></h3>
+<p>The Makefile contains all the rules or recipes for building the project
+artifacts (e.g. <code>palindromic</code>, <code>libds.a</code>, <code>unit_arrayset</code>, <code>unit_bitset</code>,
+<code>unit_listset</code>, etc.):</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #19177C">CC</span><span style="color: #666666">=</span>       gcc
+<span style="color: #19177C">CFLAGS</span><span style="color: #666666">=</span>   -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude
+<span style="color: #19177C">AR</span><span style="color: #666666">=</span>       ar
+<span style="color: #19177C">ARFLAGS</span><span style="color: #666666">=</span>  rcs
+<span style="color: #19177C">LD</span><span style="color: #666666">=</span>       gcc
+<span style="color: #19177C">LDFLAGS</span><span style="color: #666666">=</span>  -Llib
+
+<span style="color: #0000FF">all</span><span style="color: #666666">:</span>      bin/palindromic
+
+<span style="color: #0000FF">test</span><span style="color: #666666">:</span>
+        @<span style="color: #008000; font-weight: bold">$(</span>MAKE<span style="color: #008000; font-weight: bold">)</span> -sk test-all
+
+<span style="color: #0000FF">test-all</span><span style="color: #666666">:</span> test-arrayset test-listset test-bitset test-palindromic
+
+<span style="color: #3D7B7B; font-style: italic"># TODO: Pattern rule for object files</span>
+
+<span style="color: #3D7B7B; font-style: italic"># TODO: Rule for lib/libds.a</span>
+
+<span style="color: #3D7B7B; font-style: italic"># TODO: Rule for bin/palindromic</span>
+
+<span style="color: #0000FF">bin/unit_arrayset</span><span style="color: #666666">:</span>  tests/unit_arrayset.o lib/libds.a
+      <span style="color: #008000; font-weight: bold">$(</span>LD<span style="color: #008000; font-weight: bold">)</span> <span style="color: #008000; font-weight: bold">$(</span>LDFLAGS<span style="color: #008000; font-weight: bold">)</span> -o <span style="color: #19177C">$@</span> $^
+
+<span style="color: #0000FF">bin/unit_listset</span><span style="color: #666666">:</span>   tests/unit_listset.o lib/libds.a
+      <span style="color: #008000; font-weight: bold">$(</span>LD<span style="color: #008000; font-weight: bold">)</span> <span style="color: #008000; font-weight: bold">$(</span>LDFLAGS<span style="color: #008000; font-weight: bold">)</span> -o <span style="color: #19177C">$@</span> $^
+
+<span style="color: #0000FF">bin/unit_bitset</span><span style="color: #666666">:</span>    tests/unit_bitset.o lib/libds.a
+      <span style="color: #008000; font-weight: bold">$(</span>LD<span style="color: #008000; font-weight: bold">)</span> <span style="color: #008000; font-weight: bold">$(</span>LDFLAGS<span style="color: #008000; font-weight: bold">)</span> -o <span style="color: #19177C">$@</span> $^
+
+<span style="color: #0000FF">test-arrayset</span><span style="color: #666666">:</span>      bin/unit_arrayset
+      bin/test_arrayset.sh
+
+<span style="color: #0000FF">test-listset</span><span style="color: #666666">:</span>       bin/unit_listset
+      bin/test_listset.sh
+
+<span style="color: #0000FF">test-bitset</span><span style="color: #666666">:</span>        bin/unit_bitset
+      bin/test_bitset.sh
+
+<span style="color: #0000FF">test-palindromic</span><span style="color: #666666">:</span>   bin/palindromic
+      bin/test_palindromic.sh
+
+<span style="color: #0000FF">clean</span><span style="color: #666666">:</span>
+      rm -f bin/unit_* bin/palindromic lib/*.a src/*.o tests/*.o
+</code></pre></div>
+
+<p>For this task, you will need to add <a href="https://www.gnu.org/software/make/manual/html_node/Rule-Example.html#Rule-Example">rules</a> for building the <a href="https://en.wikipedia.org/wiki/Static_library#Creating_static_libraries_in_C.2FC.2B.2B">static library</a>
+<code>lib/libds.a</code> and the program <code>bin/palindromic</code>. Be sure to have a <strong>recipe</strong>
+for any <em>intermediate</em> <a href="https://en.wikipedia.org/wiki/Object_file">object</a> files that libraries require as shown in the
+<a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">DAG</a> below:</p>
+<div class="thumbnail">
+  <img src="static/img/homework05-makefile.png" class="img-responsive">
+</div>
+
+<div class="alert alert-info">
+<h4 id="makefile-variables"><i class="fa fa-cogs"></i> Makefile Variables<a class="headerlink" href="#makefile-variables" title="Permanent link">&para;</a></h4>
+<p>You <strong>must</strong> use the <code>CC</code>, <code>CFLAGS</code>, <code>LD</code>, <code>LDFLAGS</code>, <code>AR</code>, and <code>ARFLAGS</code>
+variables when appropriate in your rules. You <strong>should</strong> also consider using
+<a href="https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html">automatic variables</a> such as <code>$@</code> and <code>$&lt;</code> as well.</p>
+</div>
+<p>Once you have a working <code>Makefile</code>, you should be able to run the following
+commands:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build all TARGETS</span>
+$ make
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/palindromic.o src/palindromic.c
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/arrayset.o src/arrayset.c
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/listset.o src/listset.c
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/bitset.o src/bitset.c
+ar rcs lib/libds.a src/arrayset.o src/listset.o src/bitset.o
+gcc -Llib -o bin/palindromic src/palindromic.o lib/libds.a
+
+<span style="color: #3D7B7B; font-style: italic"># Run all tests</span>
+$ make <span style="color: #008000">test</span>
+Testing arrayset...
+...
+
+<span style="color: #3D7B7B; font-style: italic"># Remove generated artifacts</span>
+$ make clean
+rm -f bin/unit_* bin/palindromic lib/*.a src/*.o tests/*.o
+</code></pre></div>
+
+<div class="alert alert-danger">
+<p><strong>Note</strong>: The tests will <strong>fail</strong> if you haven't implemented <code>ArraySet</code>,
+  <code>Bitset</code>, or <code>ListSet</code> libraries, or the <code>palindromic</code> program.</p>
+</div>
+<div class="alert alert-warning">
+<h4 id="warnings"><i class="fa fa-warning"></i> Warnings<a class="headerlink" href="#warnings" title="Permanent link">&para;</a></h4>
+<p>You must include the <code>-Wall</code> flag in your <code>CFLAGS</code> when you compile. This
+also means that your code must <strong>compile without any warnings</strong>, otherwise
+points will be deducted.</p>
+</div>
+<p>After completing the <code>Makefile</code> and verifying that you can produce all the
+specified artifacts, you may begin implementing the [data structure]s and
+applications for this assignment.</p>
+<h2 id="activity-1-arrayset-library-2-points">Activity 1: ArraySet Library (2 Points)<a class="headerlink" href="#activity-1-arrayset-library-2-points" title="Permanent link">&para;</a></h2>
+<p>For the first activity, you are to complete the <code>ArraySet</code> library, which
+implements a <a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)">set</a> using an <strong>ordered</strong> <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a>.  That is, to
+maintain a <strong>unique</strong> collection of values, you will store values in the
+internal <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a> in <strong>ascending order</strong>.  This will allow you to
+perform <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">binary search</a> to check if a value is already in the <code>ArraySet</code>.</p>
+<div class="thumbnail">
+  <img src="static/img/homework05-arrayset.png" class="img-responsive">
+</div>
+
+<p>As can be seen above, the <code>ArraySet</code> is an <strong>ordered</strong> <a href="https://en.wikipedia.org/wiki/Dynamic_array">dynamic array</a>.  This
+means that you will need to <strong>resize</strong> the internal <code>data</code> <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a> to make
+room for new values if the <code>size</code> reaches the internal <code>capacity</code> and shift
+the values in the internal <code>data</code> <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a>.</p>
+<h3 id="task-1-includedsarrayseth">Task 1: <code>include/ds/arrayset.h</code><a class="headerlink" href="#task-1-includedsarrayseth" title="Permanent link">&para;</a></h3>
+<p>The <code>include/ds/arrayset.h</code> file is the <a href="https://en.wikipedia.org/wiki/Include_directive#C.2FC.2B.2B">header</a> file for the <code>ArraySet</code>
+<strong>structure</strong>, which contains the following <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">structs</a> and function
+<a href="https://en.wikipedia.org/wiki/Function_prototype">prototypes</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic">/* arrayset.h: Set (Dynamic Array) */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #9C6500">#pragma once</span>
+
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdbool.h&gt;</span><span style="color: #9C6500"></span>
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdint.h&gt;</span><span style="color: #9C6500"></span>
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdlib.h&gt;</span><span style="color: #9C6500"></span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Constants */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #9C6500">#define ARRAYSET_DEFAULT_CAPACITY (1&lt;&lt;2)</span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Structures */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #008000; font-weight: bold">typedef</span><span style="color: #bbbbbb"> </span><span style="color: #008000; font-weight: bold">struct</span><span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb"></span>
+<span style="color: #bbbbbb">    </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>data;<span style="color: #bbbbbb">      </span><span style="color: #3D7B7B; font-style: italic">// Internal array</span>
+<span style="color: #bbbbbb">    </span><span style="color: #B00040">size_t</span><span style="color: #bbbbbb">   </span>capacity;<span style="color: #bbbbbb">  </span><span style="color: #3D7B7B; font-style: italic">// Total number of elements</span>
+<span style="color: #bbbbbb">    </span><span style="color: #B00040">size_t</span><span style="color: #bbbbbb">   </span>size;<span style="color: #bbbbbb">      </span><span style="color: #3D7B7B; font-style: italic">// Number of valid elements</span>
+}<span style="color: #bbbbbb"> </span>ArraySet;<span style="color: #bbbbbb"></span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Functions */</span><span style="color: #bbbbbb"></span>
+
+ArraySet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb">  </span><span style="color: #0000FF">arrayset_create</span>();<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">        </span><span style="color: #0000FF">arrayset_delete</span>(ArraySet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>as);<span style="color: #bbbbbb"></span>
+
+<span style="color: #B00040">bool</span><span style="color: #bbbbbb">        </span><span style="color: #0000FF">arrayset_contains</span>(ArraySet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>as,<span style="color: #bbbbbb"> </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span>value);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">        </span><span style="color: #0000FF">arrayset_add</span>(ArraySet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>as,<span style="color: #bbbbbb"> </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span>value);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">        </span><span style="color: #0000FF">arrayset_remove</span>(ArraySet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>as,<span style="color: #bbbbbb"> </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span>value);<span style="color: #bbbbbb"></span>
+</code></pre></div>
+
+<p>Other programs will <code>#include</code> this file in order to use the functions we
+will be implementing in this library.</p>
+<div class="alert alert-info">
+<p><strong>Note</strong>: For this task, you <strong>do not</strong> need to modify this file. Instead,
+you should review it and ensure you understand the provided code.</p>
+</div>
+<h3 id="task-2-srcarraysetc">Task 2: <code>src/arrayset.c</code><a class="headerlink" href="#task-2-srcarraysetc" title="Permanent link">&para;</a></h3>
+<p>The <code>src/arrayset.c</code> file contains the <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> implementation for the <code>ArraySet</code>
+<strong>structure</strong>.  For this task, you will need to implement the following
+functions:</p>
+<ol>
+<li>
+<p><code>ArraySet*   arrayset_create()</code></p>
+<blockquote>
+<p>This function allocates a new <code>ArraySet</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> and initializes its
+internal attributes: <code>data</code>, <code>capacity</code>, and `size.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use <a href="https://www.mankier.com/3/malloc">malloc</a> or <a href="https://www.mankier.com/3/malloc">calloc</a> to allocate data on the <a href="https://en.wikipedia.org/wiki/Memory_management#HEAP">heap</a>.
+</div></p>
+</li>
+<li>
+<p><code>void        arrayset_delete(ArraySet *as)</code></p>
+<blockquote>
+<p>This function deallocates the given <code>ArraySet</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> along with its
+internal <code>data</code> <a href="https://en.wikipedia.org/wiki/C_(programming_language)#Arrays">array</a>.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use <a href="https://www.mankier.com/3/malloc">free</a> to release data allocated on the <a href="https://en.wikipedia.org/wiki/Memory_management#HEAP">heap</a>.
+</div></p>
+</li>
+<li>
+<p><code>bool        arrayset_contains(ArraySet *as, int64_t value)</code></p>
+<blockquote>
+<p>This function returns <code>true</code> if the <code>value</code> is in the <code>ArraySet</code>,
+otherwise it returns <code>false</code>.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">binary search</a> to locate the <code>value</code>.
+</div></p>
+</li>
+<li>
+<p><code>void        arrayset_add(ArraySet *as, int64_t value)</code></p>
+<blockquote>
+<p>This function adds the <code>value</code> to the <code>ArraySet</code> while maintaining both
+<strong>uniqueness</strong> (ie. two values are the same) and <strong>ordering</strong> (ie. values
+are in ascending order).</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<p><strong>Hint</strong>: Use <code>arrayset_contains</code>, determine the <code>index</code> where you want
+  to place the new <code>value</code>, and then adapt <code>array_insert</code> from <a href="https://docs.google.com/presentation/d/1j-mZws8_ykOLLQCIO8tngCZ_hiKC18z0MfCbwlKoxP8/edit?usp=sharing">Lecture 07</a>.</p>
+</div>
+</li>
+<li>
+<p><code>void        arrayset_remove(ArraySet *as, int64_t value)</code></p>
+<blockquote>
+<p>This function removes the <code>value</code> from the <code>ArraySet</code>.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<p><strong>Hint</strong>: Use <code>arrayset_contains</code>, determine the <code>index</code> of the <code>value</code>
+  you want to remove, and then adapt <code>array_pop</code> from <a href="homework03.html">Homework 03</a>.</p>
+</div>
+</li>
+</ol>
+<h3 id="task-3-testing">Task 3: Testing<a class="headerlink" href="#task-3-testing" title="Permanent link">&para;</a></h3>
+<p>As you implement the functions in <code>src/arrayset.c</code>, you should use
+<code>bin/test_arrayset.sh</code> to test each function:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build unit-test</span>
+$ make bin/unit_arrayset
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o tests/unit_arrayset.o tests/unit_arrayset.c
+gcc -Llib -o bin/unit_arrayset tests/unit_arrayset.o lib/libds.a
+
+<span style="color: #3D7B7B; font-style: italic"># Run test script manually</span>
+$ ./bin/test_arrayset.sh
+Testing arrayset...
+ arrayset_create                          ... Success
+ arrayset_delete                          ... Success
+ arrayset_contains                        ... Success
+ arrayset_add                             ... Success
+ arrayset_remove                          ... Success
+
+    Score <span style="color: #666666">2</span>.00 / <span style="color: #666666">2</span>.00
+   Status Success
+</code></pre></div>
+
+<p>Alternatively, you can both build the artifacts and run the test script by doing the following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build and run test scripts</span>
+$ make test-arrayset
+...
+</code></pre></div>
+
+<p>If one of the functions fails, and you need to <strong>debug</strong> the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>, you
+can run the <code>bin/unit_arrayset</code> command directly:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Display usage message</span>
+$ ./bin/unit_arrayset
+Usage: ./bin/unit_arrayset NUMBER
+
+Where NUMBER is right of the following:
+      <span style="color: #666666">0</span>  Test arrayset_create
+      <span style="color: #666666">1</span>  Test arrayset_delete
+      <span style="color: #666666">2</span>  Test arrayset_contains
+      <span style="color: #666666">3</span>  Test arrayset_add
+      <span style="color: #666666">4</span>  Test arrayset_remove
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for arrayset_create</span>
+$ ./bin/unit_arrayset <span style="color: #666666">0</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for arrayset_create using GDB</span>
+$ gdb ./bin/unit_arrayset
+...
+<span style="color: #666666">(</span>gdb<span style="color: #666666">)</span> run <span style="color: #666666">0</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for arrayset_create using Valgrind</span>
+$ valgrind --leak-check<span style="color: #666666">=</span>full ./bin/unit_arrayset <span style="color: #666666">0</span>
+</code></pre></div>
+
+<p>Of course, you are free to create your own test programs to debug and test
+your <code>ArraySet</code> library.</p>
+<div class="alert alert-success">
+<h4 id="iterative-development"><i class="fa fa-repeat"></i> Iterative Development<a class="headerlink" href="#iterative-development" title="Permanent link">&para;</a></h4>
+<p>You should practice <a href="https://en.wikipedia.org/wiki/Iterative_and_incremental_development">iterative development</a>. That is, rather than writing a
+bunch of code and then debugging it all at once, you should concentrate on
+one function at a time and then test that <strong>one thing at a time</strong>. The provided
+<a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a> allow you to check on the correctness of the individual functions
+without implementing everything at once. Take advantage of this and build one
+thing at a time.</p>
+</div>
+<h2 id="activity-2-listset-library-4-points">Activity 2: ListSet Library (4 Points)<a class="headerlink" href="#activity-2-listset-library-4-points" title="Permanent link">&para;</a></h2>
+<p>For the second activity, you are to complete the <code>ListSet</code> library, which
+implements a <a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)">set</a> using an <strong>ordered</strong> <a href="https://en.wikipedia.org/wiki/Linked_list">linked list</a>.  That is, to maintain
+a <strong>unique</strong> collection of values, you will store values in the internal
+<a href="https://en.wikipedia.org/wiki/Linked_list">linked list</a> in <strong>ascending order</strong>.  Unlike with the <code>ArraySet</code>, you will
+perform <a href="https://en.wikipedia.org/wiki/Linear_search">linear search</a> to check if a value is already in the <code>ListSet</code>.</p>
+<div class="thumbnail">
+  <img src="static/img/homework05-listset.png" class="img-responsive">
+</div>
+
+<p>As be seen above, the <code>ListSet</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> is an <strong>ordered</strong> <a href="https://en.wikipedia.org/wiki/Linked_list">singly linked
+list</a> with a <strong>dummy node</strong> at the <strong>front</strong> of the sequence.  That is, the
+first <code>ListSet</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> in the sequence is a <strong>dummy</strong> and not used to hold
+any values.  It is there to simplify the <code>listset_add</code> and <code>listset_remove</code>
+functions by ensuring there is always a <strong>previous</strong> <code>ListSet</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a>.</p>
+<h3 id="task-1-includedslistseth">Task 1: <code>include/ds/listset.h</code><a class="headerlink" href="#task-1-includedslistseth" title="Permanent link">&para;</a></h3>
+<p>The <code>include/ds/listset.h</code> file is the <a href="https://en.wikipedia.org/wiki/Include_directive#C.2FC.2B.2B">header</a> file for the <code>ListSet</code>
+<strong>structure</strong>, which contains the following <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">structs</a> and function
+<a href="https://en.wikipedia.org/wiki/Function_prototype">prototypes</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic">/* listset.h: Set (Linked List) */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #9C6500">#pragma once</span>
+
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdbool.h&gt;</span><span style="color: #9C6500"></span>
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdint.h&gt;</span><span style="color: #9C6500"></span>
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdlib.h&gt;</span><span style="color: #9C6500"></span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Structures */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #008000; font-weight: bold">typedef</span><span style="color: #bbbbbb"> </span><span style="color: #008000; font-weight: bold">struct</span><span style="color: #bbbbbb"> </span><span style="color: #0000FF; font-weight: bold">ListSet</span><span style="color: #bbbbbb"> </span>ListSet;<span style="color: #bbbbbb"></span>
+<span style="color: #008000; font-weight: bold">struct</span><span style="color: #bbbbbb"> </span><span style="color: #0000FF; font-weight: bold">ListSet</span><span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb"></span>
+<span style="color: #bbbbbb">    </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb">  </span>data;<span style="color: #bbbbbb"></span>
+<span style="color: #bbbbbb">    </span>ListSet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>next;<span style="color: #bbbbbb"></span>
+};<span style="color: #bbbbbb"></span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Functions */</span><span style="color: #bbbbbb"></span>
+
+ListSet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb">   </span><span style="color: #0000FF">listset_create</span>(<span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span>data,<span style="color: #bbbbbb"> </span>ListSet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>next);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">        </span><span style="color: #0000FF">listset_delete</span>(ListSet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>ls);<span style="color: #bbbbbb"></span>
+
+<span style="color: #B00040">size_t</span><span style="color: #bbbbbb">      </span><span style="color: #0000FF">listset_size</span>(ListSet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>ls);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">bool</span><span style="color: #bbbbbb">        </span><span style="color: #0000FF">listset_contains</span>(ListSet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>ls,<span style="color: #bbbbbb"> </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span>value);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">        </span><span style="color: #0000FF">listset_add</span>(ListSet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>ls,<span style="color: #bbbbbb"> </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span>value);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">        </span><span style="color: #0000FF">listset_remove</span>(ListSet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>ls,<span style="color: #bbbbbb"> </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span>value);<span style="color: #bbbbbb"></span>
+</code></pre></div>
+
+<div class="alert alert-info">
+<p><strong>Note</strong>: For this task, you <strong>do not</strong> need to modify this file. Instead,
+you should review it and ensure you understand the provided code.</p>
+</div>
+<h3 id="task-2-srclistsetc">Task 2: <code>src/listset.c</code><a class="headerlink" href="#task-2-srclistsetc" title="Permanent link">&para;</a></h3>
+<p>The <code>src/listset.c</code> file contains the <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> implementation for the <code>ListSet</code>
+<strong>structure</strong>.  For this task, you will need to implement the following functions:</p>
+<ol>
+<li>
+<p><code>ListSet*    listset_create(int64_t data, ListSet *next)</code></p>
+<blockquote>
+<p>This function allocates a new <code>ListSet</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> and initializes its
+internal attributes: <code>data</code> and <code>next</code>.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use <a href="https://www.mankier.com/3/malloc">malloc</a> or <a href="https://www.mankier.com/3/malloc">calloc</a> to allocate data on the <a href="https://en.wikipedia.org/wiki/Memory_management#HEAP">heap</a>.
+</div></p>
+</li>
+<li>
+<p><code>void        listset_delete(LisetSet *ls)</code></p>
+<blockquote>
+<p>This function <strong>recursively</strong> deallocates the given <code>ListSet</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a>
+along with the rest of the sequence.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<p><strong>Hint</strong>: Consider the base case and use <a href="https://www.mankier.com/3/malloc">free</a> to release data allocated
+  on the <a href="https://en.wikipedia.org/wiki/Memory_management#HEAP">heap</a>.</p>
+</div>
+</li>
+<li>
+<p><code>size_t      listset_size(ListSet *ls)</code></p>
+<blockquote>
+<p>This function <strong>recursively</strong> determines the number of values in the
+<code>ListSet</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a>.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<p><strong>Hint</strong>: Use the internal <code>listset_size_r</code> on the first valid <code>ListSet</code>
+  <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> to <strong>recursively</strong> traverse through the sequence.  The
+  <code>listset_size_r</code> function should consider its base case and recursive
+  step.</p>
+</div>
+</li>
+<li>
+<p><code>bool        listset_contains(ListSet *ls, int64_t value)</code></p>
+<blockquote>
+<p>This function returns <code>true</code> if the <code>value</code> is in the <code>ListSet</code>,
+otherwise it returns <code>false</code>.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<p><strong>Hint</strong>: Use <a href="https://en.wikipedia.org/wiki/Linear_search">linear search</a> in the internal <code>listset_contain_r</code>
+  function to <strong>recursively</strong> locate the <code>value</code>.  The
+  <code>listset_contains_r</code> function should consider its three base cases and
+  its recursive step.</p>
+</div>
+</li>
+<li>
+<p><code>void        listset_add(ListSet *ls, int64_t value)</code></p>
+<blockquote>
+<p>This function adds the <code>value</code> to the <code>ListSet</code> while maintaining both
+<strong>uniqueness</strong> (ie. two values are the same) and <strong>ordering</strong> (ie. values
+are in ascending order).</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<p><strong>Hint</strong>: Use <a href="https://en.wikipedia.org/wiki/Linear_search">linear search</a> in the internal <code>listset_add_r</code> function to
+  <strong>recursively</strong> locate where to insert a new <code>ListSet</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> with the
+  specified <code>value</code>.  The <code>listset_add_r</code> function should consider its
+  three base cases and its recursive step.</p>
+</div>
+</li>
+<li>
+<p><code>void        listset_remove(ListSet *ls, int64_t value)</code></p>
+<blockquote>
+<p>This function removes the <code>value</code> from the <code>ListSet</code>.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<p><strong>Hint</strong>: Use <a href="https://en.wikipedia.org/wiki/Linear_search">linear search</a> in the internal <code>listset_remove_r</code> function
+  to <strong>recursively</strong> locate the <code>ListSet</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> with the specified
+  <code>value</code>.  The <code>listset_remove_r</code> function should consider its two base
+  cases and its recursive step.</p>
+</div>
+</li>
+</ol>
+<div class="alert alert-danger">
+<h4 id="recursion"><i class="fa fa-repeat"></i> Recursion<a class="headerlink" href="#recursion" title="Permanent link">&para;</a></h4>
+<p><strong>Note</strong>: All the functions in the <code>ListSet</code>, besides <code>list_create</code> must be
+  <strong>recursive</strong> functions.  For your convenience, we have provided a few
+  <strong>helper</strong> recursive functions such as <code>listset_size_r</code>,
+  <code>listset_contains_r</code>, <code>listset_add_r</code>, <code>listset_remove_r</code>.  These are meant
+  to be called from their <strong>non-recursive</strong> functions on the <strong>first valid</strong>
+<code>ListSet</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #B00040">size_t</span><span style="color: #bbbbbb">    </span><span style="color: #0000FF">listset_size</span>(ListSet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>ls)<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb"></span>
+<span style="color: #bbbbbb">      </span><span style="color: #008000; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>listset_size_r(ls<span style="color: #666666">-&gt;</span>next);<span style="color: #bbbbbb"></span>
+}<span style="color: #bbbbbb"></span>
+</code></pre></div>
+
+</div>
+<h3 id="task-3-testing_1">Task 3: Testing<a class="headerlink" href="#task-3-testing_1" title="Permanent link">&para;</a></h3>
+<p>As you implement the functions in <code>src/listset.c</code>, you should use
+<code>bin/unit_listset.sh</code> to test each function:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build unit-test</span>
+$ make bin/unit_listset
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o tests/unit_listset.o tests/unit_listset.c
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/listset.o src/listset.c
+ar rcs lib/libds.a src/arrayset.o src/listset.o src/bitset.o
+gcc -Llib -o bin/unit_listset tests/unit_listset.o lib/libds.a
+
+<span style="color: #3D7B7B; font-style: italic"># Run test script manually</span>
+$ ./bin/test_listset.sh
+Testing listset...
+ listset_create                           ... Success
+ listset_delete                           ... Success
+ listset_size                             ... Success
+ listset_contains                         ... Success
+ listset_add                              ... Success
+ listset_remove                           ... Success
+
+   Score <span style="color: #666666">4</span>.00 / <span style="color: #666666">4</span>.00
+  Status Success
+</code></pre></div>
+
+<p>Alternatively, you can both build the artifacts and run the test script by
+doing the following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build and run test scripts</span>
+$ make <span style="color: #008000">test</span>
+...
+</code></pre></div>
+
+<p>If one of the functions fails, and you need to <strong>debug</strong> the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>, you
+can run the <code>bin/unit_listset</code> command directly:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Display usage message</span>
+$ ./bin/unit_listset
+Usage: ./bin/unit_listset NUMBER
+
+Where NUMBER is right of the following:
+
+    <span style="color: #666666">0</span>  Test listset_create
+    <span style="color: #666666">1</span>  Test listset_delete
+    <span style="color: #666666">2</span>  Test listset_size
+    <span style="color: #666666">3</span>  Test listset_contains
+    <span style="color: #666666">4</span>  Test listset_add
+    <span style="color: #666666">5</span>  Test listset_remove
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for listset_create</span>
+$ ./bin/unit_listset <span style="color: #666666">0</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for listset_create using GDB</span>
+$ gdb ./bin/unit_listset
+...
+<span style="color: #666666">(</span>gdb<span style="color: #666666">)</span> run <span style="color: #666666">0</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for listset_create using Valgrind</span>
+$ valgrind --leak-check<span style="color: #666666">=</span>full ./bin/unit_listset <span style="color: #666666">0</span>
+</code></pre></div>
+
+<p>Of course, you are free to create your own test programs to debug and test
+your <code>ListSet</code> library.</p>
+<h2 id="activity-3-bitset-1-points">Activity 3: Bitset (1 Points)<a class="headerlink" href="#activity-3-bitset-1-points" title="Permanent link">&para;</a></h2>
+<p>For the third activity, you are to complete the <code>BitSet</code> library, which
+implements a <a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)">set</a> using a <a href="https://en.wikipedia.org/wiki/Bit_array">bitset</a>.  That is, to maintain a <strong>unique</strong>
+collection of values, you will <strong>mark individual bits</strong> in an <strong>unsigned long
+integer</strong> (i.e. <code>uint64_t</code>) that correspond to the values you are tracking.</p>
+<div class="thumbnail">
+  <img src="static/img/homework05-bitset.png" class="img-responsive">
+</div>
+
+<h3 id="task-1-includedsbitseth">Task 1: <code>include/ds/bitset.h</code><a class="headerlink" href="#task-1-includedsbitseth" title="Permanent link">&para;</a></h3>
+<p>The <code>include/ds/bitst.h</code> file is the <a href="https://en.wikipedia.org/wiki/Include_directive#C.2FC.2B.2B">header</a> file for the <code>BitSet</code> library,
+which contains the following function <a href="https://en.wikipedia.org/wiki/Function_prototype">prototypes</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic">/* bitset.h: Set (BitSet) */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #9C6500">#pragma once</span>
+
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdbool.h&gt;</span><span style="color: #9C6500"></span>
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdint.h&gt;</span><span style="color: #9C6500"></span>
+<span style="color: #9C6500">#include</span><span style="color: #bbbbbb"> </span><span style="color: #3D7B7B; font-style: italic">&lt;stdlib.h&gt;</span><span style="color: #9C6500"></span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Type Definitions */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #008000; font-weight: bold">typedef</span><span style="color: #bbbbbb"> </span><span style="color: #B00040">uint64_t</span><span style="color: #bbbbbb"> </span>BitSet;<span style="color: #bbbbbb"></span>
+
+<span style="color: #3D7B7B; font-style: italic">/* Functions */</span><span style="color: #bbbbbb"></span>
+
+<span style="color: #B00040">bool</span><span style="color: #bbbbbb">      </span><span style="color: #0000FF">bitset_contains</span>(BitSet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>bs,<span style="color: #bbbbbb"> </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span>value);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">      </span><span style="color: #0000FF">bitset_add</span>(BitSet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>bs,<span style="color: #bbbbbb"> </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span>value);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">void</span><span style="color: #bbbbbb">      </span><span style="color: #0000FF">bitset_remove</span>(BitSet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>bs,<span style="color: #bbbbbb"> </span><span style="color: #B00040">int64_t</span><span style="color: #bbbbbb"> </span>value);<span style="color: #bbbbbb"></span>
+<span style="color: #B00040">size_t</span><span style="color: #bbbbbb">    </span><span style="color: #0000FF">bitset_size</span>(BitSet<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span>bs);<span style="color: #bbbbbb"></span>
+</code></pre></div>
+
+<div class="alert alert-info">
+<p><strong>Note</strong>: For this task, you <strong>do not</strong> need to modify this file. Instead,
+you should review it and ensure you understand the provided code.</p>
+</div>
+<h3 id="task-2-srcbitsetc">Task 2: <code>src/bitset.c</code><a class="headerlink" href="#task-2-srcbitsetc" title="Permanent link">&para;</a></h3>
+<p>The <code>src/bitset.c</code> file contains the <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> implementation for the <code>BitSet</code>
+library.  For this task, you will need to implement the following functions:</p>
+<ol>
+<li>
+<p><code>bool        bitset_contains(BitSet *bs, int64_t value)</code></p>
+<blockquote>
+<p>This function returns <code>true</code> if the <code>value</code> is in the <code>BitSet</code>,
+otherwise it returns <code>false</code>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>void        bitset_add(BitSet *bs, int64_t value)</code></p>
+<blockquote>
+<p>This function adds the <code>value</code> to the <code>BitSet</code>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>void        bitset_remove(BitSet *bs, int64_t value)</code></p>
+<blockquote>
+<p>This function removes the <code>value</code> from the <code>ListSet</code>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>size_t      bitset_size(BitSet *bs)</code></p>
+<blockquote>
+<p>This function returns the number of values in the <code>BitSet</code>.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<p><strong>Hint</strong>: Use <code>bitset_contains</code> on each possible value.</p>
+</div>
+</li>
+</ol>
+<h3 id="task-3-testing_2">Task 3: Testing<a class="headerlink" href="#task-3-testing_2" title="Permanent link">&para;</a></h3>
+<p>As you implement the functions in <code>src/bitset.c</code>, you should use
+<code>bin/unit_bitset.sh</code> to test each function:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build unit-test</span>
+$ make bin/unit_bitset
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o tests/unit_bitset.o tests/unit_bitset.c
+gcc -Llib -o bin/unit_bitset tests/unit_bitset.o lib/libds.a
+
+<span style="color: #3D7B7B; font-style: italic"># Run test script manually</span>
+$ ./bin/test_bitset.sh
+Testing bitset...
+ bitset_contains                          ... Success
+ bitset_add                               ... Success
+ bitset_remove                            ... Success
+ bitset_size                              ... Success
+
+  Score <span style="color: #666666">1</span>.00 / <span style="color: #666666">1</span>.00
+ Status Success
+</code></pre></div>
+
+<p>Alternatively, you can both build the artifacts and run the test script by
+doing the following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build and run test scripts</span>
+$ make <span style="color: #008000">test</span>
+...
+</code></pre></div>
+
+<p>If one of the functions fails, and you need to <strong>debug</strong> the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>, you
+can run the <code>bin/unit_bitset</code> command directly:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Display usage message</span>
+$ ./bin/unit_bitset
+Usage: ./bin/unit_bitset NUMBER
+
+Where NUMBER is right of the following:
+
+    <span style="color: #666666">0</span>  Test bitset_contains
+    <span style="color: #666666">1</span>  Test bitset_add
+    <span style="color: #666666">2</span>  Test bitset_remove
+    <span style="color: #666666">3</span>  Test bitset_size
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for bitset_contains</span>
+$ ./bin/unit_bitset <span style="color: #666666">0</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for bitset_contains using GDB</span>
+$ gdb ./bin/unit_bitset
+...
+<span style="color: #666666">(</span>gdb<span style="color: #666666">)</span> run <span style="color: #666666">0</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Run test for bitset_contains using Valgrind</span>
+$ valgrind --leak-check<span style="color: #666666">=</span>full ./bin/unit_bitset <span style="color: #666666">0</span>
+</code></pre></div>
+
+<p>Of course, you are free to create your own test programs to debug and test
+your <code>BitSet</code> library.</p>
+<h2 id="activity-4-palindromic-3-points">Activity 4: Palindromic (3 Points)<a class="headerlink" href="#activity-4-palindromic-3-points" title="Permanent link">&para;</a></h2>
+<p>For this activity, you are use your <strong>three</strong> <a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)">set</a> implementations to solve
+the following programming challenge:</p>
+<blockquote>
+<p>Given a word, you are to determine if any permutation of the word is a
+palindrome, which is a phrase that reads the same forwards and backwards. For
+instance, "tacocat" is an example of a palindrome.</p>
+</blockquote>
+<p>To do this, you will complete the <code>bin/palindromic</code> program, which reads in
+one word at a time from <code>stdin</code> and prints <code>YEAH</code> if it is a palindromic
+permutation, otherwise it prints out <code>NOPE</code>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Check if words are palindromic permutations using ArraySet</span>
+$ ./bin/palindromic -a
+tacocat
+YEAH
+burrito
+NOPE
+ttaacco
+YEAH
+
+<span style="color: #3D7B7B; font-style: italic"># Check if words are palindromic permutations using ListSet</span>
+$ ./bin/palindromic -l
+tacocat
+YEAH
+burrito
+NOPE
+ttaacco
+YEAH
+
+<span style="color: #3D7B7B; font-style: italic"># Check if words are palindromic permutations using BitSet</span>
+$ ./bin/palindromic -b
+tacocat
+YEAH
+burrito
+NOPE
+ttaacco
+YEAH
+</code></pre></div>
+
+<div class="alert alert-danger">
+<h4 id="memory-management"><i class="fa fa-bomb"></i> Memory Management<a class="headerlink" href="#memory-management" title="Permanent link">&para;</a></h4>
+<p>In addition to meeting the functional requirements of the assignment (as
+described above), your program <strong>must not exhibit any memory leaks</strong> or <strong>invalid
+memory accesses</strong> as would be detected by <a href="http://valgrind.org/">Valgrind</a>.</p>
+<p>Be sure to <a href="https://www.mankier.com/3/malloc">free</a> any memory that has been allocated on the <a href="https://en.wikipedia.org/wiki/Memory_management#HEAP">heap</a> and to
+initialize any allocate memory appropriately.</p>
+</div>
+<h3 id="task-1-srcpalindromicc">Task 1: <code>src/palindromic.c</code><a class="headerlink" href="#task-1-srcpalindromicc" title="Permanent link">&para;</a></h3>
+<p>The <code>src/palindromic.c</code> file contains the <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> implementation of the
+<code>bin/palindromic</code> program described above.  You will need to implement the
+following functions:</p>
+<ol>
+<li>
+<p><code>bool is_palindromic_arrayset(const char *s)</code></p>
+<blockquote>
+<p>This function returns <code>true</code> if the string <code>s</code> is a <strong>palindromic
+permutation</strong>, otherwise it returns <code>false</code>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>bool is_palindromic_listset(const char *s)</code></p>
+<blockquote>
+<p>This function returns <code>true</code> if the string <code>s</code> is a <strong>palindromic
+permutation</strong>, otherwise it returns <code>false</code>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>bool is_palindromic_listset(const char *s)</code></p>
+<blockquote>
+<p>This function returns <code>true</code> if the string <code>s</code> is a <strong>palindromic
+permutation</strong>, otherwise it returns <code>false</code>.</p>
+</blockquote>
+</li>
+</ol>
+<div class="alert alert-success">
+<p><strong>Hint</strong>: For each of the three functions above, use the corresponding <a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)">set</a>
+implementation: <code>ArraySet</code>, <code>ListSet</code>, <code>BitSet</code>.</p>
+<p>The functions should be largely the same except for changing the underlying
+<a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)">set</a> implementation.</p>
+<p>To solve the problem, consider when you would want to <strong>add</strong> to the <a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)">set</a> as
+you process each letter and what you would want to <strong>remove</strong>.  Moreover,
+consider what the final <strong>size</strong> of the <a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)">set</a> should be when you finish
+processing all the letters.</p>
+</div>
+<div class="alert alert-info">
+<p><strong>Note</strong>: The <code>main</code> function will parse the command line options, and then
+  read each line of <code>stdin</code>, process it with one of the <code>is_palindromic</code>
+  functions above, and finally output the result.</p>
+<p>This function is provided to you and you do not need to modify it.</p>
+</div>
+<h3 id="task-2-testing">Task 2: Testing<a class="headerlink" href="#task-2-testing" title="Permanent link">&para;</a></h3>
+<p>As you implement <code>src/palindromic.c</code>, you can test it by running the
+<code>test-palindromic</code> target:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build artifact and run test</span>
+$ make test-palindromic
+bin/test_palindromic.sh
+Testing palindromic ...
+ ArraySet <span style="color: #666666">(</span>output<span style="color: #666666">)</span>                        ... Success
+ ArraySet <span style="color: #666666">(</span>valgrind<span style="color: #666666">)</span>                      ... Success
+ ListSet  <span style="color: #666666">(</span>output<span style="color: #666666">)</span>                        ... Success
+ ListSet  <span style="color: #666666">(</span>valgrind<span style="color: #666666">)</span>                      ... Success
+ BitSet   <span style="color: #666666">(</span>output<span style="color: #666666">)</span>                        ... Success
+ BitSet   <span style="color: #666666">(</span>valgrind<span style="color: #666666">)</span>                      ... Success
+
+   Score <span style="color: #666666">3</span>.00 / <span style="color: #666666">3</span>.00
+  Status Success
+</code></pre></div>
+
+<h2 id="activity-5-quiz-2-points">Activity 5: Quiz (2 Points)<a class="headerlink" href="#activity-5-quiz-2-points" title="Permanent link">&para;</a></h2>
+<p>Once you have completed all the activities above, you are to complete the
+following <strong>reflection quiz</strong>:</p>
+<div id="quiz-questions"></div>
+
+<div id="quiz-responses"></div>
+
+<script src="static/js/dredd-quiz.js"></script>
+<script>
+loadQuiz('static/json/homework05.json');
+</script>
+
+<pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+<p>As with <a href="reading01.html">Reading 01</a>, you will need to store your answers in a
+<code>homework05/answers.json</code> file.  You can use the form above to generate the
+contents of this file, or you can write the <a href="https://json.org/">JSON</a> by hand.</p>
+<p>To check your quiz directly, you can use the <code>check.py</code> script:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ ../.scripts/check.py
+Checking homework05 quiz ...
+      Q1 <span style="color: #666666">0</span>.30
+      Q2 <span style="color: #666666">0</span>.30
+      Q3 <span style="color: #666666">0</span>.30
+      Q4 <span style="color: #666666">0</span>.30
+      Q5 <span style="color: #666666">0</span>.30
+      Q6 <span style="color: #666666">0</span>.20
+      Q7 <span style="color: #666666">0</span>.30
+
+   Score <span style="color: #666666">2</span>.00 / <span style="color: #666666">2</span>.00
+  Status Success
+</code></pre></div>
+
+<h2 id="leet-point-1-extra-credit-point">Leet Point (1 Extra Credit Point)<a class="headerlink" href="#leet-point-1-extra-credit-point" title="Permanent link">&para;</a></h2>
+<p>For <strong>extra credit</strong>, you are to solve the following <a href="https://leetcode.com/">LeetCode</a> problem in <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a>.</p>
+<blockquote>
+<p><a href="https://leetcode.com/problems/longest-subsequence-with-limited-sum/">2389. Longest Subsequence With Limited Sum</a></p>
+</blockquote>
+<p>To receive credit, you must pass on <a href="https://leetcode.com/">LeetCode</a> and achieve an <strong>Accepted</strong>
+attempt.</p>
+<div class="alert alert-info">
+<h4 id="verification"><i class="fa fa-check"></i> Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h4>
+<p>To get credit for this Leet Point, show your solution and the <a href="https://leetcode.com/">LeetCode</a>
+acceptance page to a TA to verify (or attached a screenshot with both to your
+<strong>Pull Request</strong>).  You have up until <strong>two days after</strong> this assignment is
+due to verify your Leet Point.</p>
+</div>
+<div class="alert alert-success">
+<h4 id="self-service-extension"><i class="fa fa-calendar"></i> Self-Service Extension<a class="headerlink" href="#self-service-extension" title="Permanent link">&para;</a></h4>
+<p>Remember that you can always <strong>forgo</strong> this Leet Point for <strong>two extra days</strong>
+to do the homework.  That is, if you need an extension, you can simply skip
+the Leet Point and you will automatically have until Friday to complete the
+assignment for full credit.</p>
+<p>Just leave a note on your <strong>Pull Request</strong> of your intentions.</p>
+</div>
+<h2 id="submission">Submission<a class="headerlink" href="#submission" title="Permanent link">&para;</a></h2>
+<p>To submit your assignment, please commit your work to the <code>homework05</code> folder
+of your <code>homework05</code> branch in your <strong>assignments</strong> <a href="https://github.com">GitHub</a> repository:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic">#-----------------------------------------------------------------------</span>
+<span style="color: #3D7B7B; font-style: italic"># Make sure you have already completed Activity 0: Preparation</span>
+<span style="color: #3D7B7B; font-style: italic">#-----------------------------------------------------------------------</span>
+...
+$ git add Makefile                            <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 05: Activity 0&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add src/arrayset.c                      <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 05: Activity 1&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add src/listset.c                       <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 05: Activity 2&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add src/bitset.c                        <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 05: Activity 3&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add src/palindromic.c                   <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 05: Activity 4&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add answers.json                        <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 05: Activity 5&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+
+$ git push -u origin homework05               <span style="color: #3D7B7B; font-style: italic"># Push branch to GitHub</span>
+</code></pre></div>
+
+<div class="alert alert-danger">
+<h4 id="pull-request"><i class="fa fa-github"></i> Pull Request<a class="headerlink" href="#pull-request" title="Permanent link">&para;</a></h4>
+<p>Remember to create a <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a> and assign the appropriate TA from the
+<a href="reading05_tas.html">Reading 05 TA List</a>.</p>
+<p><strong>DO NOT MERGE</strong> your own <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a>.  The TAs use open <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a>s
+to keep track of which assignments to grade.  Closing them yourself will
+cause a delay in grading and confuse the TAs.</p>
+</div>
+
+
+	    <div class="row">
+		<hr/>
+
+		<footer class="text-center">
+		    <p class="text-muted">
+		    <small>
+		    Built using
+		    <a href="https://getbootstrap.com/">Bootstrap</a>,
+		    <a href="https://fontawesome.com/">Font Awesome</a>, and
+		    <a href="http://www.python.org/">Python</a>.
+		    <br/>
+		    &copy; 2023 <a href="http://www.nd.edu">University of Notre Dame</a>
+		    </small>
+		    </p>
+		</footer>
+	    </div>
+
+	</div> <!-- /container -->
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+    </body>
+</html>
+
