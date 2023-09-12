@@ -1,0 +1,1098 @@
+title:      "Homework 05: Sets, Palindromes"
+icon:       fa-code
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  The goal of this homework assignment is to allow you to explore building
+  [sets] using a [dynamic array], a [linked list], and a [bitset] and then
+  utilizing this [abstract data type] to solve the infamous [palindromic
+  permutation] programming challenge.
+
+  In high-level languages such as [Python], we have a built-in implementation
+  of [sets] which support a variety of methods:
+
+      :::python3
+      # Define a set
+      >>> s = set([5, 7, 4])
+      >>> s
+      {4, 5, 7}
+
+      # Add values to set
+      >>> s.add(0)
+      >>> s.add(1)
+      >>> s
+      {0, 1, 4, 5, 7}
+
+      # Check if set contains value
+      >>> 4 in s
+      True
+      >>> 0 in s
+      True
+      >>> 7 in s
+      True
+      >>> 9 in s
+      False
+
+      # Remove values from set
+      >>> s.remove(4)
+      >>> s.remove(7)
+      >>> s
+      {0, 1, 5}
+
+  Because [C] does not have any builtin implementations of a [set], you are to
+  implement **three** different versions:
+
+  1. `ArraySet`: This uses a [dynamic array] and [binary search] internally to
+    implement the [set] [abstract data type].
+
+  2. `ListSet`: This uses a [linked list], [linear search], and [recursion]
+    internally to implement the [set] [abstract data type].
+
+  3. `BitSet`: This uses a [bitset] with [bit operations] internally to
+    implement the [set] [abstract data type].
+
+  For this assignment, you are to do your work in the `homework05` folder of
+  your **assignments** [GitHub] repository and push your work by **noon
+  Wednesday, September 27**.
+
+  [GitHub]:             https://github.com
+  [set]:                https://en.wikipedia.org/wiki/Set_(abstract_data_type)
+  [sets]:               https://en.wikipedia.org/wiki/Set_(abstract_data_type)
+  [dynamic array]:      https://en.wikipedia.org/wiki/Dynamic_array
+  [linked list]:        https://en.wikipedia.org/wiki/Linked_list
+  [bitset]:             https://en.wikipedia.org/wiki/Bit_array
+  [abstract data type]: https://en.wikipedia.org/wiki/Abstract_data_type
+  [palindromic permutation]: https://leetcode.com/problems/palindrome-permutation/
+  [C]:                  https://en.wikipedia.org/wiki/C_(programming_language)
+  [Python]: https://www.python.org/
+  [binary search]:      https://en.wikipedia.org/wiki/Binary_search_algorithm
+  [linear search]:      https://en.wikipedia.org/wiki/Linear_search
+  [recursion]:          https://en.wikipedia.org/wiki/Recursion
+  [bit operations]:     https://en.wikipedia.org/wiki/Bitwise_operation
+
+  ## Activity 0: Preparation
+
+  Before starting this homework assignment, you should first perform a `git
+  pull` to retrieve any changes in your remote [GitHub] repository:
+
+      :::bash
+      $ cd path/to/repository                   # Go to assignments repository
+
+      $ git switch master                       # Make sure we are in master branch
+
+      $ git pull --rebase                       # Get any remote changes not present locally
+
+  Next, create a new branch for this assignment:
+
+      :::bash
+      $ git checkout -b homework05              # Create homework05 branch and check it out
+
+  ### Task 1: Skeleton Code
+
+  To help you get started, the instructor has provided you with the following [skeleton code]:
+
+      :::bash
+      # Go to assignments repository
+      $ cd path/to/assignments/repository
+
+      # -----------------------------------------------------
+      # MAKE SURE YOU ARE NOT INSIDE THE homework05 DIRECTORY
+      # -----------------------------------------------------
+      # MAKE SURE YOU ARE AT THE TOP-LEVEL DIRECTORY
+      # -----------------------------------------------------
+
+      # Download skeleton code tarball
+      $ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework05.tar.gz
+
+      # Extract skeleton code tarball
+      $ tar xzvf homework05.tar.gz
+
+  Once downloaded and extracted, you should see the following files in your
+  `homework05` directory:
+
+      :::bash
+      homework05
+          \_ Makefile                 # This is the Makefile for building all the project artifacts
+          \_ bin                      # This contains the project binary executables and test scripts
+              \_ benchmark.py         # This is the Python script for benchmarking the palindromic program
+              \_ test_arrayset.sh     # This is the shell script for testing the ArraySet library
+              \_ test_bitset.sh       # This is the shell script for testing the BitSet library
+              \_ test_listset.sh      # This is the shell script for testing the ListSet library
+              \_ test_palindromic.sh  # This is the shell script for testing the palindromic program
+          \_ include                  # This contains the project header files
+              \_ ds                   # This contains the project data structure header files
+                  \_ arrayset.h       # This is the C header file for the ArraySet library
+                  \_ bitset.h         # This is the C header file for the BitSet library
+                  \_ listset.h        # This is the C header file for the ListSet library
+          \_ lib                      # This contains the project library files
+          \_ src                      # This contains the project source code
+              \_ arrayset.c           # This is the C source code for the ArraySet library
+              \_ bitset.c             # This is the C source code for the BitSet library
+              \_ listset.c            # This is the C source code for the ListSet library
+              \_ palindromic.c        # This is the C source code for the palindromic program
+          \_ tests                    # This contains the project unit tests
+              \_ unit_arrayset.c      # This is the unit test for the ArraySet library
+              \_ unit_bitset.c        # This is the unit test for the BitSet library
+              \_ unit_listset.c       # This is the unit test for the ListSet library
+
+  [skeleton code]: https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework05.tar.gz
+
+  ### Task 2: Initial Import
+
+  Now that the files are extracted into the `homework05` folder, you can
+  **commit** them to your [git] repository:
+
+      :::bash
+      # Go into homework05 folder
+      $ cd homework05
+
+      # Add and commit initial skeleton files
+      $ git add Makefile                            # Mark changes for commit
+      $ git add bin/*.sh bin/*.py                   # Mark changes for commit
+      $ git add include/ds/*.h                      # Mark changes for commit
+      $ git add lib/.gitkeep                        # Mark changes for commit
+      $ git add src/*.c                             # Mark changes for commit
+      $ git add tests/*.c                           # Mark changes for commit
+      $ git commit -m "Homework 05: Initial Import" # Record changes
+
+  The details on what you need to implement are described in the following
+  sections.
+
+  ### Task 3: `Makefile`
+
+  The Makefile contains all the rules or recipes for building the project
+  artifacts (e.g. `palindromic`, `libds.a`, `unit_arrayset`, `unit_bitset`,
+  `unit_listset`, etc.):
+
+      :::make
+      CC=       gcc
+      CFLAGS=   -Wall -std=gnu99 -g -Iinclude
+      AR=       ar
+      ARFLAGS=  rcs
+      LD=       gcc
+      LDFLAGS=  -Llib
+
+      all:      bin/palindromic
+
+      test:
+              @$(MAKE) -sk test-all
+
+      test-all: test-arrayset test-listset test-bitset test-palindromic
+
+      # TODO: Pattern rule for object files
+
+      # TODO: Rule for lib/libds.a
+
+      # TODO: Rule for bin/palindromic
+
+      bin/unit_arrayset:  tests/unit_arrayset.o lib/libds.a
+            $(LD) $(LDFLAGS) -o $@ $^
+
+      bin/unit_listset:   tests/unit_listset.o lib/libds.a
+            $(LD) $(LDFLAGS) -o $@ $^
+
+      bin/unit_bitset:    tests/unit_bitset.o lib/libds.a
+            $(LD) $(LDFLAGS) -o $@ $^
+
+      test-arrayset:      bin/unit_arrayset
+            bin/test_arrayset.sh
+
+      test-listset:       bin/unit_listset
+            bin/test_listset.sh
+
+      test-bitset:        bin/unit_bitset
+            bin/test_bitset.sh
+
+      test-palindromic:   bin/palindromic
+            bin/test_palindromic.sh
+
+      clean:
+            rm -f bin/unit_* bin/palindromic lib/*.a src/*.o tests/*.o
+
+  For this task, you will need to add [rules] for building the [static library]
+  `lib/libds.a` and the program `bin/palindromic`. Be sure to have a **recipe**
+  for any *intermediate* [object] files that libraries require as shown in the
+  [DAG] below:
+
+  <div class="thumbnail">
+    <img src="static/img/homework05-makefile.png" class="img-responsive">
+  </div>
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-cogs"></i> Makefile Variables
+
+  You **must** use the `CC`, `CFLAGS`, `LD`, `LDFLAGS`, `AR`, and `ARFLAGS`
+  variables when appropriate in your rules. You **should** also consider using
+  [automatic variables] such as `$@` and `$<` as well.
+
+  </div>
+
+  Once you have a working `Makefile`, you should be able to run the following
+  commands:
+
+      :::bash
+      # Build all TARGETS
+      $ make
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/palindromic.o src/palindromic.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/arrayset.o src/arrayset.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/listset.o src/listset.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/bitset.o src/bitset.c
+      ar rcs lib/libds.a src/arrayset.o src/listset.o src/bitset.o
+      gcc -Llib -o bin/palindromic src/palindromic.o lib/libds.a
+
+      # Run all tests
+      $ make test
+      Testing arrayset...
+      ...
+
+      # Remove generated artifacts
+      $ make clean
+      rm -f bin/unit_* bin/palindromic lib/*.a src/*.o tests/*.o
+
+  <div class="alert alert-danger" markdown="1">
+
+  **Note**: The tests will **fail** if you haven't implemented `ArraySet`,
+    `Bitset`, or `ListSet` libraries, or the `palindromic` program.
+
+  </div>
+
+  <div class="alert alert-warning" markdown="1">
+  #### <i class="fa fa-warning"></i> Warnings
+
+  You must include the `-Wall` flag in your `CFLAGS` when you compile. This
+  also means that your code must **compile without any warnings**, otherwise
+  points will be deducted.
+
+  </div>
+
+  After completing the `Makefile` and verifying that you can produce all the
+  specified artifacts, you may begin implementing the [data structure]s and
+  applications for this assignment.
+
+  [rules]: https://www.gnu.org/software/make/manual/html_node/Rule-Example.html#Rule-Example
+  [static library]: https://en.wikipedia.org/wiki/Static_library#Creating_static_libraries_in_C.2FC.2B.2B
+  [unit test]: https://en.wikipedia.org/wiki/Unit_testing
+  [object]: https://en.wikipedia.org/wiki/Object_file
+  [DAG]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
+
+  [automatic variables]: https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
+
+  ## Activity 1: ArraySet Library (2 Points)
+
+  For the first activity, you are to complete the `ArraySet` library, which
+  implements a [set] using an **ordered** [dynamic array].  That is, to
+  maintain a **unique** collection of values, you will store values in the
+  internal [dynamic array] in **ascending order**.  This will allow you to
+  perform [binary search] to check if a value is already in the `ArraySet`.
+
+  <div class="thumbnail">
+    <img src="static/img/homework05-arrayset.png" class="img-responsive">
+  </div>
+
+  As can be seen above, the `ArraySet` is an **ordered** [dynamic array].  This
+  means that you will need to **resize** the internal `data` [array] to make
+  room for new values if the `size` reaches the internal `capacity` and shift
+  the values in the internal `data` [array].
+
+  ### Task 1: `include/ds/arrayset.h`
+
+  The `include/ds/arrayset.h` file is the [header] file for the `ArraySet`
+  **structure**, which contains the following [structs] and function
+  [prototypes]:
+
+      :::c
+      /* arrayset.h: Set (Dynamic Array) */
+
+      #pragma once
+
+      #include <stdbool.h>
+      #include <stdint.h>
+      #include <stdlib.h>
+
+      /* Constants */
+
+      #define ARRAYSET_DEFAULT_CAPACITY (1<<2)
+
+      /* Structures */
+
+      typedef struct {
+          int64_t *data;      // Internal array
+          size_t   capacity;  // Total number of elements
+          size_t   size;      // Number of valid elements
+      } ArraySet;
+
+      /* Functions */
+
+      ArraySet *  arrayset_create();
+      void        arrayset_delete(ArraySet *as);
+
+      bool        arrayset_contains(ArraySet *as, int64_t value);
+      void        arrayset_add(ArraySet *as, int64_t value);
+      void        arrayset_remove(ArraySet *as, int64_t value);
+
+  Other programs will `#include` this file in order to use the functions we
+  will be implementing in this library.
+
+  <div class="alert alert-info" markdown="1">
+
+  **Note**: For this task, you **do not** need to modify this file. Instead,
+  you should review it and ensure you understand the provided code.
+
+  </div>
+
+  [header]: https://en.wikipedia.org/wiki/Include_directive#C.2FC.2B.2B
+  [prototypes]: https://en.wikipedia.org/wiki/Function_prototype
+  [struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
+  [structs]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
+
+  ### Task 2: `src/arrayset.c`
+
+  The `src/arrayset.c` file contains the [C] implementation for the `ArraySet`
+  **structure**.  For this task, you will need to implement the following
+  functions:
+
+  1. `ArraySet*   arrayset_create()`
+
+      > This function allocates a new `ArraySet` [struct] and initializes its
+      internal attributes: `data`, `capacity`, and `size.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [malloc] or [calloc] to allocate data on the [heap].
+      </div>
+
+  2. `void        arrayset_delete(ArraySet *as)`
+
+      > This function deallocates the given `ArraySet` [struct] along with its
+      internal `data` [array].
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [free] to release data allocated on the [heap].
+      </div>
+
+  3. `bool        arrayset_contains(ArraySet *as, int64_t value)`
+
+      > This function returns `true` if the `value` is in the `ArraySet`,
+      otherwise it returns `false`.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [binary search] to locate the `value`.
+      </div>
+
+  4. `void        arrayset_add(ArraySet *as, int64_t value)`
+
+      > This function adds the `value` to the `ArraySet` while maintaining both
+      **uniqueness** (ie. two values are the same) and **ordering** (ie. values
+      are in ascending order).
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use `arrayset_contains`, determine the `index` where you want
+        to place the new `value`, and then adapt `array_insert` from [Lecture 07].
+
+      </div>
+
+  5. `void        arrayset_remove(ArraySet *as, int64_t value)`
+
+      > This function removes the `value` from the `ArraySet`.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use `arrayset_contains`, determine the `index` of the `value`
+        you want to remove, and then adapt `array_pop` from [Homework 03].
+
+      </div>
+
+  [malloc]: https://www.mankier.com/3/malloc
+  [calloc]: https://www.mankier.com/3/malloc
+  [free]:   https://www.mankier.com/3/malloc
+  [heap]:   https://en.wikipedia.org/wiki/Memory_management#HEAP
+  [array]:  https://en.wikipedia.org/wiki/C_(programming_language)#Arrays
+  [Lecture 07]: https://docs.google.com/presentation/d/1j-mZws8_ykOLLQCIO8tngCZ_hiKC18z0MfCbwlKoxP8/edit?usp=sharing
+  [Homework 03]: homework03.html
+
+  ### Task 3: Testing
+
+  As you implement the functions in `src/arrayset.c`, you should use
+  `bin/test_arrayset.sh` to test each function:
+
+      :::bash
+      # Build unit-test
+      $ make bin/unit_arrayset
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o tests/unit_arrayset.o tests/unit_arrayset.c
+      gcc -Llib -o bin/unit_arrayset tests/unit_arrayset.o lib/libds.a
+
+      # Run test script manually
+      $ ./bin/test_arrayset.sh
+      Testing arrayset...
+       arrayset_create                          ... Success
+       arrayset_delete                          ... Success
+       arrayset_contains                        ... Success
+       arrayset_add                             ... Success
+       arrayset_remove                          ... Success
+
+          Score 2.00 / 2.00
+         Status Success
+
+  Alternatively, you can both build the artifacts and run the test script by doing the following:
+
+      :::bash
+      # Build and run test scripts
+      $ make test-arrayset
+      ...
+
+  If one of the functions fails, and you need to **debug** the [unit tests], you
+  can run the `bin/unit_arrayset` command directly:
+
+      :::bash
+      # Display usage message
+      $ ./bin/unit_arrayset
+      Usage: ./bin/unit_arrayset NUMBER
+
+      Where NUMBER is right of the following:
+            0  Test arrayset_create
+            1  Test arrayset_delete
+            2  Test arrayset_contains
+            3  Test arrayset_add
+            4  Test arrayset_remove
+
+      # Run test for arrayset_create
+      $ ./bin/unit_arrayset 0
+
+      # Run test for arrayset_create using GDB
+      $ gdb ./bin/unit_arrayset
+      ...
+      (gdb) run 0
+
+      # Run test for arrayset_create using Valgrind
+      $ valgrind --leak-check=full ./bin/unit_arrayset 0
+
+  Of course, you are free to create your own test programs to debug and test
+  your `ArraySet` library.
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-repeat"></i> Iterative Development
+
+  You should practice [iterative development]. That is, rather than writing a
+  bunch of code and then debugging it all at once, you should concentrate on
+  one function at a time and then test that **one thing at a time**. The provided
+  [unit tests] allow you to check on the correctness of the individual functions
+  without implementing everything at once. Take advantage of this and build one
+  thing at a time.
+
+  </div>
+
+  [iterative development]: https://en.wikipedia.org/wiki/Iterative_and_incremental_development
+  [unit tests]: https://en.wikipedia.org/wiki/Unit_testing
+
+  ## Activity 2: ListSet Library (4 Points)
+
+  For the second activity, you are to complete the `ListSet` library, which
+  implements a [set] using an **ordered** [linked list].  That is, to maintain
+  a **unique** collection of values, you will store values in the internal
+  [linked list] in **ascending order**.  Unlike with the `ArraySet`, you will
+  perform [linear search] to check if a value is already in the `ListSet`.
+
+  <div class="thumbnail">
+    <img src="static/img/homework05-listset.png" class="img-responsive">
+  </div>
+
+  As be seen above, the `ListSet` [struct] is an **ordered** [singly linked
+  list] with a **dummy node** at the **front** of the sequence.  That is, the
+  first `ListSet` [struct] in the sequence is a **dummy** and not used to hold
+  any values.  It is there to simplify the `listset_add` and `listset_remove`
+  functions by ensuring there is always a **previous** `ListSet` [struct].
+
+  [singly linked list]: https://en.wikipedia.org/wiki/Linked_list
+
+  ### Task 1: `include/ds/listset.h`
+
+  The `include/ds/listset.h` file is the [header] file for the `ListSet`
+  **structure**, which contains the following [structs] and function
+  [prototypes]:
+
+      :::c
+      /* listset.h: Set (Linked List) */
+
+      #pragma once
+
+      #include <stdbool.h>
+      #include <stdint.h>
+      #include <stdlib.h>
+
+      /* Structures */
+
+      typedef struct ListSet ListSet;
+      struct ListSet {
+          int64_t  data;
+          ListSet *next;
+      };
+
+      /* Functions */
+
+      ListSet *   listset_create(int64_t data, ListSet *next);
+      void        listset_delete(ListSet *ls);
+
+      size_t      listset_size(ListSet *ls);
+      bool        listset_contains(ListSet *ls, int64_t value);
+      void        listset_add(ListSet *ls, int64_t value);
+      void        listset_remove(ListSet *ls, int64_t value);
+
+  <div class="alert alert-info" markdown="1">
+
+  **Note**: For this task, you **do not** need to modify this file. Instead,
+  you should review it and ensure you understand the provided code.
+
+  </div>
+
+  ### Task 2: `src/listset.c`
+
+  The `src/listset.c` file contains the [C] implementation for the `ListSet`
+  **structure**.  For this task, you will need to implement the following functions:
+
+  1. `ListSet*    listset_create(int64_t data, ListSet *next)`
+
+      > This function allocates a new `ListSet` [struct] and initializes its
+      internal attributes: `data` and `next`.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [malloc] or [calloc] to allocate data on the [heap].
+      </div>
+
+  2. `void        listset_delete(LisetSet *ls)`
+
+      > This function **recursively** deallocates the given `ListSet` [struct]
+      along with the rest of the sequence.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Consider the base case and use [free] to release data allocated
+        on the [heap].
+
+      </div>
+
+  3. `size_t      listset_size(ListSet *ls)`
+
+      > This function **recursively** determines the number of values in the
+      `ListSet` [struct].
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use the internal `listset_size_r` on the first valid `ListSet`
+        [struct] to **recursively** traverse through the sequence.  The
+        `listset_size_r` function should consider its base case and recursive
+        step.
+
+      </div>
+
+  4. `bool        listset_contains(ListSet *ls, int64_t value)`
+
+      > This function returns `true` if the `value` is in the `ListSet`,
+      otherwise it returns `false`.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use [linear search] in the internal `listset_contain_r`
+        function to **recursively** locate the `value`.  The
+        `listset_contains_r` function should consider its three base cases and
+        its recursive step.
+
+      </div>
+
+  5. `void        listset_add(ListSet *ls, int64_t value)`
+
+      > This function adds the `value` to the `ListSet` while maintaining both
+      **uniqueness** (ie. two values are the same) and **ordering** (ie. values
+      are in ascending order).
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use [linear search] in the internal `listset_add_r` function to
+        **recursively** locate where to insert a new `ListSet` [struct] with the
+        specified `value`.  The `listset_add_r` function should consider its
+        three base cases and its recursive step.
+
+      </div>
+
+  6. `void        listset_remove(ListSet *ls, int64_t value)`
+
+      > This function removes the `value` from the `ListSet`.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use [linear search] in the internal `listset_remove_r` function
+        to **recursively** locate the `ListSet` [struct] with the specified
+        `value`.  The `listset_remove_r` function should consider its two base
+        cases and its recursive step.
+
+      </div>
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-repeat"></i> Recursion
+
+  **Note**: All the functions in the `ListSet`, besides `list_create` must be
+    **recursive** functions.  For your convenience, we have provided a few
+    **helper** recursive functions such as `listset_size_r`,
+    `listset_contains_r`, `listset_add_r`, `listset_remove_r`.  These are meant
+    to be called from their **non-recursive** functions on the **first valid**
+  `ListSet` [struct]:
+
+      :::c
+      size_t    listset_size(ListSet *ls) {
+            return listset_size_r(ls->next);
+      }
+
+  </div>
+
+  ### Task 3: Testing
+
+  As you implement the functions in `src/listset.c`, you should use
+  `bin/unit_listset.sh` to test each function:
+
+      :::bash
+      # Build unit-test
+      $ make bin/unit_listset
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o tests/unit_listset.o tests/unit_listset.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/listset.o src/listset.c
+      ar rcs lib/libds.a src/arrayset.o src/listset.o src/bitset.o
+      gcc -Llib -o bin/unit_listset tests/unit_listset.o lib/libds.a
+
+      # Run test script manually
+      $ ./bin/test_listset.sh
+      Testing listset...
+       listset_create                           ... Success
+       listset_delete                           ... Success
+       listset_size                             ... Success
+       listset_contains                         ... Success
+       listset_add                              ... Success
+       listset_remove                           ... Success
+
+         Score 4.00 / 4.00
+        Status Success
+
+  Alternatively, you can both build the artifacts and run the test script by
+  doing the following:
+
+      :::bash
+      # Build and run test scripts
+      $ make test
+      ...
+
+  If one of the functions fails, and you need to **debug** the [unit tests], you
+  can run the `bin/unit_listset` command directly:
+
+      :::bash
+      # Display usage message
+      $ ./bin/unit_listset
+      Usage: ./bin/unit_listset NUMBER
+
+      Where NUMBER is right of the following:
+
+          0  Test listset_create
+          1  Test listset_delete
+          2  Test listset_size
+          3  Test listset_contains
+          4  Test listset_add
+          5  Test listset_remove
+
+      # Run test for listset_create
+      $ ./bin/unit_listset 0
+
+      # Run test for listset_create using GDB
+      $ gdb ./bin/unit_listset
+      ...
+      (gdb) run 0
+
+      # Run test for listset_create using Valgrind
+      $ valgrind --leak-check=full ./bin/unit_listset 0
+
+  Of course, you are free to create your own test programs to debug and test
+  your `ListSet` library.
+
+  ## Activity 3: Bitset (1 Points)
+
+  For the third activity, you are to complete the `BitSet` library, which
+  implements a [set] using a [bitset].  That is, to maintain a **unique**
+  collection of values, you will **mark individual bits** in an **unsigned long
+  integer** (i.e. `uint64_t`) that correspond to the values you are tracking.
+
+  <div class="thumbnail">
+    <img src="static/img/homework05-bitset.png" class="img-responsive">
+  </div>
+
+  ### Task 1: `include/ds/bitset.h`
+
+  The `include/ds/bitst.h` file is the [header] file for the `BitSet` library,
+  which contains the following function [prototypes]:
+
+      :::c
+      /* bitset.h: Set (BitSet) */
+
+      #pragma once
+
+      #include <stdbool.h>
+      #include <stdint.h>
+      #include <stdlib.h>
+
+      /* Type Definitions */
+
+      typedef uint64_t BitSet;
+
+      /* Functions */
+
+      bool      bitset_contains(BitSet *bs, int64_t value);
+      void      bitset_add(BitSet *bs, int64_t value);
+      void      bitset_remove(BitSet *bs, int64_t value);
+      size_t    bitset_size(BitSet *bs);
+
+  <div class="alert alert-info" markdown="1">
+
+  **Note**: For this task, you **do not** need to modify this file. Instead,
+  you should review it and ensure you understand the provided code.
+
+  </div>
+
+  ### Task 2: `src/bitset.c`
+
+  The `src/bitset.c` file contains the [C] implementation for the `BitSet`
+  library.  For this task, you will need to implement the following functions:
+
+  1. `bool        bitset_contains(BitSet *bs, int64_t value)`
+
+      > This function returns `true` if the `value` is in the `BitSet`,
+      otherwise it returns `false`.
+
+  2. `void        bitset_add(BitSet *bs, int64_t value)`
+
+      > This function adds the `value` to the `BitSet`.
+
+  3. `void        bitset_remove(BitSet *bs, int64_t value)`
+
+      > This function removes the `value` from the `ListSet`.
+
+  4. `size_t      bitset_size(BitSet *bs)`
+
+      > This function returns the number of values in the `BitSet`.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use `bitset_contains` on each possible value.
+
+      </div>
+
+  ### Task 3: Testing
+
+  As you implement the functions in `src/bitset.c`, you should use
+  `bin/unit_bitset.sh` to test each function:
+
+      :::bash
+      # Build unit-test
+      $ make bin/unit_bitset
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o tests/unit_bitset.o tests/unit_bitset.c
+      gcc -Llib -o bin/unit_bitset tests/unit_bitset.o lib/libds.a
+
+      # Run test script manually
+      $ ./bin/test_bitset.sh
+      Testing bitset...
+       bitset_contains                          ... Success
+       bitset_add                               ... Success
+       bitset_remove                            ... Success
+       bitset_size                              ... Success
+
+        Score 1.00 / 1.00
+       Status Success
+
+  Alternatively, you can both build the artifacts and run the test script by
+  doing the following:
+
+      :::bash
+      # Build and run test scripts
+      $ make test
+      ...
+
+  If one of the functions fails, and you need to **debug** the [unit tests], you
+  can run the `bin/unit_bitset` command directly:
+
+      :::bash
+      # Display usage message
+      $ ./bin/unit_bitset
+      Usage: ./bin/unit_bitset NUMBER
+
+      Where NUMBER is right of the following:
+
+          0  Test bitset_contains
+          1  Test bitset_add
+          2  Test bitset_remove
+          3  Test bitset_size
+
+      # Run test for bitset_contains
+      $ ./bin/unit_bitset 0
+
+      # Run test for bitset_contains using GDB
+      $ gdb ./bin/unit_bitset
+      ...
+      (gdb) run 0
+
+      # Run test for bitset_contains using Valgrind
+      $ valgrind --leak-check=full ./bin/unit_bitset 0
+
+  Of course, you are free to create your own test programs to debug and test
+  your `BitSet` library.
+
+  ## Activity 4: Palindromic (3 Points)
+
+  For this activity, you are use your **three** [set] implementations to solve
+  the following programming challenge:
+
+  > Given a word, you are to determine if any permutation of the word is a
+  palindrome, which is a phrase that reads the same forwards and backwards. For
+  instance, "tacocat" is an example of a palindrome.
+
+  To do this, you will complete the `bin/palindromic` program, which reads in
+  one word at a time from `stdin` and prints `YEAH` if it is a palindromic
+  permutation, otherwise it prints out `NOPE`:
+
+      :::bash
+      # Check if words are palindromic permutations using ArraySet
+      $ ./bin/palindromic -a
+      tacocat
+      YEAH
+      burrito
+      NOPE
+      ttaacco
+      YEAH
+
+      # Check if words are palindromic permutations using ListSet
+      $ ./bin/palindromic -l
+      tacocat
+      YEAH
+      burrito
+      NOPE
+      ttaacco
+      YEAH
+
+      # Check if words are palindromic permutations using BitSet
+      $ ./bin/palindromic -b
+      tacocat
+      YEAH
+      burrito
+      NOPE
+      ttaacco
+      YEAH
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-bomb"></i> Memory Management
+
+  In addition to meeting the functional requirements of the assignment (as
+  described above), your program **must not exhibit any memory leaks** or **invalid
+  memory accesses** as would be detected by [Valgrind].
+
+  Be sure to [free] any memory that has been allocated on the [heap] and to
+  initialize any allocate memory appropriately.
+
+  </div>
+
+  [Valgrind]: http://valgrind.org/
+
+  ### Task 1: `src/palindromic.c`
+
+  The `src/palindromic.c` file contains the [C] implementation of the
+  `bin/palindromic` program described above.  You will need to implement the
+  following functions:
+
+  1. `bool is_palindromic_arrayset(const char *s)`
+
+      > This function returns `true` if the string `s` is a **palindromic
+      permutation**, otherwise it returns `false`.
+
+  2. `bool is_palindromic_listset(const char *s)`
+
+      > This function returns `true` if the string `s` is a **palindromic
+      permutation**, otherwise it returns `false`.
+
+  3. `bool is_palindromic_listset(const char *s)`
+
+      > This function returns `true` if the string `s` is a **palindromic
+      permutation**, otherwise it returns `false`.
+
+  <div class="alert alert-success" markdown="1">
+
+  **Hint**: For each of the three functions above, use the corresponding [set]
+  implementation: `ArraySet`, `ListSet`, `BitSet`.
+
+  The functions should be largely the same except for changing the underlying
+  [set] implementation.
+
+  To solve the problem, consider when you would want to **add** to the [set] as
+  you process each letter and what you would want to **remove**.  Moreover,
+  consider what the final **size** of the [set] should be when you finish
+  processing all the letters.
+
+  </div>
+
+  <div class="alert alert-info" markdown="1">
+
+  **Note**: The `main` function will parse the command line options, and then
+    read each line of `stdin`, process it with one of the `is_palindromic`
+    functions above, and finally output the result.
+
+  This function is provided to you and you do not need to modify it.
+
+  </div>
+
+  ### Task 2: Testing
+
+  As you implement `src/palindromic.c`, you can test it by running the
+  `test-palindromic` target:
+
+      :::bash
+      # Build artifact and run test
+      $ make test-palindromic
+      bin/test_palindromic.sh
+      Testing palindromic ...
+       ArraySet (output)                        ... Success
+       ArraySet (valgrind)                      ... Success
+       ListSet  (output)                        ... Success
+       ListSet  (valgrind)                      ... Success
+       BitSet   (output)                        ... Success
+       BitSet   (valgrind)                      ... Success
+
+         Score 3.00 / 3.00
+        Status Success
+
+
+  ## Activity 5: Quiz (2 Points)
+
+  Once you have completed all the activities above, you are to complete the
+  following **reflection quiz**:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/homework05.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  As with [Reading 01], you will need to store your answers in a
+  `homework05/answers.json` file.  You can use the form above to generate the
+  contents of this file, or you can write the [JSON] by hand.
+
+  To check your quiz directly, you can use the `check.py` script:
+
+      :::bash
+      $ ../.scripts/check.py
+      Checking homework05 quiz ...
+            Q1 0.30
+            Q2 0.30
+            Q3 0.30
+            Q4 0.30
+            Q5 0.30
+            Q6 0.20
+            Q7 0.30
+
+         Score 2.00 / 2.00
+        Status Success
+
+  ## Leet Point (1 Extra Credit Point)
+
+  For **extra credit**, you are to solve the following [LeetCode] problem in [C].
+
+  > [2389. Longest Subsequence With Limited Sum](https://leetcode.com/problems/longest-subsequence-with-limited-sum/)
+
+  To receive credit, you must pass on [LeetCode] and achieve an **Accepted**
+  attempt.
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-check"></i> Verification
+
+  To get credit for this Leet Point, show your solution and the [LeetCode]
+  acceptance page to a TA to verify (or attached a screenshot with both to your
+  **Pull Request**).  You have up until **two days after** this assignment is
+  due to verify your Leet Point.
+
+  </div>
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-calendar"></i> Self-Service Extension
+
+  Remember that you can always **forgo** this Leet Point for **two extra days**
+  to do the homework.  That is, if you need an extension, you can simply skip
+  the Leet Point and you will automatically have until Friday to complete the
+  assignment for full credit.
+
+  Just leave a note on your **Pull Request** of your intentions.
+
+  </div>
+
+  [LeetCode]: https://leetcode.com/
+  [C]: https://en.wikipedia.org/wiki/C_(programming_language)
+
+  ## Submission
+
+  To submit your assignment, please commit your work to the `homework05` folder
+  of your `homework05` branch in your **assignments** [GitHub] repository:
+
+      :::bash
+      #-----------------------------------------------------------------------
+      # Make sure you have already completed Activity 0: Preparation
+      #-----------------------------------------------------------------------
+      ...
+      $ git add Makefile                            # Mark changes for commit
+      $ git commit -m "Homework 05: Activity 0"     # Record changes
+      ...
+      $ git add src/arrayset.c                      # Mark changes for commit
+      $ git commit -m "Homework 05: Activity 1"     # Record changes
+      ...
+      $ git add src/listset.c                       # Mark changes for commit
+      $ git commit -m "Homework 05: Activity 2"     # Record changes
+      ...
+      $ git add src/bitset.c                        # Mark changes for commit
+      $ git commit -m "Homework 05: Activity 3"     # Record changes
+      ...
+      $ git add src/palindromic.c                   # Mark changes for commit
+      $ git commit -m "Homework 05: Activity 4"     # Record changes
+      ...
+      $ git add answers.json                        # Mark changes for commit
+      $ git commit -m "Homework 05: Activity 5"     # Record changes
+      ...
+
+      $ git push -u origin homework05               # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Remember to create a [Pull Request] and assign the appropriate TA from the
+  [Reading 05 TA List].
+
+  **DO NOT MERGE** your own [Pull Request].  The TAs use open [Pull Request]s
+  to keep track of which assignments to grade.  Closing them yourself will
+  cause a delay in grading and confuse the TAs.
+
+  </div>
+
+  [Markdown]:   https://daringfireball.net/projects/markdown/
+  [git]:    https://git-scm.com/
+  [clone]:  https://git-scm.com/docs/git-clone
+  [commit]: https://git-scm.com/docs/git-commit
+  [push]:   https://git-scm.com/docs/git-push
+  [branching]:   https://git-scm.com/docs/git-branch
+  [code review]: https://en.wikipedia.org/wiki/Code_review
+  [GitHub]: https://github.com
+  [Linux]:  https://kernel.org
+  [branch]: https://git-scm.com/docs/git-branch
+  [add]:    https://git-scm.com/docs/git-add
+  [Pull Request]:  https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request
+  [Reading 01]:         reading01.html
+  [Reading 05 TA List]: reading05_tas.html
+  [curl]:   http://man7.org/linux/man-pages/man1/curl.1.html
+  [JSON]: https://json.org/
+  [Slack]:  https://nd-cse.slack.com
+  [text editor]: https://en.wikipedia.org/wiki/Text_editor
