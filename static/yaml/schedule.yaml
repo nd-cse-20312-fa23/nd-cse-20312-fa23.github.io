@@ -143,6 +143,9 @@
       - date:           Mon 09/25
         topics:         Bubble, Insertion, Selection Sort
         assignment:     Reading 05
+        items:
+          - name:       Slides 15
+            link:       https://docs.google.com/presentation/d/19bBm3SLdU9B-etRYZKR_o0TWi3on0wg1Pb8V5D0thgc/edit?usp=sharing
 
       - date:           Wed 09/27
         topics:         Merge Sort
