@@ -5,7 +5,7 @@
     },
     "q2": {
         "type": "order",
-        "question": "\n<p>Given the following <b>traces</b> of arrays being sorted, identify the\nalgorithm used for each <b>trace</b> (the array is printed after each\niteration through the array):</p>\n\n<pre>\nTrace 1:\n\n  5 7 4 0 1\n  5 7 4 0 1\n  4 5 7 0 1\n  0 4 5 7 1\n  0 1 4 5 7\n\nTrace 2:\n\n  5 7 4 0 1\n  0 7 4 5 1\n  0 1 4 5 7\n  0 1 4 5 7\n  0 1 4 5 7\n  0 1 4 5 7\n\nTrace 3:\n\n  5 7 4 0 1\n  5 4 0 1 7\n  4 0 1 5 7\n  0 1 4 5 7\n  0 1 4 5 7\n\n</pre>\n",
+        "question": "\n<p>Given the following <b>traces</b> of arrays being sorted, identify the\nalgorithm used for each <b>trace</b> (the array is printed after each\niteration through the array):</p>\n\n<pre>\nTrace 1:\n\n  5 7 4 0 1\n  5 7 4 0 1\n  4 5 7 0 1\n  0 4 5 7 1\n  0 1 4 5 7\n\nTrace 2:\n\n  5 7 4 0 1\n  0 7 4 5 1\n  0 1 4 5 7\n  0 1 4 5 7\n  0 1 4 5 7\n\nTrace 3:\n\n  5 7 4 0 1\n  5 4 0 1 7\n  4 0 1 5 7\n  0 1 4 5 7\n  0 1 4 5 7\n\n</pre>\n",
         "responses": {
             "bubble_sort": "Bubble Sort",
             "insertion_sort": "Insertion Sort",
