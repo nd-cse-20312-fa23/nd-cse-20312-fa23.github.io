@@ -106,6 +106,8 @@
         items:
           - name:       Slides 10
             link:       https://docs.google.com/presentation/d/1TC__yl0aI-JTD2U6Bk8-b4BNY19LBHAaluPangUmaPQ/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=c6c7cb00-37f1-4a4f-bd38-b07c01064aa4
 
       - date:           Fri 09/15
         topics:         Deques
