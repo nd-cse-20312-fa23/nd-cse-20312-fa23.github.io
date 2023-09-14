@@ -79,12 +79,15 @@
         "question": "\n<p>For each of the following words, fill in \"YEAH\" if it has a\n<b>palindromic permutation</b> or \"NOPE\" if it does not.</p>\n\n<ol>\n<li><b>Palindromic Permutation?</b>: <tt>annnanaaannnnaaaannnaaannnanaannana</tt> ____</li>\n<li><b>Palindromic Permutation?</b>: <tt>wowowowowowwwwwooooooowwwwooowwowow</tt> ____</li>\n</ol>\n"
     },
     "q7": {
-        "type": "order",
-        "question": "\n<p>Add the <tt>-O2</tt> compiler file to your <tt>Makefile</tt> and then\nrebuild everything with <tt>make clean ; make</tt>.  Next, run the provided\n<tt>bin/benchmark.py</tt> script to measure the runtimes of the various\n<b>set</b> types in <tt>bin/palindromic</tt>.  Perform this measurement a\nfew times until a pattern emerges.</p>\n\n<p>Order the following <b>Set</b> implementations from <b>fastest</b> to\n<b>slowest</b>.</p>\n",
+        "type": "multiple",
+        "question": "\n<p>Add the <tt>-O2</tt> compiler file to your <tt>Makefile</tt> and then\nrebuild everything with <tt>make clean ; make</tt>.  Next, run the provided\n<tt>bin/benchmark.py</tt> script to measure the runtimes of the various\n<b>set</b> types in <tt>bin/palindromic</tt>.  Perform this measurement a\nfew times until a pattern emerges.</p>\n\n<p>Which of the following statements are true (select all that apply)?</p>\n",
         "responses": {
-            "arrayset": "ArraySet",
-            "listset": "ListSet",
-            "bitset": "BitSet"
+            "arrayset_fastest": "<tt>ArraySet</tt> is the <b>fastest</b>.",
+            "listset_fastest": "<tt>ListSet</tt> is the <b>fastest</b>.",
+            "bitset_fastest": "<tt>BitSet</tt> is the <b>fastest</b>.",
+            "as_ls_same": "<tt>ArraySet</tt> and <tt>ListSet</tt> are <b>close in speed</b>.",
+            "as_bs_same": "<tt>ArraySet</tt> and <tt>BitSet</tt> are <b>close in speed</b>.",
+            "ls_bs_same": "<tt>ListSet</tt> and <tt>BitSet</tt> are <b>close in speed</b>."
         }
     }
 }
