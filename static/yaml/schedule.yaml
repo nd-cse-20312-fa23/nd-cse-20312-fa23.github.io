@@ -153,9 +153,15 @@
         topics:         Merge Sort
         assignment:     Homework 05
         idea:           Sets / Bitsets / Duplicates
+        items:
+          - name:       Slides 16
+            link:       https://docs.google.com/presentation/d/1VFjY0TQotr7v9RcG_nP3SA4_8-xmiIAMb8XYMUdBj5E/edit?usp=sharing
 
       - date:           Fri 09/29
         topics:         Quick Sort
+        items:
+          - name:       Slides 17
+            link:       https://docs.google.com/presentation/d/1xOqxqxvK0bKX-3eRCb_8oKgEoXvlYAziwcsB91NnIcA/edit?usp=sharing
 
 - name:     Hash Tables, Maps
   days:
