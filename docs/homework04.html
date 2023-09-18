@@ -518,6 +518,13 @@ and adds it to the back of the internal <a href="https://en.wikipedia.org/wiki/D
   <code>Queue</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a>.  Likewise, be sure to not exceed the <code>capacity</code> of
   the <code>Queue</code> if it is not <code>0</code>.</p>
 </div>
+<div class="alert alert-warning" markdown="1">
+<p><strong>Note</strong>: The <code>queue_capacity</code> test verifies whether or not you ensure
+  that <code>queue_push</code> does not exceed the <code>capacity</code> of the <code>Queue</code> if it
+  is not <code>0</code>.</p>
+<p>It is tested separately because you can use <code>queue_pop</code> to implement
+  this functionality.</p>
+</div>
 </li>
 <li>
 <p><code>char * queue_pop(Queue *q)</code></p>
