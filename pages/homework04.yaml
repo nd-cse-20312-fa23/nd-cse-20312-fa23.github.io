@@ -576,6 +576,17 @@ body:       |
         the `Queue` if it is not `0`.
 
       </div>
+      
+      <div class="alert alert-warning" markdown="1">
+
+      **Note**: The `queue_capacity` test verifies whether or not you ensure
+        that `queue_push` does not exceed the `capacity` of the `Queue` if it
+        is not `0`.
+
+        It is tested separately because you can use `queue_pop` to implement
+        this functionality.
+
+      </div>
 
   4. `char * queue_pop(Queue *q)`
 
