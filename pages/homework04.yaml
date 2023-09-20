@@ -482,7 +482,7 @@ body:       |
 
   ### Task 1: `include/ds/queue.h`
 
-  The `include/ds/stack.h` file is the [header] file for the [stack] library,
+  The `include/ds/queue.h` file is the [header] file for the [queue] library,
   which contains the following [structs] and function [prototypes]:
 
       :::c
