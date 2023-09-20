@@ -359,7 +359,7 @@ body:       |
   1. `ArraySet*   arrayset_create()`
 
       > This function allocates a new `ArraySet` [struct] and initializes its
-      internal attributes: `data`, `capacity`, and `size.
+      internal attributes: `data`, `capacity`, and `size`.
 
       <div class="alert alert-success" markdown="1">
       **Hint**: Use [malloc] or [calloc] to allocate data on the [heap].
@@ -563,7 +563,7 @@ body:       |
       **Hint**: Use [malloc] or [calloc] to allocate data on the [heap].
       </div>
 
-  2. `void        listset_delete(LisetSet *ls)`
+  2. `void        listset_delete(ListSet *ls)`
 
       > This function **recursively** deallocates the given `ListSet` [struct]
       along with the rest of the sequence.
@@ -657,8 +657,6 @@ body:       |
       # Build unit-test
       $ make bin/unit_listset
       gcc -Wall -std=gnu99 -g -Iinclude -c -o tests/unit_listset.o tests/unit_listset.c
-      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/listset.o src/listset.c
-      ar rcs lib/libds.a src/arrayset.o src/listset.o src/bitset.o
       gcc -Llib -o bin/unit_listset tests/unit_listset.o lib/libds.a
 
       # Run test script manually
