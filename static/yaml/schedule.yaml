@@ -135,6 +135,8 @@
         items:
           - name:       Slides 13
             link:       https://docs.google.com/presentation/d/1jw0HLyFZniby_7ktu_KMfQinCbCvSSOl8oThU5KDLIQ/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8ebe77b0-2ade-4296-a34a-b083010544ab
 
       - date:           Fri 09/22
         topics:         Bitsets
