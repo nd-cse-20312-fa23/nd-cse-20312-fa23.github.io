@@ -1,0 +1,26 @@
+{
+    "q1": {
+        "type": "blank",
+        "question": "\n<p>\n\nA hash table is a data structure where data is stored in an ____ manner.\nThis means that the data is ____ to array positions by a ____ function that\ngenerates a ____ value from each ____.\n\n</p>\n"
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding <b>hash functions</b> are\ntrue (select all that apply?)</p>\n",
+        "responses": {
+            "normal_distribution": "The <b>hash function</b> should have a <b>normal distribution</b>.",
+            "uniform_distribution": "The <b>hash function</b> should have a <b>uniform distribution</b>.",
+            "deterministic": "The <b>hash function</b> should be <b>deterministic</b>.",
+            "random": "The <b>hash function</b> should be <b>random</b>.",
+            "fast": "The <b>hash function</b> should be <b>fast</b>.",
+            "secure": "The <b>hash function</b> should be <b>cryptographically secure</b>."
+        }
+    },
+    "q3": {
+        "type": "blank",
+        "question": "\n<p>When the <b>hash function</b> maps two different keys to the same array\nposition, we call this a ____.</p>\n\n<p>One way to handle this situation is by using ____, where a new position\nis computed using a ____ sequence and the next record is stored in that\nposition.</p>\n\n<p>Another approach for handling this situation is using ____, where each\nlocation in the hash table is actually a ____ that can hold multiple\nvalues.</p>\n"
+    },
+    "q4": {
+        "type": "blank",
+        "question": "\n<p>Complete the following implementation of a <b>HashSet</b>, which does\nnot handle <b>collisions</b> and simply uses <b>modulus</b> as the <b>hash\nfunction</b>:</p>\n\n<pre>\n#define NBUCKETS (1<<8)\n\ntypedef struct {\n    int buckets[NBUCKETS];\n} HashSet;\n\nvoid    hashset_add(HashSet *s, int value) {\n    int bucket = ____ % ____;\n    ____ = value;\n}\n\nbool    hashset_contains(HashSet *s, int value) {\n    int bucket = ____ % ____;\n    return ____ == value;\n}\n</pre>\n"
+    }
+}

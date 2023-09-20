@@ -330,7 +330,7 @@ functions:</p>
 <p><code>ArraySet*   arrayset_create()</code></p>
 <blockquote>
 <p>This function allocates a new <code>ArraySet</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> and initializes its
-internal attributes: <code>data</code>, <code>capacity</code>, and `size.</p>
+internal attributes: <code>data</code>, <code>capacity</code>, and <code>size</code>.</p>
 </blockquote>
 <p><div class="alert alert-success" markdown="1">
 <strong>Hint</strong>: Use <a href="https://www.mankier.com/3/malloc">malloc</a> or <a href="https://www.mankier.com/3/malloc">calloc</a> to allocate data on the <a href="https://en.wikipedia.org/wiki/Memory_management#HEAP">heap</a>.
@@ -507,7 +507,7 @@ internal attributes: <code>data</code> and <code>next</code>.</p>
 </div></p>
 </li>
 <li>
-<p><code>void        listset_delete(LisetSet *ls)</code></p>
+<p><code>void        listset_delete(ListSet *ls)</code></p>
 <blockquote>
 <p>This function <strong>recursively</strong> deallocates the given <code>ListSet</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a>
 along with the rest of the sequence.</p>
@@ -590,8 +590,6 @@ are in ascending order).</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build unit-test</span>
 $ make bin/unit_listset
 gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o tests/unit_listset.o tests/unit_listset.c
-gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/listset.o src/listset.c
-ar rcs lib/libds.a src/arrayset.o src/listset.o src/bitset.o
 gcc -Llib -o bin/unit_listset tests/unit_listset.o lib/libds.a
 
 <span style="color: #3D7B7B; font-style: italic"># Run test script manually</span>
