@@ -1,0 +1,1300 @@
+title:      "Homework 06: Sorting Lists"
+icon:       fa-code
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  The goal of this homework assignment is to allow you to explore building
+  [linked lists] and [sorting] them using a variety of algorithms such as
+  [selection sort], [merge sort], and [quick sort] and then utilizing these
+  [data structures] and [algorithms] to implement a version of the [sort]
+  utility called `lsort`.
+
+  In high-level languages such as [Python], we have a built-in implementation
+  of [sorting] which work on [lists]:
+
+      :::python3
+      # Define a list
+      >>> numbers = [5, 4, 7, 0, 1]
+
+      # Sort list (into new list)
+      >>> sorted(numbers)
+      [0, 1, 4, 5, 7]
+
+      >>> numbers
+      [5, 4, 7, 0, 1]
+
+      # Sort list (in-place)
+      >>> numbers.sort()
+      >>> numbers
+      [0, 1, 4, 5, 7]
+
+
+  The [C] standard library provides [qsort], but it only operates on [arrays].
+  For this assignment, you are to implement the following [sorting] algorithms
+  to operate on [singly linked lists].
+
+  1. `selection_sort`: This uses [selection sort] to order the values in a
+    [singly linked list].
+
+  2. `merge_sort`: This uses [merge sort] to order the values in a
+    [singly linked list] **recursively**.
+
+  3. `quick_sort`: This uses [qsort] to order the values in a [singly linked
+    list].
+
+  For this assignment, you are to do your work in the `homework06` folder of
+  your **assignments** [GitHub] repository and push your work by **noon
+  Wednesday, October 4**.
+
+  [GitHub]:             https://github.com
+  [linked lists]:       https://en.wikipedia.org/wiki/Linked_list
+  [sorting]:            https://en.wikipedia.org/wiki/Sorting_algorithm
+  [selection sort]:     https://en.wikipedia.org/wiki/Selection_sort
+  [merge sort]:         https://en.wikipedia.org/wiki/Merge_sort
+  [quick sort]:         https://en.wikipedia.org/wiki/Quicksort
+  [data structure]:     https://en.wikipedia.org/wiki/Data_structure
+  [data structures]:    https://en.wikipedia.org/wiki/Data_structure
+  [algorithm]:          https://en.wikipedia.org/wiki/Algorithm
+  [algorithms]:         https://en.wikipedia.org/wiki/Algorithm
+  [sort]:               https://www.mankier.com/1/sort
+  [qsort]:              https://www.mankier.com/3/qsort
+  [linked lists]:       https://en.wikipedia.org/wiki/Linked_list
+  [arrays]:             https://en.wikipedia.org/wiki/C_(programming_language)#Arrays
+  [singly linked list]: https://en.wikipedia.org/wiki/Linked_list
+  [singly linked lists]: https://en.wikipedia.org/wiki/Linked_list
+  [lists]:              https://docs.python.org/3/tutorial/datastructures.html#data-structures
+
+  [C]:                  https://en.wikipedia.org/wiki/C_(programming_language)
+  [Python]: https://www.python.org/
+
+  ## Activity 0: Preparation
+
+  Before starting this homework assignment, you should first perform a `git
+  pull` to retrieve any changes in your remote [GitHub] repository:
+
+      :::bash
+      $ cd path/to/repository                   # Go to assignments repository
+
+      $ git switch master                       # Make sure we are in master branch
+
+      $ git pull --rebase                       # Get any remote changes not present locally
+
+  Next, create a new branch for this assignment:
+
+      :::bash
+      $ git checkout -b homework06              # Create homework06 branch and check it out
+
+  ### Task 1: Skeleton Code
+
+  To help you get started, the instructor has provided you with the following [skeleton code]:
+
+      :::bash
+      # Go to assignments repository
+      $ cd path/to/assignments/repository
+
+      # -----------------------------------------------------
+      # MAKE SURE YOU ARE NOT INSIDE THE homework06 DIRECTORY
+      # -----------------------------------------------------
+      # MAKE SURE YOU ARE AT THE TOP-LEVEL DIRECTORY
+      # -----------------------------------------------------
+
+      # Download skeleton code tarball
+      $ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework06.tar.gz
+
+      # Extract skeleton code tarball
+      $ tar xzvf homework06.tar.gz
+
+  Once downloaded and extracted, you should see the following files in your
+  `homework06` directory:
+
+      :::bash
+      homework06
+          \_ Makefile                 # This is the Makefile for building all the project artifacts
+          \_ bin                      # This contains the project binary executables and test scripts
+              \_ benchmark.py         # This is the Python script for benchmarking the lsort program
+              \_ test_list.sh         # This is the shell script for testing the List library
+              \_ test_lsort.sh        # This is the shell script for testing the lsort utility
+              \_ test_merge.sh        # This is the shell script for testing the MergeSort library
+              \_ test_node.sh         # This is the shell script for testing the Node library
+              \_ test_quick.sh        # This is the shell script for testing the QuickSort library
+              \_ test_selection.sh    # This is the shell script for testing the SelectionSort library
+          \_ include                  # This contains the project header files
+              \_ ds                   # This contains the project data structure header files
+                  \_ list.h           # This is the C header file for the List library
+                  \_ node.h           # This is the C header file for the Node library
+                  \_ sorts.h          # This is the C header file for the Sorting libraries
+          \_ lib                      # This contains the project library files
+          \_ src                      # This contains the project source code
+              \_ list.c               # This is the C source code for the List library
+              \_ lsort.c              # This is the C source code for the lsort utility
+              \_ merge_sort.c         # This is the C source code for the MergeSort library
+              \_ node.c               # This is the C source code for the Node library
+              \_ quick_sort.c         # This is the C source code for the QuickSort library
+              \_ selection_sort.c     # This is the C source code for the SelectionSort library
+          \_ tests                    # This contains the project unit tests
+              \_ unit_list.c          # This is the unit test for the List library
+              \_ unit_merge.c         # This is the unit test for the MergeSort library
+              \_ unit_node.c          # This is the unit test for the Node library
+              \_ unit_quick.c         # This is the unit test for the QuickSort library
+              \_ unit_selection.c     # This is the unit test for the SelectionSort library
+
+  [skeleton code]: https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework06.tar.gz
+
+  ### Task 2: Initial Import
+
+  Now that the files are extracted into the `homework06` folder, you can
+  **commit** them to your [git] repository:
+
+      :::bash
+      # Go into homework06 folder
+      $ cd homework06
+
+      # Add and commit initial skeleton files
+      $ git add Makefile                            # Mark changes for commit
+      $ git add bin/*.sh bin/*.py                   # Mark changes for commit
+      $ git add include/ds/*.h                      # Mark changes for commit
+      $ git add lib/.gitkeep                        # Mark changes for commit
+      $ git add src/*.c                             # Mark changes for commit
+      $ git add tests/*.c tests/*.input             # Mark changes for commit
+      $ git commit -m "Homework 06: Initial Import" # Record changes
+
+  The details on what you need to implement are described in the following
+  sections.
+
+  ### Task 3: `Makefile`
+
+  The Makefile contains all the rules or recipes for building the project
+  artifacts (e.g. `lsort`, `libds.a`, `unit_list`, `unit_merge`,
+  `unit_node`, `unit_quick`, `unit_selection`, etc.):
+
+      :::make
+      CC=       gcc
+      CFLAGS=   -Wall -std=gnu99 -g -Iinclude
+      AR=       ar
+      ARFLAGS=  rcs
+      LD=       gcc
+      LDFLAGS=  -Llib
+
+      all:    bin/lsort
+
+      test:
+            @$(MAKE) -sk test-all
+
+      test-all:   test-node test-list test-selection test-merge test-quick test-lsort
+
+      # TODO: Pattern rule for object files
+
+      # TODO: Rule for lib/libds.a
+
+      # TODO: Rule for bin/lsort
+
+      bin/unit_node:    tests/unit_node.o lib/libds.a
+            $(LD) $(LDFLAGS) -o $@ $^
+
+      bin/unit_list:    tests/unit_list.o lib/libds.a
+            $(LD) $(LDFLAGS) -o $@ $^
+
+      bin/unit_selection: tests/unit_selection.o lib/libds.a
+            $(LD) $(LDFLAGS) -o $@ $^
+
+      bin/unit_merge:   tests/unit_merge.o lib/libds.a
+            $(LD) $(LDFLAGS) -o $@ $^
+
+      bin/unit_quick:   tests/unit_quick.o lib/libds.a
+            $(LD) $(LDFLAGS) -o $@ $^
+
+      test-node:    bin/unit_node
+            bin/test_node.sh
+
+      test-list:    bin/unit_list
+            bin/test_list.sh
+
+      test-selection:   bin/unit_selection
+            bin/test_selection.sh
+
+      test-merge:   bin/unit_merge
+            bin/test_merge.sh
+
+      test-quick:   bin/unit_quick
+            bin/test_quick.sh
+
+      test-lsort:   bin/lsort
+            bin/test_lsort.sh
+
+      clean:
+            rm -f bin/lsort bin/unit_* lib/*.a src/*.o tests/*.o
+
+  For this task, you will need to add [rules] for building the [static library]
+  `lib/libds.a` and the program `bin/lsort`. Be sure to have a **recipe**
+  for any *intermediate* [object] files that libraries require as shown in the
+  [DAG] below:
+
+  <div class="thumbnail">
+    <img src="static/img/homework06-makefile.png" class="img-responsive">
+  </div>
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-cogs"></i> Makefile Variables
+
+  You **must** use the `CC`, `CFLAGS`, `LD`, `LDFLAGS`, `AR`, and `ARFLAGS`
+  variables when appropriate in your rules. You **should** also consider using
+  [automatic variables] such as `$@` and `$<` as well.
+
+  </div>
+
+  Once you have a working `Makefile`, you should be able to run the following
+  commands:
+
+      :::bash
+      # Build all TARGETS
+      $ make
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/lsort.o src/lsort.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/node.o src/node.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/list.o src/list.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/selection_sort.o src/selection_sort.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/merge_sort.o src/merge_sort.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/quick_sort.o src/quick_sort.c
+      ar rcs lib/libds.a src/node.o src/list.o src/selection_sort.o src/merge_sort.o src/quick_sort.o
+      gcc -Llib -o bin/lsort src/lsort.o lib/libds.a
+
+      # Run all tests
+      $ make test
+      Testing node...
+      ...
+
+      # Remove generated artifacts
+      $ make clean
+      rm -f bin/lsort bin/unit_* lib/*.a src/*.o tests/*.o
+
+  <div class="alert alert-danger" markdown="1">
+
+  **Note**: The tests will **fail** if you haven't implemented `Node`,
+    `List`, or [sorting] libraries, or the `lsort` program.
+
+  </div>
+
+  <div class="alert alert-warning" markdown="1">
+  #### <i class="fa fa-warning"></i> Warnings
+
+  You must include the `-Wall` flag in your `CFLAGS` when you compile. This
+  also means that your code must **compile without any warnings**, otherwise
+  points will be deducted.
+
+  </div>
+
+  After completing the `Makefile` and verifying that you can produce all the
+  specified artifacts, you may begin implementing the [data structure]s and
+  applications for this assignment.
+
+  [rules]: https://www.gnu.org/software/make/manual/html_node/Rule-Example.html#Rule-Example
+  [static library]: https://en.wikipedia.org/wiki/Static_library#Creating_static_libraries_in_C.2FC.2B.2B
+  [unit test]: https://en.wikipedia.org/wiki/Unit_testing
+  [object]: https://en.wikipedia.org/wiki/Object_file
+  [DAG]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
+
+  [automatic variables]: https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
+
+  ## Activity 1: Node Library (1 Point)
+
+  For the first activity, you are to implement a `Node` **structure** to be
+  used in a [singly linked list].  Each `Node` **structure** will have the
+  following **attributes**:
+
+  1. `data`: This is a pointer to a [string] allocated on the [heap].
+  2. `next`: This is a pointer to the next `Node` [struct] in the sequence.
+
+  <div class="thumbnail">
+    <img src="static/img/homework06-node.png" class="img-responsive">
+  </div>
+
+  [string]: https://en.wikipedia.org/wiki/C_string_handling
+  [strings]: https://en.wikipedia.org/wiki/C_string_handling
+  [heap]:   https://en.wikipedia.org/wiki/Memory_management#HEAP
+  [struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
+
+  ### Task 1: `include/ds/node.h`
+
+  The `include/ds/node.h` file is the [header] file for the `Node`
+  **structure**, which contains the following [structs] and function
+  [prototypes]:
+
+      :::c
+      /* node.h: Node Structure */
+
+      #pragma once
+
+      #include <stdio.h>
+      #include <stdlib.h>
+
+      /* Structure */
+
+      typedef struct Node Node;
+      struct Node {
+          char *data;
+          Node *next;
+      };
+
+      /* Type Definitions */
+
+      typedef int (*Comparison)(const void *, const void *);
+
+      /* Functions */
+
+      Node *  node_create(char *data, Node *next);
+      void    node_delete(Node *n);
+
+      int node_compare_as_strings(const void *a, const void *b);
+      int node_compare_as_numbers(const void *a, const void *b);
+
+  Other programs will `#include` this file in order to use the functions we
+  will be implementing in this library.
+
+  <div class="alert alert-success" markdown="1">
+
+  **Note**: `Comparison` is a [type definition] for **functions** such as
+    `node_compare_as_strings` and `node_compare_as_numbers`.
+
+  </div>
+
+  <div class="alert alert-info" markdown="1">
+
+  **Note**: For this task, you **do not** need to modify this file. Instead,
+  you should review it and ensure you understand the provided code.
+
+  </div>
+
+  [header]: https://en.wikipedia.org/wiki/Include_directive#C.2FC.2B.2B
+  [prototypes]: https://en.wikipedia.org/wiki/Function_prototype
+  [struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
+  [structs]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
+  [type definition]: https://en.wikipedia.org/wiki/Typedef
+
+  ### Task 2: `src/node.c`
+
+  The `src/node.c` file contains the [C] implementation for the `Node`
+  **structure**.  For this task, you will need to implement the following
+  functions:
+
+  1. `Node*     node_create(char *data, Node *next)`
+
+      > This function allocates a new `Node` [struct] and initializes its
+      internal attributes: `data` and `next`.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [malloc], [calloc], or [strdup] to allocate data on the [heap].
+      </div>
+
+  2. `void      node_delete(Node *n)`
+
+      > This function deallocates the given `Node` [struct] along with its
+      internal `data` [string].
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [free] to release data allocated on the [heap].
+      </div>
+
+  3. `int       node_compare_as_strings(const void *a, const void *b)`
+
+      > This function compares two `Node` **structures** by treating their
+      `data` attributes as [strings].
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [strcmp] to compare [strings].
+
+      Remember that the [sorting] algorithms will pass you references to each
+      element they are [sorting].  Therefore, if each element is a `Node *`,
+      then `a` and `b` are actually `Node **`.
+
+      </div>
+
+  4. `int       node_compare_as_numbers(const void *a, const void *b)`
+
+      > This function compares two `Node` **structures** by treating their
+      `data` attributes as **integers**.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [atoi] to convert a [string] to an **integer**.
+
+      Remember that a `Comparison` function should return `0` if the elements
+      are equal, a **negative** if `a < b`, and a **positive** if `a > b`.
+
+      Therefore, once you have **integers**, you can simply do the equivalent
+      of `a - b` to perform the comparison.
+
+      </div>
+
+  [malloc]: https://www.mankier.com/3/malloc
+  [calloc]: https://www.mankier.com/3/malloc
+  [free]:   https://www.mankier.com/3/malloc
+  [strdup]: https://www.mankier.com/3/strdup
+  [strcmp]: https://www.mankier.com/3/strcmp
+  [atoi]:   https://www.mankier.com/3/atoi
+  [heap]:   https://en.wikipedia.org/wiki/Memory_management#HEAP
+
+  ### Task 3: Testing
+
+  As you implement the functions in `src/node.c`, you should use
+  `bin/test_node.sh` to test each function:
+
+      :::bash
+      # Build unit-test
+      $ make bin/unit_node
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o tests/unit_node.o tests/unit_node.c
+      gcc -Llib -o bin/unit_node tests/unit_node.o lib/libds.a
+
+      # Run test script manually
+      $ ./bin/test_node.sh
+      Testing node...
+       node_create                              ... Success
+       node_delete                              ... Success
+       node_compare_as_strings                  ... Success
+       node_compare_as_numbers                  ... Success
+
+         Score 1.00 / 1.00
+        Status Success
+
+  Alternatively, you can both build the artifacts and run the test script by doing the following:
+
+      :::bash
+      # Build and run test scripts
+      $ make test-node
+      ...
+
+  If one of the functions fails, and you need to **debug** the [unit tests], you
+  can run the `bin/unit_node` command directly:
+
+      :::bash
+      # Display usage message
+      $ ./bin/unit_node
+      Usage: ./bin/unit_node NUMBER
+
+      Where NUMBER is right of the following:
+            0  Test node_create
+            1  Test node_delete
+            2  Test node_compare_as_strings
+            3  Test node_compare_as_numbers
+
+      # Run test for node_create
+      $ ./bin/unit_node 0
+
+      # Run test for node_create using GDB
+      $ gdb ./bin/unit_node
+      ...
+      (gdb) run 0
+
+      # Run test for node_create using Valgrind
+      $ valgrind --leak-check=full ./bin/unit_node 0
+
+  Of course, you are free to create your own test programs to debug and test
+  your `Node` library.
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-repeat"></i> Iterative Development
+
+  You should practice [iterative development]. That is, rather than writing a
+  bunch of code and then debugging it all at once, you should concentrate on
+  one function at a time and then test that **one thing at a time**. The provided
+  [unit tests] allow you to check on the correctness of the individual functions
+  without implementing everything at once. Take advantage of this and build one
+  thing at a time.
+
+  </div>
+
+  [iterative development]: https://en.wikipedia.org/wiki/Iterative_and_incremental_development
+  [unit tests]: https://en.wikipedia.org/wiki/Unit_testing
+
+  ## Activity 2: List Library (4 Points)
+
+  For the second activity, you are to complete the `List` **structure** that
+  implements a [singly liked list] with a **tail pointer**.
+
+  <div class="thumbnail">
+    <img src="static/img/homework06-list.png" class="img-responsive">
+  </div>
+
+  As can seen, each `List` **structure** has the following **attributes**:
+
+  1. `head`: This is a pointer to the **first** `Node` [struct] in the sequence.
+  2. `tail`: This is a pointer to the **last** `Node` [struct] in the sequence.
+  3. `size`: This is the number of `Node` **structures** in the sequence.
+
+  ### Task 1: `include/ds/list.h`
+
+  The `include/ds/list.h` file is the [header] file for the `List`
+  **structure**, which contains the following [structs] and function
+  [prototypes]:
+
+      :::c
+      /* list.h: List Structure */
+
+      #pragma once
+
+      #include "node.h"
+
+      #include <stdio.h>
+      #include <stdlib.h>
+
+      /* Structure */
+
+      typedef struct {
+          Node  *head;
+          Node  *tail;
+          size_t size;
+      } List;
+
+      /* Functions */
+
+      List *  list_create();
+      void    list_delete(List *l);
+
+      void    list_append(List *l, char *s);
+      void    list_dump(List *l, FILE *fs);
+
+      void    list_split(Node *n, Node **left, Node **right);
+      Node *  list_merge(Node *left, Node *right, Comparison cmp);
+
+      Node**  list_nodes(List *l);
+      void    list_update(List *l, Node **a);
+
+  <div class="alert alert-info" markdown="1">
+
+  **Note**: For this task, you **do not** need to modify this file. Instead,
+  you should review it and ensure you understand the provided code.
+
+  </div>
+
+  ### Task 2: `src/list.c`
+
+  The `src/list.c` file contains the [C] implementation for the `List`
+  **structure**.  For this task, you will need to implement the following functions:
+
+  1. `List*     list_create()`
+
+      > This function allocates a new `ListSet` [struct] and initializes its
+      internal attributes: `head`, `tail`, and `size`.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [malloc] or [calloc] to allocate data on the [heap].
+      </div>
+
+  2. `void      list_delete(List *l)`
+
+      > This function deallocates all the internal `Node` **structures** in the
+      `List` **structure**, and then the `List` [struct] itself.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use `node_delete` and `free` to deallocate the appropriate
+        objects from the [heap].
+
+      </div>
+
+  3. `void      list_append(List *l, char *s)`
+
+      > This function creates a new `Node` [struct] with the given [string] `s`
+      and adds it to the back of the internal [singly linked list] (e.g.
+      `l.append(s)` in [Python]).
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use `node_create` and make sure you update the `head`, `tail`,
+        and `size` attributes of the `List` [struct] appropriately.
+
+      </div>
+
+  4. `void      list_dump(List *l, FILE *fs)`
+
+      > This function prints every value in the `List` [struct] to the given
+      stream (one value per line).
+
+  5. `void      list_split(Node *n, Node **left, Node **right)`
+
+      > This function splits the [singly linked list] starting at `n` into two
+      relatively equally sized sublists: `left` and `right`.  After this function,
+      `left` will point to the **first** node in the `left` sublist, and `right`
+      will point to the **first** node in the `right` sublist.
+
+      <div class="thumbnail">
+      <img src="static/img/homework06-list-split.png" class="img-responsive">
+      </div>
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use the [slow and fast] pointer technique to find the middle of
+        the [singly linked list].
+
+        To terminate the `left` sublist, consider adding a `tail` pointer in
+        addition to a `slow` and `fast` pointer and setting `tail->next` to
+        `NULL`.
+
+      </div>
+
+  6. `Node *  list_merge(Node *left, Node *right, Comparison cmp)`
+
+      > This function merges the `left` and `right` [singly linked lists] into
+      one **ordered** [singly linked list] and returns the pointer to the **first**
+      `Node` in the new sequence.  To compare `Node` **structures**, it uses
+      the provided `cmp` `Comparison` function.
+
+      <div class="thumbnail">
+      <img src="static/img/homework06-list-merge.png" class="img-responsive">
+      </div>
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: First determine which `Node` from either the `left` or `right`
+        is the **head** of the new [singly linked list].  Next, connect the
+        smallest element from either the `left` or `right` subsequences to the
+        **tail** of the new [singly linked list] until either subsequence is
+        exhausted.  Finally, connect the remaining subsequence to the **tail**
+        of the new [singly linked list].
+
+      </div>
+
+  7. `Node ** list_nodes(List *l)`
+
+      > This function returns an [array] of pointers to the `Node`
+      **structures** in the given `List` [struct].
+
+      <div class="thumbnail">
+      <img src="static/img/homework06-list-nodes.png" class="img-responsive">
+      </div>
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [malloc] or [calloc] to allocate data on the [heap].
+      </div>
+
+  8. `void    list_update(List *l, Node **a)`
+
+      > This function updates the internal `Node` **structures** in the `List`
+      **structure** with the **ordering** in the given [array] of `Node`
+      [structs].
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Update the `next` pointer of each pair of `Node` [structs] in
+        the [array] and then update the `head` and `tail` of the `List`.  Be
+        sure to properly terminate the  sequence.
+
+      </div>
+
+  [slow and fast]:  https://www.geeksforgeeks.org/write-a-c-function-to-print-the-middle-of-the-linked-list/
+  [array]:          https://en.wikipedia.org/wiki/C_(programming_language)#Arrays
+
+  ### Task 3: Testing
+
+  As you implement the functions in `src/list.c`, you should use
+  `bin/unit_list.sh` to test each function:
+
+      :::bash
+      # Build unit-test
+      $ make bin/unit_list
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o tests/unit_list.o tests/unit_list.c
+      gcc -Llib -o bin/unit_list tests/unit_list.o lib/libds.a
+
+      # Run test script manually
+      $ ./bin/test_list.sh
+      Testing list...
+       list_create                              ... Success
+       list_delete                              ... Success
+       list_append                              ... Success
+       list_dump                                ... Success
+       list_split                               ... Success
+       list_merge                               ... Success
+       list_nodes                               ... Success
+       list_update                              ... Success
+
+         Score 3.00 / 3.00
+        Status Success
+
+  Alternatively, you can both build the artifacts and run the test script by
+  doing the following:
+
+      :::bash
+      # Build and run test scripts
+      $ make test
+      ...
+
+  If one of the functions fails, and you need to **debug** the [unit tests], you
+  can run the `bin/unit_list` command directly:
+
+      :::bash
+      # Display usage message
+      $ ./bin/unit_list
+      Usage: ./bin/unit_list NUMBER
+
+      Where NUMBER is right of the following:
+          0  Test list_create
+          1  Test list_delete
+          2  Test list_append
+          3  Test list_dump
+          4  Test list_split
+          5  Test list_merge
+          6  Test list_nodes
+          7  Test list_update
+
+      # Run test for list_create
+      $ ./bin/unit_list 0
+
+      # Run test for list_create using GDB
+      $ gdb ./bin/unit_list
+      ...
+      (gdb) run 0
+
+      # Run test for list_create using Valgrind
+      $ valgrind --leak-check=full ./bin/unit_list 0
+
+  Of course, you are free to create your own test programs to debug and test
+  your `List` library.
+
+  ## Activity 3: Selection Sort (1 Point)
+
+  For this activity, you are to implement [selection sort].
+
+  <div class="thumbnail">
+    <img src="static/img/homework06-selection-sort.png" class="img-responsive">
+  </div>
+
+  As discussed in class, [selection sort] involves finding the **minimum**
+  value in a **subsequence** and swapping it with the current value if
+  necessary.
+
+  ### Task 1: `include/ds/sorts.h`
+
+  The `include/ds/sorts.h` file is the [header] file for all the [sorting]
+  algorithms, which contains the following function [prototypes]:
+
+      :::c
+      /* sorts.h: Sorting Algorithms */
+
+      #pragma once
+
+      #include "ds/list.h"
+
+      /* Functions */
+
+      void	selection_sort(List *l, Comparison cmp);
+      void	merge_sort(List *l, Comparison cmp);
+      void	quick_sort(List *l, Comparison cmp);
+
+  <div class="alert alert-info" markdown="1">
+
+  **Note**: For this task, you **do not** need to modify this file. Instead,
+  you should review it and ensure you understand the provided code.
+
+  </div>
+
+  ### Task 2: `src/selection_sort.c`
+
+  The `src/selection_sort.c` file contains the [C] implementation for the
+  [selection sort] algorithm.  For this task, you will need to implement the
+  following functions:
+
+  1. `void      selection_sort(List *l, Comparison cmp)`
+
+      > This function performs [selection sort] on the given `List` and orders
+      values using the specified `Comparison` function.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: You can just swap the `data` attributes of the **current** and
+        **minimum** `Nodes`.  You don't have to swap the actual `Node` [structs].
+
+      </div>
+
+  ### Task 3: Testing
+
+  As you implement the functions in `src/selection_sort.c`, you should use
+  `bin/unit_selection.sh` to test each function:
+
+      :::bash
+      # Build unit-test
+      $ make bin/unit_selection
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o tests/unit_selection.o tests/unit_selection.c
+      gcc -Llib -o bin/unit_selection tests/unit_selection.o lib/libds.a
+
+      # Run test script manually
+      $ ./bin/test_selection.sh
+      Testing selection...
+      Testing selection...
+       selection_sort_strings                   ... Success
+       selection_sort_numbers                   ... Success
+
+        Score 1.00 / 1.00
+       Status Success
+
+  Alternatively, you can both build the artifacts and run the test script by
+  doing the following:
+
+      :::bash
+      # Build and run test scripts
+      $ make test
+      ...
+
+  If one of the functions fails, and you need to **debug** the [unit tests], you
+  can run the `bin/unit_selection` command directly:
+
+      :::bash
+      # Display usage message
+      $ ./bin/unit_selection
+      Usage: ./bin/unit_selection NUMBER
+
+      Where NUMBER is right of the following:
+
+          0  Test selection_sort_strings
+          1  Test selection_sort_numbers
+
+      # Run test for selection_sort
+      $ ./bin/unit_selection 0
+
+      # Run test for selection_sort using GDB
+      $ gdb ./bin/unit_selection
+      ...
+      (gdb) run 0
+
+      # Run test for selection_sort using Valgrind
+      $ valgrind --leak-check=full ./bin/unit_selection 0
+
+  Of course, you are free to create your own test programs to debug and test
+  your [selection sort] implementation.
+
+  ## Activity 4: Merge Sort (3 Points)
+
+  For this activity, you are to use [divide-and-conquer] to **recursively**
+  implement [merge sort].
+
+  <div class="thumbnail">
+    <img src="static/img/homework06-merge-sort.png" class="img-responsive">
+  </div>
+
+  As discussed in class, [merge sort] uses [divide-and-conquer]:
+
+  1. **Divide**: Split the `List` in half.
+  2. **Conquer**: Recursively sort the **left** and **right** subsequences.
+  3. **Combine**: Merge the sorted subsequences.
+
+  [divide-and-conquer]: https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm
+
+  ### Task 1: `src/merge_sort.c`
+
+  The `src/merge_sort.c` file contains the [C] implementation for the
+  [merge sort] algorithm.  For this task, you will need to implement the
+  following functions:
+
+  1. `void      merge_sort(List *l, Comparison cmp)`
+
+      > This function performs [merge sort] on the given `List` and orders
+      values using the specified `Comparison` function.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: You can update the `head` with `merge_sort_r` and then update
+        the `tail` once the the `List` is sorted.
+
+      </div>
+
+  2. `void      merge_sort_r(Node *n, Comparison cmp)`
+
+      > This **helper** function uses [divide-and-conquer] to **recursively**
+      perform [merge sort] on the given sequence that begins with `n`.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Consider using `list_split` and `list_merge`.
+
+      </div>
+
+  ### Task 2: Testing
+
+  As you implement the functions in `src/merge_sort.c`, you should use
+  `bin/unit_merge.sh` to test each function:
+
+      :::bash
+      # Build unit-test
+      $ make bin/unit_merge
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o tests/unit_merge.o tests/unit_merge.c
+      gcc -Llib -o bin/unit_merge tests/unit_merge.o lib/libds.a
+
+      # Run test script manually
+      $ ./bin/test_merge.sh
+      Testing merge...
+      Testing merge...
+       merge_sort_strings                   ... Success
+       merge_sort_numbers                   ... Success
+
+        Score 3.00 / 3.00
+       Status Success
+
+  Alternatively, you can both build the artifacts and run the test script by
+  doing the following:
+
+      :::bash
+      # Build and run test scripts
+      $ make test
+      ...
+
+  If one of the functions fails, and you need to **debug** the [unit tests], you
+  can run the `bin/unit_merge` command directly:
+
+      :::bash
+      # Display usage message
+      $ ./bin/unit_merge
+      Usage: ./bin/unit_merge NUMBER
+
+      Where NUMBER is right of the following:
+
+          0  Test merge_sort_strings
+          1  Test merge_sort_numbers
+
+      # Run test for merge_sort
+      $ ./bin/unit_merge 0
+
+      # Run test for merge_sort using GDB
+      $ gdb ./bin/unit_merge
+      ...
+      (gdb) run 0
+
+      # Run test for merge_sort using Valgrind
+      $ valgrind --leak-check=full ./bin/unit_merge 0
+
+  Of course, you are free to create your own test programs to debug and test
+  your [merge sort] implementation.
+
+  ## Activity 5: Quick Sort (1 Point)
+
+  For this activity, you are to use [qsort] to implement [quick sort].  To do
+  this, you will convert the [singly linked list] in the `List` **structure**
+  into an [array], perform [qsort] on the [array], and then update the original
+  `List` **structure**.
+
+  ### Task 1: `src/quick_sort.c`
+
+  The `src/quick_sort.c` file contains the [C] implementation for the
+  [quick sort] algorithm.  For this task, you will need to implement the
+  following functions:
+
+  1. `void      quick_sort(List *l, Comparison cmp)`
+
+      > This function performs [quick sort] on the given `List` and orders
+      values using the specified `Comparison` function.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Consider using `list_nodes` and `list_update`.
+
+      </div>
+
+  ### Task 2: Testing
+
+  As you implement the functions in `src/quick_sort.c`, you should use
+  `bin/unit_quick.sh` to test each function:
+
+      :::bash
+      # Build unit-test
+      $ make bin/unit_quick
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o tests/unit_quick.o tests/unit_quick.c
+      gcc -Llib -o bin/unit_quick tests/unit_quick.o lib/libds.a
+
+      # Run test script manually
+      $ ./bin/test_quick.sh
+      Testing quick...
+      Testing quick...
+       quick_sort_strings                   ... Success
+       quick_sort_numbers                   ... Success
+
+        Score 1.00 / 1.00
+       Status Success
+
+  Alternatively, you can both build the artifacts and run the test script by
+  doing the following:
+
+      :::bash
+      # Build and run test scripts
+      $ make test
+      ...
+
+  If one of the functions fails, and you need to **debug** the [unit tests], you
+  can run the `bin/unit_quick` command directly:
+
+      :::bash
+      # Display usage message
+      $ ./bin/unit_quick
+      Usage: ./bin/unit_quick NUMBER
+
+      Where NUMBER is right of the following:
+
+          0  Test quick_sort_strings
+          1  Test quick_sort_numbers
+
+      # Run test for quick_sort
+      $ ./bin/unit_quick 0
+
+      # Run test for quick_sort using GDB
+      $ gdb ./bin/unit_quick
+      ...
+      (gdb) run 0
+
+      # Run test for quick_sort using Valgrind
+      $ valgrind --leak-check=full ./bin/unit_quick 0
+
+  Of course, you are free to create your own test programs to debug and test
+  your [quick sort] implementation.
+
+  ## Activity 6: List Sort (2 Points)
+
+  For the last activity, you are to use your `List` and [sorting] algorithms
+  library to implement a version of the traditional [Unix] utility called
+  `bin/lsort`.
+
+      :::bash
+      # Use selection sort to order input as strings
+      $ seq 1 10 | ./bin/lsort
+      1
+      10
+      2
+      3
+      4
+      5
+      6
+      7
+      8
+      9
+
+      # Use quick sort to order input as numbers
+      $ seq 1 10 | ./bin/lsort -q -n
+      1
+      2
+      3
+      4
+      5
+      6
+      7
+      8
+      9
+      10
+
+  The `bin/lsort` program should support the following command line options:
+
+  1. `-m`: Use [merge sort].
+  2. `-q`: Use [quick sort].
+  3. `-n`: Compare each line as **numbers**.
+
+  By default, `bin/lsort` uses [selection sort] and compares each line as [strings].
+
+  [Unix]: https://en.wikipedia.org/wiki/Unix
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-bomb"></i> Memory Management
+
+  In addition to meeting the functional requirements of the assignment (as
+  described above), your program **must not exhibit any memory leaks** or **invalid
+  memory accesses** as would be detected by [Valgrind].
+
+  Be sure to [free] any memory that has been allocated on the [heap] and to
+  initialize any allocate memory appropriately.
+
+  </div>
+
+  [Valgrind]: http://valgrind.org/
+
+  ### Task 1: `src/lsort.c`
+
+  The `src/lsort.c` file contains the [C] implementation of the
+  `bin/lsort` program described above.  You will need to implement the
+  following functions:
+
+  1. `int main(int argc, char *argv[])`
+
+      > This function should do the following:
+      >
+      > 1. Parse the command line options.
+      > 2. Read each line from `stdin` into a `List`.
+      > 3. Sort the `List` using the appropriate [sorting] algorithm.
+      > 4. Dump the contents of the `List`.
+
+  <div class="alert alert-success" markdown="1">
+
+  **Hint**: Take advantage of the `Function` and `Comparison` **type
+  definitions** to treat functions as pointers that can be assigned to
+  variables:
+
+      :::c
+      // Assign functions as variables
+      Function    sort = selection_sort;
+      Comparison  cmp  = node_compare_as_strings;
+
+      ...
+
+      // Use function variables
+      sort(l, cmp);
+
+  </div>
+
+  ### Task 2: Testing
+
+  As you implement `src/lsort.c`, you can test it by running the
+  `test-lsort` target:
+
+      :::bash
+      # Build artifact and run test
+      $ make test-lsort
+      bin/test_lsort.sh
+      Testing lsort ...
+        Selection Sort - Strings (output)        ... Success
+        Selection Sort - Strings (valgrind)      ... Success
+        Selection Sort - Numbers (output)        ... Success
+        Selection Sort - Numbers (valgrind)      ... Success
+        Merge Sort - Strings (output)            ... Success
+        Merge Sort - Strings (valgrind)          ... Success
+        Merge Sort - Numbers (output)            ... Success
+        Merge Sort - Numbers (valgrind)          ... Success
+        Quick Sort - Strings (output)            ... Success
+        Quick Sort - Strings (valgrind)          ... Success
+        Quick Sort - Numbers (output)            ... Success
+        Quick Sort - Numbers (valgrind)          ... Success
+
+         Score 2.00 / 2.00
+        Status Success
+
+  ## Activity 7: Quiz (2 Points)
+
+  Once you have completed all the activities above, you are to complete the
+  following **reflection quiz**:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/homework06.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  As with [Reading 01], you will need to store your answers in a
+  `homework06/answers.json` file.  You can use the form above to generate the
+  contents of this file, or you can write the [JSON] by hand.
+
+  To check your quiz directly, you can use the `check.py` script:
+
+      :::bash
+      $ ../.scripts/check.py
+      Checking homework06 quiz ...
+            Q1 0.40
+            Q2 0.40
+            Q3 0.30
+            Q4 0.30
+            Q5 0.20
+            Q6 0.10
+            Q7 0.30
+
+         Score 2.00 / 2.00
+        Status Success
+
+  ## Leet Point (1 Extra Credit Point)
+
+  For **extra credit**, you are to solve the following [LeetCode] problem in [C].
+
+  > [2037. Minimum Number of Moves to Seat Everyone](https://leetcode.com/problems/minimum-number-of-moves-to-seat-everyone/description/)
+
+  To receive credit, you must pass on [LeetCode] and achieve an **Accepted**
+  attempt.
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-check"></i> Verification
+
+  To get credit for this Leet Point, show your solution and the [LeetCode]
+  acceptance page to a TA to verify (or attached a screenshot with both to your
+  **Pull Request**).  You have up until **two days after** this assignment is
+  due to verify your Leet Point.
+
+  </div>
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-calendar"></i> Self-Service Extension
+
+  Remember that you can always **forgo** this Leet Point for **two extra days**
+  to do the homework.  That is, if you need an extension, you can simply skip
+  the Leet Point and you will automatically have until Friday to complete the
+  assignment for full credit.
+
+  Just leave a note on your **Pull Request** of your intentions.
+
+  </div>
+
+  [LeetCode]: https://leetcode.com/
+  [C]: https://en.wikipedia.org/wiki/C_(programming_language)
+
+  ## Submission
+
+  To submit your assignment, please commit your work to the `homework06` folder
+  of your `homework06` branch in your **assignments** [GitHub] repository:
+
+      :::bash
+      #-----------------------------------------------------------------------
+      # Make sure you have already completed Activity 0: Preparation
+      #-----------------------------------------------------------------------
+      ...
+      $ git add Makefile                            # Mark changes for commit
+      $ git commit -m "Homework 06: Activity 0"     # Record changes
+      ...
+      $ git add src/node.c                          # Mark changes for commit
+      $ git commit -m "Homework 06: Activity 1"     # Record changes
+      ...
+      $ git add src/list.c                          # Mark changes for commit
+      $ git commit -m "Homework 06: Activity 2"     # Record changes
+      ...
+      $ git add src/selectiong_sort.c               # Mark changes for commit
+      $ git commit -m "Homework 06: Activity 3"     # Record changes
+      ...
+      $ git add src/merge_sort.c                    # Mark changes for commit
+      $ git commit -m "Homework 06: Activity 4"     # Record changes
+      ...
+      $ git add src/quick_sort.c                    # Mark changes for commit
+      $ git commit -m "Homework 06: Activity 5"     # Record changes
+      ...
+      $ git add src/lsort.c                         # Mark changes for commit
+      $ git commit -m "Homework 06: Activity 6"     # Record changes
+      ...
+      $ git add answers.json                        # Mark changes for commit
+      $ git commit -m "Homework 06: Activity 7"     # Record changes
+      ...
+
+      $ git push -u origin homework06               # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Remember to create a [Pull Request] and assign the appropriate TA from the
+  [Reading 06 TA List].
+
+  **DO NOT MERGE** your own [Pull Request].  The TAs use open [Pull Request]s
+  to keep track of which assignments to grade.  Closing them yourself will
+  cause a delay in grading and confuse the TAs.
+
+  </div>
+
+  [Markdown]:   https://daringfireball.net/projects/markdown/
+  [git]:    https://git-scm.com/
+  [clone]:  https://git-scm.com/docs/git-clone
+  [commit]: https://git-scm.com/docs/git-commit
+  [push]:   https://git-scm.com/docs/git-push
+  [branching]:   https://git-scm.com/docs/git-branch
+  [code review]: https://en.wikipedia.org/wiki/Code_review
+  [GitHub]: https://github.com
+  [Linux]:  https://kernel.org
+  [branch]: https://git-scm.com/docs/git-branch
+  [add]:    https://git-scm.com/docs/git-add
+  [Pull Request]:  https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request
+  [Reading 01]:         reading01.html
+  [Reading 06 TA List]: reading06_tas.html
+  [curl]:   http://man7.org/linux/man-pages/man1/curl.1.html
+  [JSON]: https://json.org/
+  [Slack]:  https://nd-cse.slack.com
+  [text editor]: https://en.wikipedia.org/wiki/Text_editor
