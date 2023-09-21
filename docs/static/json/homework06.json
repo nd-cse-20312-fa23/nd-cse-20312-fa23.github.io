@@ -1,0 +1,83 @@
+{
+    "q1": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <tt>list</tt> functions are true (select all that apply)?</p>\n",
+        "responses": {
+            "list_split_1": "<tt>list_split</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "list_split_n": "<tt>list_split</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "list_merge_1": "<tt>list_merge</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "list_merge_n": "<tt>list_merge</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "list_nodes_1": "<tt>list_nodes</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "list_nodes_n": "<tt>list_nodes</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "list_update_1": "<tt>list_update</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "list_update_n": "<tt>list_update</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>space complexities</b>\nof the <tt>list</tt> functions are true (select all that apply)?</p>\n",
+        "responses": {
+            "list_split_1": "<tt>list_split</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>",
+            "list_split_n": "<tt>list_split</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>",
+            "list_merge_1": "<tt>list_merge</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>",
+            "list_merge_n": "<tt>list_merge</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>",
+            "list_nodes_1": "<tt>list_nodes</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>",
+            "list_nodes_n": "<tt>list_nodes</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>",
+            "list_update_1": "<tt>list_update</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>",
+            "list_update_n": "<tt>list_update</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q3": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <tt>sort</tt> functions are true (select all that apply)?</p>\n",
+        "responses": {
+            "selection_nlogn": "<tt>selection_sort</tt> has an average <b>time complexity</b> of <tt>O(nlogn)</tt>",
+            "selection_n2": "<tt>selection_sort</tt> has an average <b>time complexity</b> of <tt>O(n^2)</tt>",
+            "merge_nlogn": "<tt>merge_sort</tt> has an average <b>time complexity</b> of <tt>O(nlogn)</tt>",
+            "merge_n2": "<tt>merge_sort</tt> has an average <b>time complexity</b> of <tt>O(n^2)</tt>",
+            "quick_nlogn": "<tt>quick_sort</tt> has an average <b>time complexity</b> of <tt>O(nlogn)</tt>",
+            "quick_n2": "<tt>quick_sort</tt> has an average <b>time complexity</b> of <tt>O(n^2)</tt>"
+        }
+    },
+    "q4": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>space complexities</b>\nof the <tt>sort</tt> functions are true (select all that apply)?</p>\n",
+        "responses": {
+            "selection_1": "<tt>selection_sort</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>",
+            "selection_logn": "<tt>selection_sort</tt> has an average <b>space complexity</b> of <tt>O(logn)</tt>",
+            "selection_n": "<tt>selection_sort</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>",
+            "merge_1": "<tt>merge_sort</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>",
+            "merge_logn": "<tt>merge_sort</tt> has an average <b>space complexity</b> of <tt>O(logn)</tt>",
+            "merge_n": "<tt>merge_sort</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>",
+            "quick_1": "<tt>quick_sort</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>",
+            "quick_logn": "<tt>quick_sort</tt> has an average <b>space complexity</b> of <tt>O(logn)</tt>",
+            "quick_n": "<tt>quick_sort</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q5": {
+        "type": "blank",
+        "question": "\n<p>For each of the following <b>pipelines</b>, fill in what the output is\nusing your <tt>bin/lsort</tt>:</p>\n\n<ol>\n<li><b>Pipeline</b>: <tt>seq 1000 | ./bin/lsort | tail -n 1</tt>: ____</li>\n<li><b>Pipeline</b>: <tt>seq 1000 | ./bin/lsort -n | tail -n 1</tt>: ____</li>\n</ol>\n"
+    },
+    "q6": {
+        "type": "single",
+        "question": "\n<p>The traditional <tt>sort</tt> has a <tt>-s</tt> flag for performing a\n<b>stable</b> sort.  Which of the following would you use with\n<tt>lsort</tt> to perform a <b>stable</b> sort?</p>\n",
+        "responses": {
+            "selection": "<tt>selection_sort</tt>",
+            "merge": "<tt>merge_sort</tt>",
+            "quick": "<tt>quick_sort</tt>"
+        }
+    },
+    "q7": {
+        "type": "multiple",
+        "question": "\n<p>Add the <tt>-O2</tt> compiler file to your <tt>Makefile</tt> and then\nrebuild everything with <tt>make clean ; make</tt>.  Next, run the provided\n<tt>bin/benchmark.py</tt> script to measure the runtimes of the various\n<b>sorting</b> algorithms in <tt>bin/lsort</tt>.  Perform this measurement\na few times until a pattern emerges.</p>\n\n<p>Which of the following statements are true (select all that apply)?</p>\n",
+        "responses": {
+            "small_n_matter_no": "For small <tt>N</tt> the choice of <b>sorting</b> algorithm doesn't matter.",
+            "small_n_matter_yes": "For small <tt>N</tt> the choice of <b>sorting</b> algorithm matters.",
+            "large_n_matter_no": "For large <tt>N</tt> the choice of <b>sorting</b> algorithm doesn't matter.",
+            "large_n_matter_yes": "For large <tt>N</tt> the choice of <b>sorting</b> algorithm matters.",
+            "selection_merge": "<tt>selection_sort</tt> and <tt>merge_sort</tt> performed roughly the same throughout the tests.",
+            "selection_quick": "<tt>selection_sort</tt> and <tt>quick_sort</tt> performed roughly the same throughout the tests.",
+            "merge_quick": "<tt>merge_sort</tt> and <tt>quick_sort</tt> performed roughly the same throughout the tests."
+        }
+    }
+}
