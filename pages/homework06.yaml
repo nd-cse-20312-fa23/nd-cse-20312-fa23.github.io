@@ -689,7 +689,7 @@ body:       |
   ### Task 3: Testing
 
   As you implement the functions in `src/list.c`, you should use
-  `bin/unit_list.sh` to test each function:
+  `bin/test_list.sh` to test each function:
 
       :::bash
       # Build unit-test
@@ -717,7 +717,7 @@ body:       |
 
       :::bash
       # Build and run test scripts
-      $ make test
+      $ make test-list
       ...
 
   If one of the functions fails, and you need to **debug** the [unit tests], you
@@ -810,7 +810,7 @@ body:       |
   ### Task 3: Testing
 
   As you implement the functions in `src/selection_sort.c`, you should use
-  `bin/unit_selection.sh` to test each function:
+  `bin/test_selection.sh` to test each function:
 
       :::bash
       # Build unit-test
@@ -820,7 +820,6 @@ body:       |
 
       # Run test script manually
       $ ./bin/test_selection.sh
-      Testing selection...
       Testing selection...
        selection_sort_strings                   ... Success
        selection_sort_numbers                   ... Success
@@ -833,7 +832,7 @@ body:       |
 
       :::bash
       # Build and run test scripts
-      $ make test
+      $ make test-selection
       ...
 
   If one of the functions fails, and you need to **debug** the [unit tests], you
@@ -912,7 +911,7 @@ body:       |
   ### Task 2: Testing
 
   As you implement the functions in `src/merge_sort.c`, you should use
-  `bin/unit_merge.sh` to test each function:
+  `bin/test_merge.sh` to test each function:
 
       :::bash
       # Build unit-test
@@ -922,7 +921,6 @@ body:       |
 
       # Run test script manually
       $ ./bin/test_merge.sh
-      Testing merge...
       Testing merge...
        merge_sort_strings                   ... Success
        merge_sort_numbers                   ... Success
@@ -935,7 +933,7 @@ body:       |
 
       :::bash
       # Build and run test scripts
-      $ make test
+      $ make test-merge
       ...
 
   If one of the functions fails, and you need to **debug** the [unit tests], you
@@ -992,7 +990,7 @@ body:       |
   ### Task 2: Testing
 
   As you implement the functions in `src/quick_sort.c`, you should use
-  `bin/unit_quick.sh` to test each function:
+  `bin/test_quick.sh` to test each function:
 
       :::bash
       # Build unit-test
@@ -1002,7 +1000,6 @@ body:       |
 
       # Run test script manually
       $ ./bin/test_quick.sh
-      Testing quick...
       Testing quick...
        quick_sort_strings                   ... Success
        quick_sort_numbers                   ... Success
@@ -1015,7 +1012,7 @@ body:       |
 
       :::bash
       # Build and run test scripts
-      $ make test
+      $ make test-quick
       ...
 
   If one of the functions fails, and you need to **debug** the [unit tests], you
