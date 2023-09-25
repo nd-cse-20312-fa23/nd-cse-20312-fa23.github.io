@@ -154,6 +154,8 @@
         items:
           - name:       Slides 15
             link:       https://docs.google.com/presentation/d/19bBm3SLdU9B-etRYZKR_o0TWi3on0wg1Pb8V5D0thgc/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9b94dce8-e606-4e2d-8fd6-b08801066185
 
       - date:           Wed 09/27
         topics:         Merge Sort
