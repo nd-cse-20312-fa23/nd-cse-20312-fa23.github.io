@@ -1,0 +1,54 @@
+{
+    "q1": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <tt>hash</tt> functions are true (select all that apply)?</p>\n",
+        "responses": {
+            "djb_hash_1": "<tt>djb_hash</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "djb_hash_n": "<tt>djb_hash</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "fnv_hash_1": "<tt>fnv_hash</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "fnv_hash_n": "<tt>fnv_hash</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q2": {
+        "type": "blank",
+        "question": "\n<p>Given the following code using the <tt>Pair</tt> structure from this assignment:</p>\n\n<pre>\nPair *p = pair_create(\"Vampire\", 2);\n</pre>\n\n<p>How much memory is <b>allocated</b> in the following memory regions?</p>\n\n<ol>\n<li><b>Stack</b>: ____</li>\n<li><b>Heap</b>: ____</li>\n<li><b>Data</b>: ____</li>\n</ol>\n"
+    },
+    "q3": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <tt>table</tt> functions are true (select all that apply)?</p>\n",
+        "responses": {
+            "table_locate_1": "<tt>table_locate</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "table_locate_n": "<tt>table_locate</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "table_insert_1": "<tt>table_insert</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "table_insert_n": "<tt>table_insert</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "table_lookup_1": "<tt>table_lookup</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "table_lookup_n": "<tt>table_lookup</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "table_resize_1": "<tt>table_resize</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "table_resize_n": "<tt>table_resize</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q4": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <tt>string</tt> functions are true (select all that apply)?</p>\n",
+        "responses": {
+            "str_lower_1": "<tt>str_lower</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "str_lower_n": "<tt>str_lower</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "str_trim_1": "<tt>str_trim</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "str_trim_n": "<tt>str_trim</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q5": {
+        "type": "blank",
+        "question": "\n<p>Download <b>War and Peace (2600.txt)</b> and <b>Pride and Prejudice (1342)</b>:</p>\n\n<pre>\n# Download War and Peace\n$ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/txt/2600.txt\n\n# Download Pride and Prejudice\n$ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/txt/1342.txt\n</pre>\n\n<p>Use your <tt>bin/freq</tt> on these files to answer the following questions:</p>\n\n<ol>\n<li><b>War and Peace</b>: What is the most frequent <b>word</b>? ____</li>\n<li><b>War and Peace</b>: What is the most frequent <b>pronoun</b>? ____</li>\n<li><b>Pride and Prejudice</b>: What is the most frequent <b>word</b>? ____</li>\n<li><b>Pride and Prejudice</b>: What is the most frequent <b>pronoun</b>? ____</li>\n</ol>\n"
+    },
+    "q6": {
+        "type": "multiple",
+        "question": "\n<p>Add the <tt>-O2</tt> compiler file to your <tt>Makefile</tt> and then\nrebuild everything with <tt>make clean ; make</tt>.  Next, run the provided\n<tt>bin/benchmark.py</tt> script with each of the files (ie.\n<tt>bin/benchmark.py 2600.txt</tt>) above to measure the runtimes of the\nvarious <b>hash</b> functions in <tt>bin/freq</tt> with different\n<b>alpha</b> values.  Perform this measurement a few times until a pattern\nemerges.</p>\n\n<p>Which of the following statements are true (select all that apply)?</p>\n",
+        "responses": {
+            "djb_faster": "Generally, <tt>djb_hash</tt> performed <b>faster</b> than <tt>fnv_hash</tt>.",
+            "fnv_faster": "Generally, <tt>fnv_hash</tt> performed <b>faster</b> than <tt>djb_hash</tt>.",
+            "alpha_high": "Generally, the <b>highest</b> <tt>alpha</tt> values performed the <b>worst</b>.",
+            "alpha_low": "Generally, the <b>lowest</b> <tt>alpha</tt> values performed the <b>worst</b>."
+        }
+    }
+}

@@ -610,7 +610,7 @@ the provided <code>cmp</code> <code>Comparison</code> function.</p>
 </ol>
 <h3 id="task-3-testing_1">Task 3: Testing<a class="headerlink" href="#task-3-testing_1" title="Permanent link">&para;</a></h3>
 <p>As you implement the functions in <code>src/list.c</code>, you should use
-<code>bin/unit_list.sh</code> to test each function:</p>
+<code>bin/test_list.sh</code> to test each function:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build unit-test</span>
 $ make bin/unit_list
 gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o tests/unit_list.o tests/unit_list.c
@@ -635,7 +635,7 @@ Testing list...
 <p>Alternatively, you can both build the artifacts and run the test script by
 doing the following:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build and run test scripts</span>
-$ make <span style="color: #008000">test</span>
+$ make test-list
 ...
 </code></pre></div>
 
@@ -717,7 +717,7 @@ values using the specified <code>Comparison</code> function.</p>
 </ol>
 <h3 id="task-3-testing_2">Task 3: Testing<a class="headerlink" href="#task-3-testing_2" title="Permanent link">&para;</a></h3>
 <p>As you implement the functions in <code>src/selection_sort.c</code>, you should use
-<code>bin/unit_selection.sh</code> to test each function:</p>
+<code>bin/test_selection.sh</code> to test each function:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build unit-test</span>
 $ make bin/unit_selection
 gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o tests/unit_selection.o tests/unit_selection.c
@@ -725,7 +725,6 @@ gcc -Llib -o bin/unit_selection tests/unit_selection.o lib/libds.a
 
 <span style="color: #3D7B7B; font-style: italic"># Run test script manually</span>
 $ ./bin/test_selection.sh
-Testing selection...
 Testing selection...
  selection_sort_strings                   ... Success
  selection_sort_numbers                   ... Success
@@ -737,7 +736,7 @@ Testing selection...
 <p>Alternatively, you can both build the artifacts and run the test script by
 doing the following:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build and run test scripts</span>
-$ make <span style="color: #008000">test</span>
+$ make test-selection
 ...
 </code></pre></div>
 
@@ -808,7 +807,7 @@ perform <a href="https://en.wikipedia.org/wiki/Merge_sort">merge sort</a> on the
 </ol>
 <h3 id="task-2-testing">Task 2: Testing<a class="headerlink" href="#task-2-testing" title="Permanent link">&para;</a></h3>
 <p>As you implement the functions in <code>src/merge_sort.c</code>, you should use
-<code>bin/unit_merge.sh</code> to test each function:</p>
+<code>bin/test_merge.sh</code> to test each function:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build unit-test</span>
 $ make bin/unit_merge
 gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o tests/unit_merge.o tests/unit_merge.c
@@ -816,7 +815,6 @@ gcc -Llib -o bin/unit_merge tests/unit_merge.o lib/libds.a
 
 <span style="color: #3D7B7B; font-style: italic"># Run test script manually</span>
 $ ./bin/test_merge.sh
-Testing merge...
 Testing merge...
  merge_sort_strings                   ... Success
  merge_sort_numbers                   ... Success
@@ -828,7 +826,7 @@ Testing merge...
 <p>Alternatively, you can both build the artifacts and run the test script by
 doing the following:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build and run test scripts</span>
-$ make <span style="color: #008000">test</span>
+$ make test-merge
 ...
 </code></pre></div>
 
@@ -880,7 +878,7 @@ values using the specified <code>Comparison</code> function.</p>
 </ol>
 <h3 id="task-2-testing_1">Task 2: Testing<a class="headerlink" href="#task-2-testing_1" title="Permanent link">&para;</a></h3>
 <p>As you implement the functions in <code>src/quick_sort.c</code>, you should use
-<code>bin/unit_quick.sh</code> to test each function:</p>
+<code>bin/test_quick.sh</code> to test each function:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build unit-test</span>
 $ make bin/unit_quick
 gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o tests/unit_quick.o tests/unit_quick.c
@@ -888,7 +886,6 @@ gcc -Llib -o bin/unit_quick tests/unit_quick.o lib/libds.a
 
 <span style="color: #3D7B7B; font-style: italic"># Run test script manually</span>
 $ ./bin/test_quick.sh
-Testing quick...
 Testing quick...
  quick_sort_strings                   ... Success
  quick_sort_numbers                   ... Success
@@ -900,7 +897,7 @@ Testing quick...
 <p>Alternatively, you can both build the artifacts and run the test script by
 doing the following:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build and run test scripts</span>
-$ make <span style="color: #008000">test</span>
+$ make test-quick
 ...
 </code></pre></div>
 
