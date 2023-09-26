@@ -770,8 +770,8 @@ your <code>BitSet</code> library.</p>
 the following programming challenge:</p>
 <blockquote>
 <p>Given a word, you are to determine if any permutation of the word is a
-palindrome, which is a phrase that reads the same forwards and backwards. For
-instance, "tacocat" is an example of a palindrome.</p>
+palindrome, which is a phrase that reads the same forwards and backwards
+(<strong>ignoring case</strong>). For instance, "tacocat" is an example of a palindrome.</p>
 </blockquote>
 <p>To do this, you will complete the <code>bin/palindromic</code> program, which reads in
 one word at a time from <code>stdin</code> and prints <code>YEAH</code> if it is a palindromic
@@ -848,6 +848,7 @@ implementation: <code>ArraySet</code>, <code>ListSet</code>, <code>BitSet</code>
 you process each letter and what you would want to <strong>remove</strong>.  Moreover,
 consider what the final <strong>size</strong> of the <a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)">set</a> should be when you finish
 processing all the letters.</p>
+<p>To ignore case, consider using <a href="https://www.mankier.com/3/toupper">tolower</a>.</p>
 </div>
 <div class="alert alert-info">
 <p><strong>Note</strong>: The <code>main</code> function will parse the command line options, and then
