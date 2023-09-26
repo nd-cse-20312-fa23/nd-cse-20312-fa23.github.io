@@ -847,8 +847,8 @@ body:       |
   the following programming challenge:
 
   > Given a word, you are to determine if any permutation of the word is a
-  palindrome, which is a phrase that reads the same forwards and backwards. For
-  instance, "tacocat" is an example of a palindrome.
+  palindrome, which is a phrase that reads the same forwards and backwards
+  (**ignoring case**). For instance, "tacocat" is an example of a palindrome.
 
   To do this, you will complete the `bin/palindromic` program, which reads in
   one word at a time from `stdin` and prints `YEAH` if it is a palindromic
@@ -930,6 +930,8 @@ body:       |
   consider what the final **size** of the [set] should be when you finish
   processing all the letters.
 
+  To ignore case, consider using [tolower].
+
   </div>
 
   <div class="alert alert-info" markdown="1">
@@ -941,6 +943,8 @@ body:       |
   This function is provided to you and you do not need to modify it.
 
   </div>
+
+  [tolower]: https://www.mankier.com/3/toupper
 
   ### Task 2: Testing
 
