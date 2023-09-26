@@ -135,7 +135,7 @@ body:       |
       $ git add include/ds/*.h                      # Mark changes for commit
       $ git add lib/.gitkeep                        # Mark changes for commit
       $ git add src/*.c                             # Mark changes for commit
-      $ git add tests/*.c tests/*.input             # Mark changes for commit
+      $ git add tests/*.c                           # Mark changes for commit
       $ git commit -m "Homework 07: Initial Import" # Record changes
 
   The details on what you need to implement are described in the following

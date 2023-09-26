@@ -160,7 +160,7 @@ body:       |
       $ git add include/ds/*.h                      # Mark changes for commit
       $ git add lib/.gitkeep                        # Mark changes for commit
       $ git add src/*.c                             # Mark changes for commit
-      $ git add tests/*.c tests/*.input             # Mark changes for commit
+      $ git add tests/*.c                           # Mark changes for commit
       $ git commit -m "Homework 06: Initial Import" # Record changes
 
   The details on what you need to implement are described in the following
@@ -778,9 +778,9 @@ body:       |
 
       /* Functions */
 
-      void	selection_sort(List *l, Comparison cmp);
-      void	merge_sort(List *l, Comparison cmp);
-      void	quick_sort(List *l, Comparison cmp);
+      void  selection_sort(List *l, Comparison cmp);
+      void  merge_sort(List *l, Comparison cmp);
+      void  quick_sort(List *l, Comparison cmp);
 
   <div class="alert alert-info" markdown="1">
 
