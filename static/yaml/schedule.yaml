@@ -186,6 +186,9 @@
         topics:         Maps, Separate Chaining
         assignment:     Homework 06
         idea:           Sorting / Cards / Cookies
+        items:
+          - name:       Slides 19
+            link:       https://docs.google.com/presentation/d/1U-vTWsyrAhJ5tCKmQsdvzR2wvLh4kAYgkVwWnFrVmSI/edit?usp=sharing
 
       - date:           Fri 10/06
         topics:         Memoization
