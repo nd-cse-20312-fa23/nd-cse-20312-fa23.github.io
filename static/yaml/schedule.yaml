@@ -174,11 +174,14 @@
 - name:     Hash Tables, Maps
   days:
       - date:           Mon 10/02
-        topics:         Separate Chaining
+        topics:         Hash Tables, Linear Probing
         assignment:     Reading 06
+        items:
+          - name:       Slides 18
+            link:       https://docs.google.com/presentation/d/1neapKjDM7gCREdKI690bj_RoSFvEm1cqX_L4XzDCw4A/edit?usp=sharing
 
       - date:           Wed 10/04
-        topics:         Linear Probing
+        topics:         Maps, Separate Chaining
         assignment:     Homework 06
         idea:           Sorting / Cards / Cookies
 
