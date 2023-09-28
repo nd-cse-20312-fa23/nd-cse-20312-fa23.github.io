@@ -201,6 +201,9 @@
       - date:           Mon 10/09
         topics:         Bucket Sorting
         assignment:     Reading 07
+        items:
+          - name:       Slides 21
+            link:       https://docs.google.com/presentation/d/1IaBAzf56T7un5JUbnd7sWRb0BAPwRJw1W4hnvfT3Spc/edit?usp=sharing
 
       - date:           Wed 10/11
         topics:         Review
