@@ -192,6 +192,9 @@
 
       - date:           Fri 10/06
         topics:         Memoization
+        items:
+          - name:       Slides 20
+            link:       https://docs.google.com/presentation/d/1C3VsWuYS-jONJisM-tdX5tFuZfUMm8OHm0RnctdTsjg/edit?usp=sharing
 
 - name:     Exam 01
   days:
