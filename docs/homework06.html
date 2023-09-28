@@ -795,10 +795,12 @@ values using the specified <code>Comparison</code> function.</p>
 </div>
 </li>
 <li>
-<p><code>void      merge_sort_r(Node *n, Comparison cmp)</code></p>
+<p><code>Node *    merge_sort_r(Node *n, Comparison cmp)</code></p>
 <blockquote>
 <p>This <strong>helper</strong> function uses <a href="https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm">divide-and-conquer</a> to <strong>recursively</strong>
-perform <a href="https://en.wikipedia.org/wiki/Merge_sort">merge sort</a> on the given sequence that begins with <code>n</code>.</p>
+perform <a href="https://en.wikipedia.org/wiki/Merge_sort">merge sort</a> on the given sequence that begins with <code>n</code> and
+returns a pointer to the the first <code>Node</code> <a href="https://en.wikipedia.org/wiki/Struct_(C_programming_language)">struct</a> in the <strong>sorted</strong>
+sequence.</p>
 </blockquote>
 <div class="alert alert-success" markdown="1">
 <p><strong>Hint</strong>: Consider using <code>list_split</code> and <code>list_merge</code>.</p>
