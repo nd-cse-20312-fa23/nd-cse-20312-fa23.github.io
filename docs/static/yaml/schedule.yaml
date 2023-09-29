@@ -172,6 +172,8 @@
         items:
           - name:       Slides 17
             link:       https://docs.google.com/presentation/d/1xOqxqxvK0bKX-3eRCb_8oKgEoXvlYAziwcsB91NnIcA/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=334abac3-6a58-4f9f-aa41-b08c010513a6
 
 - name:     Hash Tables, Maps
   days:
@@ -201,6 +203,9 @@
       - date:           Mon 10/09
         topics:         Bucket Sorting
         assignment:     Reading 07
+        items:
+          - name:       Slides 21
+            link:       https://docs.google.com/presentation/d/1IaBAzf56T7un5JUbnd7sWRb0BAPwRJw1W4hnvfT3Spc/edit?usp=sharing
 
       - date:           Wed 10/11
         topics:         Review
