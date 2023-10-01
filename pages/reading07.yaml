@@ -1,0 +1,111 @@
+title:      "Reading 07: Exam 01"
+icon:       fa-book
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  **Everyone**:
+
+  Next week, we will review for the upcoming **Exam 01**, which will cover
+  **developer tools**, **data allocation**, [dynamic arrays], [stacks], [linked
+  lists], [queues], [linear search], [binary search], [sets], [sorting]
+  algorithms, [hash tables], and [maps].
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-search"></i> TL;DR
+
+  The focus of this reading is to review for the upcoming **Exam 01**.
+
+  </div>
+
+  [dynamic arrays]: https://en.wikipedia.org/wiki/Dynamic_array
+  [stacks]: https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
+  [linked lists]: https://en.wikipedia.org/wiki/Linked_list
+  [queues]: https://en.wikipedia.org/wiki/Linked_list
+  [linear search]: https://en.wikipedia.org/wiki/Linear_search
+  [binary search]: https://en.wikipedia.org/wiki/Binary_search_algorithm
+  [sets]: https://en.wikipedia.org/wiki/Set_(abstract_data_type)
+  [sorting]: https://en.wikipedia.org/wiki/Sorting_algorithm
+  [hash tables]: https://en.wikipedia.org/wiki/Hash_table
+  [maps]: https://en.wikipedia.org/wiki/Associative_array
+
+  ## Readings
+
+  The readings for this week are:
+
+  1. [Checklist 01]:
+
+      This is a **non-exhaustive** though **representative** overview of the
+      terms, concepts, and skills you should know for the upcoming exam.
+
+  [Checklist 01]: checklist01.html
+
+  ## Quiz
+
+  Once you have completed the readings, answer the following [Reading 07 Quiz]
+  questions:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/reading07.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  ## Submission
+
+  To submit your work, follow the same process outlined in [Reading 01]:
+
+      :::bash
+      $ git checkout master                 # Make sure we are in master branch
+      $ git pull --rebase                   # Make sure we are up-to-date with GitHub
+
+      $ git checkout -b reading07           # Create reading07 branch and check it out
+
+      $ cd reading07                        # Go into reading07 folder
+      $ $EDITOR answers.json                # Edit your answers.json file
+
+      $ ../.scripts/check.py                # Check reading07 quiz
+      Checking reading07 quiz ...
+           Q01 0.10
+           Q02 0.10
+           Q03 0.30
+           Q04 0.10
+           Q05 0.30
+           Q06 0.10
+           Q07 0.20
+           Q08 0.70
+           Q09 0.10
+           Q10 0.10
+           Q11 0.50
+           Q12 0.40
+         Score 3.00 / 3.00
+        Status Success
+
+      $ git add answers.json                # Add answers.json to staging area
+      $ git commit -m "Reading 07: Done"    # Commit work
+
+      $ git push -u origin reading07        # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Once you have committed your work and pushed it to [GitHub], remember to
+  create a **pull request** and assign it to the appropriate **teaching
+  assistant** from the [Reading 07 TA List].
+
+  </div>
+
+  [Git]:                https://git-scm.com/
+  [GitHub]:             https://github.com/
+  [Reading 01]:         reading01.html
+  [Reading 07 Quiz]:    static/json/reading07.json
+  [Reading 07 TA List]: reading07_tas.html
