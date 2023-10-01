@@ -1,0 +1,120 @@
+{
+    "q01": {
+        "type": "order",
+        "question": "\n<p>Suppose you are about to start a new homework assignment and you wish to\nsync your local repository with the changes on GitHub, create a new\nhomework branch, and then view which branch you are on.</p>\n\n<p>Organize the <tt>git</tt> commands below in the proper order to\naccomplish the tasks above.</p>\n",
+        "responses": {
+            "branch": "git branch",
+            "checkout": "git checkout -b homework",
+            "switch": "git switch master",
+            "pull": "git pull --rebase"
+        }
+    },
+    "q02": {
+        "type": "order",
+        "question": "\n<p>Suppose you create a new file in the homework branch and wish to record\nthis change, send it to GitHub, and then view the history of the\nrepository.</p>\n\n<p>Organize the <tt>git</tt> commands below in the proper order to\naccomplish the tasks above.</p>\n",
+        "responses": {
+            "log": "git log",
+            "push": "git push -u origin homework",
+            "commit": "git commit -m \"Add file\"",
+            "add": "git add file"
+        }
+    },
+    "q03": {
+        "type": "blank",
+        "question": "\n<p>Suppose you had a <tt>program.c</tt> that you requires a\n<tt>libds.a</tt> library to compile.  Complete the following\n<tt>Makefile</tt> such that a <tt>program</tt> executable is built when the\nuser types in <tt>make</tt>:</p>\n\n<pre>\nCC=     gcc\nCFLAGS= -Wall -g -std=gnu99\n\n____:   ____    # 1, 2\n        ____    # 3\n</pre>\n"
+    },
+    "q04": {
+        "type": "blank",
+        "question": "\n<p>Given the following implementation of a <b>stack</b> using a <b>dynamic\narray</b>:</p>\n\n<div class=\"thumbnail text-center\">\n<img src=\"https://yld.me/raw/iMlK.png\" class=\"img-responsive\">\n</div>\n\n<p>How much data is allocated on the <b>stack</b> and <b>heap</b> regions\nof memory by the following line in <tt>stack_create</tt>:</p>\n\n<pre>\nStack *s = malloc(sizeof(Stack));\n</pre>\n\n<ol>\n<li><b>Stack</b>: <tt>____</tt></li>\n<li><b>Heap</b>:  <tt>____</tt></li>\n</ol>\n"
+    },
+    "q05": {
+        "type": "multiple",
+        "question": "\n<p>Given the <tt>Stack</tt> implementation above, suppose you had the\nfollowing program:</p>\n\n<div class=\"thumbnail text-center\">\n<img src=\"https://yld.me/raw/bITd.png\" class=\"img-responsive\">\n</div>\n\n<p>After compiling and running the program with <tt>valgrind</tt>, you see\nthe following error message:</p>\n\n<pre>\n==1181217== Conditional jump or move depends on uninitialised value(s)\n==1181217==    at 0x109240: stack_push (array.c:30)\n==1181217==    by 0x109353: main (array.c:49)\n</pre>\n\n<p>Which of the following statements are <b>true</b> (<i>select all that\napply</i>)?</p>\n",
+        "responses": {
+            "s_uninitialized": "<tt>s</tt> is not initialized.",
+            "data_uninitialized": "<tt>s->data</tt> is not initialized.",
+            "capacity_uninitialized": "<tt>s->capacity</tt> is not initialized.",
+            "size_uninitialized": "<tt>s->size</tt> is not initialized.",
+            "fix_use_calloc": "To fix this problem, you can use <tt>calloc</tt> instead of <tt>malloc</tt> in <tt>stack_create</tt>.",
+            "fix_use_realloc": "To fix this problem, you can use <tt>realloc</tt> instead of <tt>malloc</tt> in <tt>stack_create</tt>.",
+            "fix_set_capacity": "To fix this problem, you can set <tt>capacity</tt> to <tt>0</tt> in <tt>stack_create</tt>.",
+            "fix_set_size": "To fix this problem, you can set <tt>size</tt> to <tt>0</tt> in <tt>stack_create</tt>.",
+            "memory_leak_yes": "There is also a <b>memory leak</b> in the program.",
+            "memory_leak_no": "There are no <b>memory leaks</b> in the program."
+        }
+    },
+    "q06": {
+        "type": "single",
+        "question": "\n<p>Suppose you fix the memory errors in the program above.  What is the output of the program?</p>\n",
+        "responses": {
+            "a": 92867,
+            "b": "92867-1",
+            "c": 76829,
+            "d": -176829
+        }
+    },
+    "q07": {
+        "type": "multiple",
+        "question": "\n<p>Given the following implementation of a <b>priority queue</b> using a\n<b>linked list</b>:</p>\n\n<div class=\"thumbnail text-center\">\n<img src=\"https://yld.me/raw/kKy4.png\" class=\"img-responsive\">\n</div>\n\n<p>After compiling and running this program, you see that it\n<b>segfaults</b>.  You decide to use <tt>gdb</tt> to get a <b>backtrace</b>\nand you see the following:</p>\n\n<pre>\nProgram received signal SIGSEGV, Segmentation fault.\n0x0000555555555213 in node_format (head=0x0) at pqueue.c:30\n30          printf(\"%d\", head->data);\n</pre>\n\n<p>Which of the following statements are <b>true</b> (<i>select all that\napply</i>)?</p>\n",
+        "responses": {
+            "head_null": "The program <b>segfaults</b> because <tt>head</tt> is <tt>NULL</tt>.",
+            "data_null": "The program <b>segfaults</b> because <tt>head->data</tt> is <tt>NULL</tt>.",
+            "fix_check_head": "Avoid the segfault by checking if <tt>head</tt> is <tt>NULL</tt> before printing.",
+            "fix_check_data": "Avoid the segfault by checking if <tt>head->data</tt> is <tt>NULL</tt> before printing.",
+            "pq_sentinel": "<tt>pq</tt> is a <b>sentinel</b> node.",
+            "pq_dummy": "<tt>pq</tt> is a <b>dummy</b> node.",
+            "memory_leak_yes": "There is also a <b>memory leak</b> in the program.",
+            "memory_leak_no": "There are no <b>memory leaks</b> in the program."
+        }
+    },
+    "q08": {
+        "type": "blank",
+        "question": "\n<p>To complete the <b>priority queue</b> above, you need to implement a\n<tt>node_remove</tt> function that finds the minimum value in the\n<b>priority queue</b>, removes the associated <tt>Node</tt> from the\n<b>linked list</b>, and returns the value.  With this in mind, complete the\nfollowing implementation of <tt>node_remove</tt>:</p>\n\n<pre>\nint     node_remove(Node *head) {\n    if (!____) return -1;                             # 1\n\n    Node *minimum = ____;                             # 2\n    for (Node *curr = ____; curr; curr = curr->next)  # 3\n        if (curr->data < minimum->data)\n            minimum = curr;\n\n    Node *prev = ____;                                # 4\n    Node *curr = ____;                                # 5\n    while (curr != ____) {                            # 6\n        ____ = ____;                                  # 7, 8\n        ____ = ____;                                  # 9, 10\n    }\n\n    ____ = ____;                                      # 11, 12\n    int value = ____;                                 # 13\n    ____;                                             # 14\n    return value;\n}\n</pre>\n"
+    },
+    "q09": {
+        "type": "multiple",
+        "question": "\n<p>Given the completed <b>priority queue</b> above, suppose you implemented\na <tt>node_sorted</tt> function that uses the <tt>queue_remove</tt>\nfunction to repeated remove one value from the <b>priority queue</b> at a\ntime:</p>\n\n<div class=\"thumbnail text-center\">\n<img src=\"https://yld.me/raw/kKy4.png\" class=\"img-responsive\">\n</div>\n\n<p>Which of the following statements are <b>true</b> (<i>select all that\napply</i>)?</p>\n",
+        "responses": {
+            "bubble": "<tt>node_sorted</tt> most closely resembles <b>bubble sort</b>.",
+            "selection": "<tt>node_sorted</tt> most closely resembles <b>selection sort</b>.",
+            "insertion": "<tt>node_sorted</tt> most closely resembles <b>insertion sort</b>.",
+            "time_n": "<tt>node_sorted</tt> has an average time complexity of <b>O(n)</b>",
+            "time_nlogn": "<tt>node_sorted</tt> has an average time complexity of <b>O(nlogn)</b>",
+            "time_n2": "<tt>node_sorted</tt> has an average time complexity of <b>O(n^2)</b>"
+        }
+    },
+    "q10": {
+        "type": "multiple",
+        "question": "\n<p>Suppose you wanted to implement a <tt>set</tt> that supported\n<tt>add</tt> and <tt>contains</tt> operations.</p>\n\n<p>Which of the following statements are <b>true</b> (<i>select all that\napply</i>)?</p>\n",
+        "responses": {
+            "array": "With a <b>dynamic array</b>, a <tt>set</tt> would have <tt>O(logn)</tt> average time complexities for both <tt>add</tt> and <tt>contains</tt>.",
+            "list": "With a <b>linked list</b>, a <tt>set</tt> would have <tt>O(n)</tt> average time complexities for both <tt>add</tt> and <tt>contains</tt>.",
+            "hash": "With a <b>hash table</b>, a <tt>set</tt> would have <tt>O(1)</tt> average time complexities for both <tt>add</tt> and <tt>contains</tt>."
+        }
+    },
+    "q11": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding <b>sorting</b> algorithms\nare <b>true</b> (<i>select all that apply</i>)?</p>\n",
+        "responses": {
+            "bubble_time": "<b>Bubble sort</b> has an worst case time complexity of <tt>O(n^2)</tt>",
+            "bubble_adaptive": "<b>Bubble sort</b> is an <b>adaptive</b> algorithm.",
+            "bubble_stable": "<b>Bubble sort</b> is an <b>stable</b> algorithm.",
+            "selection_time": "<b>Selection sort</b> has an worst case time complexity of <tt>O(n^2)</tt>",
+            "selection_adaptive": "<b>Selection sort</b> is an <b>adaptive</b> algorithm.",
+            "selection_stable": "<b>Selection sort</b> is an <b>stable</b> algorithm.",
+            "insertion_time": "<b>Insertion sort</b> has an worst case time complexity of <tt>O(n^2)</tt>",
+            "insertion_adaptive": "<b>Insertion sort</b> is an <b>adaptive</b> algorithm.",
+            "insertion_stable": "<b>Insertion sort</b> is an <b>stable</b> algorithm.",
+            "merge_time": "<b>Merge sort</b> has an worst case time complexity of <tt>O(n^2)</tt>",
+            "merge_adaptive": "<b>Merge sort</b> is an <b>adaptive</b> algorithm.",
+            "merge_stable": "<b>Merge sort</b> is an <b>stable</b> algorithm.",
+            "quick_time": "<b>Quick sort</b> has an worst case time complexity of <tt>O(n^2)</tt>",
+            "quick_adaptive": "<b>Quick sort</b> is an <b>adaptive</b> algorithm.",
+            "quick_stable": "<b>Quick sort</b> is an <b>stable</b> algorithm."
+        }
+    },
+    "q12": {
+        "type": "blank",
+        "question": "\n<p>Suppose you had a <b>hash table</b> with <b>four buckets</b> and the\n<b>hash</b> function show below:</p>\n\n<div class=\"thumbnail text-center\">\n<img src=\"static/img/reading07-hash-table.png\" class=\"img-responsive\">\n</div>\n\n<p>Assuming the <b>hash table</b> uses <b>separate chaining<b/> to handle\n<b>collisions</b>, what are the contents of each of the <b>buckets</b>\nafter inserting the numbers: <tt>9, 2, 8, 6, 7</tt>.</p>\n\n<ol>\n<li><b><tt>Bucket 0</tt></b>: ____</li>\n<li><b><tt>Bucket 1</tt></b>: ____</li>\n<li><b><tt>Bucket 2</tt></b>: ____</li>\n<li><b><tt>Bucket 3</tt></b>: ____</li>\n</ol>\n\n<p>If a <b>bucket</b> has more than one value, then separate each value\nwith a space.</p>\n"
+    }
+}
