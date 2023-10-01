@@ -1,0 +1,264 @@
+title:      Checklist 01
+icon:       fa-check-square-o
+navigation: []
+internal:   []
+external:   []
+body:       |
+
+    ## Overview
+
+    Here is a general outline of the **key** concepts and commands (arranged by
+    topic) that you should know for **Exam 01**.
+
+    The exam will have the following format:
+
+    1. **Developer Tools/Data Allocation**: Identify which commands perform
+      certain tasks and analyze the output of debugging and tracing tools
+      (*multiple-choice*, *fill-in-the-blank*).
+
+    2. **Arrays/Stacks**: Analyze, trace, and debug the implementations of a
+      [dynamic array] and a [stack] (*multiple-choice*, *fill-in-the-blank*).
+
+    3. **Lists/Queues**: Analyze, trace, and debug the implementations of a
+      [linked list] and a [queue] (*multiple-choice*, *fill-in-the-blank*).
+
+    4. **Search/Sets**: Analyze, trace, and debug the implementations of
+      [linear search], [binary search], and a [set] (*multiple-choice*,
+      *fill-in-the-blank*).
+
+    5. **Sorting**: Analyze, trace, and debug the implementations of various
+      [sorting] algorithms (*multiple-choice*, *fill-in-the-blank*).
+
+    6. **Hash Tables/Maps**: Analyze, trace, and debug the implementations of a
+      [hash table] and a [map] (*multiple-choice*, *fill-in-the-blank*).
+
+    <div class="alert alert-warning" markdown="1">
+    #### <i class="fa fa-warning"></i> Representative, but not Exhaustive
+
+    This check list is meant to be representative, rather than exhaustive (ie.
+    there may be questions that show up on the exam that are not shown below).
+
+    </div>
+
+    [dynamic array]: https://en.wikipedia.org/wiki/Dynamic_array
+    [stack]: https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
+    [linked list]: https://en.wikipedia.org/wiki/Linked_list
+    [queue]: https://en.wikipedia.org/wiki/Linked_list
+    [linear search]: https://en.wikipedia.org/wiki/Linear_search
+    [binary search]: https://en.wikipedia.org/wiki/Binary_search_algorithm
+    [set]: https://en.wikipedia.org/wiki/Set_(abstract_data_type)
+    [sorting]: https://en.wikipedia.org/wiki/Sorting_algorithm
+    [hash table]: https://en.wikipedia.org/wiki/Hash_table
+    [map]: https://en.wikipedia.org/wiki/Associative_array
+
+    <hr>
+
+    ## Logistics
+
+    **Exam 01** will take place during our normal lecture session on
+    **Friday, October 13** from **10:30 AM - 11:20 AM** in **136 DeBartolo
+    Hall**.
+
+
+    <div class="alert alert-danger" markdown="1">
+    The exam will be **in-person** and on **paper**.
+    </div>
+
+    <div class="alert alert-success" markdown="1">
+    Students will be permitted access to **one letter-sized cheatsheet**
+    (*front and back*).
+    </div>
+
+    <div class="alert alert-warning" markdown="1">
+
+    The instructor will arrive **10 minutes early** and will try to stay **5
+    minutes after** the class period to provide some buffer, but it will be
+    subject to the classes before and after the course.
+
+    </div>
+
+    <hr>
+
+    ## Developer tools
+
+    1. How would do you use [git] to:
+
+        - Create a local copy a repository.
+        - Create a new branch.
+        - View the changes you've made.
+        - Record a change you've made.
+        - Upload the changes you've made.
+        - <p>Retrieve new changes from a remote location.</p>
+
+    2. How do you write a `Makefile` that utilizes **rules** and **variables**
+    for a program that consists of multiple files?
+
+    3. How would you use [gdb] to **debug** a **segfault**?
+
+    4. How would you use [valgrind] to **debug** a **memory error**?
+
+    [git]: https://git-scm.com/
+    [gdb]: https://www.gnu.org/software/gdb/
+    [valgrind]: http://valgrind.org/
+
+    ## Data Allocation
+
+    1. How many **bytes** are common types?
+
+        - `char`
+        - `int`
+        - `double`
+        - `size_t`
+        - `int64_t`
+        - <p>`void *`</p>
+
+    2. How many **bytes** in composite types?
+
+        - arrays
+        - <p>`structs`</p>
+
+    3. Where is memory allocated?
+
+        - `stack`
+        - `heap`
+        - `data`
+        - `code`
+
+    ## Arrays / Stacks
+
+    1. How would implement the following [dynamic array] methods?
+
+        - `array_create`
+        - `array_delete`
+        - `array_append`
+        - `array_insert`
+        - `array_remove`
+        - <p>`array_resize`</p>
+
+        What are the **time** and **space** complexities of the [dynamic array]
+        methods?
+
+        What does **amortized** mean?
+
+    2. How would you implement the following [stack] methods?
+
+        - `stack_push` (using a [dynamic array] or [linked list])
+        - <p>`stack_pop` (using a [dynamic array] or [linked list])<p>
+
+        What are the **time** and **space** complexities of the [stack]
+        methods?
+
+        What does it mean for a [stack] to be **LIFO**?
+
+        What are some applications of a [stack]?
+
+    ## Lists/ Queues
+
+    1. How would implement the following [linked list] methods?
+
+        - `list_create`
+        - `list_delete`
+        - `list_append`
+        - `list_insert`
+        - `list_remove`
+        - <p>`list_reverse`</p>
+
+        What are the **time** and **space** complexities of the [linked list]
+        methods?
+
+        - With a `tail` pointer?
+        - With a [sentinel] node?
+        - <p>Using a [doubly linked list]?</p>
+
+    2. How would you implement the following [queue] methods?
+
+        - `queue_push` (using a [dynamic array] or [linked list])
+        - <p>`queue_pop` (using a [dynamic array] or [linked list])<p>
+
+        What are the **time** and **space** complexities of the [queue]
+        methods?
+
+        What does it mean for a [queue] to be **FIFO**?
+
+        What are some applications of a [queue]?
+
+    [sentinel]: https://en.wikipedia.org/wiki/Sentinel_node
+    [doubly linked list]: https://en.wikipedia.org/wiki/Doubly_linked_list
+
+    ## Search / Sets
+
+    1. How would you implement [linear search]?
+
+        - On [dynamic array]?
+        - On [linked list]?
+        - <p>**Recursively**?</p>
+
+    2. How would you implement [binary search]?
+
+        - On [dynamic array]?
+        - <p>**Recursively**?</p>
+
+    3. How would you implement the following [set] methods?
+
+        - `set_add` (using a [dynamic array], [linked list], or [hash table])
+        - <p>`set_contains` (using a [dynamic array], [linked list], or [hash table])</p>
+
+        What are the **time** and **space** complexities of the [set]
+        methods?
+
+        What are some applications of a [set]?
+
+    ## Sorting
+
+    1. How would you sort a sequence of values?
+
+        - Using [bubble sort]?
+        - Using [selection sort]?
+        - Using [insertion sort]?
+        - Using [merge sort]?
+        - <p>Using [quick sort]?</p>
+
+        What are the **time** and **space** complexities of the [sorting]
+        algorithms?
+
+        Which of these [sorting] algorithms are **adaptive**?
+
+        Which of these [sorting] algorithms are **stable**?
+
+        Which of these [sorting] algorithms use **divide-and-conquer**?
+
+        How would you perform **multi-factor** or **multi-dimensional** [sorting]?
+
+    [bubble sort]: https://en.wikipedia.org/wiki/Bubble_sort
+    [selection sort]: https://en.wikipedia.org/wiki/Insertion_sort
+    [insertion sort]: https://en.wikipedia.org/wiki/Insertion_sort
+    [merge sort]: https://en.wikipedia.org/wiki/Merge_sort
+    [quick sort]: https://en.wikipedia.org/wiki/Quicksort
+
+    ## Hash Tables / Maps
+
+    1. How would implement the following [hash table] methods?
+
+        - `table_create`
+        - `table_delete`
+        - `table_insert` (using [linear probing] or [separate chaining])
+        - `table_lookup` (using [linear probing] or [separate chaining])
+        - <p>`table_resize` (using [linear probing] or [separate chaining])</p>
+
+        What are the **time** and **space** complexities of the [hash table]
+        methods?
+
+        How does the **load factor** impact [hash table] performance?
+
+    2. How would you implement the following [map] methods?
+
+        - `map_insert` (using a [dynamic array], [linked list], or [hash table])
+        - <p>`map_lookup` (using a [dynamic array], [linked list], or [hash table])</p>
+
+        What are the **time** and **space** complexities of the [map]
+        methods?
+
+        What are some applications of a [map]?
+
+    [linear probing]: https://en.wikipedia.org/wiki/Linear_probing
+    [separate chaining]: https://en.wikipedia.org/wiki/Hash_table#Separate_chaining
