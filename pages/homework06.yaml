@@ -1249,7 +1249,7 @@ body:       |
       $ git add src/list.c                          # Mark changes for commit
       $ git commit -m "Homework 06: Activity 2"     # Record changes
       ...
-      $ git add src/selectiong_sort.c               # Mark changes for commit
+      $ git add src/selection_sort.c                # Mark changes for commit
       $ git commit -m "Homework 06: Activity 3"     # Record changes
       ...
       $ git add src/merge_sort.c                    # Mark changes for commit
