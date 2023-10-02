@@ -183,6 +183,8 @@
         items:
           - name:       Slides 18
             link:       https://docs.google.com/presentation/d/1neapKjDM7gCREdKI690bj_RoSFvEm1cqX_L4XzDCw4A/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=a9a75343-9e73-4f89-80f5-b08f0105b416
 
       - date:           Wed 10/04
         topics:         Maps, Separate Chaining
