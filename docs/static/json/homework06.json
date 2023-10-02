@@ -69,7 +69,7 @@
     },
     "q7": {
         "type": "multiple",
-        "question": "\n<p>Add the <tt>-O2</tt> compiler file to your <tt>Makefile</tt> and then\nrebuild everything with <tt>make clean ; make</tt>.  Next, run the provided\n<tt>bin/benchmark.py</tt> script to measure the runtimes of the various\n<b>sorting</b> algorithms in <tt>bin/lsort</tt>.  Perform this measurement\na few times until a pattern emerges.</p>\n\n<p>Which of the following statements are true (select all that apply)?</p>\n",
+        "question": "\n<p>Add the <tt>-O2</tt> compiler flag to your <tt>Makefile</tt> and then\nrebuild everything with <tt>make clean ; make</tt>.  Next, run the provided\n<tt>bin/benchmark.py</tt> script to measure the runtimes of the various\n<b>sorting</b> algorithms in <tt>bin/lsort</tt>.  Perform this measurement\na few times until a pattern emerges.</p>\n\n<p>Which of the following statements are true (select all that apply)?</p>\n",
         "responses": {
             "small_n_matter_no": "For small <tt>N</tt> the choice of <b>sorting</b> algorithm doesn't matter.",
             "small_n_matter_yes": "For small <tt>N</tt> the choice of <b>sorting</b> algorithm matters.",
