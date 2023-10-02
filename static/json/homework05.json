@@ -80,7 +80,7 @@
     },
     "q7": {
         "type": "multiple",
-        "question": "\n<p>Add the <tt>-O2</tt> compiler file to your <tt>Makefile</tt> and then\nrebuild everything with <tt>make clean ; make</tt>.  Next, run the provided\n<tt>bin/benchmark.py</tt> script to measure the runtimes of the various\n<b>set</b> types in <tt>bin/palindromic</tt>.  Perform this measurement a\nfew times until a pattern emerges.</p>\n\n<p>Which of the following statements are true (select all that apply)?</p>\n",
+        "question": "\n<p>Add the <tt>-O2</tt> compiler flag to your <tt>Makefile</tt> and then\nrebuild everything with <tt>make clean ; make</tt>.  Next, run the provided\n<tt>bin/benchmark.py</tt> script to measure the runtimes of the various\n<b>set</b> types in <tt>bin/palindromic</tt>.  Perform this measurement a\nfew times until a pattern emerges.</p>\n\n<p>Which of the following statements are true (select all that apply)?</p>\n",
         "responses": {
             "arrayset_fastest": "<tt>ArraySet</tt> is the <b>fastest</b>.",
             "listset_fastest": "<tt>ListSet</tt> is the <b>fastest</b>.",
