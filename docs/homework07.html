@@ -218,7 +218,13 @@ variables when appropriate in your rules. You <strong>should</strong> also consi
 commands:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Build all TARGETS</span>
 $ make
-
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/freq.o src/freq.c
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/hash.o src/hash.c
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/pair.o src/pair.c
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/table.o src/table.c
+gcc -Wall -std<span style="color: #666666">=</span>gnu99 -g -Iinclude -c -o src/string.o src/string.c
+ar rcs lib/libds.a src/hash.o src/pair.o src/table.o src/string.o
+gcc -Llib -o bin/freq src/freq.o lib/libds.a
 
 <span style="color: #3D7B7B; font-style: italic"># Run all tests</span>
 $ make <span style="color: #008000">test</span>
@@ -227,6 +233,7 @@ Testing hash...
 
 <span style="color: #3D7B7B; font-style: italic"># Remove generated artifacts</span>
 $ make clean
+rm -f bin/freq bin/unit_* lib/*.a src/*.o tests/*.o
 </code></pre></div>
 
 <div class="alert alert-danger">
