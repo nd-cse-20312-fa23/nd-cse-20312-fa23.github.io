@@ -222,7 +222,13 @@ body:       |
       :::bash
       # Build all TARGETS
       $ make
-
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/freq.o src/freq.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/hash.o src/hash.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/pair.o src/pair.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/table.o src/table.c
+      gcc -Wall -std=gnu99 -g -Iinclude -c -o src/string.o src/string.c
+      ar rcs lib/libds.a src/hash.o src/pair.o src/table.o src/string.o
+      gcc -Llib -o bin/freq src/freq.o lib/libds.a
 
       # Run all tests
       $ make test
@@ -231,6 +237,7 @@ body:       |
 
       # Remove generated artifacts
       $ make clean
+      rm -f bin/freq bin/unit_* lib/*.a src/*.o tests/*.o
 
   <div class="alert alert-danger" markdown="1">
 
