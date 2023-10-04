@@ -213,6 +213,9 @@
         topics:         Review
         assignment:     Homework 07
         idea:           Hash Table / Word Count / Collatz
+        items:
+          - name:       Checklist 01
+            link:       checklist01.html
 
       - date:           Fri 10/13
         items:
