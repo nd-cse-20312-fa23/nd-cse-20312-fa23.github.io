@@ -193,6 +193,8 @@
         items:
           - name:       Slides 19
             link:       https://docs.google.com/presentation/d/1U-vTWsyrAhJ5tCKmQsdvzR2wvLh4kAYgkVwWnFrVmSI/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=fa920721-c1e7-4b64-ad71-b091010a7317
 
       - date:           Fri 10/06
         topics:         Memoization
