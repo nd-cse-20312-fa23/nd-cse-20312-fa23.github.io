@@ -205,11 +205,13 @@
 - name:     Exam 01
   days:
       - date:           Mon 10/09
-        topics:         Bucket Sorting
+        topics:         Counting, Bucket Sorting
         assignment:     Reading 07
         items:
           - name:       Slides 21
             link:       https://docs.google.com/presentation/d/1IaBAzf56T7un5JUbnd7sWRb0BAPwRJw1W4hnvfT3Spc/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=6ac47cfb-cc6f-41e1-9c42-b09601065c96
 
       - date:           Wed 10/11
         topics:         Review
