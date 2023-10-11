@@ -234,14 +234,20 @@
 - name:     Python
   days:
       - date:           Mon 10/23
-        topics:         Variables, Control Flow
-        assignment:     Reading 08
+        topics:         Variables, Types, Expressions, Control Flow, Modules
+        items:
+          - name:       Slides 22
+            link:       https://docs.google.com/presentation/d/1yyjs2nAIBNEAoemtBaYWjDbdAoMq8OaeMsO1Q65K2OA/edit?usp=sharing
 
       - date:           Wed 10/25
-        topics:         Data Structures, Typing
+        topics:         Data Structures
+        assignment:     Reading 08
+        items:
+          - name:       Slides 23
+            link:       https://docs.google.com/presentation/d/1knoAA2lBa8wtH5A3SjGiB-lLhGj0c0q1SRGITLvmFtw/edit?usp=sharing
 
       - date:           Fri 10/27
-        topics:         Classes, Testing
+        topics:         Classes, Typing, Testing
 
 - name:     Binary Trees, Divide and Conquer
   days:
