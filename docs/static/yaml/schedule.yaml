@@ -207,7 +207,7 @@
 - name:     Exam 01
   days:
       - date:           Mon 10/09
-        topics:         Counting, Bucket Sorting
+        topics:         Counting, Bucket Sort
         assignment:     Reading 07
         items:
           - name:       Slides 21
@@ -222,6 +222,8 @@
         items:
           - name:       Checklist 01
             link:       checklist01.html
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f15e9602-9f66-4694-9124-b09801057eb0
 
       - date:           Fri 10/13
         items:
