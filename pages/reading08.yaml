@@ -1,0 +1,117 @@
+title:      "Reading 08: Python"
+icon:       fa-book
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  **Everyone**:
+
+  Next week, we will transition from programming in [C] to scripting in
+  [Python].  The use of a high-level language like [Python] will allow us to take
+  advantage of native [object-oriented programming] support along with a wide
+  variety of built-in [data structure] containers such as: [lists], [tuples],
+  [sets], and [dicts].  We will use these building blocks to explore more
+  [trees] and [graphs], and learn about new [algorithms] which utilize these
+  sophisticated [data structures].
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-search"></i> TL;DR
+
+  The focus of this reading is to introduce scripting in [Python].
+
+  </div>
+
+  [Python]: https://www.python.org/
+  [C]:      https://en.wikipedia.org/wiki/C_(programming_language)
+  [object-oriented programming]: https://en.wikipedia.org/wiki/Object-oriented_programming
+  [data structure]: https://en.wikipedia.org/wiki/Data_structure
+  [data structures]: https://en.wikipedia.org/wiki/Data_structure
+  [lists]:  https://docs.python.org/3/library/stdtypes.html#list
+  [tuples]: https://docs.python.org/3/library/stdtypes.html#tuple
+  [sets]:   https://docs.python.org/3/library/stdtypes.html#set
+  [dicts]:  https://docs.python.org/3/library/stdtypes.html#dict
+  [trees]:  https://en.wikipedia.org/wiki/Tree_(data_structure)
+  [graphs]: https://en.wikipedia.org/wiki/Graph_(abstract_data_type)
+  [algorithms]: https://en.wikipedia.org/wiki/Algorithm
+
+  <img src="static/img/python.png" class="pull-right img-responsive">
+
+  ## Readings
+
+  The readings for this week are:
+
+  1. [Scipy Lecture Notes: 1.2. The Python language](http://www.scipy-lectures.org/intro/language/python_language.html)
+
+  2. [A Byte of Python - Data Structures](https://python.swaroopch.com/data_structures.html)
+
+  ### Optional Resources
+
+  Here are some additional resources:
+
+  1. [A Byte of Python](http://python.swaroopch.com/)
+
+  2. [Automate The Boring Stuff](https://automatetheboringstuff.com/)
+
+  ## Quiz
+
+  Once you have completed the readings, answer the following [Reading 08 Quiz]
+  questions:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/reading08.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  ## Submission
+
+  To submit your work, follow the same process outlined in [Reading 01]:
+
+      :::bash
+      $ git checkout master                 # Make sure we are in master branch
+      $ git pull --rebase                   # Make sure we are up-to-date with GitHub
+
+      $ git checkout -b reading08           # Create reading08 branch and check it out
+
+      $ cd reading08                        # Go into reading08 folder
+      $ $EDITOR answers.json                # Edit your answers.json file
+
+      $ ../.scripts/check.py                # Check reading08 quiz
+      Checking reading08 quiz ...
+            Q1 0.40
+            Q2 0.70
+            Q3 0.40
+            Q4 0.80
+            Q5 0.20
+            Q6 0.50
+         Score 3.00 / 3.00
+        Status Success
+
+      $ git add answers.json                # Add answers.json to staging area
+      $ git commit -m "Reading 08: Done"    # Commit work
+
+      $ git push -u origin reading08        # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Once you have committed your work and pushed it to [GitHub], remember to
+  create a **pull request** and assign it to the appropriate **teaching
+  assistant** from the [Reading 08 TA List].
+
+  </div>
+
+  [Git]:                https://git-scm.com/
+  [GitHub]:             https://github.com/
+  [Reading 01]:         reading01.html
+  [Reading 08 Quiz]:    static/json/reading08.json
+  [Reading 08 TA List]: reading08_tas.html
