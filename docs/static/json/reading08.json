@@ -1,0 +1,47 @@
+{
+    "q1": {
+        "type": "multiple",
+        "question": "\n<p>Given the following Python script, <tt>arguments.py</tt>:</p>\n\n<pre>\n#!/usr/bin/env python3\n\nimport sys\n\nfor arg in sys.argv:\n    print(arg)\n</pre>\n\n<p>To run this script, you can do one of the following:</p>\n\n<pre>\n# 1. Invoke python3 interpreter explicitly\n$ python3 arguments.py hello world\n\n# 2. Make the script executable and then run the script\n$ chmod +x arguments.py\n$ ./arguments.py hello world\n</pre>\n\n<p>Play around with this script, and then determine which of the following\nstatements are true (select all that apply)?</p>\n",
+        "responses": {
+            "import": "The <tt>import sys</tt> statement loads the <tt>sys</tt> Python module.",
+            "arguments": "The command line arguments to the script are stored in <tt>sys.argv</tt>.",
+            "print": "It is not necessary to include the parentheses when calling the <tt>print</tt> function.",
+            "she-bang": "The first line in the script, <tt>#!/usr/bin/env python3</tt> is called the <b>she-bang</b>, and it tells the operating system to use the Python interpreter to evaluate this script.",
+            "length": "In the examples above, the <tt>len(sys.argv)</tt> would be <tt>3</tt>."
+        }
+    },
+    "q2": {
+        "type": "blank",
+        "question": "\n<p>Given the following Python script, <tt>filtered.py</tt>:</p>\n\n<pre>\n#!/usr/bin/env python3\n\nimport sys \n\ntarget = 're'\nwords  = ____                       # 1. Initialize to empty list\n\nfor line in ____:                   # 2. Loop over standard input\n    for word in ____:               # 3. Loop over each word\n        if target in ____:          # 4. Search lowercased word\n            words.____(word)        # 5. Add word to list\n\n# 6. Number of words in list\nprint(f'There are {____(words)} words that contain \"{target}\":')\n\n# 7. Loop over each word in list, along with its index (first index is 1)\nfor index, word in sorted(____(words, 1)):\n    print(f'{index}. {word}')\n</pre>\n\n<p>Complete the <tt>filtered.py</tt> script by filling in the blanks.\nThe purpose of the script is to read one line from standard input at a\ntime, then check if any of the words in the line contain the\n<tt>target</tt> string.  If so, then add the word to the <tt>words</tt>\nlist.  Afterwards, print out a summary of how many words contain the\n<tt>target</tt> and then all the words in the list in ascending order.</p>\n\n<p>Here is an example of how the script can be executed:</p>\n\n<pre>\n# Filter README.md in assignments repository\n$ ./filtered.py < ../README.md \nThere are 30 words that contain \"re\":\n1. reading\n2. repository\n3. Readings\n4. **reading*\n...\n</pre>\n"
+    },
+    "q3": {
+        "type": "multiple",
+        "question": "\n<p>Given the Python script above, <tt>filtered.py</tt>, which of the\nfollowing statements are true (select all that apply):</p>\n",
+        "responses": {
+            "stdin": "<tt>sys.stdin</tt> is a list.",
+            "linear": "The <tt>target in</tt> expression is a linear search.",
+            "descending": "To have the words print in descending order, you can add the <tt>reverse</tt> keyword argument to <tt>sorted</tt>.",
+            "set": "To only track the unique matches, you can use a <tt>set()</tt> instead of a <tt>list</tt> for <tt>words</tt>.",
+            "split": "By default, the <tt>.split()</tt> method separates words by whitespace."
+        }
+    },
+    "q4": {
+        "type": "blank",
+        "question": "\n<p>Given the following Python script, <tt>word_count.py</tt>:</p>\n\n<pre>\n#!/usr/bin/env python3\n\nimport sys \n\ncounts = ____                       # 1. Initialize to empty dictionary\n\nfor line in ____:                   # 2. Loop over standard input\n    for word in ____:               # 3. Loop over each word\n        word = ____                 # 4. Lowercase word\n        if word ____ counts:        # 5. Check if counts is missing word\n            ____ = 1                # 6. Insert value of 1 for word in counts\n        else:\n            ____ += 1               # 7. Increment value of word in counts\n\nfor word, count in ____:            # 8. Loop over key, value pairs in counts\n    print(f'{count:>8} {word}')\n</pre>\n\n<p>Complete the <tt>word_count.py</tt> script by filling in the blanks.\nThe purpose of the script is keep track of how often each word in standard\ninput appears.  After reading all the input and updating a <tt>counts</tt>\ndictionary, the script prints out the counts of each word it has seen.</p>\n"
+    },
+    "q5": {
+        "type": "multiple",
+        "question": "\n<p>Given the Python script above, <tt>word_count.py</tt>, which of the\nfollowing statements are true (select all that apply):</p>\n",
+        "responses": {
+            "if_get": "You can replace the whole <tt>if/else</tt> statement with <tt>counts[word] = counts.get(word, 0) + 1</tt>.",
+            "sorted_count": "The counts are printed in <b>sorted order by count</b>.",
+            "sorted_word": "The counts are printed in <b>sorted order by word</b>.",
+            "assignment": "The <tt>word =</tt> assignment is <b>unnecessary</b>; simply perform the expression on the right-hand side.",
+            "constant": "The <tt>if word ____ counts</tt> express is a <b>constant</b> time operation."
+        }
+    },
+    "q6": {
+        "type": "blank",
+        "question": "\n<p>Given the following Python script, <tt>subtract.py</tt>:</p>\n\n<pre>\n#!/usr/bin/env python3\n\nx = 10\n\ndef subtract(x, n=1):\n    ''' Update x by subtracting n '''   # 1. What is this called? ____\n    x = x - n \n    print(x)\n\nprint(x)                                # 2. What does this output? ____\nsubtract(x)                             # 3. What does this output? ____\nprint(x)                                # 4. What does this output? ____\nsubtract(x, x)                          # 5. What does this output? ____\n</pre>\n\n<p>Answer the questions in the comments by filling in the blanks below:</p>\n"
+    }
+}
