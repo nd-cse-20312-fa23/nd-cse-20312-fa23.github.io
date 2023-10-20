@@ -248,6 +248,9 @@
 
       - date:           Fri 10/27
         topics:         Classes, Typing, Testing
+        items:
+          - name:       Slides 24
+            link:       https://docs.google.com/presentation/d/1PScUvwLMlpRNBSVDnfD3Qg10TJp0quAztm69axnLvZw/edit?usp=sharing
 
 - name:     Binary Trees, Divide and Conquer
   days:
