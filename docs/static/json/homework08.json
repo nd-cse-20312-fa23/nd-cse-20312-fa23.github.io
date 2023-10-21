@@ -1,0 +1,86 @@
+{
+    "q1": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <tt>PriorityQueue</tt> class are true (select all that apply)?</p>\n",
+        "responses": {
+            "pq_push_1": "<tt>PriorityQueue.push</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "pq_push_n": "<tt>PriorityQueue.push</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "pq_pop_1": "<tt>PriorityQueue.pop</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "pq_pop_n": "<tt>PriorityQueue.pop</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "pq_front_1": "<tt>PriorityQueue.front</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "pq_front_n": "<tt>PriorityQueue.front</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "pq_empty_1": "<tt>PriorityQueue.empty</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "pq_empty_n": "<tt>PriorityQueue.empty</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q2": {
+        "type": "single",
+        "question": "\n<p>In the <tt>PriorityQueue</tt> class, each object had a <tt>data</tt>\nattribute, which users manipulated and accessed through the <tt>push</tt>,\n<tt>pop</tt>, <tt>front</tt>, and <tt>empty</tt> methods.  This most\nclosely corresponds to which <b>Object-oriented programming</b>\nprinciple?</p>\n",
+        "responses": {
+            "abstraction": "Data abstraction",
+            "encapsulation": "Encapsulation",
+            "polymorphism": "Polymorphism",
+            "inheritance": "Inheritance"
+        }
+    },
+    "q3": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time and space\ncomplexities</b> of the <tt>cups.py</tt> script are true (assume <tt>n</tt>\nis the largest cup amount, select all that apply)?</p>\n",
+        "responses": {
+            "fill_cups_time_1": "<tt>fill_cups</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "fill_cups_time_n": "<tt>fill_cups</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "fill_cups_space_1": "<tt>fill_cups</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>",
+            "fill_cups_space_n": "<tt>fill_cups</tt> has an average <b>space complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q4": {
+        "type": "blank",
+        "question": "\n<p>Use your <tt>cups.py</tt> script to answer the follow questions:</p>\n\n<ol>\n  <li>What is the minimum number of seconds to fill cups: <tt>5 7 4</tt>? ____</li>\n  <li>What is the minimum number of seconds to fill cups: <tt>25 25 30</tt>? ____</li>\n</ol>\n"
+    },
+    "q5": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <tt>WordsDatabase</tt> classes are true (select all that apply)?</p>\n",
+        "responses": {
+            "wl_contains_1": "<tt>WordsList.__contains__</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "wl_contains_n": "<tt>WordsList.__contains__</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "ws_contains_1": "<tt>WordsSet.__contains__</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "ws_contains_n": "<tt>WordsSet.__contains__</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>",
+            "wd_contains_1": "<tt>WordsDict.__contains__</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>",
+            "wd_contains_n": "<tt>WordsDict.__contains__</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>"
+        }
+    },
+    "q6": {
+        "type": "single",
+        "question": "\n<p>In the <tt>spell_check.py</tt>, each <tt>WordsDatabase</tt> class had the\nfollowing declarations:</p>\n\n<pre>\nclass WordsList(WordsDatabase):\nclass WordsSet(WordsDatabase):\nclass WordsDict(WordsDatabase):\n</pre>\n\n<p>That is, each child <tt>WordsDatabase</tt> class was based on another\nexisting parent class. This most closely corresponds to which\n<b>Object-oriented programming</b> principle?</p>\n",
+        "responses": {
+            "abstraction": "Data abstraction",
+            "encapsulation": "Encapsulation",
+            "polymorphism": "Polymorphism",
+            "inheritance": "Inheritance"
+        }
+    },
+    "q7": {
+        "type": "single",
+        "question": "\n<p>In the <tt>spell_check.py</tt>, regardless of which\n<tt>WordsDatabase</tt> class you used, you were able to use the same\n<tt>in</tt> operation on different types of <tt>WordsDatabase</tt>\ninstances.</p>\n\n<p>That is, each sibling <tt>WordsDatabase</tt> class provided the same\noperation despite having different internal representations. This most\nclosely corresponds to which <b>Object-oriented programming</b>\nprinciple?</p>\n",
+        "responses": {
+            "abstraction": "Data abstraction",
+            "encapsulation": "Encapsulation",
+            "polymorphism": "Polymorphism",
+            "inheritance": "Inheritance"
+        }
+    },
+    "q8": {
+        "type": "blank",
+        "question": "\n<p>Download <b>The Raven (17192.txt)</b>:</p>\n\n<pre>\n# Download The Raven\n$ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/txt/17192.txt\n</pre>\n\n<p>Use your <tt>spell_check.py</tt> script on this file to answer the\nfollowing question:</p>\n\n<ol>\n<li>How many words are mispelled? ____</li>\n</ol>\n"
+    },
+    "q9": {
+        "type": "multiple",
+        "question": "\n<p>Run the provided <tt>spell_check_benchmark.py</tt> script with the file\nabove (ie. <tt>spell_check_benchmark.py 17192.txt</tt>) above to measure\nthe runtimes of the various <tt>WordsDatabases</tt> classes.  Perform this\nmeasurement a few times until a pattern emerges.</p>\n\n<p>Which of the following statements are true (select all that apply)?</p>\n",
+        "responses": {
+            "words_list_fast": "Overall, <tt>WordsList</tt> was really <b>fast</b>.",
+            "words_list_slow": "Overall, <tt>WordsList</tt> was really <b>slow</b>.",
+            "words_set_dict_same": "Overall, <tt>WordsSet</tt> and <tt>WordsDict</tt> were mostly the <b>same</b>.",
+            "words_set_dict_diff": "Overall, <tt>WordsSet</tt> and <tt>WordsDict</tt> were quite <b>different</b>."
+        }
+    }
+}
