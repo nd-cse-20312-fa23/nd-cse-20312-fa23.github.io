@@ -1,7 +1,7 @@
 {
     "q1": {
         "type": "multiple",
-        "question": "<p>Given the following <b>binary tree</b>:</p>\n\n<div class=\"thumbnail\">\n<img src=\"static/img/reading09-binary-tree.png\" class=\"img-responsive\">\n</div>\n\n<p>Which of the following statements regarding the <b>properties</b> of the\n<b>binary tree</b> are true (select all that apply)?</p>\n",
+        "question": "\n<p>Given the <b>binary tree</b> above, which of the following statements\nregarding the <b>properties</b> of the <b>binary tree</b> are true (select\nall that apply)?</p>\n",
         "responses": {
             "root_p": "The <b>root</b> of the <b>binary tree</b> is <tt>P</tt>.",
             "root_e": "The <b>root</b> of the <b>binary tree</b> is <tt>E</tt>.",
@@ -18,7 +18,7 @@
     },
     "q2": {
         "type": "single",
-        "question": "\n<p>Given the following Python code for representing <tt>Node</tt> in a\n<b>binary tree</b>:</p>\n\n<pre>\nfrom dataclasses import dataclass\n\n@dataclass\nclass Node:\n    data:   str\n    left:   'Node'  = None\n    right:  'Node'  = None\n</pre>\n\n<p>Which of the following lines of Python would represent the <b>binary\ntree</b> above in <b>Question 1</b>?</p>\n",
+        "question": "\n<p>Given the following Python code for representing <tt>Node</tt> in a\n<b>binary tree</b>:</p>\n\n<pre>\nfrom dataclasses import dataclass\n\n@dataclass\nclass Node:\n    data:   str\n    left:   'Node'  = None\n    right:  'Node'  = None\n</pre>\n\n<p>Which of the following lines of Python would represent the <b>binary\ntree</b> above?</p>\n",
         "responses": {
             "a": "<tt>root = Node('V', Node('A', Node('M'), Node('P')), Node('I',Node('R'), Node('E')))</tt>",
             "b": "<tt>root = Node('V', Node('A', Node('P'), Node('I')), Node('M',Node('R'), Node('E')))</tt>",
@@ -27,7 +27,7 @@
     },
     "q3": {
         "type": "order",
-        "question": "\n<p>Given the <b>binary tree</b> above in <b>Question 1</b> implement the\n<tt>traverse</tt> function which performs an <b>inorder</b> traversal of\nthe <b>binary tree</b> recursively by unscrambling the following lines of code:</p>\n\n<pre>\ndef traverse(node: Node):\n    ...\n</pre>\n",
+        "question": "\n<p>Given the <b>binary tree</b> above, implement the <tt>traverse</tt>\nfunction which performs an <b>inorder</b> traversal of the <b>binary\ntree</b> recursively by unscrambling the following lines of code:</p>\n\n<pre>\ndef traverse(node: Node):\n    ...\n</pre>\n",
         "responses": {
             "a": "<tt>print(node.data)</tt>",
             "b": "<tt>traverse(node.left)</tt>",
@@ -37,7 +37,7 @@
     },
     "q4": {
         "type": "single",
-        "question": "\n<p>Given the <b>binary tree</b> above in <b>Question 1</b>, what is the\nresult of a <b>inorder</b> traversal of the <b>binary tree</b>?</p>\n",
+        "question": "\n<p>Given the <b>binary tree</b> above, what is the result of a\n<b>inorder</b> traversal of the <b>binary tree</b>?</p>\n",
         "responses": {
             "a": "VAMPIRE",
             "b": "VAPIMRE",
@@ -47,7 +47,7 @@
     },
     "q5": {
         "type": "order",
-        "question": "\n<p>Given the <b>binary tree</b> above in <b>Question 1</b> implement the\n<tt>traverse</tt> function which performs a <b>preorder</b> traversal of\nthe <b>binary tree</b> recursively by unscrambling the following lines of code:</p>\n\n<pre>\ndef traverse(node: Node):\n    ...\n</pre>\n",
+        "question": "\n<p>Given the <b>binary tree</b> above, implement the <tt>traverse</tt>\nfunction which performs a <b>preorder</b> traversal of the <b>binary\ntree</b> recursively by unscrambling the following lines of code:</p>\n\n<pre>\ndef traverse(node: Node):\n    ...\n</pre>\n",
         "responses": {
             "a": "<tt>print(node.data)</tt>",
             "b": "<tt>traverse(node.left)</tt>",
@@ -57,7 +57,7 @@
     },
     "q6": {
         "type": "single",
-        "question": "\n<p>Given the <b>binary tree</b> above in <b>Question 1</b>, what is the\nresult of a <b>preorder</b> traversal of the <b>binary tree</b>?</p>\n",
+        "question": "\n<p>Given the <b>binary tree</b> above, what is the result of a\n<b>preorder</b> traversal of the <b>binary tree</b>?</p>\n",
         "responses": {
             "a": "VAMPIRE",
             "b": "VAPIMRE",
@@ -67,7 +67,7 @@
     },
     "q7": {
         "type": "order",
-        "question": "\n<p>Given the <b>binary tree</b> above in <b>Question 1</b> implement the\n<tt>traverse</tt> function which performs a <b>postorder</b> traversal of\nthe <b>binary tree</b> recursively by unscrambling the following lines of code:</p>\n\n<pre>\ndef traverse(node: Node):\n    ...\n</pre>\n",
+        "question": "\n<p>Given the <b>binary tree</b> above, implement the <tt>traverse</tt>\nfunction which performs a <b>postorder</b> traversal of the <b>binary\ntree</b> recursively by unscrambling the following lines of code:</p>\n\n<pre>\ndef traverse(node: Node):\n    ...\n</pre>\n",
         "responses": {
             "a": "<tt>print(node.data)</tt>",
             "b": "<tt>traverse(node.left)</tt>",
@@ -77,7 +77,7 @@
     },
     "q8": {
         "type": "single",
-        "question": "\n<p>Given the <b>binary tree</b> above in <b>Question 1</b>, what is the\nresult of a <b>postorder</b> traversal of the <b>binary tree</b>?</p>\n",
+        "question": "\n<p>Given the <b>binary tree</b> above, what is the result of a\n<b>postorder</b> traversal of the <b>binary tree</b>?</p>\n",
         "responses": {
             "a": "VAMPIRE",
             "b": "VAPIMRE",
