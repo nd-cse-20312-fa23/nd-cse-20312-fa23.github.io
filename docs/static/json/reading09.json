@@ -1,0 +1,100 @@
+{
+    "q1": {
+        "type": "multiple",
+        "question": "<p>Given the following <b>binary tree</b>:</p>\n\n<div class=\"thumbnail\">\n<img src=\"static/img/reading09-binary-tree.png\" class=\"img-responsive\">\n</div>\n\n<p>Which of the following statements regarding the <b>properties</b> of the\n<b>binary tree</b> are true (select all that apply)?</p>\n",
+        "responses": {
+            "root_p": "The <b>root</b> of the <b>binary tree</b> is <tt>P</tt>.",
+            "root_e": "The <b>root</b> of the <b>binary tree</b> is <tt>E</tt>.",
+            "root_v": "The <b>root</b> of the <b>binary tree</b> is <tt>V</tt>.",
+            "depth_2": "The <b>depth</b> of the <b>binary tree</b> is <tt>2</tt>.",
+            "depth_3": "The <b>depth</b> of the <b>binary tree</b> is <tt>3</tt>.",
+            "depth_4": "The <b>depth</b> of the <b>binary tree</b> is <tt>4</tt>.",
+            "leaves_3": "The <b>binary tree</b> has <tt>3</tt> <b>leaf nodes</b>.",
+            "leaves_4": "The <b>binary tree</b> has <tt>4</tt> <b>leaf nodes</b>.",
+            "leaves_7": "The <b>binary tree</b> has <tt>7</tt> <b>leaf nodes</b>.",
+            "full": "The <b>binary tree</b> is <b>full</b>.",
+            "complete": "The <b>binary tree</b> is <b>complete</b>."
+        }
+    },
+    "q2": {
+        "type": "single",
+        "question": "\n<p>Given the following Python code for representing <tt>Node</tt> in a\n<b>binary tree</b>:</p>\n\n<pre>\nfrom dataclasses import dataclass\n\n@dataclass\nclass Node:\n    data:   str\n    left:   'Node'  = None\n    right:  'Node'  = None\n</pre>\n\n<p>Which of the following lines of Python would represent the <b>binary\ntree</b> above in <b>Question 1</b>?</p>\n",
+        "responses": {
+            "a": "<tt>root = Node('V', Node('A', Node('M'), Node('P')), Node('I',Node('R'), Node('E')))</tt>",
+            "b": "<tt>root = Node('V', Node('A', Node('P'), Node('I')), Node('M',Node('R'), Node('E')))</tt>",
+            "c": "<tt>root = Node('V', Node('M', Node('A'), Node('P')), Node('I',Node('E'), Node('R')))</tt>"
+        }
+    },
+    "q3": {
+        "type": "order",
+        "question": "\n<p>Given the <b>binary tree</b> above in <b>Question 1</b> implement the\n<tt>traverse</tt> function which performs an <b>inorder</b> traversal of\nthe <b>binary tree</b> recursively by unscrambling the following lines of code:</p>\n\n<pre>\ndef traverse(node: Node):\n    ...\n</pre>\n",
+        "responses": {
+            "a": "<tt>print(node.data)</tt>",
+            "b": "<tt>traverse(node.left)</tt>",
+            "c": "<tt>traverse(node.right)</tt>",
+            "d": "<tt>if not Node: return</tt>"
+        }
+    },
+    "q4": {
+        "type": "single",
+        "question": "\n<p>Given the <b>binary tree</b> above in <b>Question 1</b>, what is the\nresult of a <b>inorder</b> traversal of the <b>binary tree</b>?</p>\n",
+        "responses": {
+            "a": "VAMPIRE",
+            "b": "VAPIMRE",
+            "c": "PAIVRME",
+            "d": "PIAREMV"
+        }
+    },
+    "q5": {
+        "type": "order",
+        "question": "\n<p>Given the <b>binary tree</b> above in <b>Question 1</b> implement the\n<tt>traverse</tt> function which performs a <b>preorder</b> traversal of\nthe <b>binary tree</b> recursively by unscrambling the following lines of code:</p>\n\n<pre>\ndef traverse(node: Node):\n    ...\n</pre>\n",
+        "responses": {
+            "a": "<tt>print(node.data)</tt>",
+            "b": "<tt>traverse(node.left)</tt>",
+            "c": "<tt>traverse(node.right)</tt>",
+            "d": "<tt>if not Node: return</tt>"
+        }
+    },
+    "q6": {
+        "type": "single",
+        "question": "\n<p>Given the <b>binary tree</b> above in <b>Question 1</b>, what is the\nresult of a <b>preorder</b> traversal of the <b>binary tree</b>?</p>\n",
+        "responses": {
+            "a": "VAMPIRE",
+            "b": "VAPIMRE",
+            "c": "PAIVRME",
+            "d": "PIAREMV"
+        }
+    },
+    "q7": {
+        "type": "order",
+        "question": "\n<p>Given the <b>binary tree</b> above in <b>Question 1</b> implement the\n<tt>traverse</tt> function which performs a <b>postorder</b> traversal of\nthe <b>binary tree</b> recursively by unscrambling the following lines of code:</p>\n\n<pre>\ndef traverse(node: Node):\n    ...\n</pre>\n",
+        "responses": {
+            "a": "<tt>print(node.data)</tt>",
+            "b": "<tt>traverse(node.left)</tt>",
+            "c": "<tt>traverse(node.right)</tt>",
+            "d": "<tt>if not Node: return</tt>"
+        }
+    },
+    "q8": {
+        "type": "single",
+        "question": "\n<p>Given the <b>binary tree</b> above in <b>Question 1</b>, what is the\nresult of a <b>postorder</b> traversal of the <b>binary tree</b>?</p>\n",
+        "responses": {
+            "a": "VAMPIRE",
+            "b": "VAPIMRE",
+            "c": "PAIVRME",
+            "d": "PIAREMV"
+        }
+    },
+    "q9": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding <b>generators</b> in\n<b>Python</b> are true (select all that apply)?</p>\n",
+        "responses": {
+            "loop": "You can loop over a <b>generator</b>.",
+            "index": "You can index a <b>generator</b>.",
+            "store_yes": "<b>Generators</b> store their contents in memory.",
+            "store_no": "<b>Generators</b> do not store their contents in memory.",
+            "return": "To turn a function into a <b>generator</b> use the <tt>return</tt> statement.",
+            "yield": "To turn a function into a <b>generator</b> use the <tt>yield</tt> statement."
+        }
+    }
+}
