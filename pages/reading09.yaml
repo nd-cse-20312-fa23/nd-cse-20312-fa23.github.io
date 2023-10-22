@@ -1,0 +1,118 @@
+title:      "Reading 09: Binary Trees"
+icon:       fa-book
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  **Everyone**:
+
+  Next week, we will begin exploring [binary trees] and focus on how to
+  **represent** them, how to **traverse** them, and how to use
+  [divide-and-conquer] to solve programming challenges involving [binary
+  trees].  Additionally, we will spend some time on [generators] in [Python]
+  and how they can be used to process [binary trees] efficiently.
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-search"></i> TL;DR
+
+  The focus of this reading is [binary trees].
+
+  </div>
+
+  [Python]: https://www.python.org/
+  [binary trees]: https://en.wikipedia.org/wiki/Binary_tree
+  [divide-and-conquer]: https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm
+  [generators]: https://en.wikipedia.org/wiki/Python_syntax_and_semantics#Generators
+
+  <img src="static/img/python.png" class="pull-right img-responsive">
+
+  ## Readings
+
+  The readings for this week are:
+
+  1. [Data Structures Handbook](https://www.thedshandbook.com/)
+
+      - [Trees](https://www.thedshandbook.com/trees/)
+      - [Tree Traversals](https://www.thedshandbook.com/tree-traversals/)
+      - <p>[Binary Trees](https://www.thedshandbook.com/binary-trees/)</p>
+
+  2. [How to Use Generators and yield in Python](https://realpython.com/introduction-to-python-generators/)
+
+  ### Optional Resources
+
+  Here are some additional resources:
+
+  1. [Learn DS & Algorithms](https://www.programiz.com/dsa)
+
+      - [Tree Data Structure](https://www.programiz.com/dsa/trees)
+      - [Tree Traversal](https://www.programiz.com/dsa/tree-traversal)
+      - <p>[Binary Tree](https://www.programiz.com/dsa/binary-tree)</p>
+
+  2. [Python Generators](https://www.programiz.com/python-programming/generator)
+
+  ## Quiz
+
+  Once you have completed the readings, answer the following [Reading 09 Quiz]
+  questions:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/reading09.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  ## Submission
+
+  To submit your work, follow the same process outlined in [Reading 01]:
+
+      :::bash
+      $ git checkout master                 # Make sure we are in master branch
+      $ git pull --rebase                   # Make sure we are up-to-date with GitHub
+
+      $ git checkout -b reading09           # Create reading09 branch and check it out
+
+      $ cd reading09                        # Go into reading09 folder
+      $ $EDITOR answers.json                # Edit your answers.json file
+
+      $ ../.scripts/check.py                # Check reading09 quiz
+      Checking reading09 quiz ...
+            Q1 0.50
+            Q2 0.10
+            Q3 0.50
+            Q4 0.20
+            Q5 0.50
+            Q6 0.20
+            Q7 0.50
+            Q8 0.20
+            Q9 0.30
+         Score 3.00 / 3.00
+        Status Success
+
+      $ git add answers.json                # Add answers.json to staging area
+      $ git commit -m "Reading 09: Done"    # Commit work
+
+      $ git push -u origin reading09        # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Once you have committed your work and pushed it to [GitHub], remember to
+  create a **pull request** and assign it to the appropriate **teaching
+  assistant** from the [Reading 09 TA List].
+
+  </div>
+
+  [Git]:                https://git-scm.com/
+  [GitHub]:             https://github.com/
+  [Reading 01]:         reading01.html
+  [Reading 09 Quiz]:    static/json/reading09.json
+  [Reading 09 TA List]: reading09_tas.html
