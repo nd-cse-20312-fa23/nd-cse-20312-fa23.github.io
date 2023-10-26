@@ -18,7 +18,7 @@
     },
     "q2": {
         "type": "single",
-        "question": "\n<p>Given the following Python code for representing <tt>Node</tt> in a\n<b>binary tree</b>:</p>\n\n<pre>\nfrom dataclasses import dataclass\n\n@dataclass\nclass Node:\n    data:   str\n    left:   'Node'  = None\n    right:  'Node'  = None\n</pre>\n\n<p>Which of the following lines of Python would represent the <b>binary\ntree</b> above?</p>\n",
+        "question": "\n<p>Given the following Python code for representing <tt>Node</tt> in a\n<b>binary tree</b>:</p>\n\n<pre>\nfrom dataclasses import dataclass\n\n@dataclass\nclass Node:\n    value:  str\n    left:   'Node'  = None\n    right:  'Node'  = None\n</pre>\n\n<p>Which of the following lines of Python would represent the <b>binary\ntree</b> above?</p>\n",
         "responses": {
             "a": "<tt>root = Node('V', Node('A', Node('M'), Node('P')), Node('I',Node('R'), Node('E')))</tt>",
             "b": "<tt>root = Node('V', Node('A', Node('P'), Node('I')), Node('M',Node('R'), Node('E')))</tt>",
@@ -29,7 +29,7 @@
         "type": "order",
         "question": "\n<p>Given the <b>binary tree</b> above, implement the <tt>traverse</tt>\nfunction which performs an <b>inorder</b> traversal of the <b>binary\ntree</b> recursively by unscrambling the following lines of code:</p>\n\n<pre>\ndef traverse(node: Node):\n    ...\n</pre>\n",
         "responses": {
-            "a": "<tt>print(node.data)</tt>",
+            "a": "<tt>print(node.value)</tt>",
             "b": "<tt>traverse(node.left)</tt>",
             "c": "<tt>traverse(node.right)</tt>",
             "d": "<tt>if not Node: return</tt>"
@@ -49,7 +49,7 @@
         "type": "order",
         "question": "\n<p>Given the <b>binary tree</b> above, implement the <tt>traverse</tt>\nfunction which performs a <b>preorder</b> traversal of the <b>binary\ntree</b> recursively by unscrambling the following lines of code:</p>\n\n<pre>\ndef traverse(node: Node):\n    ...\n</pre>\n",
         "responses": {
-            "a": "<tt>print(node.data)</tt>",
+            "a": "<tt>print(node.value)</tt>",
             "b": "<tt>traverse(node.left)</tt>",
             "c": "<tt>traverse(node.right)</tt>",
             "d": "<tt>if not Node: return</tt>"
@@ -69,7 +69,7 @@
         "type": "order",
         "question": "\n<p>Given the <b>binary tree</b> above, implement the <tt>traverse</tt>\nfunction which performs a <b>postorder</b> traversal of the <b>binary\ntree</b> recursively by unscrambling the following lines of code:</p>\n\n<pre>\ndef traverse(node: Node):\n    ...\n</pre>\n",
         "responses": {
-            "a": "<tt>print(node.data)</tt>",
+            "a": "<tt>print(node.value)</tt>",
             "b": "<tt>traverse(node.left)</tt>",
             "c": "<tt>traverse(node.right)</tt>",
             "d": "<tt>if not Node: return</tt>"

@@ -259,14 +259,23 @@
       - date:           Mon 10/30
         topics:         Binary Trees
         assignment:     Reading 09
+        items:
+          - name:       Slides 25
+            link:       https://docs.google.com/presentation/d/14K0tdAfi9Zk-nu7EKz6lrxEQs0UyNdg2MAbG2mvdQ3g/edit?usp=sharing
 
       - date:           Wed 11/01
         topics:         Divide and Conquer
         assignment:     Homework 08
         idea:           Exam 01 analysis, Spell Check
+        items:
+          - name:       Slides 26
+            link:       https://docs.google.com/presentation/d/1ckuHHlXa9UG0tzQFs7oKbh2Aqk9SuQnLdRFVpii29Jg/edit?usp=sharing
 
       - date:           Fri 11/03
         topics:         Comprehensions, Generators
+        items:
+          - name:       Slides 27
+            link:       https://docs.google.com/presentation/d/1WNtoSb9x9HrYU2cyxHPcwuXBoSRn6BqnE0vcivM2QwE/edit?usp=sharing
 
 - name:     Binary Heaps, Priority Queues
   days:
