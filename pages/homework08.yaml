@@ -279,6 +279,13 @@ body:       |
       $ ./priority_queue_test.py -v
       ...
 
+  To run a specific [unit test], you can specify the **method name**:
+
+      :::bash
+      # Run only push unit test
+      $ ./priority_queue_test.py -v PriorityQueueTest.test_02_push
+      ...
+
   <div class="alert alert-success" markdown="1">
   #### <i class="fa fa-repeat"></i> Iterative Development
 
@@ -292,6 +299,7 @@ body:       |
   </div>
 
   [iterative development]: https://en.wikipedia.org/wiki/Iterative_and_incremental_development
+  [unit test]: https://en.wikipedia.org/wiki/Unit_testing
   [unit tests]: https://en.wikipedia.org/wiki/Unit_testing
 
   ## Activity 2: Cups (2 Points)
@@ -407,6 +415,13 @@ body:       |
       :::bash
       # Run unit tests
       $ ./cups_test.py -v
+      ...
+
+  To run a specific [unit test], you can specify the **method name**:
+
+      :::bash
+      # Run only fill_cups unit test
+      $ ./cups_test.py -v CupsTest.test_01_fill_cups
       ...
 
   ## Activity 3: Spell Check (5 Points)
@@ -559,6 +574,13 @@ body:       |
       :::bash
       # Run unit tests
       $ ./spell_check_test.py -v
+      ...
+
+  To run a specific [unit test], you can specify the **method name**:
+
+      :::bash
+      # Run only WordList unit test
+      $ ./spell_check_test.py -v SpellCheckTest.test_01_word_list
       ...
 
   ## Activity 4: Quiz (2 Points)
