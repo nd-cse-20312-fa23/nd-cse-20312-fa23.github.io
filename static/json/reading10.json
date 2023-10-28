@@ -1,0 +1,69 @@
+{
+    "q1": {
+        "type": "blank",
+        "question": "\n<p>Given the following function, <tt>odds</tt>, which converts a\n<tt>list</tt> of <tt>strings</tt> into a <tt>list</tt> of only <b>odd\nintegers</b>:\n\n<pre>\ndef odds(strings: list[str]) -> list[int]:\n    numbers = []\n    for string in strings:\n        number = int(string)\n        if number % 2:\n            numbers.append(number)\n    return numbers\n</pre>\n\n<p>Write a new function <tt>odds_lc</tt> that accomplishes the same task\nusing a <b>list comprehension</b>:</p>\n\n<pre>\ndef odds_lc(strings: list[str]) -> list[int]:\n    return [____ for string in ____ if ____]\n</pre>\n"
+    },
+    "q2": {
+        "type": "blank",
+        "question": "\n<p>Given the following function, <tt>odds</tt>, above, write a new function\n<tt>odds_gr</tt> that accomplishes the same task as a <b>generator</b>\nfunction:</p>\n\n<pre>\ndef odds_gr(strings: list[str]) -> ____[int]: # 1.\n    for string in ____:                       # 2.\n        number = ____                         # 3.\n        if ____:                              # 4.\n            ____ number                       # 5.\n</pre>\n"
+    },
+    "q3": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the different <tt>odds</tt>\nfunctions are true (select all that apply)?</p>\n",
+        "responses": {
+            "odds_more_memory_gr": "When <tt>strings</tt> is large, <tt>odds</tt> will use a lot more memory than <tt>odds_gr</tt>.",
+            "odds_lc_more_memory_gr": "When <tt>strings</tt> is large, <tt>odds_lc</tt> will use a lot more memory than <tt>odds_gr</tt>.",
+            "odds_more_memory_lc": "When <tt>strings</tt> is large, <tt>odds</tt> will use a lot more memory than <tt>odds_lc</tt>.",
+            "odds_gr_more_memory_lc": "When <tt>strings</tt> is large, <tt>odds_gr</tt> will use more memory than <tt>odds_lc</tt>."
+        }
+    },
+    "q4": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding <b>binary heaps</b> are true\n(select all that apply)?</p>\n",
+        "responses": {
+            "array": "<b>Binary heaps</b> are usually represented using an <b>array</b>.",
+            "nodes": "<b>Binary heaps</b> are usually represented using <b>linked nodes</b>.",
+            "full": "<b>Binary heaps</b> must be <b>full</b> trees.",
+            "complete": "<b>Binary heaps</b> must be <b>complete</b> trees.",
+            "root": "The <b>root</b> of a <b>binary heap</b> is always the <b>smallest</b> or <b>largest</b> value in the <b>tree</b>.",
+            "middle": "The <b>root</b> of a <b>binary heap</b> is always the <b>middle</b> value in the <b>tree</b>.",
+            "avg_add_logn": "In the <b>average case</b>, adding a new value to a <b>binary heap</b> is an <b>O(logn)</b> operation.",
+            "avg_add_n": "In the <b>average case</b>, adding a new value to a <b>binary heap</b> is an <b>O(n)</b> operation.",
+            "worst_add_logn": "In the <b>worst case</b>, adding a new value to a <b>binary heap</b> is an <b>O(logn)</b> operation.",
+            "worst_add_n": "In the <b>worst case</b>, adding a new value to a <b>binary heap</b> is an <b>O(n)</b> operation."
+        }
+    },
+    "q5": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following <b>binary trees</b> are <b>binary heaps</b>\n(select all that apply)?</p>\n\n<div class=\"thumbnail text-center\">\n  <img src=\"static/img/reading10-binary-heaps.png\" class=\"img-responsive\">\n</div>\n",
+        "responses": {
+            "a": "A",
+            "b": "B",
+            "c": "C"
+        }
+    },
+    "q6": {
+        "type": "multiple",
+        "question": "\n<p>Suppose we use the following <b>binary heap</b> to implement a\n<b>priority queue</b> and then perform a <tt>pop()</tt> operation to remove\nthe <b>largest</b> value.  Which of the following statements are true\n(select all that apply)?</p>\n\n<div class=\"thumbnail text-center\">\n  <img src=\"static/img/reading10-binary-heap.png\" class=\"img-responsive\">\n</div>\n",
+        "responses": {
+            "root_5": "After the <tt>pop()</tt>, the <b>root</b> is <tt>5</tt>.",
+            "root_4": "After the <tt>pop()</tt>, the <b>root</b> is <tt>4</tt>.",
+            "children_34": "After the <tt>pop()</tt>, the <b>children</b> of the <b>root</b> are <tt>3</tt> and <tt>4</tt>.",
+            "children_23": "After the <tt>pop()</tt>, the <b>children</b> of the <b>root</b> are <tt>2</tt> and <tt>3</tt>."
+        }
+    },
+    "q7": {
+        "type": "multiple",
+        "question": "\n<p>Suppose we use the following <b>binary heap</b> to implement a\n<b>priority queue</b> and then perform a <tt>push(6)</tt> to add a new\nvalue.  Which of the following statements are true (select all that\napply)?</p>\n\n<div class=\"thumbnail text-center\">\n  <img src=\"static/img/reading10-binary-heap.png\" class=\"img-responsive\">\n</div>\n",
+        "responses": {
+            "root_7": "After the <tt>push(6)</tt>, the <b>root</b> is <tt>7</tt>.",
+            "root_6": "After the <tt>push(6)</tt>, the <b>root</b> is <tt>6</tt>.",
+            "children_54": "After the <tt>push()</tt>, the <b>children</b> of the <b>root</b> are <tt>5</tt> and <tt>4</tt>.",
+            "children_56": "After the <tt>push()</tt>, the <b>children</b> of the <b>root</b> are <tt>5</tt> and <tt>6</tt>."
+        }
+    },
+    "q8": {
+        "type": "blank",
+        "question": "\n<p>Using Python's <tt>heapq</tt> library, complete the following implementation of <tt>heap_sort</tt>:</p>\n\n<pre>\nimport heapq\n\ndef heap_sort(sequence):\n    heap = ____\n    for item in ____:\n        ____(heap, item)\n    return [____(heap) for _ in range(len(heap))]\n</pre>\n"
+    }
+}

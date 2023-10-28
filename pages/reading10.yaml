@@ -1,0 +1,99 @@
+title:      "Reading 10: Binary Heaps, Priority Queues"
+icon:       fa-book
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  **Everyone**:
+
+  Next week, we will build on our discussion of [binary trees] and explore
+  [binary heaps], which are typically use to construct [priority queues].
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-search"></i> TL;DR
+
+  The focus of this reading is [binary heaps] and [priority queues].
+
+  </div>
+
+  [Python]: https://www.python.org/
+  [binary trees]: https://en.wikipedia.org/wiki/Binary_tree
+  [binary heaps]: https://en.wikipedia.org/wiki/Binary_heap
+  [priority queues]: https://en.wikipedia.org/wiki/Priority_queue
+
+  <img src="static/img/reading10-binary-heap.png" class="pull-right img-responsive">
+
+  ## Readings
+
+  The readings for this week are:
+
+  1. [Data Structures Handbook](https://www.thedshandbook.com/)
+
+      - <p>[Heaps](https://www.thedshandbook.com/heaps/)</p>
+
+  2. [Learn DS & Algorithms](https://www.programiz.com/dsa)
+
+      - [Heap Data Structure](https://www.programiz.com/dsa/heap-data-structure)
+      - <p>[Priority Queue](https://www.programiz.com/dsa/priority-queue)</p>
+
+  3. [heapq](https://docs.python.org/3/library/heapq.html)
+
+  ## Quiz
+
+  Once you have completed the readings, answer the following [Reading 10 Quiz]
+  questions:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/reading10.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  ## Submission
+
+  To submit your work, follow the same process outlined in [Reading 01]:
+
+      :::bash
+      $ git checkout master                 # Make sure we are in master branch
+      $ git pull --rebase                   # Make sure we are up-to-date with GitHub
+
+      $ git checkout -b reading10           # Create reading10 branch and check it out
+
+      $ cd reading10                        # Go into reading10 folder
+      $ $EDITOR answers.json                # Edit your answers.json file
+
+      $ ../.scripts/check.py                # Check reading10 quiz
+      Checking reading10 quiz ...
+            Q1 0.30
+            Q2 0.50
+         Score 3.00 / 3.00
+        Status Success
+
+      $ git add answers.json                # Add answers.json to staging area
+      $ git commit -m "Reading 10: Done"    # Commit work
+
+      $ git push -u origin reading10        # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Once you have committed your work and pushed it to [GitHub], remember to
+  create a **pull request** and assign it to the appropriate **teaching
+  assistant** from the [Reading 10 TA List].
+
+  </div>
+
+  [Git]:                https://git-scm.com/
+  [GitHub]:             https://github.com/
+  [Reading 01]:         reading01.html
+  [Reading 10 Quiz]:    static/json/reading10.json
+  [Reading 10 TA List]: reading10_tas.html
