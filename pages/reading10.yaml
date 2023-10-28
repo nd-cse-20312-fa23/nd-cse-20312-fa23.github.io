@@ -75,6 +75,12 @@ body:       |
       Checking reading10 quiz ...
             Q1 0.30
             Q2 0.50
+            Q3 0.20
+            Q4 1.00
+            Q5 0.20
+            Q6 0.20
+            Q7 0.20
+            Q8 0.40
          Score 3.00 / 3.00
         Status Success
 
