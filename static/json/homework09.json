@@ -1,0 +1,57 @@
+{
+    "q1": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the functions in <tt>tree.py</tt> are true (select all that apply)?</p>\n",
+        "responses": {
+            "tree_read_logn": "<tt>tree_read</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>.",
+            "tree_read_n": "<tt>tree_read</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "tree_values_logn": "<tt>tree_values</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>.",
+            "tree_values_n": "<tt>tree_values</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "tree_array_logn": "<tt>tree_array</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>.",
+            "tree_array_n": "<tt>tree_array</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>."
+        }
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the functions in <tt>invert.py</tt> are true (select all that apply)?</p>\n",
+        "responses": {
+            "tree_invert_logn": "<tt>tree_invert</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>.",
+            "tree_invert_n": "<tt>tree_invert</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>."
+        }
+    },
+    "q3": {
+        "type": "blank",
+        "question": "\n<p>Use your <tt>invert.py</tt> script to answer the following questions:</p>\n\n<ol>\n  <li>What is the result of inverting <tt>9 2 8 6 7</tt>? ____</li>\n  <li>What is the result of inverting <tt>6 3 1 1 4 6 7</tt>? ____</li>\n</ol>\n"
+    },
+    "q4": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the functions in <tt>balanced.py</tt> are true (select all that apply)?</p>\n",
+        "responses": {
+            "is_balanced_logn": "<tt>is_balanced</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>.",
+            "is_balanced_n": "<tt>is_balanced</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>."
+        }
+    },
+    "q5": {
+        "type": "multiple",
+        "question": "\n<p>Use your <tt>balanced.py</tt> script to determine which of the following\ntrees are balanced (select all that apply)?</p>\n",
+        "responses": {
+            "a": "<tt>9 2 8 6 7</tt>",
+            "b": "<tt>5 4 1 3 0 0 2 7</tt>",
+            "c": "<tt>9 1 2 0 4</tt>",
+            "d": "<tt>9 8 0 0 7</tt>",
+            "e": "<tt>1 2 3 4 5 6 0 7 8 0 9 0</tt>"
+        }
+    },
+    "q6": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the functions in <tt>paths.py</tt> are true (select all that apply)?</p>\n",
+        "responses": {
+            "tree_paths_logn": "<tt>tree_paths</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>.",
+            "tree_paths_n": "<tt>tree_paths</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>."
+        }
+    },
+    "q7": {
+        "type": "blank",
+        "question": "\n<p>Use your <tt>balanced.py</tt> script to determine which of the following\ntrees are balanced (select all that apply)?</p>\n\n<ol>\n  <li>How many paths are in <tt>9 2 8 6 7</tt>? ____</li>\n  <li>What is the last path in <tt>6 3 1 1 4 6 7</tt>? ____</li>\n</ol>\n"
+    }
+}
