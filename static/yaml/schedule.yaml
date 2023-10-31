@@ -288,6 +288,9 @@
       - date:           Mon 11/06
         topics:         Binary Heaps
         assignment:     Reading 10
+        items:
+          - name:       Slides 28
+            link:       https://docs.google.com/presentation/d/1tStdKPrdS03waO7g_BA_v5oUT-pZo-GlZ_SnPUhtf40/edit?usp=sharing
 
       - date:           Wed 11/08
         topics:         Priority Queues
