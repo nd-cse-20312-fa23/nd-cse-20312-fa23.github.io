@@ -383,7 +383,7 @@ body:       |
 
       :::bash
       # Run doctests
-      $ python3 -m doctest cup.py -v
+      $ python3 -m doctest cups.py -v
       ...
       2 items passed all tests:
          3 tests in cups.fill_cups
