@@ -276,6 +276,8 @@
         items:
           - name:       Slides 26
             link:       https://docs.google.com/presentation/d/1ckuHHlXa9UG0tzQFs7oKbh2Aqk9SuQnLdRFVpii29Jg/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=77842a9d-9140-4f7d-b273-b0ad0105999d
 
       - date:           Fri 11/03
         topics:         Comprehensions, Generators
