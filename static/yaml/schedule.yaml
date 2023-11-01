@@ -298,6 +298,9 @@
         topics:         Priority Queues
         assignment:     Homework 09
         idea:           Representation, Traversal, Binary Christmas Trees
+        items:
+          - name:       Slides 29
+            link:       https://docs.google.com/presentation/d/1d8bK6jl26cYf7jEw4KLcBVaX17YJ-A3lb2RF-cq38AU/edit?usp=sharing
 
       - date:           Fri 11/10
         topics:         Compression
