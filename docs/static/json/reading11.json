@@ -1,0 +1,75 @@
+{
+    "q1": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following <b>binary trees</b> are <b>binary search\ntrees</b> (select all that apply)?</p>\n\n<div class=\"thumbnail text-center\">\n  <img src=\"static/img/reading11-binary-search-trees.png\" class=\"img-responsive\">\n</div>\n",
+        "responses": {
+            "a": "A",
+            "b": "B",
+            "c": "C"
+        }
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding <b>binary search trees</b>\nare true (select all that apply)?\n",
+        "responses": {
+            "bst_array": "<b>Binary search trees</b> are usually represented using an <b>array</b>.",
+            "bst_nodes": "<b>Binary search trees</b> are usually represented using <b>linked nodes</b>.",
+            "bst_full": "<b>Binary search tree</b>s must be <b>full</b> trees.",
+            "bst_complete": "<b>Binary search tree</b>s must be <b>complete</b> trees.",
+            "bst_root": "The <b>root</b> of a <b>binary search tree</b> is always the <b>smallest or largest</b> value in the <b>tree</b>.",
+            "bst_middle": "The <b>root</b> of a <b>binary search tree</b> is always a <b>middle</b> value in the <b>tree</b>.",
+            "bst_avg_logn": "In the <b>average</b> case, adding a new value to a <b>binary search tree</b> is an <tt>O(logn)</tt> operation.",
+            "bst_avg_n": "In the <b>average</b> case, adding a new value to a <b>binary search tree</b> is an <tt>O(n)</tt> operation.",
+            "bst_worst_logn": "In the <b>worst</b> case, adding a new value to a <b>binary search tree</b> is an <tt>O(logn)</tt> operation.",
+            "bst_worst_n": "In the <b>worst</b> case, adding a new value to a <b>binary search tree</b> is an <tt>O(n)</tt> operation."
+        }
+    },
+    "q3": {
+        "type": "blank",
+        "question": "\n<p>Given the following <tt>Node</tt> class:</p>\n\n<pre>\n@dataclass\nclass Node:\n    value:  int\n    left:   Optional['Node'] = None\n    right:  Optional['Node'] = None\n</pre>\n\n<p>Complete the following <b>recursive</b> implementation of <b>bst_search</b>:</p>\n\n<pre>\ndef bst_search(root: Optional[Node], value: int) -> bool:\n    if root is ____:  return False  # Base case: Invalid Node\n\n    if value == ____: return True   # Base case: Found Node\n\n    if ____:                        # Recursive: Search left\n        return ____\n    else:                           # Recursive: Search right\n        return ____\n</pre>\n"
+    },
+    "q4": {
+        "type": "multiple",
+        "question": "\n<p>Suppose we have the following <b>binary search tree</b> and we insert a\nnew <tt>Node</tt> with the value <tt>6</tt>. Which of the following\nstatements are true (select all that apply)?</p>\n\n<div class=\"thumbnail text-center\">\n  <img src=\"static/img/reading11-binary-search-tree.png\" class=\"img-responsive\">\n</div>\n",
+        "responses": {
+            "root_5": "After the <tt>insert()</tt>, the <b>root</b> is <tt>5</tt>.",
+            "root_6": "After the <tt>insert()</tt>, the <b>root</b> is <tt>6</tt>.",
+            "parent_3": "After the <tt>insert()</tt>, the <b>parent</b> of the new <b>Node</b> is <tt>3</tt>.",
+            "parent_7": "After the <tt>insert()</tt>, the <b>parent</b> of the new <b>Node</b> is <tt>7</tt>."
+        }
+    },
+    "q5": {
+        "type": "single",
+        "question": "\n<p>Both <b>treaps</b> and <b>red-black trees</b> require <b>rotations</b>\nto balance the <b>binary search tree</b>.  Given the <b>binary search\ntree</b> below, what would it look like after a <b>left rotation around the\nroot.</p>\n\n<div class=\"thumbnail text-center\">\n  <img src=\"static/img/reading11-rotate-left.png\" class=\"img-responsive\">\n</div>\n",
+        "responses": {
+            "a": "A",
+            "b": "B",
+            "c": "C",
+            "d": "D"
+        }
+    },
+    "q6": {
+        "type": "single",
+        "question": "\n<p>Both <b>treaps</b> and <b>red-black trees</b> require <b>rotations</b>\nto balance the <b>binary search tree</b>.  Given the <b>binary search\ntree</b> below, what would it look like after a <b>right rotation around\nthe root.</p>\n\n<div class=\"thumbnail text-center\">\n  <img src=\"static/img/reading11-rotate-right.png\" class=\"img-responsive\">\n</div>\n",
+        "responses": {
+            "a": "A",
+            "b": "B",
+            "c": "C",
+            "d": "D"
+        }
+    },
+    "q7": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding <b>treaps</b> and\n<b>red-black trees</b> are true (select all that apply)?</p>\n",
+        "responses": {
+            "treap_insert_avg": "On <b>average</b>, insertion into a <b>treap</b> is <tt>O(log(n))</tt>.",
+            "rbtree_insert_avg": "On <b>average</b>, insertion into a <b>red-black tree</b> is <tt>O(log(n))</tt>.",
+            "treap_insert_worst": "In the <b>worst case</b>, insertion into a <b>treap</b> is <tt>O(log(n))</tt>.",
+            "rbtree_insert_worst": "In the <b>worst case</b>, insertion into a <b>red-black tree</b> is <tt>O(log(n))</tt>.",
+            "treap_rotations": "<b>Treaps</b> use <b>rotations</b> to balance the <b>binary search tree</b>.",
+            "rbtree_rotations": "<b>Red-black trees</b> use <b>rotations</b> to balance the <b>binary search tree</b>.",
+            "treap_hybrid": "<b>Treaps</b> are a <b>hybrid</b> data structure that combine <b>binary heaps</b> and <b>binary search trees</b>.",
+            "rbtree_hybrid": "<b>Red-black trees</b> are a <b>hybrid</b> data structure that combine <b>binary heaps</b> and <b>binary search trees</b>."
+        }
+    }
+}

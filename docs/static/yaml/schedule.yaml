@@ -284,6 +284,8 @@
         items:
           - name:       Slides 27
             link:       https://docs.google.com/presentation/d/1WNtoSb9x9HrYU2cyxHPcwuXBoSRn6BqnE0vcivM2QwE/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=31cba182-0dee-4132-99b1-b0af01035b0a
 
 - name:     Binary Heaps, Priority Queues
   days:
@@ -298,6 +300,9 @@
         topics:         Priority Queues
         assignment:     Homework 09
         idea:           Representation, Traversal, Binary Christmas Trees
+        items:
+          - name:       Slides 29
+            link:       https://docs.google.com/presentation/d/1d8bK6jl26cYf7jEw4KLcBVaX17YJ-A3lb2RF-cq38AU/edit?usp=sharing
 
       - date:           Fri 11/10
         topics:         Compression
