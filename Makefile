@@ -19,6 +19,9 @@ build:		$(HTML)
 install:	build
 	lftp -c "open www3ftps.nd.edu; mirror -n -e -R -L $(WWWROOT) www/teaching/$(COURSE)"
 
+install-json:	build
+	lftp -c "open www3ftps.nd.edu; mirror -n -e -R -L $(WWWROOT)/static/json www/teaching/$(COURSE)/static/json"
+
 push:
 	git checkout docs && git pull --rebase && git push
 
