@@ -284,6 +284,8 @@
         items:
           - name:       Slides 27
             link:       https://docs.google.com/presentation/d/1WNtoSb9x9HrYU2cyxHPcwuXBoSRn6BqnE0vcivM2QwE/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=31cba182-0dee-4132-99b1-b0af01035b0a
 
 - name:     Binary Heaps, Priority Queues
   days:
