@@ -1,0 +1,109 @@
+title:      "Reading 11: Binary Search Trees"
+icon:       fa-book
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  **Everyone**:
+
+  Next week, we will continue to build on our discussion of [binary trees] and
+  explore [binary search trees] and their **self-balancing** variants: [treaps] and
+  [red-black trees].
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-search"></i> TL;DR
+
+  The focus of this reading is [binary search trees], [treaps], and [red-black-trees].
+
+  </div>
+
+  [Python]: https://www.python.org/
+  [binary trees]: https://en.wikipedia.org/wiki/Binary_tree
+  [binary search trees]: https://en.wikipedia.org/wiki/Binary_search_tree
+  [treaps]: https://en.wikipedia.org/wiki/Treap
+  [red-black trees]: https://en.wikipedia.org/wiki/Red%E2%80%93black_tree
+
+  <img src="static/img/reading11-binary-search-tree.png" class="pull-right img-responsive">
+
+  ## Readings
+
+  The readings for this week are:
+
+  1. [Data Structures Handbook](https://www.thedshandbook.com/)
+
+      - <p>[Binary Search Trees](https://www.thedshandbook.com/binary-search-trees/)
+
+  2. [Learn DS & Algorithms](https://www.programiz.com/dsa)
+
+      - [Binary Search Tree](https://www.programiz.com/dsa/binary-search-tree)
+      - [Balanced Binary Tree](https://www.programiz.com/dsa/balanced-binary-tree)
+      - <p>[Red-Black Tree](https://www.programiz.com/dsa/red-black-tree)</p>
+
+  3. [Open Data Structures](https://opendatastructures.org/)
+
+      - <p>[Treap: A Randomized Binary Search Tree](https://opendatastructures.org/ods-python/7_2_Treap_Randomized_Binary.html)</p>
+
+  ## Quiz
+
+  Once you have completed the readings, answer the following [Reading 11 Quiz]
+  questions:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/reading11.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  ## Submission
+
+  To submit your work, follow the same process outlined in [Reading 01]:
+
+      :::bash
+      $ git checkout master                 # Make sure we are in master branch
+      $ git pull --rebase                   # Make sure we are up-to-date with GitHub
+
+      $ git checkout -b reading11           # Create reading11 branch and check it out
+
+      $ cd reading11                        # Go into reading11 folder
+      $ $EDITOR answers.json                # Edit your answers.json file
+
+      $ ../.scripts/check.py                # Check reading11 quiz
+      Checking reading11 quiz ...
+            Q1 0.40
+            Q2 0.80
+            Q3 0.50
+            Q4 0.20
+            Q5 0.20
+            Q6 0.20
+            Q7 0.70
+         Score 3.00 / 3.00
+        Status Success
+
+      $ git add answers.json                # Add answers.json to staging area
+      $ git commit -m "Reading 11: Done"    # Commit work
+
+      $ git push -u origin reading11        # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Once you have committed your work and pushed it to [GitHub], remember to
+  create a **pull request** and assign it to the appropriate **teaching
+  assistant** from the [Reading 11 TA List].
+
+  </div>
+
+  [Git]:                https://git-scm.com/
+  [GitHub]:             https://github.com/
+  [Reading 01]:         reading01.html
+  [Reading 11 Quiz]:    static/json/reading11.json
+  [Reading 11 TA List]: reading11_tas.html
