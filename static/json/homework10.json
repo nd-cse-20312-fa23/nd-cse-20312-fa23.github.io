@@ -1,0 +1,41 @@
+{
+    "q1": {
+        "type": "blank",
+        "question": "\n<p>Using the <tt>Node</tt> class from <tt>node.py</tt>, evaluate the\nfollowing <b>expressions</b>:</p>\n\n<ol>\n  <li><tt>Node('H', 42) &lt; Node('LL', 24)</tt>: ____</li>\n  <li><tt>Node('H', 24) &lt; Node('LL', 24)</tt>: ____</li>\n</ol>\n"
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time and space\ncomplexities</b> of the <tt>walk</tt> function in <tt>node.py</tt> are true\n(select all that apply)?</p>\n",
+        "responses": {
+            "time_avg_logn": "The <b>average time complexity</b> of <tt>walk</tt> is <tt>O(logn)</tt>.",
+            "time_avg_n": "The <b>average time complexity</b> of <tt>walk</tt> is <tt>O(n)</tt>.",
+            "space_avg_logn": "The <b>average space complexity</b> of <tt>walk</tt> is <tt>O(logn)</tt>.",
+            "space_avg_n": "The <b>average space complexity</b> of <tt>walk</tt> is <tt>O(n)</tt>."
+        }
+    },
+    "q3": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <tt>PriorityQueue</tt> methods in <tt>priority_queue.py</tt> are\ntrue (select all that apply)?</p>\n",
+        "responses": {
+            "bubble_up_1": "The <b>average time complexity</b> of <tt>PriorityQueue._bubble_up</tt> is <tt>O(1)</tt>.",
+            "bubble_up_logn": "The <b>average time complexity</b> of <tt>PriorityQueue._bubble_up</tt> is <tt>O(logn)</tt>.",
+            "bubble_up_n": "The <b>average time complexity</b> of <tt>PriorityQueue._bubble_up</tt> is <tt>O(n)</tt>.",
+            "push_1": "The <b>average time complexity</b> of <tt>PriorityQueue._push</tt> is <tt>O(1)</tt>.",
+            "push_logn": "The <b>average time complexity</b> of <tt>PriorityQueue._push</tt> is <tt>O(logn)</tt>.",
+            "push_n": "The <b>average time complexity</b> of <tt>PriorityQueue._push</tt> is <tt>O(n)</tt>.",
+            "find_smallest_child_1": "The <b>average time complexity</b> of <tt>PriorityQueue._find_smallest_child</tt> is <tt>O(1)</tt>.",
+            "find_smallest_child_logn": "The <b>average time complexity</b> of <tt>PriorityQueue._find_smallest_child</tt> is <tt>O(logn)</tt>.",
+            "find_smallest_child_n": "The <b>average time complexity</b> of <tt>PriorityQueue._find_smallest_child</tt> is <tt>O(n)</tt>.",
+            "bubble_down_1": "The <b>average time complexity</b> of <tt>PriorityQueue._bubble_down</tt> is <tt>O(1)</tt>.",
+            "bubble_down_logn": "The <b>average time complexity</b> of <tt>PriorityQueue._bubble_down</tt> is <tt>O(logn)</tt>.",
+            "bubble_down_n": "The <b>average time complexity</b> of <tt>PriorityQueue._bubble_down</tt> is <tt>O(n)</tt>.",
+            "pop_1": "The <b>average time complexity</b> of <tt>PriorityQueue._pop</tt> is <tt>O(1)</tt>.",
+            "pop_logn": "The <b>average time complexity</b> of <tt>PriorityQueue._pop</tt> is <tt>O(logn)</tt>.",
+            "pop_n": "The <b>average time complexity</b> of <tt>PriorityQueue._pop</tt> is <tt>O(n)</tt>."
+        }
+    },
+    "q4": {
+        "type": "blank",
+        "question": "\n<p>Download <b>Walden (205.txt)</b>:</p>\n\n<pre>\n# Download Walden\n$ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/txt/205.txt\n</pre>\n\n<p>Use your <tt>huffman.py</tt> script on this file to answer the following questions:</p>\n\n<ol>\n  <li>What is the most frequently used <b>symbol</b>? ____</li>\n  <li>What is the <b>encoding</b> for <tt>W</tt>? ____</li>\n  <li>What is the <b>compression ratio</b>? ____</li>\n</ol>\n"
+    }
+}

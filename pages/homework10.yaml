@@ -1,0 +1,843 @@
+title:      "Homework 10: Binary Heaps, Huffman Coding"
+icon:       fa-code
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  The goal of this homework assignment is to allow you to explore building
+  [priority queues] in [Python] using [binary heaps] and then employ these
+  [data structures] in implementing a script that computes the [Huffman coding]
+  for a stream of text.  This **encoding** is a mapping from each character in
+  the input stream to a unique **bit sequence** or [prefix code], which unlike
+  say [ASCII] is **variable-length** rather than **fixed size**. The purpose of
+  the [Huffman coding] is to utilize a [greedy algorithm] to produce an
+  **encoding** that uses less space (ie. fewer bits) than the fixed-size [ASCII]
+  encoding as show below:
+
+  <div class="thumbnail text-center">
+    <img src="static/img/homework10-huffman-coding.png" class="img-responsive">
+  </div>
+
+  In the example above, our input sequence is: `BACABA`, which in [ASCII] would
+  consist of a total of `48` bits (e.g. `6` bytes):
+
+      :::bash
+      010000100100000101000011010000010100001001000001  # ASCII Representation
+
+  To generate a more **compressed** version of this text, we would need to
+  construct a [Huffman coding] by performing the following process:
+
+  1. **Compute Frequencies**: First, read in the input stream and count the
+    occurrences of each **symbol** (ie. character) to create a **frequency
+    table**.
+
+  2. **Populate Priority Queue**: Next, represent each **symbol** and **count**
+    pair as a [node] and push them into a [priority queue].
+
+  3. **Build Tree**: Afterwards, construct the **Huffman tree** by doing the
+  following:
+
+          :::python
+          while len(queue) > 1:
+              # Pop nodes with smallest counts from priority queue
+              left  = queue.pop()
+              right = queue.pop()
+
+              # Construct new composite node
+              node  = Node(left.symbol + right.symbol, left.value  + right.value, left, right)
+
+              # Push new composite node into priority queue
+              queue.push(node)
+
+          root = queue.pop()
+
+        Basically, as long there is more than one [node] in the [priority queue],
+        we will pop off the two smallest items, create a new [node] with the
+        combined count of these two [nodes], and insert this new [node] back into
+        the [priority queue]. We repeat this process until there is only one [node]
+        left in the [priority queue], which we then set as the **root** of our
+        **Huffman tree**.
+
+        By constantly grouping nodes with the smallest counts, we use a
+        [greedy] problem solving approach in order to maximize the path from
+        the **root** to the [nodes] with the lowest occurrences (and thus
+        minimize the path from the **root** to the [nodes] with the highest
+        occurrences).
+
+  4. **Walk Tree**: Finally, to produce the [Huffman coding], **walk** (ie.
+    *recursively traverse*) the **Huffman tree** we constructed in the previous
+    step and record the path we took to the **leaf** [nodes] (ie. the original
+    [nodes] from step `2`).  To ensure a consistent [prefix code], we can use
+    the convention where the **left** child gets a `0` and the **right** child
+    gets a `1` when we take the path from **parent** to **child**.  In
+    the example, above, using this traversal mechanism yields the
+    following **encoding**:
+
+      <table class="table table-bordered">
+      <thead>
+        <th>Symbol</th>
+        <th>Count</th>
+        <th>Encoding</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A</td>
+          <td><tt>3</tt></td>
+          <td><tt>0</tt></td>
+        </tr>
+        <tr>
+          <td>B</td>
+          <td><tt>2</tt></td>
+          <td><tt>11</tt></td>
+        </tr>
+        <tr>
+          <td>C</td>
+          <td><tt>1</tt></td>
+          <td><tt>10</tt></td>
+        </tr>
+      </tbody>
+      </table>
+
+  Using this new [Huffman coding], our original text, `BACABA`, can be encoded as
+  follows:
+
+      :::bash
+      110100110     # Huffman Encoding
+
+  This means the [Huffman coding] was about to compress down to about `20%` of
+  the original [ASCII] representation. This is the reason why many real-world
+  data compression schemes such as [PKZIP], [JPEG], and [MP3] use elements of
+  the [Huffman coding] technique to achieve smaller file sizes for different
+  types of data.
+
+  To keep things manageable (*and to respect your time*), we will only worry
+  about the construction of the [Huffman coding] in this assignment and leave
+  out the actual compression and decompressing process (*though you are free to
+  implement that on your own!*).
+
+  For this assignment, you are to do your work in the `homework10` folder of
+  your **assignments** [GitHub] repository and push your work by **noon,
+  Wednesday, November 15**.
+
+  [data structures]: https://en.wikipedia.org/wiki/Data_structure
+  [Python]: https://www.python.org/
+  [priority queue]: https://en.wikipedia.org/wiki/Priority_queue
+  [priority queues]: https://en.wikipedia.org/wiki/Priority_queue
+  [binary heap]: https://en.wikipedia.org/wiki/Heap_(data_structure)
+  [binary heaps]: https://en.wikipedia.org/wiki/Heap_(data_structure)
+  [huffman coding]: https://en.wikipedia.org/wiki/Huffman_coding
+  [huffman code]: https://en.wikipedia.org/wiki/Huffman_coding
+  [huffman codes]: https://en.wikipedia.org/wiki/Huffman_coding
+  [divide-and-conquer]: https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm
+  [prefix code]: https://en.wikipedia.org/wiki/Prefix_code
+  [ASCII]: https://en.wikipedia.org/wiki/ASCII
+  [greedy algorithm]: https://en.wikipedia.org/wiki/Greedy_algorithm
+  [greedy]: https://en.wikipedia.org/wiki/Greedy_algorithm
+  [node]: https://en.wikipedia.org/wiki/Node_(computer_science)
+  [nodes]: https://en.wikipedia.org/wiki/Node_(computer_science)
+  [PKZIP]: https://en.wikipedia.org/wiki/PKZIP
+  [JPEG]: https://en.wikipedia.org/wiki/JPEG
+  [MP3]: https://en.wikipedia.org/wiki/MP3
+
+  ## Activity 0: Preparation
+
+  Before starting this homework assignment, you should first perform a `git
+  pull` to retrieve any changes in your remote [GitHub] repository:
+
+      :::bash
+      $ cd path/to/repository                   # Go to assignments repository
+
+      $ git switch master                       # Make sure we are in master branch
+
+      $ git pull --rebase                       # Get any remote changes not present locally
+
+  Next, create a new branch for this assignment:
+
+      :::bash
+      $ git checkout -b homework10              # Create homework10 branch and check it out
+
+  ### Task 1: Skeleton Code
+
+  To help you get started, the instructor has provided you with the following [skeleton code]:
+
+      :::bash
+      # Go to assignments repository
+      $ cd path/to/assignments/repository
+
+      # -----------------------------------------------------
+      # MAKE SURE YOU ARE NOT INSIDE THE homework10 DIRECTORY
+      # -----------------------------------------------------
+      # MAKE SURE YOU ARE AT THE TOP-LEVEL DIRECTORY
+      # -----------------------------------------------------
+
+      # Download skeleton code tarball
+      $ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework10.tar.gz
+
+      # Extract skeleton code tarball
+      $ tar xzvf homework10.tar.gz
+
+  Once downloaded and extracted, you should see the following files in your
+  `homework10` directory:
+
+      :::bash
+      homework10
+          \_ Makefile           # This is the Makefile for building all the assignment artifacts
+          \_ huffman.py         # This is the Python script for the Huffman coding script
+          \_ node.py            # This is the Python module for the Node class and functions
+          \_ priority_queue.py  # This is the Python module for the Priority Queue class and functions
+
+  [skeleton code]: https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework10.tar.gz
+
+  ### Task 2: Initial Import
+
+  Now that the files are extracted into the `homework10` folder, you can
+  **commit** them to your [git] repository:
+
+      :::bash
+      # Go into homework10 folder
+      $ cd homework10
+
+      # Add and commit initial skeleton files
+      $ git add Makefile                            # Mark changes for commit
+      $ git add *.py
+      $ git commit -m "Homework 10: Initial Import" # Record changes
+
+  ### Task 3: Unit Tests
+
+  After downloading and extracting these files, you can run the `make` command
+  to run the tests.
+
+      :::bash
+      # Run all tests (will trigger automatic download)
+      $ make
+
+  You will notice that the `Makefile` downloads three additional test scripts:
+
+      :::bash
+      homework10
+        \_ huffman_test.py        # This is the Python unit test for the Huffman script
+        \_ node_test.py           # This is the Python unit test for the Node module
+        \_ priority_queue_test.py # This is the Python unit test for the Priority Queue module
+
+  In addition to the embedded [doctests] in the [skeleton code], you will be
+  using these [unit tests] to verify the correctness and behavior of your code.
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-download"></i> Automatic Downloads
+
+  The `test` scripts are automatically downloaded by the `Makefile`, so any
+  modifications you do to them will be lost when you run `make` again.
+  Likewise, because they are automatically downloaded, you do not need to `add`
+  or `commit` them to your [git] repository.
+
+  </div>
+
+  The details on what you need to implement for this assignment are described
+  in the following sections.
+
+  [doctests]: https://docs.python.org/3/library/doctest.html
+
+  ## Activity 1: Node (2 Points)
+
+  For the first activity, you are to extend and augment our usual `Node` [dataclass]:
+
+      :::python
+      @dataclass
+      class Node:
+          symbol: str
+          value:  int = 0
+          left:   Optional['Node'] = None
+          right:  Optional['Node'] = None
+
+  In particular, you will need to implement the `__gt__` **magic method** to
+  allow comparing two `Node` objects and you will need to implement the `walk`
+  function that traverses a **Huffman tree** to construct the [Huffman coding]
+  as described previously.
+
+  <div class="thumbnail text-center">
+    <img src="static/img/homework10-walk.png" class="img-responsive">
+  </div>
+
+  [dataclass]: https://docs.python.org/3/library/dataclasses.html
+
+  ### Task 1: `node.py`
+
+  The `node.py` [Python] script contains the `Node` class you are to augment
+  and the `walk` function you are to complete for this activity:
+
+  1. `Node.__gt__(self, other: 'Node') -> bool`
+
+      > This method determines whether the current `Node` is greater than the
+      `other` specified `Node` (returns `True` if it is greater, `False`
+      otherwise). To do so, the method will first consider the `value`
+      attributes as the higher priority and then consider the **length** of the
+      `symbol` attributes as the lower priority.
+
+  2. `walk(node: Optional[Node], codeword: str='') -> dict`
+
+      > This function *recursively* traverses the [binary tree] starting at
+      `node` and returns a [dict] containing a mapping of **symbols** to
+      [Huffman codes] as shown in the diagram above.
+
+      <div class="alert alert-success" markdown="1">
+      #### <i class="fa fa-lightbulb-o"></i> Hints
+
+      1. When initializing a variable, you can **annotate** its type:
+
+              :::python
+              variable: dict[str, str] = {}
+
+          This will inform static type checkers such as [mypy] of your
+          intentions.
+
+      2. Use [divide-and-conquer] to traverse the [binary tree] and carefully
+      consider your base cases (particularly when you know you have a complete
+      `codeword`).
+
+      3. Remember that the **left** child should add a `0` to its `codeword`
+      and the **right** child should add a `1` to its `codeword`.
+
+      4. Consider using the `|` operator to combine multiple [dict]s.
+
+      </div>
+
+  [binary tree]: https://en.wikipedia.org/wiki/Binary_tree
+  [dict]: https://docs.python.org/3/tutorial/datastructures.html#dictionaries
+  [mypy]: https://mypy-lang.org/
+  [divide-and-conquer]: https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm
+
+  <div class="alert alert-warning" markdown="1">
+  #### <i class="fa fa-warning"></i> DocTests
+
+  You may notice that in addition to the usual comments and <tt>TODOs</tt>, the
+  [docstrings] of each method also contains a few [doctests].
+
+  You are **not** to modify these [doctests] and must keep them in-place.  They
+  are used to verify the correctness of your code.
+
+  Your code goes **below** the [docstrings], where the <tt>TODO</tt> and
+  <tt>pass</tt> commands are (you may remove the <tt>pass</tt> once you
+  complete the method).
+
+  </div>
+
+  [docstrings]: https://peps.python.org/pep-0257/
+
+  ### Task 2: Testing
+
+  As you implement `node.py`, you can use the provided [doctests] to verify the
+  correctness of your code:
+
+      :::bash
+      # Run doctests
+      $ python3 -m doctest node.py -v
+      ...
+      2 items passed all tests:
+         2 tests in node.Node.__gt__
+         2 tests in node.walk
+      4 tests in 7 items.
+      4 passed and 0 failed.
+      Test passed.
+
+  You can also use `make` to run both the [doctests] and the [unit tests]:
+
+      :::bash
+      # Run unit tests (and doctests)
+      $ make test-node
+      Testing node ...
+      test_00_doctest (__main__.NodeTests) ... ok
+      test_01_mypy (__main__.NodeTests) ... ok
+      test_02_comparison (__main__.NodeTests) ... ok
+      test_03_walk (__main__.NodeTests) ... ok
+
+         Score 2.00 / 2.00
+        Status Success
+
+      ----------------------------------------------------------------------
+      Ran 4 tests in 0.048s
+
+      OK
+
+  To just run the [unit tests], you can do the following:
+
+      :::bash
+      # Run unit tests
+      $ ./node_test.py -v
+      ...
+
+  To run a specific [unit test], you can specify the **method name**:
+
+      :::bash
+      # Run only mypy unit test
+      $ ./node_test.py -v NodeTests.test_01_mypy
+      ...
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-repeat"></i> Iterative Development
+
+  You should practice [iterative development]. That is, rather than writing a
+  bunch of code and then debugging it all at once, you should concentrate on
+  one function at a time and then test that **one thing at a time**. The provided
+  [unit tests] allow you to check on the correctness of the individual functions
+  without implementing everything at once. Take advantage of this and build one
+  thing at a time.
+
+  </div>
+
+  [iterative development]: https://en.wikipedia.org/wiki/Iterative_and_incremental_development
+  [unit test]: https://en.wikipedia.org/wiki/Unit_testing
+  [unit tests]: https://en.wikipedia.org/wiki/Unit_testing
+
+  ## Activity 2: Priority Queue (4 Points)
+
+  As described above, to build the **Huffman tree**, you will need to use a
+  [greedy] approach that involves extracting the two `Nodes` with the lowest
+  `values` in order to build a **composite** `Node`.  To enable this [greedy
+  algorithm], you will be implementing a [priority queue] using a [binary heap]
+  for this activity.
+
+  <div class="thumbnail text-center">
+    <img src="static/img/homework10-bubbling.png" class="img-responsive">
+  </div>
+
+  Although [Python] provides the [heapq] module, for this assignment, you are
+  to implement your own [binary heap], whose internal data representation is a
+  [list].  **You are not to use any functions from the [heapq] library**.
+
+  <div class="alert alert-warning" markdown="1">
+  **Note**: In this implementation, you will be implementing a **minimum**
+  [binary heap].
+  </div>
+
+  [heapq]: https://docs.python.org/3/library/heapq.html
+  [list]: https://docs.python.org/3/tutorial/datastructures.html#more-on-lists
+
+  ### Task 1: `priority_queue.py`
+
+  The `priority_queue.py` [Python] script contains the `PriorityQueue` class
+  and utility functions you are to complete for this activity:
+
+  1. `left_index(index: int) -> int`:
+
+      > This function returns the **index** of the **left child** of the [node]
+      specified by `index`.
+
+  2. `right_index(index: int) -> int`:
+
+      > This function returns the **index** of the **right child** of the [node]
+      specified by `index`.
+
+  3. `parent_index(index: int) -> int`:
+
+      > This function returns the **index** of the **parent** of the [node]
+      specified by `index`.
+
+  4. `PriorityQueue.__len__(self) -> int`:
+
+      > This method returns the number of **values** in the `PriorityQueue`.
+
+  5. `PriorityQueue._bubble_up(self, index: int) -> None`:
+
+      > This method performs the **bubble up** operation on the internal
+      > [binary heap], beginning at the specified `index`:
+      >
+      > To maintain the [binary heap] invariant (ie. *each node is never less
+      than its children), continuously **swap** the current [node] with its
+      **parent** if the current [node] is less than its **parent**.
+
+      <div class="alert alert-success" markdown="1">
+      #### <i class="fa fa-lightbulb-o"></i> Hints
+
+      1. Consider doing this **iteratively** and think carefully about the ending **condition**.
+
+      2. Remember that in [Python], you can **swap** using **destructured assignment**:
+
+              :::python
+              a, b = b, a
+
+      </div>
+
+  6. `PriorityQueue.push(self, value) -> None`:
+
+      > This method adds the `value` to the internal [binary heap].
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Consider using `PriorityQueue._bubble_up` to maintain the
+      [binary heap] invariant.
+      </div>
+
+  7. `PriorityQueue._find_smallest_child(self, index: int) -> int`:
+
+      > This method compares the children of the [node] specified by `index`
+      and returns the index of the child with the smallest value.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Be mindful of the **bounds** of the [binary heap].
+
+      </div>
+
+  8. `PriorityQueue._bubble_down(self, index: int) -> None`:
+
+      > This method performs the **bubble down** operation on the internal
+      > [binary heap], beginning at the specified `index`:
+      >
+      > To maintain the [binary heap] invariant (ie. *each node is never less
+      than its children), continuously **swap** the current [node] with its
+      **parent** if the current [node] is less than its **parent**.
+
+      <div class="alert alert-success" markdown="1">
+      #### <i class="fa fa-lightbulb-o"></i> Hints
+
+      1. Consider doing this **iteratively** and think carefully about the ending **condition**.
+
+      2. Remember that in [Python], you can **swap** using **destructured assignment**:
+
+              :::python
+              a, b = b, a
+
+      </div>
+
+  9. `PriorityQueue.pop(self)`:
+
+      > This method removes smallest `value` from the internal [binary heap]
+      and returns it.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: After moving the last value in the [binary heap] to the
+        **root**, consider using `PriorityQueue._bubble_down` to maintain the
+        [binary heap] invariant.
+
+      </div>
+
+  ### Task 2: Testing
+
+  As you implement `priority_queue.py`, you can use the provided [doctests] to verify
+  the correctness of your code:
+
+      :::bash
+      # Run doctests
+      $ python3 -m doctest priority_queue.py -v
+      ...
+      9 items passed all tests:
+         2 tests in priority_queue.PriorityQueue.__len__
+         3 tests in priority_queue.PriorityQueue._bubble_down
+         3 tests in priority_queue.PriorityQueue._bubble_up
+         2 tests in priority_queue.PriorityQueue._find_smallest_child
+         3 tests in priority_queue.PriorityQueue.pop
+         3 tests in priority_queue.PriorityQueue.push
+         1 tests in priority_queue.left_index
+         1 tests in priority_queue.parent_index
+         1 tests in priority_queue.right_index
+      19 tests in 14 items.
+      19 passed and 0 failed.
+      Test passed.
+
+  You can also use `make` to run both the [doctests] and the [unit tests]:
+
+      :::bash
+      # Run unit tests (and doctests)
+      $ make test-priority-queue
+      Testing priority queue ...
+      test_00_doctest (__main__.PriorityQueueTests) ... ok
+      test_01_mypy (__main__.PriorityQueueTests) ... ok
+      test_02_left_index (__main__.PriorityQueueTests) ... ok
+      test_03_right_index (__main__.PriorityQueueTests) ... ok
+      test_04_parent_index (__main__.PriorityQueueTests) ... ok
+      test_05_bubble_up (__main__.PriorityQueueTests) ... ok
+      test_06_push (__main__.PriorityQueueTests) ... ok
+      test_07_find_smallest_child (__main__.PriorityQueueTests) ... ok
+      test_08_bubble_down (__main__.PriorityQueueTests) ... ok
+      test_09_pop (__main__.PriorityQueueTests) ... ok
+      test_10_len (__main__.PriorityQueueTests) ... ok
+
+         Score 4.00 / 4.00
+        Status Success
+
+      ----------------------------------------------------------------------
+      Ran 11 tests in 0.049s
+
+      OK
+
+  To just run the [unit tests], you can do the following:
+
+      :::bash
+      # Run unit tests
+      $ ./priority_queue_test.py -v
+      ...
+
+  To run a specific [unit test], you can specify the **method name**:
+
+      :::bash
+      # Run only mypy unit test
+      $ ./priority_queue_test.py -v PriorityQueueTests.test_01_mypy
+      ...
+
+  ## Activity 3: Huffman Coding (4 Points)
+
+  Once you have completed the `Node` and `PriorityQueue` classes, and have
+  verified the `walk` function, you can now complete the [Huffman coding]
+  script.
+
+  <div class="thumbnail text-center">
+    <img src="static/img/homework10-tree-building.png" class="img-responsive">
+  </div>
+
+  As described above, to build a **Huffman tree**, you will need to the
+  following:
+
+  1. First, **compute the frequencies** of each **symbol** in the input stream.
+
+  2. Second, **construct a [priority queue]** of `Node`s based on the frequency
+  table computed in the previous step.
+
+  3. Third, **use a [greedy] approach** to build the **Huffman tree** by
+  removing the two `Node`s with the smallest value from the [priority queue]
+  and then adding back to the [priority queue] a **composite node**.
+
+  4. Finally, **walk the Huffman tree** to determine the **encoding** for each
+  **symbol**.
+
+  ### Task 1: `huffman.py`
+
+  For this task, you are to complete the `huffman.py` [Python] script by
+  implementing the following functions:
+
+  1. `count_frequencies(symbols: str) -> dict[str, int]`
+
+      > This function returns a [dict] with the number of occurrences of each
+      **symbol** in the `symbols` string.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Consider using [dict.get] or [collections.defaultdict].
+
+      </div>
+
+  2. `compute_compression_ratio(symbols: str, codes: dict[str, str]) -> float`
+
+      > This function returns the compression ratio if the input `symbols`
+      string were encoded using the [Huffman coding] corresponding to the
+      `codes` [dict].
+      >
+      > **Ratio** = Number of Bits with Original Encoding / Number of Bits with Huffman Coding
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: To determine the number of `bits` are required with the
+      original encoding, you can ask [Python] to tell you the number of `bytes`
+      for each symbol:
+
+          :::python
+          symbol_bytes = len(bytes(symbol.encode()))
+
+      Remember that each `byte` is `8 bits`.
+
+      </div>
+
+  3. `main(stream=sys.stdin) -> None`:
+
+      > This function creates the [Huffman coding] of all the **symbols** in
+      the input `stream` using the process described above.
+
+      <div class="alert alert-success" markdown="1">
+      #### <i class="fa fa-lightbulb-o"></i> Hints
+
+      1. To read all of a `stream` into a single string, you can use the [read] method.
+
+      2. Consider using [dict.items] to loop over the frequency counts and
+      **push** `Node` objects into your `PriorityQueue`.
+
+      3. After building the **Huffman tree** using the `while` loop described
+      above, you will need to `walk` the **root** to construct the [Huffman
+      codes].
+
+      4. Print out each **symbol** and its corresponding [Huffman code] after
+      **sorting** it by the **length of the [Huffman code]** and then the
+      **[Huffman code]** itself.
+
+          Remember that [sorted] takes a `key` argument that can be used to
+          specified the priorities of an object for comparison.
+
+      5. You can format **floating point** numbers with the following:
+
+              :::python
+              f'{number:.2f}' # Use two decimal places
+
+      </div>
+
+  [dict.get]: https://docs.python.org/3/library/stdtypes.html#dict.get
+  [dict.items]: https://docs.python.org/3/library/stdtypes.html#dict.items
+  [collections.defaultdict]: https://docs.python.org/3/library/collections.html#collections.defaultdict
+  [read]: https://docs.python.org/3/library/io.html#io.TextIOBase.read
+  [sorted]: https://docs.python.org/3/library/functions.html#sorted
+
+  ### Task 2: Testing
+
+  As you implement `huffman.py`, you can use the provided [doctests] to verify the
+  correctness of your code:
+
+      :::bash
+      # Run doctests
+      $ python3 -m doctest huffman.py -v
+      3 items passed all tests:
+         2 tests in huffman.compute_compression_ratio
+         1 tests in huffman.count_frequencies
+         2 tests in huffman.main
+      5 tests in 4 items.
+      5 passed and 0 failed.
+
+  You can also use `make` to run both the [doctests] and the [unit tests]:
+
+      :::bash
+      # Run unit tests (and doctests)
+      $ make test-huffman
+      test_00_doctest (__main__.HuffmanTests) ... ok
+      test_01_mypy (__main__.HuffmanTests) ... ok
+      test_02_count_frequencies (__main__.HuffmanTests) ... ok
+      test_03_compute_compression_ratio (__main__.HuffmanTests) ... ok
+      test_04_main (__main__.HuffmanTests) ... ok
+
+         Score 4.00 / 4.00
+        Status Success
+
+      ----------------------------------------------------------------------
+      Ran 5 tests in 0.113s
+
+      OK
+
+  To just run the [unit tests], you can do the following:
+
+      :::bash
+      # Run unit tests
+      $ ./huffman_test.py -v
+      ...
+
+  To run a specific [unit test], you can specify the **method name**:
+
+      :::bash
+      # Run only mypy unit test
+      $ ./huffman_test.py -v HuffmanTests.test_01_mypy
+      ...
+
+  ## Activity 4: Quiz (2 Points)
+
+  Once you have completed all the activities above, you are to complete the
+  following **reflection quiz**:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/homework10.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  As with [Reading 01], you will need to store your answers in a
+  `homework10/answers.json` file.  You can use the form above to generate the
+  contents of this file, or you can write the [JSON] by hand.
+
+  To check your quiz directly, you can use the `check.py` script:
+
+      :::bash
+      $ ../.scripts/check.py
+      Checking homework10 quiz ...
+            Q1 0.20
+            Q2 0.20
+            Q3 1.00
+            Q4 0.60
+         Score 2.00 / 2.00
+        Status Success
+
+  ## Leet Point (1 Extra Credit Point)
+
+  For **extra credit**, you are to solve the following [LeetCode] problem in
+  [Python].
+
+  > [2558. Take Gifts From the Richest Pile](https://leetcode.com/problems/take-gifts-from-the-richest-pile/)
+
+  To receive credit, you must pass on [LeetCode] and achieve an **Accepted**
+  submission.
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-check"></i> Verification
+
+  To get credit for this Leet Point, show your solution and the [LeetCode]
+  acceptance page to a TA to verify (or attached a screenshot with both to your
+  **Pull Request**).  You have up until **two days after** this assignment is
+  due to verify your Leet Point.
+
+  </div>
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-calendar"></i> Self-Service Extension
+
+  Remember that you can always **forgo** this Leet Point for **two extra days**
+  to do the homework.  That is, if you need an extension, you can simply skip
+  the Leet Point and you will automatically have until Friday to complete the
+  assignment for full credit.
+
+  Just leave a note on your **Pull Request** of your intentions.
+
+  </div>
+
+  [LeetCode]: https://leetcode.com/
+  [C]: https://en.wikipedia.org/wiki/C_(programming_language)
+
+  ## Submission
+
+  To submit your assignment, please commit your work to the `homework10` folder
+  of your `homework10` branch in your **assignments** [GitHub] repository:
+
+      :::bash
+      #-----------------------------------------------------------------------
+      # Make sure you have already completed Activity 0: Preparation
+      #-----------------------------------------------------------------------
+      ...
+      $ git add node.py                             # Mark changes for commit
+      $ git commit -m "Homework 10: Activity 1"     # Record changes
+      ...
+      $ git add priority_queue.py                   # Mark changes for commit
+      $ git commit -m "Homework 10: Activity 2"     # Record changes
+      ...
+      $ git add huffman.py                          # Mark changes for commit
+      $ git commit -m "Homework 10: Activity 3"     # Record changes
+      ...
+      $ git add answers.json                        # Mark changes for commit
+      $ git commit -m "Homework 10: Activity 4"     # Record changes
+      ...
+
+      $ git push -u origin homework10               # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Remember to create a [Pull Request] and assign the appropriate TA from the
+  [Reading 11 TA List].
+
+  **DO NOT MERGE** your own [Pull Request].  The TAs use open [Pull Request]s
+  to keep track of which assignments to grade.  Closing them yourself will
+  cause a delay in grading and confuse the TAs.
+
+  </div>
+
+  [git]: https://git-scm.com/
+  [commit]: https://git-scm.com/docs/git-commit
+  [push]: https://git-scm.com/docs/git-push
+  [GitHub]: https://github.com
+  [Linux]:  https://kernel.org
+  [branch]: https://git-scm.com/docs/git-branch
+  [add]: https://git-scm.com/docs/git-add
+  [Pull Request]:  https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request
+  [Reading 01]:  reading01.html
+  [Reading 11 TA List]: reading11_tas.html
+  [curl]: http://man7.org/linux/man-pages/man1/curl.1.html
+  [JSON]: https://json.org/
