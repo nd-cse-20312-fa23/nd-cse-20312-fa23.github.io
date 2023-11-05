@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Homework 10: Binary Heaps, Huffman Coding</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="static/css/blugold.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<style>
+	body {
+	    padding: 10px;
+	}
+	</style>
+    </head>
+    <body>
+	<div class="container">
+
+	    <div class="row">
+		<div class="page-header">
+		    <ul class="nav nav-pills pull-right">
+			
+			<li><a href="index.html"><i class="fa fa-sitemap"></i> <span class="visible-md-inline visible-lg-inline">Home</span></a></li>
+			
+		    </ul>
+		    <h1><i class="fa fa-code"></i> Homework 10: Binary Heaps, Huffman Coding</h1>
+		</div>
+	    </div>
+
+            
+<p>The goal of this homework assignment is to allow you to explore building
+<a href="https://en.wikipedia.org/wiki/Priority_queue">priority queues</a> in <a href="https://www.python.org/">Python</a> using <a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heaps</a> and then employ these
+<a href="https://en.wikipedia.org/wiki/Data_structure">data structures</a> in implementing a script that computes the <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a>
+for a stream of text.  This <strong>encoding</strong> is a mapping from each character in
+the input stream to a unique <strong>bit sequence</strong> or <a href="https://en.wikipedia.org/wiki/Prefix_code">prefix code</a>, which unlike
+say <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> is <strong>variable-length</strong> rather than <strong>fixed size</strong>. The purpose of
+the <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a> is to utilize a <a href="https://en.wikipedia.org/wiki/Greedy_algorithm">greedy algorithm</a> to produce an
+<strong>encoding</strong> that uses less space (ie. fewer bits) than the fixed-size <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a>
+encoding as show below:</p>
+<div class="thumbnail text-center">
+  <img src="static/img/homework10-huffman-coding.png" class="img-responsive">
+</div>
+
+<p>In the example above, our input sequence is: <code>BACABA</code>, which in <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> would
+consist of a total of <code>48</code> bits (e.g. <code>6</code> bytes):</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #666666">010000100100000101000011010000010100001001000001</span>  <span style="color: #3D7B7B; font-style: italic"># ASCII Representation</span>
+</code></pre></div>
+
+<p>To generate a more <strong>compressed</strong> version of this text, we would need to
+construct a <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a> by performing the following process:</p>
+<ol>
+<li>
+<p><strong>Compute Frequencies</strong>: First, read in the input stream and count the
+  occurrences of each <strong>symbol</strong> (ie. character) to create a <strong>frequency
+  table</strong>.</p>
+</li>
+<li>
+<p><strong>Populate Priority Queue</strong>: Next, represent each <strong>symbol</strong> and <strong>count</strong>
+  pair as a <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">node</a> and push them into a <a href="https://en.wikipedia.org/wiki/Priority_queue">priority queue</a>.</p>
+</li>
+<li>
+<p><strong>Build Tree</strong>: Afterwards, construct the <strong>Huffman tree</strong> by doing the
+following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #008000; font-weight: bold">while</span> <span style="color: #008000">len</span>(queue) <span style="color: #666666">&gt;</span> <span style="color: #666666">1</span>:
+    <span style="color: #3D7B7B; font-style: italic"># Pop nodes with smallest counts from priority queue</span>
+    left  <span style="color: #666666">=</span> queue<span style="color: #666666">.</span>pop()
+    right <span style="color: #666666">=</span> queue<span style="color: #666666">.</span>pop()
+
+    <span style="color: #3D7B7B; font-style: italic"># Construct new composite node</span>
+    node  <span style="color: #666666">=</span> Node(left<span style="color: #666666">.</span>symbol <span style="color: #666666">+</span> right<span style="color: #666666">.</span>symbol, left<span style="color: #666666">.</span>value  <span style="color: #666666">+</span> right<span style="color: #666666">.</span>value, left, right)
+
+    <span style="color: #3D7B7B; font-style: italic"># Push new composite node into priority queue</span>
+    queue<span style="color: #666666">.</span>push(node)
+
+root <span style="color: #666666">=</span> queue<span style="color: #666666">.</span>pop()
+</code></pre></div>
+
+<p>Basically, as long there is more than one <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">node</a> in the <a href="https://en.wikipedia.org/wiki/Priority_queue">priority queue</a>,
+  we will pop off the two smallest items, create a new <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">node</a> with the
+  combined count of these two <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">nodes</a>, and insert this new <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">node</a> back into
+  the <a href="https://en.wikipedia.org/wiki/Priority_queue">priority queue</a>. We repeat this process until there is only one <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">node</a>
+  left in the <a href="https://en.wikipedia.org/wiki/Priority_queue">priority queue</a>, which we then set as the <strong>root</strong> of our
+  <strong>Huffman tree</strong>.</p>
+<p>By constantly grouping nodes with the smallest counts, we use a
+  <a href="https://en.wikipedia.org/wiki/Greedy_algorithm">greedy</a> problem solving approach in order to maximize the path from
+  the <strong>root</strong> to the <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">nodes</a> with the lowest occurrences (and thus
+  minimize the path from the <strong>root</strong> to the <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">nodes</a> with the highest
+  occurrences).</p>
+</li>
+<li>
+<p><strong>Walk Tree</strong>: Finally, to produce the <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a>, <strong>walk</strong> (ie.
+  <em>recursively traverse</em>) the <strong>Huffman tree</strong> we constructed in the previous
+  step and record the path we took to the <strong>leaf</strong> <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">nodes</a> (ie. the original
+  <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">nodes</a> from step <code>2</code>).  To ensure a consistent <a href="https://en.wikipedia.org/wiki/Prefix_code">prefix code</a>, we can use
+  the convention where the <strong>left</strong> child gets a <code>0</code> and the <strong>right</strong> child
+  gets a <code>1</code> when we take the path from <strong>parent</strong> to <strong>child</strong>.  In
+  the example, above, using this traversal mechanism yields the
+  following <strong>encoding</strong>:</p>
+<p><table class="table table-bordered">
+<thead>
+  <th>Symbol</th>
+  <th>Count</th>
+  <th>Encoding</th>
+</thead>
+<tbody>
+  <tr>
+    <td>A</td>
+    <td><tt>3</tt></td>
+    <td><tt>0</tt></td>
+  </tr>
+  <tr>
+    <td>B</td>
+    <td><tt>2</tt></td>
+    <td><tt>11</tt></td>
+  </tr>
+  <tr>
+    <td>C</td>
+    <td><tt>1</tt></td>
+    <td><tt>10</tt></td>
+  </tr>
+</tbody>
+</table></p>
+</li>
+</ol>
+<p>Using this new <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a>, our original text, <code>BACABA</code>, can be encoded as
+follows:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #666666">110100110</span>     <span style="color: #3D7B7B; font-style: italic"># Huffman Encoding</span>
+</code></pre></div>
+
+<p>This means the <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a> was about to compress down to about <code>20%</code> of
+the original <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> representation. This is the reason why many real-world
+data compression schemes such as <a href="https://en.wikipedia.org/wiki/PKZIP">PKZIP</a>, <a href="https://en.wikipedia.org/wiki/JPEG">JPEG</a>, and <a href="https://en.wikipedia.org/wiki/MP3">MP3</a> use elements of
+the <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a> technique to achieve smaller file sizes for different
+types of data.</p>
+<p>To keep things manageable (<em>and to respect your time</em>), we will only worry
+about the construction of the <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a> in this assignment and leave
+out the actual compression and decompressing process (<em>though you are free to
+implement that on your own!</em>).</p>
+<p>For this assignment, you are to do your work in the <code>homework10</code> folder of
+your <strong>assignments</strong> <a href="https://github.com">GitHub</a> repository and push your work by <strong>noon,
+Wednesday, November 15</strong>.</p>
+<h2 id="activity-0-preparation">Activity 0: Preparation<a class="headerlink" href="#activity-0-preparation" title="Permanent link">&para;</a></h2>
+<p>Before starting this homework assignment, you should first perform a <code>git
+pull</code> to retrieve any changes in your remote <a href="https://github.com">GitHub</a> repository:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ <span style="color: #008000">cd</span> path/to/repository                   <span style="color: #3D7B7B; font-style: italic"># Go to assignments repository</span>
+
+$ git switch master                       <span style="color: #3D7B7B; font-style: italic"># Make sure we are in master branch</span>
+
+$ git pull --rebase                       <span style="color: #3D7B7B; font-style: italic"># Get any remote changes not present locally</span>
+</code></pre></div>
+
+<p>Next, create a new branch for this assignment:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ git checkout -b homework10              <span style="color: #3D7B7B; font-style: italic"># Create homework10 branch and check it out</span>
+</code></pre></div>
+
+<h3 id="task-1-skeleton-code">Task 1: Skeleton Code<a class="headerlink" href="#task-1-skeleton-code" title="Permanent link">&para;</a></h3>
+<p>To help you get started, the instructor has provided you with the following <a href="https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework10.tar.gz">skeleton code</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Go to assignments repository</span>
+$ <span style="color: #008000">cd</span> path/to/assignments/repository
+
+<span style="color: #3D7B7B; font-style: italic"># -----------------------------------------------------</span>
+<span style="color: #3D7B7B; font-style: italic"># MAKE SURE YOU ARE NOT INSIDE THE homework10 DIRECTORY</span>
+<span style="color: #3D7B7B; font-style: italic"># -----------------------------------------------------</span>
+<span style="color: #3D7B7B; font-style: italic"># MAKE SURE YOU ARE AT THE TOP-LEVEL DIRECTORY</span>
+<span style="color: #3D7B7B; font-style: italic"># -----------------------------------------------------</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Download skeleton code tarball</span>
+$ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework10.tar.gz
+
+<span style="color: #3D7B7B; font-style: italic"># Extract skeleton code tarball</span>
+$ tar xzvf homework10.tar.gz
+</code></pre></div>
+
+<p>Once downloaded and extracted, you should see the following files in your
+<code>homework10</code> directory:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>homework10
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> Makefile           <span style="color: #3D7B7B; font-style: italic"># This is the Makefile for building all the assignment artifacts</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> huffman.py         <span style="color: #3D7B7B; font-style: italic"># This is the Python script for the Huffman coding script</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> node.py            <span style="color: #3D7B7B; font-style: italic"># This is the Python module for the Node class and functions</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> priority_queue.py  <span style="color: #3D7B7B; font-style: italic"># This is the Python module for the Priority Queue class and functions</span>
+</code></pre></div>
+
+<h3 id="task-2-initial-import">Task 2: Initial Import<a class="headerlink" href="#task-2-initial-import" title="Permanent link">&para;</a></h3>
+<p>Now that the files are extracted into the <code>homework10</code> folder, you can
+<strong>commit</strong> them to your <a href="https://git-scm.com/">git</a> repository:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Go into homework10 folder</span>
+$ <span style="color: #008000">cd</span> homework10
+
+<span style="color: #3D7B7B; font-style: italic"># Add and commit initial skeleton files</span>
+$ git add Makefile                            <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git add *.py
+$ git commit -m <span style="color: #BA2121">&quot;Homework 10: Initial Import&quot;</span> <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+</code></pre></div>
+
+<h3 id="task-3-unit-tests">Task 3: Unit Tests<a class="headerlink" href="#task-3-unit-tests" title="Permanent link">&para;</a></h3>
+<p>After downloading and extracting these files, you can run the <code>make</code> command
+to run the tests.</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run all tests (will trigger automatic download)</span>
+$ make
+</code></pre></div>
+
+<p>You will notice that the <code>Makefile</code> downloads three additional test scripts:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>homework10
+  <span style="color: #AA5D1F; font-weight: bold">\_</span> huffman_test.py        <span style="color: #3D7B7B; font-style: italic"># This is the Python unit test for the Huffman script</span>
+  <span style="color: #AA5D1F; font-weight: bold">\_</span> node_test.py           <span style="color: #3D7B7B; font-style: italic"># This is the Python unit test for the Node module</span>
+  <span style="color: #AA5D1F; font-weight: bold">\_</span> priority_queue_test.py <span style="color: #3D7B7B; font-style: italic"># This is the Python unit test for the Priority Queue module</span>
+</code></pre></div>
+
+<p>In addition to the embedded <a href="https://docs.python.org/3/library/doctest.html">doctests</a> in the <a href="https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework10.tar.gz">skeleton code</a>, you will be
+using these <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a> to verify the correctness and behavior of your code.</p>
+<div class="alert alert-info">
+<h4 id="automatic-downloads"><i class="fa fa-download"></i> Automatic Downloads<a class="headerlink" href="#automatic-downloads" title="Permanent link">&para;</a></h4>
+<p>The <code>test</code> scripts are automatically downloaded by the <code>Makefile</code>, so any
+modifications you do to them will be lost when you run <code>make</code> again.
+Likewise, because they are automatically downloaded, you do not need to <code>add</code>
+or <code>commit</code> them to your <a href="https://git-scm.com/">git</a> repository.</p>
+</div>
+<p>The details on what you need to implement for this assignment are described
+in the following sections.</p>
+<h2 id="activity-1-node-2-points">Activity 1: Node (2 Points)<a class="headerlink" href="#activity-1-node-2-points" title="Permanent link">&para;</a></h2>
+<p>For the first activity, you are to extend and augment our usual <code>Node</code> <a href="https://docs.python.org/3/library/dataclasses.html">dataclass</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #AA22FF">@dataclass</span>
+<span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">Node</span>:
+    symbol: <span style="color: #008000">str</span>
+    value:  <span style="color: #008000">int</span> <span style="color: #666666">=</span> <span style="color: #666666">0</span>
+    left:   Optional[<span style="color: #BA2121">&#39;Node&#39;</span>] <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">None</span>
+    right:  Optional[<span style="color: #BA2121">&#39;Node&#39;</span>] <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">None</span>
+</code></pre></div>
+
+<p>In particular, you will need to implement the <code>__gt__</code> <strong>magic method</strong> to
+allow comparing two <code>Node</code> objects and you will need to implement the <code>walk</code>
+function that traverses a <strong>Huffman tree</strong> to construct the <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a>
+as described previously.</p>
+<div class="thumbnail text-center">
+  <img src="static/img/homework10-walk.png" class="img-responsive">
+</div>
+
+<h3 id="task-1-nodepy">Task 1: <code>node.py</code><a class="headerlink" href="#task-1-nodepy" title="Permanent link">&para;</a></h3>
+<p>The <code>node.py</code> <a href="https://www.python.org/">Python</a> script contains the <code>Node</code> class you are to augment
+and the <code>walk</code> function you are to complete for this activity:</p>
+<ol>
+<li>
+<p><code>Node.__gt__(self, other: 'Node') -&gt; bool</code></p>
+<blockquote>
+<p>This method determines whether the current <code>Node</code> is greater than the
+<code>other</code> specified <code>Node</code> (returns <code>True</code> if it is greater, <code>False</code>
+otherwise). To do so, the method will first consider the <code>value</code>
+attributes as the higher priority and then consider the <strong>length</strong> of the
+<code>symbol</code> attributes as the lower priority.</p>
+</blockquote>
+</li>
+<li>
+<p><code>walk(node: Optional[Node], codeword: str='') -&gt; dict</code></p>
+<blockquote>
+<p>This function <em>recursively</em> traverses the <a href="https://en.wikipedia.org/wiki/Binary_tree">binary tree</a> starting at
+<code>node</code> and returns a <a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">dict</a> containing a mapping of <strong>symbols</strong> to
+<a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman codes</a> as shown in the diagram above.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<h4 id="hints"><i class="fa fa-lightbulb-o"></i> Hints<a class="headerlink" href="#hints" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>When initializing a variable, you can <strong>annotate</strong> its type:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>variable: <span style="color: #008000">dict</span>[<span style="color: #008000">str</span>, <span style="color: #008000">str</span>] <span style="color: #666666">=</span> {}
+</code></pre></div>
+
+<p>This will inform static type checkers such as <a href="https://mypy-lang.org/">mypy</a> of your
+intentions.</p>
+</li>
+<li>
+<p>Use <a href="https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm">divide-and-conquer</a> to traverse the <a href="https://en.wikipedia.org/wiki/Binary_tree">binary tree</a> and carefully
+consider your base cases (particularly when you know you have a complete
+<code>codeword</code>).</p>
+</li>
+<li>
+<p>Remember that the <strong>left</strong> child should add a <code>0</code> to its <code>codeword</code>
+and the <strong>right</strong> child should add a <code>1</code> to its <code>codeword</code>.</p>
+</li>
+<li>
+<p>Consider using the <code>|</code> operator to combine multiple <a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">dict</a>s.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+<div class="alert alert-warning">
+<h4 id="doctests"><i class="fa fa-warning"></i> DocTests<a class="headerlink" href="#doctests" title="Permanent link">&para;</a></h4>
+<p>You may notice that in addition to the usual comments and <tt>TODOs</tt>, the
+<a href="https://peps.python.org/pep-0257/">docstrings</a> of each method also contains a few <a href="https://docs.python.org/3/library/doctest.html">doctests</a>.</p>
+<p>You are <strong>not</strong> to modify these <a href="https://docs.python.org/3/library/doctest.html">doctests</a> and must keep them in-place.  They
+are used to verify the correctness of your code.</p>
+<p>Your code goes <strong>below</strong> the <a href="https://peps.python.org/pep-0257/">docstrings</a>, where the <tt>TODO</tt> and
+<tt>pass</tt> commands are (you may remove the <tt>pass</tt> once you
+complete the method).</p>
+</div>
+<h3 id="task-2-testing">Task 2: Testing<a class="headerlink" href="#task-2-testing" title="Permanent link">&para;</a></h3>
+<p>As you implement <code>node.py</code>, you can use the provided <a href="https://docs.python.org/3/library/doctest.html">doctests</a> to verify the
+correctness of your code:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run doctests</span>
+$ python3 -m doctest node.py -v
+...
+<span style="color: #666666">2</span> items passed all tests:
+   <span style="color: #666666">2</span> tests <span style="color: #008000; font-weight: bold">in</span> node.Node.__gt__
+   <span style="color: #666666">2</span> tests <span style="color: #008000; font-weight: bold">in</span> node.walk
+<span style="color: #666666">4</span> tests <span style="color: #008000; font-weight: bold">in</span> <span style="color: #666666">7</span> items.
+<span style="color: #666666">4</span> passed and <span style="color: #666666">0</span> failed.
+Test passed.
+</code></pre></div>
+
+<p>You can also use <code>make</code> to run both the <a href="https://docs.python.org/3/library/doctest.html">doctests</a> and the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run unit tests (and doctests)</span>
+$ make test-node
+Testing node ...
+test_00_doctest <span style="color: #666666">(</span>__main__.NodeTests<span style="color: #666666">)</span> ... ok
+test_01_mypy <span style="color: #666666">(</span>__main__.NodeTests<span style="color: #666666">)</span> ... ok
+test_02_comparison <span style="color: #666666">(</span>__main__.NodeTests<span style="color: #666666">)</span> ... ok
+test_03_walk <span style="color: #666666">(</span>__main__.NodeTests<span style="color: #666666">)</span> ... ok
+
+   Score <span style="color: #666666">2</span>.00 / <span style="color: #666666">2</span>.00
+  Status Success
+
+----------------------------------------------------------------------
+Ran <span style="color: #666666">4</span> tests <span style="color: #008000; font-weight: bold">in</span> <span style="color: #666666">0</span>.048s
+
+OK
+</code></pre></div>
+
+<p>To just run the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>, you can do the following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run unit tests</span>
+$ ./node_test.py -v
+...
+</code></pre></div>
+
+<p>To run a specific <a href="https://en.wikipedia.org/wiki/Unit_testing">unit test</a>, you can specify the <strong>method name</strong>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run only mypy unit test</span>
+$ ./node_test.py -v NodeTests.test_01_mypy
+...
+</code></pre></div>
+
+<div class="alert alert-success">
+<h4 id="iterative-development"><i class="fa fa-repeat"></i> Iterative Development<a class="headerlink" href="#iterative-development" title="Permanent link">&para;</a></h4>
+<p>You should practice <a href="https://en.wikipedia.org/wiki/Iterative_and_incremental_development">iterative development</a>. That is, rather than writing a
+bunch of code and then debugging it all at once, you should concentrate on
+one function at a time and then test that <strong>one thing at a time</strong>. The provided
+<a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a> allow you to check on the correctness of the individual functions
+without implementing everything at once. Take advantage of this and build one
+thing at a time.</p>
+</div>
+<h2 id="activity-2-priority-queue-4-points">Activity 2: Priority Queue (4 Points)<a class="headerlink" href="#activity-2-priority-queue-4-points" title="Permanent link">&para;</a></h2>
+<p>As described above, to build the <strong>Huffman tree</strong>, you will need to use a
+<a href="https://en.wikipedia.org/wiki/Greedy_algorithm">greedy</a> approach that involves extracting the two <code>Nodes</code> with the lowest
+<code>values</code> in order to build a <strong>composite</strong> <code>Node</code>.  To enable this <a href="https://en.wikipedia.org/wiki/Greedy_algorithm">greedy
+algorithm</a>, you will be implementing a <a href="https://en.wikipedia.org/wiki/Priority_queue">priority queue</a> using a <a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a>
+for this activity.</p>
+<div class="thumbnail text-center">
+  <img src="static/img/homework10-bubbling.png" class="img-responsive">
+</div>
+
+<p>Although <a href="https://www.python.org/">Python</a> provides the <a href="https://docs.python.org/3/library/heapq.html">heapq</a> module, for this assignment, you are
+to implement your own <a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a>, whose internal data representation is a
+<a href="https://docs.python.org/3/tutorial/datastructures.html#more-on-lists">list</a>.  <strong>You are not to use any functions from the <a href="https://docs.python.org/3/library/heapq.html">heapq</a> library</strong>.</p>
+<div class="alert alert-warning">
+<p><strong>Note</strong>: In this implementation, you will be implementing a <strong>minimum</strong>
+<a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a>.</p>
+</div>
+<h3 id="task-1-priority_queuepy">Task 1: <code>priority_queue.py</code><a class="headerlink" href="#task-1-priority_queuepy" title="Permanent link">&para;</a></h3>
+<p>The <code>priority_queue.py</code> <a href="https://www.python.org/">Python</a> script contains the <code>PriorityQueue</code> class
+and utility functions you are to complete for this activity:</p>
+<ol>
+<li>
+<p><code>left_index(index: int) -&gt; int</code>:</p>
+<blockquote>
+<p>This function returns the <strong>index</strong> of the <strong>left child</strong> of the <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">node</a>
+specified by <code>index</code>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>right_index(index: int) -&gt; int</code>:</p>
+<blockquote>
+<p>This function returns the <strong>index</strong> of the <strong>right child</strong> of the <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">node</a>
+specified by <code>index</code>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>parent_index(index: int) -&gt; int</code>:</p>
+<blockquote>
+<p>This function returns the <strong>index</strong> of the <strong>parent</strong> of the <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">node</a>
+specified by <code>index</code>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>PriorityQueue.__len__(self) -&gt; int</code>:</p>
+<blockquote>
+<p>This method returns the number of <strong>values</strong> in the <code>PriorityQueue</code>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>PriorityQueue._bubble_up(self, index: int) -&gt; None</code>:</p>
+<blockquote>
+<p>This method performs the <strong>bubble up</strong> operation on the internal
+<a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a>, beginning at the specified <code>index</code>:</p>
+<p>To maintain the <a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a> invariant (ie. <em>each node is never less
+than its children), continuously </em><em>swap</em><em> the current <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">node</a> with its
+</em><em>parent</em><em> if the current <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">node</a> is less than its </em><em>parent</em>*.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<h4 id="hints_1"><i class="fa fa-lightbulb-o"></i> Hints<a class="headerlink" href="#hints_1" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>Consider doing this <strong>iteratively</strong> and think carefully about the ending <strong>condition</strong>.</p>
+</li>
+<li>
+<p>Remember that in <a href="https://www.python.org/">Python</a>, you can <strong>swap</strong> using <strong>destructured assignment</strong>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>a, b <span style="color: #666666">=</span> b, a
+</code></pre></div>
+
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><code>PriorityQueue.push(self, value) -&gt; None</code>:</p>
+<blockquote>
+<p>This method adds the <code>value</code> to the internal <a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a>.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Consider using <code>PriorityQueue._bubble_up</code> to maintain the
+<a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a> invariant.
+</div></p>
+</li>
+<li>
+<p><code>PriorityQueue._find_smallest_child(self, index: int) -&gt; int</code>:</p>
+<blockquote>
+<p>This method compares the children of the <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">node</a> specified by <code>index</code>
+and returns the index of the child with the smallest value.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<p><strong>Hint</strong>: Be mindful of the <strong>bounds</strong> of the <a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a>.</p>
+</div>
+</li>
+<li>
+<p><code>PriorityQueue._bubble_down(self, index: int) -&gt; None</code>:</p>
+<blockquote>
+<p>This method performs the <strong>bubble down</strong> operation on the internal
+<a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a>, beginning at the specified <code>index</code>:</p>
+<p>To maintain the <a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a> invariant (ie. <em>each node is never less
+than its children), continuously </em><em>swap</em><em> the current <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">node</a> with its
+</em><em>parent</em><em> if the current <a href="https://en.wikipedia.org/wiki/Node_(computer_science)">node</a> is less than its </em><em>parent</em>*.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<h4 id="hints_2"><i class="fa fa-lightbulb-o"></i> Hints<a class="headerlink" href="#hints_2" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>Consider doing this <strong>iteratively</strong> and think carefully about the ending <strong>condition</strong>.</p>
+</li>
+<li>
+<p>Remember that in <a href="https://www.python.org/">Python</a>, you can <strong>swap</strong> using <strong>destructured assignment</strong>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>a, b <span style="color: #666666">=</span> b, a
+</code></pre></div>
+
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><code>PriorityQueue.pop(self)</code>:</p>
+<blockquote>
+<p>This method removes smallest <code>value</code> from the internal <a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a>
+and returns it.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<p><strong>Hint</strong>: After moving the last value in the <a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a> to the
+  <strong>root</strong>, consider using <code>PriorityQueue._bubble_down</code> to maintain the
+  <a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a> invariant.</p>
+</div>
+</li>
+</ol>
+<h3 id="task-2-testing_1">Task 2: Testing<a class="headerlink" href="#task-2-testing_1" title="Permanent link">&para;</a></h3>
+<p>As you implement <code>priority_queue.py</code>, you can use the provided <a href="https://docs.python.org/3/library/doctest.html">doctests</a> to verify
+the correctness of your code:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run doctests</span>
+$ python3 -m doctest priority_queue.py -v
+...
+<span style="color: #666666">9</span> items passed all tests:
+   <span style="color: #666666">2</span> tests <span style="color: #008000; font-weight: bold">in</span> priority_queue.PriorityQueue.__len__
+   <span style="color: #666666">3</span> tests <span style="color: #008000; font-weight: bold">in</span> priority_queue.PriorityQueue._bubble_down
+   <span style="color: #666666">3</span> tests <span style="color: #008000; font-weight: bold">in</span> priority_queue.PriorityQueue._bubble_up
+   <span style="color: #666666">2</span> tests <span style="color: #008000; font-weight: bold">in</span> priority_queue.PriorityQueue._find_smallest_child
+   <span style="color: #666666">3</span> tests <span style="color: #008000; font-weight: bold">in</span> priority_queue.PriorityQueue.pop
+   <span style="color: #666666">3</span> tests <span style="color: #008000; font-weight: bold">in</span> priority_queue.PriorityQueue.push
+   <span style="color: #666666">1</span> tests <span style="color: #008000; font-weight: bold">in</span> priority_queue.left_index
+   <span style="color: #666666">1</span> tests <span style="color: #008000; font-weight: bold">in</span> priority_queue.parent_index
+   <span style="color: #666666">1</span> tests <span style="color: #008000; font-weight: bold">in</span> priority_queue.right_index
+<span style="color: #666666">19</span> tests <span style="color: #008000; font-weight: bold">in</span> <span style="color: #666666">14</span> items.
+<span style="color: #666666">19</span> passed and <span style="color: #666666">0</span> failed.
+Test passed.
+</code></pre></div>
+
+<p>You can also use <code>make</code> to run both the <a href="https://docs.python.org/3/library/doctest.html">doctests</a> and the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run unit tests (and doctests)</span>
+$ make test-priority-queue
+Testing priority queue ...
+test_00_doctest <span style="color: #666666">(</span>__main__.PriorityQueueTests<span style="color: #666666">)</span> ... ok
+test_01_mypy <span style="color: #666666">(</span>__main__.PriorityQueueTests<span style="color: #666666">)</span> ... ok
+test_02_left_index <span style="color: #666666">(</span>__main__.PriorityQueueTests<span style="color: #666666">)</span> ... ok
+test_03_right_index <span style="color: #666666">(</span>__main__.PriorityQueueTests<span style="color: #666666">)</span> ... ok
+test_04_parent_index <span style="color: #666666">(</span>__main__.PriorityQueueTests<span style="color: #666666">)</span> ... ok
+test_05_bubble_up <span style="color: #666666">(</span>__main__.PriorityQueueTests<span style="color: #666666">)</span> ... ok
+test_06_push <span style="color: #666666">(</span>__main__.PriorityQueueTests<span style="color: #666666">)</span> ... ok
+test_07_find_smallest_child <span style="color: #666666">(</span>__main__.PriorityQueueTests<span style="color: #666666">)</span> ... ok
+test_08_bubble_down <span style="color: #666666">(</span>__main__.PriorityQueueTests<span style="color: #666666">)</span> ... ok
+test_09_pop <span style="color: #666666">(</span>__main__.PriorityQueueTests<span style="color: #666666">)</span> ... ok
+test_10_len <span style="color: #666666">(</span>__main__.PriorityQueueTests<span style="color: #666666">)</span> ... ok
+
+   Score <span style="color: #666666">4</span>.00 / <span style="color: #666666">4</span>.00
+  Status Success
+
+----------------------------------------------------------------------
+Ran <span style="color: #666666">11</span> tests <span style="color: #008000; font-weight: bold">in</span> <span style="color: #666666">0</span>.049s
+
+OK
+</code></pre></div>
+
+<p>To just run the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>, you can do the following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run unit tests</span>
+$ ./priority_queue_test.py -v
+...
+</code></pre></div>
+
+<p>To run a specific <a href="https://en.wikipedia.org/wiki/Unit_testing">unit test</a>, you can specify the <strong>method name</strong>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run only mypy unit test</span>
+$ ./priority_queue_test.py -v PriorityQueueTests.test_01_mypy
+...
+</code></pre></div>
+
+<h2 id="activity-3-huffman-coding-4-points">Activity 3: Huffman Coding (4 Points)<a class="headerlink" href="#activity-3-huffman-coding-4-points" title="Permanent link">&para;</a></h2>
+<p>Once you have completed the <code>Node</code> and <code>PriorityQueue</code> classes, and have
+verified the <code>walk</code> function, you can now complete the <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a>
+script.</p>
+<div class="thumbnail text-center">
+  <img src="static/img/homework10-tree-building.png" class="img-responsive">
+</div>
+
+<p>As described above, to build a <strong>Huffman tree</strong>, you will need to the
+following:</p>
+<ol>
+<li>
+<p>First, <strong>compute the frequencies</strong> of each <strong>symbol</strong> in the input stream.</p>
+</li>
+<li>
+<p>Second, <strong>construct a <a href="https://en.wikipedia.org/wiki/Priority_queue">priority queue</a></strong> of <code>Node</code>s based on the frequency
+table computed in the previous step.</p>
+</li>
+<li>
+<p>Third, <strong>use a <a href="https://en.wikipedia.org/wiki/Greedy_algorithm">greedy</a> approach</strong> to build the <strong>Huffman tree</strong> by
+removing the two <code>Node</code>s with the smallest value from the <a href="https://en.wikipedia.org/wiki/Priority_queue">priority queue</a>
+and then adding back to the <a href="https://en.wikipedia.org/wiki/Priority_queue">priority queue</a> a <strong>composite node</strong>.</p>
+</li>
+<li>
+<p>Finally, <strong>walk the Huffman tree</strong> to determine the <strong>encoding</strong> for each
+<strong>symbol</strong>.</p>
+</li>
+</ol>
+<h3 id="task-1-huffmanpy">Task 1: <code>huffman.py</code><a class="headerlink" href="#task-1-huffmanpy" title="Permanent link">&para;</a></h3>
+<p>For this task, you are to complete the <code>huffman.py</code> <a href="https://www.python.org/">Python</a> script by
+implementing the following functions:</p>
+<ol>
+<li>
+<p><code>count_frequencies(symbols: str) -&gt; dict[str, int]</code></p>
+<blockquote>
+<p>This function returns a <a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">dict</a> with the number of occurrences of each
+<strong>symbol</strong> in the <code>symbols</code> string.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<p><strong>Hint</strong>: Consider using <a href="https://docs.python.org/3/library/stdtypes.html#dict.get">dict.get</a> or <a href="https://docs.python.org/3/library/collections.html#collections.defaultdict">collections.defaultdict</a>.</p>
+</div>
+</li>
+<li>
+<p><code>compute_compression_ratio(symbols: str, codes: dict[str, str]) -&gt; float</code></p>
+<blockquote>
+<p>This function returns the compression ratio if the input <code>symbols</code>
+string were encoded using the <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a> corresponding to the
+<code>codes</code> <a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">dict</a>.</p>
+<p><strong>Ratio</strong> = Number of Bits with Original Encoding / Number of Bits with Huffman Coding</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<p><strong>Hint</strong>: To determine the number of <code>bits</code> are required with the
+original encoding, you can ask <a href="https://www.python.org/">Python</a> to tell you the number of <code>bytes</code>
+for each symbol:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>symbol_bytes <span style="color: #666666">=</span> <span style="color: #008000">len</span>(<span style="color: #008000">bytes</span>(symbol<span style="color: #666666">.</span>encode()))
+</code></pre></div>
+
+<p>Remember that each <code>byte</code> is <code>8 bits</code>.</p>
+</div>
+</li>
+<li>
+<p><code>main(stream=sys.stdin) -&gt; None</code>:</p>
+<blockquote>
+<p>This function creates the <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a> of all the <strong>symbols</strong> in
+the input <code>stream</code> using the process described above.</p>
+</blockquote>
+<div class="alert alert-success" markdown="1">
+<h4 id="hints_3"><i class="fa fa-lightbulb-o"></i> Hints<a class="headerlink" href="#hints_3" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>To read all of a <code>stream</code> into a single string, you can use the <a href="https://docs.python.org/3/library/io.html#io.TextIOBase.read">read</a> method.</p>
+</li>
+<li>
+<p>Consider using <a href="https://docs.python.org/3/library/stdtypes.html#dict.items">dict.items</a> to loop over the frequency counts and
+<strong>push</strong> <code>Node</code> objects into your <code>PriorityQueue</code>.</p>
+</li>
+<li>
+<p>After building the <strong>Huffman tree</strong> using the <code>while</code> loop described
+above, you will need to <code>walk</code> the <strong>root</strong> to construct the <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman
+codes</a>.</p>
+</li>
+<li>
+<p>Print out each <strong>symbol</strong> and its corresponding <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman code</a> after
+<strong>sorting</strong> it by the <strong>length of the <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman code</a></strong> and then the
+<strong><a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman code</a></strong> itself.</p>
+<p>Remember that <a href="https://docs.python.org/3/library/functions.html#sorted">sorted</a> takes a <code>key</code> argument that can be used to
+specified the priorities of an object for comparison.</p>
+</li>
+<li>
+<p>You can format <strong>floating point</strong> numbers with the following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #BA2121">f&#39;</span><span style="color: #A45A77; font-weight: bold">{</span>number<span style="color: #A45A77; font-weight: bold">:</span><span style="color: #BA2121">.2f</span><span style="color: #A45A77; font-weight: bold">}</span><span style="color: #BA2121">&#39;</span> <span style="color: #3D7B7B; font-style: italic"># Use two decimal places</span>
+</code></pre></div>
+
+</li>
+</ol>
+</div>
+</li>
+</ol>
+<h3 id="task-2-testing_2">Task 2: Testing<a class="headerlink" href="#task-2-testing_2" title="Permanent link">&para;</a></h3>
+<p>As you implement <code>huffman.py</code>, you can use the provided <a href="https://docs.python.org/3/library/doctest.html">doctests</a> to verify the
+correctness of your code:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run doctests</span>
+$ python3 -m doctest huffman.py -v
+<span style="color: #666666">3</span> items passed all tests:
+   <span style="color: #666666">2</span> tests <span style="color: #008000; font-weight: bold">in</span> huffman.compute_compression_ratio
+   <span style="color: #666666">1</span> tests <span style="color: #008000; font-weight: bold">in</span> huffman.count_frequencies
+   <span style="color: #666666">2</span> tests <span style="color: #008000; font-weight: bold">in</span> huffman.main
+<span style="color: #666666">5</span> tests <span style="color: #008000; font-weight: bold">in</span> <span style="color: #666666">4</span> items.
+<span style="color: #666666">5</span> passed and <span style="color: #666666">0</span> failed.
+</code></pre></div>
+
+<p>You can also use <code>make</code> to run both the <a href="https://docs.python.org/3/library/doctest.html">doctests</a> and the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run unit tests (and doctests)</span>
+$ make test-huffman
+test_00_doctest <span style="color: #666666">(</span>__main__.HuffmanTests<span style="color: #666666">)</span> ... ok
+test_01_mypy <span style="color: #666666">(</span>__main__.HuffmanTests<span style="color: #666666">)</span> ... ok
+test_02_count_frequencies <span style="color: #666666">(</span>__main__.HuffmanTests<span style="color: #666666">)</span> ... ok
+test_03_compute_compression_ratio <span style="color: #666666">(</span>__main__.HuffmanTests<span style="color: #666666">)</span> ... ok
+test_04_main <span style="color: #666666">(</span>__main__.HuffmanTests<span style="color: #666666">)</span> ... ok
+
+   Score <span style="color: #666666">4</span>.00 / <span style="color: #666666">4</span>.00
+  Status Success
+
+----------------------------------------------------------------------
+Ran <span style="color: #666666">5</span> tests <span style="color: #008000; font-weight: bold">in</span> <span style="color: #666666">0</span>.113s
+
+OK
+</code></pre></div>
+
+<p>To just run the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>, you can do the following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run unit tests</span>
+$ ./huffman_test.py -v
+...
+</code></pre></div>
+
+<p>To run a specific <a href="https://en.wikipedia.org/wiki/Unit_testing">unit test</a>, you can specify the <strong>method name</strong>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run only mypy unit test</span>
+$ ./huffman_test.py -v HuffmanTests.test_01_mypy
+...
+</code></pre></div>
+
+<h2 id="activity-4-quiz-2-points">Activity 4: Quiz (2 Points)<a class="headerlink" href="#activity-4-quiz-2-points" title="Permanent link">&para;</a></h2>
+<p>Once you have completed all the activities above, you are to complete the
+following <strong>reflection quiz</strong>:</p>
+<div id="quiz-questions"></div>
+
+<div id="quiz-responses"></div>
+
+<script src="static/js/dredd-quiz.js"></script>
+<script>
+loadQuiz('static/json/homework10.json');
+</script>
+
+<pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+<p>As with <a href="reading01.html">Reading 01</a>, you will need to store your answers in a
+<code>homework10/answers.json</code> file.  You can use the form above to generate the
+contents of this file, or you can write the <a href="https://json.org/">JSON</a> by hand.</p>
+<p>To check your quiz directly, you can use the <code>check.py</code> script:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ ../.scripts/check.py
+Checking homework10 quiz ...
+      Q1 <span style="color: #666666">0</span>.20
+      Q2 <span style="color: #666666">0</span>.20
+      Q3 <span style="color: #666666">1</span>.00
+      Q4 <span style="color: #666666">0</span>.60
+   Score <span style="color: #666666">2</span>.00 / <span style="color: #666666">2</span>.00
+  Status Success
+</code></pre></div>
+
+<h2 id="leet-point-1-extra-credit-point">Leet Point (1 Extra Credit Point)<a class="headerlink" href="#leet-point-1-extra-credit-point" title="Permanent link">&para;</a></h2>
+<p>For <strong>extra credit</strong>, you are to solve the following <a href="https://leetcode.com/">LeetCode</a> problem in
+<a href="https://www.python.org/">Python</a>.</p>
+<blockquote>
+<p><a href="https://leetcode.com/problems/take-gifts-from-the-richest-pile/">2558. Take Gifts From the Richest Pile</a></p>
+</blockquote>
+<p>To receive credit, you must pass on <a href="https://leetcode.com/">LeetCode</a> and achieve an <strong>Accepted</strong>
+submission.</p>
+<div class="alert alert-info">
+<h4 id="verification"><i class="fa fa-check"></i> Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h4>
+<p>To get credit for this Leet Point, show your solution and the <a href="https://leetcode.com/">LeetCode</a>
+acceptance page to a TA to verify (or attached a screenshot with both to your
+<strong>Pull Request</strong>).  You have up until <strong>two days after</strong> this assignment is
+due to verify your Leet Point.</p>
+</div>
+<div class="alert alert-success">
+<h4 id="self-service-extension"><i class="fa fa-calendar"></i> Self-Service Extension<a class="headerlink" href="#self-service-extension" title="Permanent link">&para;</a></h4>
+<p>Remember that you can always <strong>forgo</strong> this Leet Point for <strong>two extra days</strong>
+to do the homework.  That is, if you need an extension, you can simply skip
+the Leet Point and you will automatically have until Friday to complete the
+assignment for full credit.</p>
+<p>Just leave a note on your <strong>Pull Request</strong> of your intentions.</p>
+</div>
+<h2 id="submission">Submission<a class="headerlink" href="#submission" title="Permanent link">&para;</a></h2>
+<p>To submit your assignment, please commit your work to the <code>homework10</code> folder
+of your <code>homework10</code> branch in your <strong>assignments</strong> <a href="https://github.com">GitHub</a> repository:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic">#-----------------------------------------------------------------------</span>
+<span style="color: #3D7B7B; font-style: italic"># Make sure you have already completed Activity 0: Preparation</span>
+<span style="color: #3D7B7B; font-style: italic">#-----------------------------------------------------------------------</span>
+...
+$ git add node.py                             <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 10: Activity 1&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add priority_queue.py                   <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 10: Activity 2&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add huffman.py                          <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 10: Activity 3&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add answers.json                        <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 10: Activity 4&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+
+$ git push -u origin homework10               <span style="color: #3D7B7B; font-style: italic"># Push branch to GitHub</span>
+</code></pre></div>
+
+<div class="alert alert-danger">
+<h4 id="pull-request"><i class="fa fa-github"></i> Pull Request<a class="headerlink" href="#pull-request" title="Permanent link">&para;</a></h4>
+<p>Remember to create a <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a> and assign the appropriate TA from the
+<a href="reading11_tas.html">Reading 11 TA List</a>.</p>
+<p><strong>DO NOT MERGE</strong> your own <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a>.  The TAs use open <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a>s
+to keep track of which assignments to grade.  Closing them yourself will
+cause a delay in grading and confuse the TAs.</p>
+</div>
+
+
+	    <div class="row">
+		<hr/>
+
+		<footer class="text-center">
+		    <p class="text-muted">
+		    <small>
+		    Built using
+		    <a href="https://getbootstrap.com/">Bootstrap</a>,
+		    <a href="https://fontawesome.com/">Font Awesome</a>, and
+		    <a href="http://www.python.org/">Python</a>.
+		    <br/>
+		    &copy; 2023 <a href="http://www.nd.edu">University of Notre Dame</a>
+		    </small>
+		    </p>
+		</footer>
+	    </div>
+
+	</div> <!-- /container -->
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+    </body>
+</html>
+
