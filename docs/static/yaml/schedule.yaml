@@ -306,6 +306,9 @@
 
       - date:           Fri 11/10
         topics:         Compression
+        items:
+          - name:       Slides 30
+            link:       https://docs.google.com/presentation/d/1njo6Y-xKp_CjgAqjMZrvQUA5ZMpG4jmBgj-GGKGPJMU/edit?usp=sharing
 
 - name:     Binary Search Trees
   days:
