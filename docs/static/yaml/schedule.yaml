@@ -295,6 +295,8 @@
         items:
           - name:       Slides 28
             link:       https://docs.google.com/presentation/d/1tStdKPrdS03waO7g_BA_v5oUT-pZo-GlZ_SnPUhtf40/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=0ce991ce-4d70-40e6-8f2e-b0b201167daf
 
       - date:           Wed 11/08
         topics:         Priority Queues
