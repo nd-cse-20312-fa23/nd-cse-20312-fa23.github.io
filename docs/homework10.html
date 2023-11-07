@@ -427,8 +427,16 @@ than its children), continuously </em><em>swap</em><em> the current <a href="htt
 </code></pre></div>
 
 </li>
+<li>
+<p>The order of the comparisons matter.  To have outputs consistent with
+the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>, you will want to do something like the following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #008000; font-weight: bold">if</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>data[index] <span style="color: #666666">&lt;</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>data[parent]:
+    <span style="color: #3D7B7B; font-style: italic"># Perform swap</span>
+<span style="color: #666666">&lt;/</span>div<span style="color: #666666">&gt;</span>
+</code></pre></div>
+
+</li>
 </ol>
-</div>
 </li>
 <li>
 <p><code>PriorityQueue.push(self, value) -&gt; None</code>:</p>
@@ -447,7 +455,9 @@ than its children), continuously </em><em>swap</em><em> the current <a href="htt
 and returns the index of the child with the smallest value.</p>
 </blockquote>
 <div class="alert alert-success" markdown="1">
-<p><strong>Hint</strong>: Be mindful of the <strong>bounds</strong> of the <a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a>.</p>
+<p><strong>Hint</strong>: Be mindful of the <strong>bounds</strong> of the <a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a>.  Again,
+order is important, so when you compare the <strong>left</strong> and *<em>right</em>
+children, you want to do: <code>self.data[left] &lt; self.data[right]</code>.</p>
 </div>
 </li>
 <li>
@@ -471,8 +481,16 @@ than its children), continuously </em><em>swap</em><em> the current <a href="htt
 </code></pre></div>
 
 </li>
+<li>
+<p>The order of the comparisons matter.  To have outputs consistent with
+the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>, you will want to do something like the following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #008000; font-weight: bold">if</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>data[index] <span style="color: #666666">&gt;</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>data[parent]:
+    <span style="color: #3D7B7B; font-style: italic"># Perform swap</span>
+<span style="color: #666666">&lt;/</span>div<span style="color: #666666">&gt;</span>
+</code></pre></div>
+
+</li>
 </ol>
-</div>
 </li>
 <li>
 <p><code>PriorityQueue.pop(self)</code>:</p>
@@ -636,6 +654,13 @@ specified the priorities of an object for comparison.</p>
 <li>
 <p>You can format <strong>floating point</strong> numbers with the following:</p>
 <div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #BA2121">f&#39;</span><span style="color: #A45A77; font-weight: bold">{</span>number<span style="color: #A45A77; font-weight: bold">:</span><span style="color: #BA2121">.2f</span><span style="color: #A45A77; font-weight: bold">}</span><span style="color: #BA2121">&#39;</span> <span style="color: #3D7B7B; font-style: italic"># Use two decimal places</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>Since some of the <strong>symbols</strong> may be escape characters, you can use
+the following to print out each <strong>symbol</strong>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #BA2121">f&#39;</span><span style="color: #A45A77; font-weight: bold">{</span><span style="color: #008000">repr</span>(symbol)[<span style="color: #666666">1</span>:<span style="color: #666666">-1</span>]<span style="color: #A45A77; font-weight: bold">}</span><span style="color: #BA2121">&#39;</span> <span style="color: #3D7B7B; font-style: italic"># Use representation of symbol, strip quotes</span>
 </code></pre></div>
 
 </li>

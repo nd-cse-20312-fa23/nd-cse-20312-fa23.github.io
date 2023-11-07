@@ -317,14 +317,23 @@
       - date:           Mon 11/13
         topics:         Binary Search Trees
         assignment:     Reading 11
+        items:
+          - name:       Slides 31
+            link:       https://docs.google.com/presentation/d/1LDAQUCd25g_Lk_VAh5JPvxENesvHjL9DWbivJPeEdOM/edit?usp=sharing
 
       - date:           Wed 11/15
         topics:         Treaps
         assignment:     Homework 10
         idea:           Binary Heap / Huffman Code
+        items:
+          - name:       Slides 32
+            link:       https://docs.google.com/presentation/d/1nQzn1G_okEGcI__55NgHWDUJzzGFLblds3U6eJEE3vU/edit?usp=sharing
 
       - date:           Fri 11/17
         topics:         Red-Black Trees
+        items:
+          - name:       Slides 33
+            link:       https://docs.google.com/presentation/d/1qdpw3CJkuG7Egjz9d4kR-CkS9LXf_3Jm0nhgDAsg_Q4/edit?usp=sharing
 
 - name:     Graphs - Representation
   days:
