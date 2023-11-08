@@ -465,6 +465,7 @@ body:       |
               :::python
               if self.data[index] < self.data[parent]:
                   # Perform swap
+
       </div>
 
   6. `PriorityQueue.push(self, value) -> None`:
@@ -514,6 +515,7 @@ body:       |
               :::python
               if self.data[index] > self.data[parent]:
                   # Perform swap
+
       </div>
 
   9. `PriorityQueue.pop(self)`:
