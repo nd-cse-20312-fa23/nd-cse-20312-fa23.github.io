@@ -1,0 +1,99 @@
+title:      "Reading 12: Graphs (Representation)"
+icon:       fa-book
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  **Everyone**:
+
+  Next week, we will transition from [binary trees] to [graphs], with a focus
+  on how to **represent** them using [adjacency matrices] and [adjacency
+  lists].
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-search"></i> TL;DR
+
+  The focus of this reading is [graphs], [adjacency matrices], and [adjacency
+  lists].
+
+  </div>
+
+  [Python]: https://www.python.org/
+  [binary trees]: https://en.wikipedia.org/wiki/Binary_tree
+  [graphs]: https://en.wikipedia.org/wiki/Graph_(abstract_data_type)
+  [adjacency matrices]: https://en.wikipedia.org/wiki/Adjacency_matrix
+  [adjacency lists]: https://en.wikipedia.org/wiki/Adjacency_list
+
+  <img src="static/img/reading12-graphs.png" class="pull-right img-responsive">
+
+  ## Readings
+
+  The readings for this week are:
+
+  1. [Data Structures Handbook](https://www.thedshandbook.com/)
+
+      - <p>[Graphs](https://www.thedshandbook.com/graphs/)</p>
+
+  2. [Learn DS & Algorithms](https://www.programiz.com/dsa)
+
+      - [Graph Data Structure](https://www.programiz.com/dsa/graph)
+      - [Adjacency Matrix](https://www.programiz.com/dsa/graph-adjacency-matrix)
+      - <p>[Adjacency List](https://www.programiz.com/dsa/graph-adjacency-list)</p>
+
+  ## Quiz
+
+  Once you have completed the readings, answer the following [Reading 12 Quiz]
+  questions:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/reading12.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  ## Submission
+
+  To submit your work, follow the same process outlined in [Reading 01]:
+
+      :::bash
+      $ git checkout master                 # Make sure we are in master branch
+      $ git pull --rebase                   # Make sure we are up-to-date with GitHub
+
+      $ git checkout -b reading12           # Create reading12 branch and check it out
+
+      $ cd reading12                        # Go into reading12 folder
+      $ $EDITOR answers.json                # Edit your answers.json file
+
+      $ ../.scripts/check.py                # Check reading12 quiz
+      Checking reading12 quiz ...
+         Score 3.00 / 3.00
+        Status Success
+
+      $ git add answers.json                # Add answers.json to staging area
+      $ git commit -m "Reading 12: Done"    # Commit work
+
+      $ git push -u origin reading12        # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Once you have committed your work and pushed it to [GitHub], remember to
+  create a **pull request** and assign it to the appropriate **teaching
+  assistant** from the [Reading 12 TA List].
+
+  </div>
+
+  [Git]:                https://git-scm.com/
+  [GitHub]:             https://github.com/
+  [Reading 01]:         reading01.html
+  [Reading 12 Quiz]:    static/json/reading12.json
+  [Reading 12 TA List]: reading12_tas.html
