@@ -1,0 +1,39 @@
+{
+    "q1": {
+        "type": "blank",
+        "question": "\n<p>A <b>graph</b> stores the ____ between pairs of <b>objects</b>.  Like a\nlinked list or binary tree, a <b>graph</b> consists of <b>nodes</b> known\nas ____, which are connected to other <b>nodes</b> through <b>links</b>\nknown as ____.  The number of <b>links</b> connected to a <b>node</b> is\ncalled the ____ of the <b>object</b>.  A sequence of <b>links</b> between\ntwo <b>nodes</b> in a <b>graph</b> is called a ____.</p>\n"
+    },
+    "q2": {
+        "type": "order",
+        "question": "\n<p>Match the <b>graph</b> terms below to the following descriptions:</p>\n\n<ol>\n  <li>There exists a path between any two nodes in a graph.</li>\n  <li>When edges can only be traversed in one direction.</li>\n  <li>When each edge has a corresponding cost.</li>\n  <li>When there are no parallel or self-loop edges in a graph.</li>\n  <li>When every node has a degree <i>n - 1</i>.</li>\n</ol>\n",
+        "responses": {
+            "directed": "Directed",
+            "complete": "Complete",
+            "connected": "Connected",
+            "weighted": "Weighted",
+            "simple": "Simple"
+        }
+    },
+    "q3": {
+        "type": "order",
+        "question": "\n<p>Reorder the following rows of an <b>adjacency matrix</b> to correspond\nto the <b>graph</b> below:</p>\n\n<div class=\"thumbnail text-center\">\n  <img src=\"static/img/reading12-graphs.png\" class=\"img-responsive\">\n</div>\n\n<pre>\n  A B C D E\nA ? ? ? ? ?\nB ? ? ? ? ?\nC ? ? ? ? ?\nD ? ? ? ? ?\nE ? ? ? ? ?\n</pre>\n",
+        "responses": {
+            "a": "<tt>0 0 0 0 1</tt>",
+            "b": "<tt>0 1 1 0 0</tt>",
+            "c": "<tt>0 1 0 1 0</tt>",
+            "d": "<tt>0 0 0 1 0</tt>",
+            "e": "<tt>1 0 0 0 0</tt>"
+        }
+    },
+    "q4": {
+        "type": "order",
+        "question": "\n<p>Reorder the following lists of an <b>adjacency list</b> to correspond to\nthe <b>graph</b> below:</p>\n\n<div class=\"thumbnail text-center\">\n  <img src=\"static/img/reading12-graphs.png\" class=\"img-responsive\">\n</div>\n\n<pre>\nA: ?\nB: ?\nC: ?\nD: ?\nE: ?\n</pre>\n",
+        "responses": {
+            "a": "<tt>D</tt>",
+            "b": "<tt>E</tt>",
+            "c": "<tt>B, C</tt>",
+            "d": "<tt>B, D</tt>",
+            "e": "<tt>A</tt>"
+        }
+    }
+}
