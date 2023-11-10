@@ -314,6 +314,8 @@
         items:
           - name:       Slides 30
             link:       https://docs.google.com/presentation/d/1njo6Y-xKp_CjgAqjMZrvQUA5ZMpG4jmBgj-GGKGPJMU/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f6afbf0a-8019-43e6-9ead-b0b60112f775
 
 - name:     Binary Search Trees
   days:
