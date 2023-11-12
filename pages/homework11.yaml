@@ -1,0 +1,691 @@
+title:      "Homework 11: Binary Search Trees, Treaps"
+icon:       fa-code
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  The goal of this homework assignment is to allow you to explore building
+  [binary search trees] and [treaps] in order to implement a [map] in [Python].
+  Once you have these [data structures] implemented, you will employ them to
+  solve a **programming challenge** that involves determining if two words are
+  [anagrams].
+
+  <div class="thumbnail text-center">
+    <img src="static/img/homework11-bst.png" class="img-responsive">
+  </div>
+
+  For this assignment, you are to do your work in the `homework11` folder of
+  your **assignments** [GitHub] repository and push your work by **noon,
+  Wednesday, November 22**.
+
+  [data structures]: https://en.wikipedia.org/wiki/Data_structure
+  [Python]: https://www.python.org/
+  [binary search tree]: https://en.wikipedia.org/wiki/Binary_search_tree
+  [binary search trees]: https://en.wikipedia.org/wiki/Binary_search_tree
+  [treap]: https://en.wikipedia.org/wiki/Treap
+  [treaps]: https://en.wikipedia.org/wiki/Treap
+  [map]: https://en.wikipedia.org/wiki/Associative_array
+  [maps]: https://en.wikipedia.org/wiki/Associative_array
+  [anagram]: https://en.wikipedia.org/wiki/Anagram
+  [anagrams]: https://en.wikipedia.org/wiki/Anagram
+
+  ## Activity 0: Preparation
+
+  Before starting this homework assignment, you should first perform a `git
+  pull` to retrieve any changes in your remote [GitHub] repository:
+
+      :::bash
+      $ cd path/to/repository                   # Go to assignments repository
+
+      $ git switch master                       # Make sure we are in master branch
+
+      $ git pull --rebase                       # Get any remote changes not present locally
+
+  Next, create a new branch for this assignment:
+
+      :::bash
+      $ git checkout -b homework11              # Create homework11 branch and check it out
+
+  ### Task 1: Skeleton Code
+
+  To help you get started, the instructor has provided you with the following [skeleton code]:
+
+      :::bash
+      # Go to assignments repository
+      $ cd path/to/assignments/repository
+
+      # -----------------------------------------------------
+      # MAKE SURE YOU ARE NOT INSIDE THE homework11 DIRECTORY
+      # -----------------------------------------------------
+      # MAKE SURE YOU ARE AT THE TOP-LEVEL DIRECTORY
+      # -----------------------------------------------------
+
+      # Download skeleton code tarball
+      $ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework11.tar.gz
+
+      # Extract skeleton code tarball
+      $ tar xzvf homework11.tar.gz
+
+  Once downloaded and extracted, you should see the following files in your
+  `homework11` directory:
+
+      :::bash
+      homework11
+          \_ Makefile     # This is the Makefile for building all the assignment artifacts
+          \_ anagrams.py  # This is the Python script for the Anagrams script
+          \_ bst.py       # This is the Python module for the Binary Search Tree module
+          \_ treap.py     # This is the Python module for the Treap module
+
+  [skeleton code]: https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework11.tar.gz
+
+  ### Task 2: Initial Import
+
+  Now that the files are extracted into the `homework11` folder, you can
+  **commit** them to your [git] repository:
+
+      :::bash
+      # Go into homework11 folder
+      $ cd homework11
+
+      # Add and commit initial skeleton files
+      $ git add Makefile                            # Mark changes for commit
+      $ git add *.py
+      $ git commit -m "Homework 11: Initial Import" # Record changes
+
+  ### Task 3: Unit Tests
+
+  After downloading and extracting these files, you can run the `make` command
+  to run the tests.
+
+      :::bash
+      # Run all tests (will trigger automatic download)
+      $ make
+
+  You will notice that the `Makefile` downloads three additional test scripts:
+
+      :::bash
+      homework11
+        \_ anagrams_test.py # This is the Python unit test for the Anagrams script
+        \_ bst_test.py      # This is the Python unit test for the Binary Search Tree module
+        \_ treap_test.py    # This is the Python unit test for the Treap module
+
+  In addition to the embedded [doctests] in the [skeleton code], you will be
+  using these [unit tests] to verify the correctness and behavior of your code.
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-download"></i> Automatic Downloads
+
+  The `test` scripts are automatically downloaded by the `Makefile`, so any
+  modifications you do to them will be lost when you run `make` again.
+  Likewise, because they are automatically downloaded, you do not need to `add`
+  or `commit` them to your [git] repository.
+
+  </div>
+
+  The details on what you need to implement for this assignment are described
+  in the following sections.
+
+  [doctests]: https://docs.python.org/3/library/doctest.html
+
+  ## Activity 1: Binary Search Tree (5 Points)
+
+  For the first activity, you are to utilize our usual `Node` [dataclass] to
+  implement a [binary search tree] class called `BST`:
+
+      :::python
+      @dataclass
+      class Node:
+          key:      str
+          value:    int = 0
+          priority: float = 0
+          left:     Optional['Node'] = None
+          right:    Optional['Node'] = None
+
+  Because you will be using the `BST` as a [map], each `Node` has a `key`,
+  `value`, and `priority`, in addition to links to the `left` and `right`
+  `Nodes`.
+
+  To make the new `BST` class look and feel like a normal [dict] in [Python],
+  you will be implementing various **magic methods** such as `__contains__`
+  (ie. `key in d`), `__getitem__`, (ie. `d[key]`), and `__setitem__` (ie.
+  `d[key] = value`), in addition to internal **recursive** methods for
+  *searching* and *inserting* into the [binary search tree].
+
+  [dataclass]: https://docs.python.org/3/library/dataclasses.html
+  [dict]: https://docs.python.org/3/tutorial/datastructures.html#dictionaries
+
+  ### Task 1: `bst.py`
+
+  The `bst.py` [Python] script contains the `BST` class you are to complete for
+  this activity:
+
+  1. `_search(self, node: Optional[Node], key: str) -> bool`
+
+      > This method **recursively** searches for the specified `key` in the
+      internal [binary search tree] starting from the given `node` and returns
+      `True` if the `key` is found, otherwse `False`.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [divide-and-conquer] and carefully consider your **base cases**.
+      </div>
+
+  2. `__contains__(self, key: str) -> bool`
+
+      > This **magic method** returns `True` if the specified `key` is in the
+      internal [binary search tree], otherwise `False` (ie. `key in bst`).
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use `BST._search`.
+      </div>
+
+  3. `_lookup(self, node: Optional[Node], key: str) -> int`
+
+      > This method **recursively** searches for the specified `key` in the
+      internal [binary search tree] starting from the given `node` and returns
+      the associated value if the `key` is found, otherwse it **raises** a
+      `KeyError`.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [divide-and-conquer] and carefully consider your **base cases**.
+      </div>
+
+  4. `__getitem__(self, key: str) -> int`
+
+      > This **magic method** returns the associated value if the specified
+      `key` is in the internal [binary search tree], otherwise it **raises** a
+      `KeyError` (ie. `bst[key]`).
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use `BST._lookup`.
+      </div>
+
+  5. `get(self, key, default=None) -> int`
+
+      > This method returns the associated value if the specified `key` is in
+      the internal [binary search tree], otherwise returns the `default` value
+      (ie. `bst.get(key, default)`).
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use a `try/except` with `BST._lookup`.
+      </div>
+
+  6. `_insert(self, node: Optional[Node], key: str, value: int) -> Node`
+
+      > This method **recursively** inserts the specified `key` and `value`
+      into the internal [binary search tree] starting from the given `node`.
+      If a `Node` with the specified `key` is already in the [binary search
+      tree], then **update** the `value`.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use [divide-and-conquer] and carefully consider your **base cases**.
+      </div>
+
+  7. `__setitem__(self, key: str, value: int) -> None`
+
+      > This **magic method** sets or updates the associated value of the
+      specified `key` in the internal [binary search tree] (ie. `bst[key] =
+      value`).
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use `BST._insert`.
+      </div>
+
+  8. `_walk(self, node: Optional[Node]) -> Iterator[tuple[str, int]]`
+
+      > This method **recursively** generates [tuples] of the **key, value**
+      pairs in the internal [binary search tree] in **sorted** order starting
+      from the given `node`.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Perform a [DFS] traversal to `yield` each [tuple].
+      </div>
+
+  9. `items(self) -> Iterator[tuple[str, int]]`
+
+      > This method **recursively** generates [tuples] of the **key, value**
+      pairs in the internal [binary search tree] in **sorted** order.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use `BST._walk`.
+      </div>
+
+  [divide-and-conquer]: https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm
+  [DFS]: https://en.wikipedia.org/wiki/Depth-first_search
+  [tuple]: https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences
+  [tuples]: https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences
+
+  <div class="alert alert-warning" markdown="1">
+  #### <i class="fa fa-warning"></i> DocTests
+
+  You may notice that in addition to the usual comments and <tt>TODOs</tt>, the
+  [docstrings] of each method also contains a few [doctests].
+
+  You are **not** to modify these [doctests] and must keep them in-place.  They
+  are used to verify the correctness of your code.
+
+  Your code goes **below** the [docstrings], where the <tt>TODO</tt> and
+  <tt>pass</tt> commands are (you may remove the <tt>pass</tt> once you
+  complete the method).
+
+  </div>
+
+  [docstrings]: https://peps.python.org/pep-0257/
+
+  ### Task 2: Testing
+
+  As you implement `bst.py`, you can use the provided [doctests] to verify the
+  correctness of your code:
+
+      :::bash
+      # Run doctests
+      $ python3 -m doctest bst.py -v
+      ...
+      9 items passed all tests:
+         3 tests in bst.BST.__contains__
+         3 tests in bst.BST.__getitem__
+         5 tests in bst.BST.__setitem__
+         2 tests in bst.BST._insert
+         3 tests in bst.BST._lookup
+         3 tests in bst.BST._search
+         2 tests in bst.BST._walk
+         3 tests in bst.BST.get
+         2 tests in bst.BST.items
+      26 tests in 18 items.
+      26 passed and 0 failed.
+      Test passed.
+
+  You can also use `make` to run both the [doctests] and the [unit tests]:
+
+      :::bash
+      # Run unit tests (and doctests)
+      $ make test-bst
+      Testing bst ...
+      test_00_doctest (__main__.BSTTests) ... ok
+      test_01_mypy (__main__.BSTTests) ... ok
+      test_02_search (__main__.BSTTests) ... ok
+      test_03_contains (__main__.BSTTests) ... ok
+      test_04_lookup (__main__.BSTTests) ... ok
+      test_05_getitem (__main__.BSTTests) ... ok
+      test_06_get (__main__.BSTTests) ... ok
+      test_07_insert (__main__.BSTTests) ... ok
+      test_08_setitem (__main__.BSTTests) ... ok
+      test_09_walk (__main__.BSTTests) ... ok
+      test_10_items (__main__.BSTTests) ... ok
+
+         Score 5.00 / 5.00
+        Status Success
+
+      ----------------------------------------------------------------------
+      Ran 11 tests in 0.051s
+
+      OK
+
+  To just run the [unit tests], you can do the following:
+
+      :::bash
+      # Run unit tests
+      $ ./bst_test.py -v
+      ...
+
+  To run a specific [unit test], you can specify the **method name**:
+
+      :::bash
+      # Run only mypy unit test
+      $ ./bst_test.py -v BSTTests.test_01_mypy
+      ...
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-repeat"></i> Iterative Development
+
+  You should practice [iterative development]. That is, rather than writing a
+  bunch of code and then debugging it all at once, you should concentrate on
+  one function at a time and then test that **one thing at a time**. The provided
+  [unit tests] allow you to check on the correctness of the individual functions
+  without implementing everything at once. Take advantage of this and build one
+  thing at a time.
+
+  </div>
+
+  [iterative development]: https://en.wikipedia.org/wiki/Iterative_and_incremental_development
+  [unit test]: https://en.wikipedia.org/wiki/Unit_testing
+  [unit tests]: https://en.wikipedia.org/wiki/Unit_testing
+
+  ## Activity 2: Treap (2 Points)
+
+  For the second activity, you are to implement a [treap] class based on the
+  previous [binary search tree] class.
+
+  <div class="thumbnail text-center">
+    <img src="static/img/homework11-treap.png" class="img-responsive">
+  </div>
+
+  Because a [treap] is a fundamentally a [binary search tree] with the addition
+  of a `priority` attribute that is used to maintain a [max heap]
+  **invariant**, you will be able to **inherit** most of the methods from the
+  `BST` class in **Activity 1** and only need to implement a new `_insert`
+  method for the `Treap` class (along with two utility [static methods]).
+
+  [max heap]: https://en.wikipedia.org/wiki/Binary_heap
+  [static methods]: https://en.wikipedia.org/wiki/Method_(computer_programming)
+
+  ### Task 1: `treap.py`
+
+  The `treap.py` [Python] script contains the `Treap` class you are to complete
+  for this activity:
+
+  <div class="thumbnail text-center">
+    <img src="static/img/homework11-rotations.png" class="img-responsive">
+  </div>
+
+  1. `_rotate_left(p) -> Node`
+
+      > This **static method** rotates the specified `Node` `p` to the **left**
+      as shown above and returns the new **root** of the **sub-tree**.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Study and draw pictures.  Be sure to move account for the **middle child**.
+      </div>
+
+  2. `_rotate_right(p) -> Node`
+
+      > This **static method** rotates the specified `Node` `p` to the **right**
+      as shown above and returns the new **root** of the **sub-tree**.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Study and draw pictures.  Be sure to move account for the **middle child**.
+      </div>
+
+  3. `_insert(self, node: Optional[Node], key: str, value: int, priority: Optional[float]=0) -> Node`
+
+      > This method **recursively** inserts the specified `key` and `value`
+      into the internal [treap] starting from the given `node`.  If a `Node`
+      with the specified `key` is already in the [treap], then **update** the
+      `value`.  If the `priority` is not specified, then use `random()` to
+      generate one.
+
+      <div class="alert alert-success" markdown="1">
+      #### <i class="fa fa-lightbulb-o"></i> Hints
+      1. Use [divide-and-conquer] and carefully consider your **base cases**.
+
+      2. Use a logical `or` to handle the `priority`.
+
+      3. Use `Treap._rotate_left` and `Treap._rotate_right` to balance the
+      [treap] when appropriate.
+      </div>
+
+  ### Task 2: Testing
+
+  As you implement `treap.py`, you can use the provided [doctests] to verify
+  the correctness of your code:
+
+      :::bash
+      # Run doctests
+      $ python3 -m doctest treap.py -v
+      ...
+      3 items passed all tests:
+         3 tests in treap.Treap._insert
+         2 tests in treap.Treap._rotate_left
+         2 tests in treap.Treap._rotate_right
+      7 tests in 5 items.
+      7 passed and 0 failed.
+      Test passed.
+
+  You can also use `make` to run both the [doctests] and the [unit tests]:
+
+      :::bash
+      # Run unit tests (and doctests)
+      $ make test-treap
+      Testing treap ...
+      test_00_doctest (__main__.TreapTests) ... ok
+      test_01_mypy (__main__.TreapTests) ... ok
+      test_02_rotate_left (__main__.TreapTests) ... ok
+      test_03_rotate_right (__main__.TreapTests) ... ok
+      test_04_insert (__main__.TreapTests) ... ok
+      test_05_setitem (__main__.TreapTests) ... ok
+
+         Score 3.00 / 3.00
+        Status Success
+
+      ----------------------------------------------------------------------
+      Ran 6 tests in 0.051s
+
+      OK
+
+  To just run the [unit tests], you can do the following:
+
+      :::bash
+      # Run unit tests
+      $ ./treap_test.py -v
+      ...
+
+  To run a specific [unit test], you can specify the **method name**:
+
+      :::bash
+      # Run only mypy unit test
+      $ ./treap_test.py -v TreapTests.test_01_mypy
+      ...
+
+  ## Activity 3: Anagrams (3 Points)
+
+  For this activity, you are to use your `Treap` implementation of a [map] to
+  solve the following programming challenge:
+
+  > Given two words, determine if they are [anagrams] (*ignoring
+  > capitalization*), which are pairs of words where one word can be formed by
+  > rearranging the letters in the other word.
+  >
+  > For instance, "secure" is an anagram of "rescue".
+
+  Here is a demonstration of the `anagrams.py` script in action:
+
+      :::bash
+      $ ./anagrams.py
+      secure rescue
+      secure and rescue are anagrams!
+      Anna NaaN
+      Anna and NaaN are anagrams!
+      taco cat
+      taco and cat are not anagrams!
+
+  ### Task 1: `anagrams.py`
+
+  For this task, you are to complete the `anagrams.py` [Python] script by
+  implementing the following functions:
+
+  1. `count_letters(s: str) -> Treap`
+
+      > This function counts all the occurrences of each letter in `s` and
+      returns a `Treap` with the counts.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Remember that your `Treap` behaves like a [dict] in [Python].
+      </div>
+
+  2. `is_anagram(word1: str, word2: str) -> bool`
+
+      > This function returns whether or not `word1` and `word2` are [anagrams]
+      (ignoring capitalization).
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use `count_letters` on each word and compare the counts.
+      </div>
+
+  3. `main(stream=sys.stdin) -> None`
+
+      > This function reads in a pair of words on each line, determines if they
+      are anagrams, and then prints the result.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use `is_anagram`.
+      </div>
+
+  ### Task 2: Testing
+
+  As you implement `anagrams.py`, you can use the provided [doctests] to verify
+  the correctness of your code:
+
+      :::bash
+      # Run doctests
+      $ python3 -m doctest anagrams.py -v
+      3 items passed all tests:
+         1 tests in anagrams.count_letters
+         2 tests in anagrams.is_anagram
+         2 tests in anagrams.main
+      5 tests in 4 items.
+      5 passed and 0 failed.
+      Test passed
+
+  You can also use `make` to run both the [doctests] and the [unit tests]:
+
+      :::bash
+      # Run unit tests (and doctests)
+      $ make test-anagrams
+      Testing anagrams ...
+      test_00_doctest (__main__.AnagramsTests) ... ok
+      test_01_mypy (__main__.AnagramsTests) ... ok
+      test_02_count_letters (__main__.AnagramsTests) ... ok
+      test_03_is_anagram (__main__.AnagramsTests) ... ok
+      test_04_main (__main__.AnagramsTests) ... ok
+
+         Score 2.00 / 2.00
+        Status Success
+
+      ----------------------------------------------------------------------
+      Ran 5 tests in 0.050s
+
+      OK
+
+  To just run the [unit tests], you can do the following:
+
+      :::bash
+      # Run unit tests
+      $ ./anagrams_test.py -v
+      ...
+
+  To run a specific [unit test], you can specify the **method name**:
+
+      :::bash
+      # Run only mypy unit test
+      $ ./anagrams_test.py -v AnagramsTests.test_01_mypy
+      ...
+
+  ## Activity 4: Quiz (2 Points)
+
+  Once you have completed all the activities above, you are to complete the
+  following **reflection quiz**:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/homework11.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  As with [Reading 01], you will need to store your answers in a
+  `homework11/answers.json` file.  You can use the form above to generate the
+  contents of this file, or you can write the [JSON] by hand.
+
+  To check your quiz directly, you can use the `check.py` script:
+
+      :::bash
+      $ ../.scripts/check.py
+      Checking homework11 quiz ...
+            Q1 0.80
+            Q2 0.40
+            Q3 0.40
+            Q4 0.40
+         Score 2.00 / 2.00
+        Status Success
+
+  ## Leet Point (1 Extra Credit Point)
+
+  For **extra credit**, you are to solve the following [LeetCode] problem in
+  [Python].
+
+  > [108. Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree)
+
+  To receive credit, you must pass on [LeetCode] and achieve an **Accepted**
+  submission.
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-check"></i> Verification
+
+  To get credit for this Leet Point, show your solution and the [LeetCode]
+  acceptance page to a TA to verify (or attached a screenshot with both to your
+  **Pull Request**).  You have up until **two days after** this assignment is
+  due to verify your Leet Point.
+
+  </div>
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-calendar"></i> Self-Service Extension
+
+  Remember that you can always **forgo** this Leet Point for **two extra days**
+  to do the homework.  That is, if you need an extension, you can simply skip
+  the Leet Point and you will automatically have until Friday to complete the
+  assignment for full credit.
+
+  Just leave a note on your **Pull Request** of your intentions.
+
+  </div>
+
+  [LeetCode]: https://leetcode.com/
+  [C]: https://en.wikipedia.org/wiki/C_(programming_language)
+
+  ## Submission
+
+  To submit your assignment, please commit your work to the `homework11` folder
+  of your `homework11` branch in your **assignments** [GitHub] repository:
+
+      :::bash
+      #-----------------------------------------------------------------------
+      # Make sure you have already completed Activity 0: Preparation
+      #-----------------------------------------------------------------------
+      ...
+      $ git add bst.py                              # Mark changes for commit
+      $ git commit -m "Homework 11: Activity 1"     # Record changes
+      ...
+      $ git add treap.py                            # Mark changes for commit
+      $ git commit -m "Homework 11: Activity 2"     # Record changes
+      ...
+      $ git add anagrams.py                         # Mark changes for commit
+      $ git commit -m "Homework 11: Activity 3"     # Record changes
+      ...
+      $ git add answers.json                        # Mark changes for commit
+      $ git commit -m "Homework 11: Activity 4"     # Record changes
+      ...
+
+      $ git push -u origin homework11               # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Remember to create a [Pull Request] and assign the appropriate TA from the
+  [Reading 11 TA List].
+
+  **DO NOT MERGE** your own [Pull Request].  The TAs use open [Pull Request]s
+  to keep track of which assignments to grade.  Closing them yourself will
+  cause a delay in grading and confuse the TAs.
+
+  </div>
+
+  [git]: https://git-scm.com/
+  [commit]: https://git-scm.com/docs/git-commit
+  [push]: https://git-scm.com/docs/git-push
+  [GitHub]: https://github.com
+  [Linux]:  https://kernel.org
+  [branch]: https://git-scm.com/docs/git-branch
+  [add]: https://git-scm.com/docs/git-add
+  [Pull Request]:  https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request
+  [Reading 01]:  reading01.html
+  [Reading 11 TA List]: reading11_tas.html
+  [curl]: http://man7.org/linux/man-pages/man1/curl.1.html
+  [JSON]: https://json.org/
