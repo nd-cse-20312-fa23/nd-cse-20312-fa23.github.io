@@ -1,0 +1,52 @@
+{
+    "q1": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <tt>BST</tt> methods in <tt>bst.py</tt> are true (select all that\napply)?</p>\n",
+        "responses": {
+            "contains_logn": "<tt>BST.__contains__</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>.",
+            "contains_n": "<tt>BST.__contains__</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "getitem_logn": "<tt>BST.__getitem__</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>.",
+            "getitem_n": "<tt>BST.__getitem__</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "setitem_logn": "<tt>BST.__setitem__</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>.",
+            "setitem_n": "<tt>BST.__setitem__</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "items_logn": "<tt>BST.items</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>.",
+            "items_n": "<tt>BST.items</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>."
+        }
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <tt>Treap</tt> methods in <tt>treap.py</tt> are true (select all that\napply)?</p>\n",
+        "responses": {
+            "insert_avg_logn": "<tt>BST._insert</tt> has an average <b>time complexity</b> of <tt>O(logn)</tt>.",
+            "insert_avg_n": "<tt>BST._insert</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "insert_worst_logn": "<tt>BST._insert</tt> has a worst case <b>time complexity</b> of <tt>O(logn)</tt>.",
+            "insert_worst_n": "<tt>BST._insert</tt> has a worst case <b>time complexity</b> of <tt>O(n)</tt>."
+        }
+    },
+    "q3": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the functions in <tt>anagrams.py</tt> are true (select all that\napply)?</p>\n",
+        "responses": {
+            "count_n": "<tt>count_frequencies</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "count_nlogn": "<tt>count_frequencies</tt> has an average <b>time complexity</b> of <tt>O(nlogn)</tt>.",
+            "count_n2": "<tt>count_frequencies</tt> has an average <b>time complexity</b> of <tt>O(n^2)</tt>.",
+            "is_anagrams_n": "<tt>is_anagrams</tt> has an average <b>time complexity</b> of <tt>O(n)</tt>.",
+            "is_anagrams_nlogn": "<tt>is_anagrams</tt> has an average <b>time complexity</b> of <tt>O(nlogn)</tt>.",
+            "is_anagrams_n2": "<tt>is_anagrams</tt> has an average <b>time complexity</b> of <tt>O(n^2)</tt>."
+        }
+    },
+    "q4": {
+        "type": "multiple",
+        "question": "\n<p>Use your <tt>anagrams.py</tt> script to identify which of the following\npairs of words are anagrams (select all that apply):</p>\n",
+        "responses": {
+            "a": "<tt>aaaaannannaaannnanaanann</tt>, <tt>anannaaaanananannaaaanna</tt>",
+            "b": "<tt>aaaaaannnnnaanananananan</tt>, <tt>aaanaannannaananaannnnaa</tt>",
+            "c": "<tt>ooxooooxoxxooooxooxxxxoxxxxx</tt>, <tt>xoxoxoxoxxxxoooooxxoxoxoxoxo</tt>",
+            "d": "<tt>oxoooooxoxxxxxoxoxxooooxxxox</tt>, <tt>xxoooxoooxooxoxxooxxxxxxoxox</tt>",
+            "e": "<tt>ubkraonCaIntPegdmgiDsoonkdtot</tt>, <tt>NoDoubtTragicKingdomDontSpeak</tt>",
+            "f": "<tt>gtanckmgiRnooubeddKinTsatoodP</tt>, <tt>GudGndotPiakiotcMadtreaskbonn</tt>",
+            "g": "<tt>arBraDcaAB</tt>, <tt>adbRbbAAca</tt>",
+            "h": "<tt>AbrAcdAbrA</tt>, <tt>BaBacaardr</tt>"
+        }
+    }
+}
