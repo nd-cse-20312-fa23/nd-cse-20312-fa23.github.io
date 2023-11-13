@@ -325,6 +325,8 @@
         items:
           - name:       Slides 31
             link:       https://docs.google.com/presentation/d/1LDAQUCd25g_Lk_VAh5JPvxENesvHjL9DWbivJPeEdOM/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=1c608eda-5b56-4aba-915e-b0b90115d4ee
 
       - date:           Wed 11/15
         topics:         Treaps
@@ -345,6 +347,9 @@
       - date:           Mon 11/20
         topics:         Representation
         assignment:     Reading 12
+        items:
+          - name:       Slides 34
+            link:       https://docs.google.com/presentation/d/1rGU8m5imIBmZHiKAIsj_n6-pUkPG70YWkpcAPKYJoi0/edit?usp=sharing
 
       - date:           Wed 11/22
         topics:         Thanksgiving
