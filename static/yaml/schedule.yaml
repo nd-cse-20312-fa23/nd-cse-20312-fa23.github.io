@@ -364,6 +364,10 @@
       - date:           Mon 11/27
         topics:         DFS, BFS
         assignment:     Reading 13
+        items:
+          - name:       Slides 35
+            link:       https://docs.google.com/presentation/d/1Adw64tn6B41ZatEdW1TkYaqkHdqtfw4OHKbIrfRYZ0s/edit?usp=sharing
+
 
       - date:           Wed 11/29
         topics:         SSSP
