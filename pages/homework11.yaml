@@ -149,6 +149,19 @@ body:       |
   `value`, and `priority`, in addition to links to the `left` and `right`
   `Nodes`.
 
+  <div class="alert alert-danger" markdown="1">
+
+  #### <i class="fa fa-sitemap"></i> Invariants
+  
+  Remember that you must maintain the [binary search tree] **invariants** for
+  the `key` attribute:
+
+  1. Each `Node` is never less than every `Node` in its **left subtree**.
+
+  2. Each `Node` is always less than every `Node` in its **right subtree**.
+  
+  </div>
+  
   To make the new `BST` class look and feel like a normal [dict] in [Python],
   you will be implementing various **magic methods** such as `__contains__`
   (ie. `key in d`), `__getitem__`, (ie. `d[key]`), and `__setitem__` (ie.
