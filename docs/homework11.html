@@ -145,6 +145,19 @@ implement a <a href="https://en.wikipedia.org/wiki/Binary_search_tree">binary se
 <p>Because you will be using the <code>BST</code> as a <a href="https://en.wikipedia.org/wiki/Associative_array">map</a>, each <code>Node</code> has a <code>key</code>,
 <code>value</code>, and <code>priority</code>, in addition to links to the <code>left</code> and <code>right</code>
 <code>Nodes</code>.</p>
+<div class="alert alert-danger">
+<h4 id="invariants"><i class="fa fa-sitemap"></i> Invariants<a class="headerlink" href="#invariants" title="Permanent link">&para;</a></h4>
+<p>Remember that you must maintain the <a href="https://en.wikipedia.org/wiki/Binary_search_tree">binary search tree</a> <strong>invariants</strong> for
+the <code>key</code> attribute:</p>
+<ol>
+<li>
+<p>Each <code>Node</code> is never less than every <code>Node</code> in its <strong>left subtree</strong>.</p>
+</li>
+<li>
+<p>Each <code>Node</code> is always less than every <code>Node</code> in its <strong>right subtree</strong>.</p>
+</li>
+</ol>
+</div>
 <p>To make the new <code>BST</code> class look and feel like a normal <a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">dict</a> in <a href="https://www.python.org/">Python</a>,
 you will be implementing various <strong>magic methods</strong> such as <code>__contains__</code>
 (ie. <code>key in d</code>), <code>__getitem__</code>, (ie. <code>d[key]</code>), and <code>__setitem__</code> (ie.
