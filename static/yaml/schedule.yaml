@@ -335,6 +335,8 @@
         items:
           - name:       Slides 32
             link:       https://docs.google.com/presentation/d/1nQzn1G_okEGcI__55NgHWDUJzzGFLblds3U6eJEE3vU/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7f9f2b08-cb4d-4ccc-97ec-b0bb011431b7
 
       - date:           Fri 11/17
         topics:         Red-Black Trees
