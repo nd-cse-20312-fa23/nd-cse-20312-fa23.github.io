@@ -370,7 +370,6 @@
           - name:       Slides 35
             link:       https://docs.google.com/presentation/d/1Adw64tn6B41ZatEdW1TkYaqkHdqtfw4OHKbIrfRYZ0s/edit?usp=sharing
 
-
       - date:           Wed 11/29
         topics:         SSSP
         assignment:     Homework 12
@@ -381,6 +380,9 @@
 
       - date:           Fri 12/01
         topics:         MST
+        items:
+          - name:       Slides 37
+            link:       https://docs.google.com/presentation/d/1SVDEf44t9adxCo4RyY9eOhqOQfX7SXz2rZbYoE1ywEI/edit?usp=sharing
 
 - name:     Exam 02
   days:
