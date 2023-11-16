@@ -388,6 +388,9 @@
   days:
       - date:           Mon 12/04
         topics:         Topological Sort
+        items:
+          - name:       Slides 38
+            link:       https://docs.google.com/presentation/d/1Fq9uFDtbNka4BT1hGs7eODc9doEwS-XD1gm4Qip3P-4/edit?usp=sharing
 
       - date:           Wed 12/06
         topics:         Review
