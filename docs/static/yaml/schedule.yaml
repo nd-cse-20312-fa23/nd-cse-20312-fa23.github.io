@@ -335,6 +335,8 @@
         items:
           - name:       Slides 32
             link:       https://docs.google.com/presentation/d/1nQzn1G_okEGcI__55NgHWDUJzzGFLblds3U6eJEE3vU/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7f9f2b08-cb4d-4ccc-97ec-b0bb011431b7
 
       - date:           Fri 11/17
         topics:         Red-Black Trees
@@ -368,14 +370,19 @@
           - name:       Slides 35
             link:       https://docs.google.com/presentation/d/1Adw64tn6B41ZatEdW1TkYaqkHdqtfw4OHKbIrfRYZ0s/edit?usp=sharing
 
-
       - date:           Wed 11/29
         topics:         SSSP
         assignment:     Homework 12
         idea:           Star Graph, Reddit
+        items:
+          - name:       Slides 36
+            link:       https://docs.google.com/presentation/d/1A3G8zEXA3h6JOHbBTEXBauoKGbw6uQ5wDD0KxEvrG1c/edit?usp=sharing
 
       - date:           Fri 12/01
         topics:         MST
+        items:
+          - name:       Slides 37
+            link:       https://docs.google.com/presentation/d/1SVDEf44t9adxCo4RyY9eOhqOQfX7SXz2rZbYoE1ywEI/edit?usp=sharing
 
 - name:     Exam 02
   days:
