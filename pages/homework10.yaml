@@ -513,7 +513,7 @@ body:       |
       the [unit tests], you will want to do something like the following:
 
               :::python
-              if self.data[index] > self.data[parent]:
+              if self.data[index] > self.data[smallest]:
                   # Perform swap
 
       </div>
