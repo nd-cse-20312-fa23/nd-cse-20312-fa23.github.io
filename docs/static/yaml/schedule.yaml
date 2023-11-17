@@ -343,6 +343,8 @@
         items:
           - name:       Slides 33
             link:       https://docs.google.com/presentation/d/1qdpw3CJkuG7Egjz9d4kR-CkS9LXf_3Jm0nhgDAsg_Q4/edit?usp=sharing
+          - name:       Panopto
+            link:       https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=b9a76281-0a6c-4d6c-b496-b0bd011847ca
 
 - name:     Graphs - Representation
   days:
@@ -388,6 +390,9 @@
   days:
       - date:           Mon 12/04
         topics:         Topological Sort
+        items:
+          - name:       Slides 38
+            link:       https://docs.google.com/presentation/d/1Fq9uFDtbNka4BT1hGs7eODc9doEwS-XD1gm4Qip3P-4/edit?usp=sharing
 
       - date:           Wed 12/06
         topics:         Review

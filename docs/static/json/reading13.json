@@ -1,0 +1,65 @@
+{
+    "q1": {
+        "type": "blank",
+        "question": "\n<p>Complete the following <tt>traversal</tt> function, which uses\n<tt>frontier</tt> and <tt>visited</tt> data structures to perform a\n<b>depth first traversal</b> of a graph (ie. <b>adjacency list</b>):</p>\n\n<pre>\ndef traversal(graph: dict[str, list[str]], source: str) -> None:\n    ____ = [source]           # 1.\n    ____ = set()              # 2.\n\n    while ____:               # 3.\n        vertex = ____         # 4.\n\n        if vertex in ____:    # 5.\n            continue\n\n        ____                  # 6.\n\n        print(vertex)\n\n        for neighbor in ____: # 7.\n            ____              # 8.\n</pre>\n"
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<p>Given the <tt>traversal</tt> function above and the <tt>frontier</tt>\ndata structure used during traversal, which of the following statements\nregarding <b>depth first search</b>, <b>breadth first search</b>,\n<b>Dijkstra's algorithm</b>, and <b>Prim's algorithm</b> are true (select\nall that apply)?</p>\n",
+        "responses": {
+            "dfs_stack": "In <b>depth first search</b>, the <tt>frontier</tt> is a <b>stack</b>.",
+            "dfs_queue": "In <b>depth first search</b>, the <tt>frontier</tt> is a <b>queue</b>.",
+            "dfs_priority": "In <b>depth first search</b>, the <tt>frontier</tt> is a <b>priority queue</b>.",
+            "bfs_stack": "In <b>breadth first search</b>, the <tt>frontier</tt> is a <b>stack</b>.",
+            "bfs_queue": "In <b>breadth first search</b>, the <tt>frontier</tt> is a <b>queue</b>.",
+            "bfs_priority": "In <b>breadth first search</b>, the <tt>frontier</tt> is a <b>priority queue</b>.",
+            "dijkstra_stack": "In <b>Dijkstra's algorithm</b>, the <tt>frontier</tt> is a <b>stack</b>.",
+            "dijkstra_queue": "In <b>Dijkstra's algorithm</b>, the <tt>frontier</tt> is a <b>queue</b>.",
+            "dijkstra_priority": "In <b>Dijkstra's algorithm</b>, the <tt>frontier</tt> is a <b>priority queue</b>.",
+            "prim_stack": "In <b>Prim's algorithm</b>, the <tt>frontier</tt> is a <b>stack</b>.",
+            "prim_queue": "In <b>Prim's algorithm</b>, the <tt>frontier</tt> is a <b>queue</b>.",
+            "prim_priority": "In <b>Prim's algorithm</b>, the <tt>frontier</tt> is a <b>priority queue</b>."
+        }
+    },
+    "q3": {
+        "type": "multiple",
+        "question": "\n<p>Given the graph below, which of the following traverals is a valid\n<b>depth first search</b> starting from vertex <tt>A</tt> (select all that\napply).</p>\n\n<div class=\"thumbnail text-center\">\n  <img src=\"static/img/reading13-traversals.png\" class=\"img-responsive\">\n</div>\n",
+        "responses": {
+            "a": "<tt>A, B, C, D</tt>",
+            "b": "<tt>A, B, D, C</tt>",
+            "c": "<tt>A, C, B, D</tt>",
+            "d": "<tt>A, C, D, B</tt>"
+        }
+    },
+    "q4": {
+        "type": "multiple",
+        "question": "\n<p>Given the same graph above, which of the following traverals is a valid\n<b>breadth first search</b> starting from vertex <tt>A</tt> (select all\nthat apply).</p>\n",
+        "responses": {
+            "a": "<tt>A, B, C, D</tt>",
+            "b": "<tt>A, B, D, C</tt>",
+            "c": "<tt>A, C, B, D</tt>",
+            "d": "<tt>A, C, D, B</tt>"
+        }
+    },
+    "q5": {
+        "type": "multiple",
+        "question": "\n<p>Given the same graph above, which of the following statements regarding\nthe <b>shortest path</b> between <tt>A</tt> and <tt>C</tt> are true (select\nall that apply)?\n",
+        "responses": {
+            "sssp_path_ac": "The <b>shortest path</b> between <tt>A</tt> and <tt<C> is <tt>A, C</tt>.",
+            "sssp_path_abdc": "The <b>shortest path</b> between <tt>A</tt> and <tt<C> is <tt>A, B, D, C</tt>.",
+            "sssp_distance_6": "The <b>shortest path</b> between <tt>A</tt> and <tt<C> has a distance of <tt>6</tt>.",
+            "sssp_distance_5": "The <b>shortest path</b> between <tt>A</tt> and <tt<C> has a distance of <tt>5</tt>."
+        }
+    },
+    "q6": {
+        "type": "multiple",
+        "question": "\n<p>Given the same graph above, which of the following statements regarding\nthe <b>minimum spanning tree</b> of the graph (assuming all edges are\n<b>undirected</b>) are true (select all that apply)?\n",
+        "responses": {
+            "mst_ab": "The <b>minimum spanning tree</b> includes the edge <tt>A, B</tt>.",
+            "mst_ac": "The <b>minimum spanning tree</b> includes the edge <tt>A, C</tt>.",
+            "mst_bc": "The <b>minimum spanning tree</b> includes the edge <tt>B, C</tt>.",
+            "mst_bd": "The <b>minimum spanning tree</b> includes the edge <tt>B, D</tt>.",
+            "mst_cd": "The <b>minimum spanning tree</b> includes the edge <tt>C, D</tt>."
+        }
+    }
+}
