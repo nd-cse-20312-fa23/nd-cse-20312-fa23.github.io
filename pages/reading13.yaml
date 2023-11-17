@@ -1,0 +1,112 @@
+title:      "Reading 13: Graphs (Traversals)"
+icon:       fa-book
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  **Everyone**:
+
+  Next week, we will continue exploring [graphs], with a focus on **traversal**
+  algorithms such as [depth first search] and [breadth first search], and other
+  graph algorithms such as [Dijkstra's] and [Prim's], which build off these
+  **traversal** algorithms to solve problems such as finding the shortest path
+  between two vertices or determining the **minimum spanning tree** of a
+  [graph].
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-search"></i> TL;DR
+
+  The focus of this reading is [depth first search], [breadth first search],
+  [Dijkstra's] algorithm, and [Prim's] algorithm.
+
+  </div>
+
+  [Python]: https://www.python.org/
+  [graph]: https://en.wikipedia.org/wiki/Graph_(abstract_data_type)
+  [graphs]: https://en.wikipedia.org/wiki/Graph_(abstract_data_type)
+  [depth first search]: https://en.wikipedia.org/wiki/Depth-first_search
+  [breadth first search]: https://en.wikipedia.org/wiki/Breadth-first_search
+  [dijkstra's]: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+  [prim's]: https://en.wikipedia.org/wiki/Prim%27s_algorithm
+
+  <img src="static/img/reading13-traversals.png" class="pull-right img-responsive">
+
+  ## Readings
+
+  The readings for this week are:
+
+  1. [Data Structures Handbook](https://www.thedshandbook.com/)
+
+      - [Depth First Search](https://www.thedshandbook.com/depth-first-search/)
+      - <p>[Breadth First Search](https://www.thedshandbook.com/breadth-first-search/)</p>
+
+  2. [Learn DS & Algorithms](https://www.programiz.com/dsa)
+
+      - [Depth First Search](https://www.programiz.com/dsa/graph-dfs)
+      - [Breadth First Search](https://www.programiz.com/dsa/graph-bfs)
+      - [Dijkstra's Algorithm](https://www.programiz.com/dsa/dijkstra-algorithm)
+      - <p>[Prim's Algorithm](https://www.programiz.com/dsa/prim-algorithm)</p>
+
+  ## Quiz
+
+  Once you have completed the readings, answer the following [Reading 13 Quiz]
+  questions:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/reading13.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  ## Submission
+
+  To submit your work, follow the same process outlined in [Reading 01]:
+
+      :::bash
+      $ git checkout master                 # Make sure we are in master branch
+      $ git pull --rebase                   # Make sure we are up-to-date with GitHub
+
+      $ git checkout -b reading13           # Create reading13 branch and check it out
+
+      $ cd reading13                        # Go into reading13 folder
+      $ $EDITOR answers.json                # Edit your answers.json file
+
+      $ ../.scripts/check.py                # Check reading13 quiz
+      Checking reading13 quiz ...
+            Q1 0.80
+            Q2 0.40
+            Q3 0.40
+            Q4 0.40
+            Q5 0.40
+            Q6 0.60
+         Score 3.00 / 3.00
+        Status Success
+
+      $ git add answers.json                # Add answers.json to staging area
+      $ git commit -m "Reading 13: Done"    # Commit work
+
+      $ git push -u origin reading13        # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Once you have committed your work and pushed it to [GitHub], remember to
+  create a **pull request** and assign it to the appropriate **teaching
+  assistant** from the [Reading 13 TA List].
+
+  </div>
+
+  [Git]:                https://git-scm.com/
+  [GitHub]:             https://github.com/
+  [Reading 01]:         reading01.html
+  [Reading 13 Quiz]:    static/json/reading13.json
+  [Reading 13 TA List]: reading13_tas.html
