@@ -1,0 +1,64 @@
+{
+    "q1": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>functions</b> in\n<tt>graph.py</tt> are true (select all that apply)?</p>\n",
+        "responses": {
+            "index_error": "<tt>int()</tt> raises an <tt>IndexError</tt> when it tries to convert an empty <tt>string</tt>.",
+            "value_error": "<tt>int()</tt> raises a <tt>ValueError</tt> when it tries to convert an empty <tt>string</tt>.",
+            "am_v": "Given <tt>V</tt> <b>vertices</b>, an <b>adjacency matrix</b> requires at least <b>O(V)</b> space.",
+            "am_v2": "Given <tt>V</tt> <b>vertices</b>, an <b>adjacency matrix</b> requires at least <b>O(V^2)</b> space.",
+            "al_v": "Given <tt>V</tt> <b>vertices</b>, an <b>adjacency list</b> requires at least <b>O(V)</b> space.",
+            "al_v2": "Given <tt>V</tt> <b>vertices</b>, an <b>adjacency list</b> requires at least <b>O(V^2)</b> space."
+        }
+    },
+    "q2": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time and space\ncomplexities</b> of the <b>functions</b> in <tt>center_star.py</tt> are\ntrue (select all that apply)?</p>\n",
+        "responses": {
+            "fc_space_1": "<tt>find_center</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>.",
+            "fc_space_v": "<tt>find_center</tt> has an average <b>space complexity</b> of <tt>O(V)</tt>.",
+            "fc_space_ve": "<tt>find_center</tt> has an average <b>space complexity</b> of <tt>O(V + E)</tt>.",
+            "fc_space_v2": "<tt>find_center</tt> has an average <b>space complexity</b> of <tt>O(V^2)</tt>.",
+            "fc_time_1": "<tt>find_center</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "fc_time_v": "<tt>find_center</tt> has an average <b>time complexity</b> of <tt>O(V)</tt>.",
+            "fc_time_ve": "<tt>find_center</tt> has an average <b>time complexity</b> of <tt>O(V + E)</tt>.",
+            "fc_time_v2": "<tt>find_center</tt> has an average <b>time complexity</b> of <tt>O(V^2)</tt>."
+        }
+    },
+    "q3": {
+        "type": "single",
+        "question": "\n<p>Suppose we changed the graph representation in <tt>center_star.py</tt>\nfrom an <b>adjacency matrix</b> to an <b>adjacency list</b>.  What would be\nthe average <b>time complexity</b> of <tt>find_center</tt> with an\n<b>adjacency list</b>?</p>\n",
+        "responses": {
+            "fc_time_1": "<tt>find_center</tt> would have an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "fc_time_v": "<tt>find_center</tt> would have an average <b>time complexity</b> of <tt>O(V)</tt>.",
+            "fc_time_ve": "<tt>find_center</tt> would have an average <b>time complexity</b> of <tt>O(V + E)</tt>.",
+            "fc_time_v2": "<tt>find_center</tt> woudl have an average <b>time complexity</b> of <tt>O(V^2)</tt>."
+        }
+    },
+    "q4": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time and space\ncomplexities</b> of the <b>functions</b> in <tt>reddit_groups.py</tt> are\ntrue (select all that apply)?</p>\n",
+        "responses": {
+            "wg_space_1": "<tt>walk_graph</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>.",
+            "wg_space_v": "<tt>walk_graph</tt> has an average <b>space complexity</b> of <tt>O(V)</tt>.",
+            "wg_space_ve": "<tt>walk_graph</tt> has an average <b>space complexity</b> of <tt>O(V + E)</tt>.",
+            "wg_space_v2": "<tt>walk_graph</tt> has an average <b>space complexity</b> of <tt>O(V^2)</tt>.",
+            "wg_time_1": "<tt>walk_graph</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "wg_time_v": "<tt>walk_graph</tt> has an average <b>time complexity</b> of <tt>O(V)</tt>.",
+            "wg_time_ve": "<tt>walk_graph</tt> has an average <b>time complexity</b> of <tt>O(V + E)</tt>.",
+            "wg_time_v2": "<tt>walk_graph</tt> has an average <b>time complexity</b> of <tt>O(V^2)</tt>.",
+            "fg_space_1": "<tt>find_groups</tt> has an average <b>space complexity</b> of <tt>O(1)</tt>.",
+            "fg_space_v": "<tt>find_groups</tt> has an average <b>space complexity</b> of <tt>O(V)</tt>.",
+            "fg_space_ve": "<tt>find_groups</tt> has an average <b>space complexity</b> of <tt>O(V + E)</tt>.",
+            "fg_space_v2": "<tt>find_groups</tt> has an average <b>space complexity</b> of <tt>O(V^2)</tt>.",
+            "fg_time_1": "<tt>find_groups</tt> has an average <b>time complexity</b> of <tt>O(1)</tt>.",
+            "fg_time_v": "<tt>find_groups</tt> has an average <b>time complexity</b> of <tt>O(V)</tt>.",
+            "fg_time_ve": "<tt>find_groups</tt> has an average <b>time complexity</b> of <tt>O(V + E)</tt>.",
+            "fg_time_v2": "<tt>find_groups</tt> has an average <b>time complexity</b> of <tt>O(V^2)</tt>."
+        }
+    },
+    "q5": {
+        "type": "blank",
+        "question": "\n<p>Use your <tt>reddit_groups.py</tt> script on the following graph:</p>\n\n<pre>\n10\n10\n1 2\n2 3\n3 4\n4 1\n10 5\n9 8\n3 10\n3 1\n9 6\n5 2\n</pre>\n\n<p>Answer the following the questions:</p>\n\n<ol>\n  <li>How many <b>isolated groups</b> are in the <b>graph</b>? ____</li>\n  <li>Which <b>vertices</b> are in the <b>largest group</b>? ____</li>\n  <li>What <b>vertex</b> is alone? ____</li>\n</ol>\n"
+    }
+}
