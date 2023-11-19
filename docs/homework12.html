@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Homework 12: Graphs (Representation, Traversal)</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="static/css/blugold.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<style>
+	body {
+	    padding: 10px;
+	}
+	</style>
+    </head>
+    <body>
+	<div class="container">
+
+	    <div class="row">
+		<div class="page-header">
+		    <ul class="nav nav-pills pull-right">
+			
+			<li><a href="index.html"><i class="fa fa-sitemap"></i> <span class="visible-md-inline visible-lg-inline">Home</span></a></li>
+			
+		    </ul>
+		    <h1><i class="fa fa-code"></i> Homework 12: Graphs (Representation, Traversal)</h1>
+		</div>
+	    </div>
+
+            
+<p>The goal of this homework assignment is to allow you to explore representing
+<a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graphs</a> using either an <a href="https://en.wikipedia.org/wiki/Adjacency_matrix">adjacency matrix</a> or an <a href="https://en.wikipedia.org/wiki/Adjacency_list">adjacency list</a>, and
+<strong>traversing</strong> using either <a href="https://en.wikipedia.org/wiki/Depth-first_search">depth first search</a> or <a href="https://en.wikipedia.org/wiki/Breadth-first_search">breadth first search</a>.
+Once you have a few <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a> reading utilities implemented, you will employ
+them to solve two <strong>programming challenges</strong> that require constructing
+<a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graphs</a> and then examining the <strong>vertices</strong> and <strong>edges</strong> within the
+<a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a>.</p>
+<div class="thumbnail text-center">
+  <img src="static/img/homework12-graphs.png" class="img-responsive">
+</div>
+
+<p>For this assignment, you are to do your work in the <code>homework12</code> folder of
+your <strong>assignments</strong> <a href="https://github.com">GitHub</a> repository and push your work by <strong>noon,
+Wednesday, November 29</strong>.</p>
+<h2 id="activity-0-preparation">Activity 0: Preparation<a class="headerlink" href="#activity-0-preparation" title="Permanent link">&para;</a></h2>
+<p>Before starting this homework assignment, you should first perform a <code>git
+pull</code> to retrieve any changes in your remote <a href="https://github.com">GitHub</a> repository:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ <span style="color: #008000">cd</span> path/to/repository                   <span style="color: #3D7B7B; font-style: italic"># Go to assignments repository</span>
+
+$ git switch master                       <span style="color: #3D7B7B; font-style: italic"># Make sure we are in master branch</span>
+
+$ git pull --rebase                       <span style="color: #3D7B7B; font-style: italic"># Get any remote changes not present locally</span>
+</code></pre></div>
+
+<p>Next, create a new branch for this assignment:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ git checkout -b homework12              <span style="color: #3D7B7B; font-style: italic"># Create homework12 branch and check it out</span>
+</code></pre></div>
+
+<h3 id="task-1-skeleton-code">Task 1: Skeleton Code<a class="headerlink" href="#task-1-skeleton-code" title="Permanent link">&para;</a></h3>
+<p>To help you get started, the instructor has provided you with the following <a href="https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework12.tar.gz">skeleton code</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Go to assignments repository</span>
+$ <span style="color: #008000">cd</span> path/to/assignments/repository
+
+<span style="color: #3D7B7B; font-style: italic"># -----------------------------------------------------</span>
+<span style="color: #3D7B7B; font-style: italic"># MAKE SURE YOU ARE NOT INSIDE THE homework12 DIRECTORY</span>
+<span style="color: #3D7B7B; font-style: italic"># -----------------------------------------------------</span>
+<span style="color: #3D7B7B; font-style: italic"># MAKE SURE YOU ARE AT THE TOP-LEVEL DIRECTORY</span>
+<span style="color: #3D7B7B; font-style: italic"># -----------------------------------------------------</span>
+
+<span style="color: #3D7B7B; font-style: italic"># Download skeleton code tarball</span>
+$ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework12.tar.gz
+
+<span style="color: #3D7B7B; font-style: italic"># Extract skeleton code tarball</span>
+$ tar xzvf homework12.tar.gz
+</code></pre></div>
+
+<p>Once downloaded and extracted, you should see the following files in your
+<code>homework12</code> directory:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>homework12
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> Makefile         <span style="color: #3D7B7B; font-style: italic"># This is the Makefile for building all the assignment artifacts</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> center_star.py   <span style="color: #3D7B7B; font-style: italic"># This is the Python script for the Center Star programming challenge</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> graph.py         <span style="color: #3D7B7B; font-style: italic"># This is the Python module for the Graph module</span>
+    <span style="color: #AA5D1F; font-weight: bold">\_</span> reddit_groups.py <span style="color: #3D7B7B; font-style: italic"># This is the Python script for the Reddit Groups programming challenge</span>
+</code></pre></div>
+
+<h3 id="task-2-initial-import">Task 2: Initial Import<a class="headerlink" href="#task-2-initial-import" title="Permanent link">&para;</a></h3>
+<p>Now that the files are extracted into the <code>homework12</code> folder, you can
+<strong>commit</strong> them to your <a href="https://git-scm.com/">git</a> repository:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Go into homework12 folder</span>
+$ <span style="color: #008000">cd</span> homework12
+
+<span style="color: #3D7B7B; font-style: italic"># Add and commit initial skeleton files</span>
+$ git add Makefile                            <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git add *.py
+$ git commit -m <span style="color: #BA2121">&quot;Homework 12: Initial Import&quot;</span> <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+</code></pre></div>
+
+<h3 id="task-3-unit-tests">Task 3: Unit Tests<a class="headerlink" href="#task-3-unit-tests" title="Permanent link">&para;</a></h3>
+<p>After downloading and extracting these files, you can run the <code>make</code> command
+to run the tests.</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run all tests (will trigger automatic download)</span>
+$ make
+</code></pre></div>
+
+<p>You will notice that the <code>Makefile</code> downloads three additional test scripts:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>homework12
+  <span style="color: #AA5D1F; font-weight: bold">\_</span> center_star_test.py    <span style="color: #3D7B7B; font-style: italic"># This is the Python unit test for the Center Star programming challenge</span>
+  <span style="color: #AA5D1F; font-weight: bold">\_</span> graph_test.py          <span style="color: #3D7B7B; font-style: italic"># This is the Python unit test for the Graph module</span>
+  <span style="color: #AA5D1F; font-weight: bold">\_</span> reddit_groups_test.py  <span style="color: #3D7B7B; font-style: italic"># This is the Python unit test for the Reddit Groups programming challenge</span>
+</code></pre></div>
+
+<p>In addition to the embedded <a href="https://docs.python.org/3/library/doctest.html">doctests</a> in the <a href="https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework12.tar.gz">skeleton code</a>, you will be
+using these <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a> to verify the correctness and behavior of your code.</p>
+<div class="alert alert-info">
+<h4 id="automatic-downloads"><i class="fa fa-download"></i> Automatic Downloads<a class="headerlink" href="#automatic-downloads" title="Permanent link">&para;</a></h4>
+<p>The <code>test</code> scripts are automatically downloaded by the <code>Makefile</code>, so any
+modifications you do to them will be lost when you run <code>make</code> again.
+Likewise, because they are automatically downloaded, you do not need to <code>add</code>
+or <code>commit</code> them to your <a href="https://git-scm.com/">git</a> repository.</p>
+</div>
+<p>The details on what you need to implement for this assignment are described
+in the following sections.</p>
+<h2 id="activity-1-graph-3-points">Activity 1: Graph (3 Points)<a class="headerlink" href="#activity-1-graph-3-points" title="Permanent link">&para;</a></h2>
+<p>For the first activity, you are to implement a few utility <strong>functions</strong> that
+read a <strong>stream</strong> of <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graphs</a> in the following format:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>4   # Number of vertices
+3   # Number of edges
+1 2 # Edge 1
+2 3 # Edge 2
+4 2 # Edge 3
+</code></pre></div>
+
+<p>That is, each <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a> consists of an initial line that indicates the <strong>number
+of vertices</strong> in the <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a>, followed by a second line with the <strong>number of
+edges</strong> in the <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a>.  After this, each subsequent line is an <strong>edge</strong> in
+the <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a> in the form of <code>source</code> and<code>target</code>.</p>
+<div class="thumbnail text-center">
+  <img src="static/img/homework12-representation.png" class="img-responsive">
+</div>
+
+<p>You will need to implement <strong>functions</strong> that read such <strong>streams</strong> of
+<a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graphs</a> into either an <a href="https://en.wikipedia.org/wiki/Adjacency_matrix">adjacency matrix</a> or an <a href="https://en.wikipedia.org/wiki/Adjacency_list">adjacency list</a>
+representation as shown above.</p>
+<p>For this assignment, we will be using the following <strong>types</strong> for our
+<a href="https://en.wikipedia.org/wiki/Adjacency_matrix">adjacency matrix</a> and <a href="https://en.wikipedia.org/wiki/Adjacency_list">adjacency list</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>AdjacencyMatrix <span style="color: #666666">=</span> <span style="color: #008000">list</span>[<span style="color: #008000">list</span>[<span style="color: #008000">int</span>]]
+AdjacencyList   <span style="color: #666666">=</span> <span style="color: #008000">dict</span>[<span style="color: #008000">int</span>, <span style="color: #008000">list</span>[<span style="color: #008000">int</span>]]
+</code></pre></div>
+
+<div class="alert alert-info">
+<p><strong>Note</strong>: For this assignment, assume that all <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graphs</a> are <strong>undirected</strong>.</p>
+</div>
+<h3 id="task-1-graphpy">Task 1: <code>graph.py</code><a class="headerlink" href="#task-1-graphpy" title="Permanent link">&para;</a></h3>
+<p>The <code>graph.py</code> <a href="https://www.python.org/">Python</a> script contains the <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a> utility <strong>functions</strong> you
+are to implement for this activity:</p>
+<ol>
+<li>
+<p><code>read_adjacency_matrix(stream=sys.stdin) -&gt; AdjacencyMatrix</code></p>
+<blockquote>
+<p>This function reads the <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a> from the <code>stream</code> into an <a href="https://en.wikipedia.org/wiki/Adjacency_matrix">adjacency matrix</a>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>read_adjacency_list(stream=sys.stdin) -&gt; AdjacencyList</code></p>
+<blockquote>
+<p>This function reads the <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a> from the <code>stream</code> into an <a href="https://en.wikipedia.org/wiki/Adjacency_list">adjacency list</a>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>read_adjacency_lists(stream=sys.stdin) -&gt; Iterator[AdjacencyList]</code></p>
+<blockquote>
+<p>This function generates one <a href="https://en.wikipedia.org/wiki/Adjacency_list">adjacency list</a> at a time by reading
+<a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graphs</a> from the <code>stream</code>.</p>
+</blockquote>
+</li>
+</ol>
+<div class="alert alert-success">
+<h4 id="hints"><i class="fa fa-lightbulb-o"></i> Hints<a class="headerlink" href="#hints" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>Use <code>stream.readline()</code> to read one line from the <code>stream</code>.</p>
+</li>
+<li>
+<p>Use a <code>try/except</code> to detect the end of the <code>stream</code>.</p>
+</li>
+<li>
+<p>Use a <a href="https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions">list comprehension</a> or a <a href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">dict comprehension</a> to initialize the
+appropriate <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a> <strong>representation</strong>.</p>
+</li>
+<li>
+<p>Use the <a href="https://realpython.com/lessons/assignment-expressions/">walrus operator</a> in <code>read_adjacency_lists</code>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #008000; font-weight: bold">while</span> graph <span style="color: #666666">:=</span> read_adjacency_list(stream):
+    <span style="color: #3D7B7B; font-style: italic"># TODO</span>
+</code></pre></div>
+
+</li>
+</ol>
+</div>
+<div class="alert alert-warning">
+<h4 id="doctests"><i class="fa fa-warning"></i> DocTests<a class="headerlink" href="#doctests" title="Permanent link">&para;</a></h4>
+<p>You may notice that in addition to the usual comments and <tt>TODOs</tt>, the
+<a href="https://peps.python.org/pep-0257/">docstrings</a> of each method also contains a few <a href="https://docs.python.org/3/library/doctest.html">doctests</a>.</p>
+<p>You are <strong>not</strong> to modify these <a href="https://docs.python.org/3/library/doctest.html">doctests</a> and must keep them in-place.  They
+are used to verify the correctness of your code.</p>
+<p>Your code goes <strong>below</strong> the <a href="https://peps.python.org/pep-0257/">docstrings</a>, where the <tt>TODO</tt> and
+<tt>pass</tt> commands are (you may remove the <tt>pass</tt> once you
+complete the method).</p>
+</div>
+<h3 id="task-2-testing">Task 2: Testing<a class="headerlink" href="#task-2-testing" title="Permanent link">&para;</a></h3>
+<p>As you implement <code>graph.py</code>, you can use the provided <a href="https://docs.python.org/3/library/doctest.html">doctests</a> to verify the
+correctness of your code:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run doctests</span>
+$ python3 -m doctest graph.py -v
+...
+<span style="color: #666666">3</span> items passed all tests:
+   <span style="color: #666666">1</span> tests <span style="color: #008000; font-weight: bold">in</span> graph.read_adjacency_list
+   <span style="color: #666666">1</span> tests <span style="color: #008000; font-weight: bold">in</span> graph.read_adjacency_lists
+   <span style="color: #666666">1</span> tests <span style="color: #008000; font-weight: bold">in</span> graph.read_adjacency_matrix
+<span style="color: #666666">3</span> tests <span style="color: #008000; font-weight: bold">in</span> <span style="color: #666666">4</span> items.
+<span style="color: #666666">3</span> passed and <span style="color: #666666">0</span> failed.
+Test passed.
+</code></pre></div>
+
+<p>You can also use <code>make</code> to run both the <a href="https://docs.python.org/3/library/doctest.html">doctests</a> and the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run unit tests (and doctests)</span>
+$ make test-graph
+Testing graph ...
+test_00_doctest <span style="color: #666666">(</span>__main__.GraphTests<span style="color: #666666">)</span> ... ok
+test_01_mypy <span style="color: #666666">(</span>__main__.GraphTests<span style="color: #666666">)</span> ... ok
+test_02_read_adjacency_matrix <span style="color: #666666">(</span>__main__.GraphTests<span style="color: #666666">)</span> ... ok
+test_03_read_adjacency_list <span style="color: #666666">(</span>__main__.GraphTests<span style="color: #666666">)</span> ... ok
+test_04_read_adjacency_lists <span style="color: #666666">(</span>__main__.GraphTests<span style="color: #666666">)</span> ... ok
+
+   Score <span style="color: #666666">3</span>.00 / <span style="color: #666666">3</span>.00
+  Status Success
+
+----------------------------------------------------------------------
+Ran <span style="color: #666666">5</span> tests <span style="color: #008000; font-weight: bold">in</span> <span style="color: #666666">0</span>.048s
+
+OK
+</code></pre></div>
+
+<p>To just run the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>, you can do the following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run unit tests</span>
+$ ./graph_test.py -v
+...
+</code></pre></div>
+
+<p>To run a specific <a href="https://en.wikipedia.org/wiki/Unit_testing">unit test</a>, you can specify the <strong>method name</strong>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run only mypy unit test</span>
+$ ./graph_test.py -v GraphTests.test_01_mypy
+...
+</code></pre></div>
+
+<div class="alert alert-success">
+<h4 id="iterative-development"><i class="fa fa-repeat"></i> Iterative Development<a class="headerlink" href="#iterative-development" title="Permanent link">&para;</a></h4>
+<p>You should practice <a href="https://en.wikipedia.org/wiki/Iterative_and_incremental_development">iterative development</a>. That is, rather than writing a
+bunch of code and then debugging it all at once, you should concentrate on
+one function at a time and then test that <strong>one thing at a time</strong>. The provided
+<a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a> allow you to check on the correctness of the individual functions
+without implementing everything at once. Take advantage of this and build one
+thing at a time.</p>
+</div>
+<p><img src="static/img/homework12-center-star.png" class="img-responsive pull-right" style="height: 225px"></p>
+<h2 id="activity-2-center-star-3-points">Activity 2: Center Star (3 Points)<a class="headerlink" href="#activity-2-center-star-3-points" title="Permanent link">&para;</a></h2>
+<p>For this activity, you are to use your <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a> utilities to solve the
+following <strong>programming challenge</strong>:</p>
+<blockquote>
+<p>Given an <strong>undirected star graph</strong> consisting of <code>N</code> <strong>vertices</strong> labeled
+from <code>1</code> to <code>N</code>, determine which <strong>vertex</strong> is the center of the <strong>star
+graph</strong> (ie.  which <strong>vertex</strong> has exactly <code>N - 1</code> <strong>edges</strong> that connect the
+center <strong>vertex</strong> with every other <strong>vertex</strong> in the <strong>star graph</strong>).</p>
+<p>For each graph, you are to output the <strong>center vertex</strong> of the <strong>star
+graph</strong> or output that there is no center.</p>
+</blockquote>
+<p>Here is an example of <code>center_star.py</code> in executing as a script:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ ./center_star.py
+<span style="color: #666666">4</span>
+<span style="color: #666666">3</span>
+<span style="color: #666666">1</span> <span style="color: #666666">2</span>
+<span style="color: #666666">2</span> <span style="color: #666666">3</span>
+<span style="color: #666666">4</span> <span style="color: #666666">2</span>
+Vertex <span style="color: #666666">2</span> is the center
+</code></pre></div>
+
+<h3 id="task-1-center_starpy">Task 1: <code>center_star.py</code><a class="headerlink" href="#task-1-center_starpy" title="Permanent link">&para;</a></h3>
+<p>The <code>center_star.py</code> <a href="https://www.python.org/">Python</a> script contains the <strong>functions</strong> you are to
+complete to solve this <strong>programming challenge</strong>:</p>
+<ol>
+<li>
+<p><code>find_center(graph: AdjacencyMatrix) -&gt; int</code></p>
+<blockquote>
+<p>This function finds the center of the <strong>star graph</strong> and returns the
+<strong>vertex</strong> if it exists, otherwise it returns <code>0</code>.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use the <a href="https://docs.python.org/3/library/functions.html#sum">sum</a> function.
+</div></p>
+</li>
+<li>
+<p><code>main(stream=sys.stdin) -&gt; None</code></p>
+<blockquote>
+<p>This function reads a <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a> from the <code>stream</code> into an <a href="https://en.wikipedia.org/wiki/Adjacency_matrix">adjacency
+matrix</a>, determines which <strong>vertex</strong> is the center of the <strong>star graph</strong>,
+and prints out the center <strong>vertex</strong> if it exists.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use the <a href="https://realpython.com/lessons/assignment-expressions/">walrus operator</a> with <code>read_adjacency_matrix</code>.
+</div></p>
+</li>
+</ol>
+<h3 id="task-2-testing_1">Task 2: Testing<a class="headerlink" href="#task-2-testing_1" title="Permanent link">&para;</a></h3>
+<p>As you implement <code>center_star.py</code>, you can use the provided <a href="https://docs.python.org/3/library/doctest.html">doctests</a> to verify
+the correctness of your code:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run doctests</span>
+$ python3 -m doctest center_star.py -v
+<span style="color: #666666">2</span> items passed all tests:
+   <span style="color: #666666">1</span> tests <span style="color: #008000; font-weight: bold">in</span> center_star.find_center
+   <span style="color: #666666">1</span> tests <span style="color: #008000; font-weight: bold">in</span> center_star.main
+<span style="color: #666666">2</span> tests <span style="color: #008000; font-weight: bold">in</span> <span style="color: #666666">3</span> items.
+<span style="color: #666666">2</span> passed and <span style="color: #666666">0</span> failed.
+Test passed
+</code></pre></div>
+
+<p>You can also use <code>make</code> to run both the <a href="https://docs.python.org/3/library/doctest.html">doctests</a> and the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run unit tests (and doctests)</span>
+$ make test-center-star
+Testing center_star ...
+test_00_doctest <span style="color: #666666">(</span>__main__.CenterStarTests<span style="color: #666666">)</span> ... ok
+test_01_mypy <span style="color: #666666">(</span>__main__.CenterStarTests<span style="color: #666666">)</span> ... ok
+test_02_find_center <span style="color: #666666">(</span>__main__.CenterStarTests<span style="color: #666666">)</span> ... ok
+test_03_main <span style="color: #666666">(</span>__main__.CenterStarTests<span style="color: #666666">)</span> ... ok
+
+   Score <span style="color: #666666">3</span>.00 / <span style="color: #666666">3</span>.00
+  Status Success
+
+----------------------------------------------------------------------
+Ran <span style="color: #666666">4</span> tests <span style="color: #008000; font-weight: bold">in</span> <span style="color: #666666">0</span>.044s
+
+OK
+</code></pre></div>
+
+<p>To just run the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>, you can do the following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run unit tests</span>
+$ ./center_star_test.py -v
+...
+</code></pre></div>
+
+<p>To run a specific <a href="https://en.wikipedia.org/wiki/Unit_testing">unit test</a>, you can specify the <strong>method name</strong>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run only mypy unit test</span>
+$ ./center_star_test.py -v CenterStarTests.test_01_mypy
+...
+</code></pre></div>
+
+<h2 id="activity-3-reddit-groups-4-points">Activity 3: Reddit Groups (4 Points)<a class="headerlink" href="#activity-3-reddit-groups-4-points" title="Permanent link">&para;</a></h2>
+<p>For this activity, you are to use your <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a> utilities to solve the
+following <strong>programming challenge</strong>:</p>
+<blockquote>
+<p>Professor <a href="https://www3.nd.edu/~tweninge/">Tim Weninger</a> is not only handy with fixing broken pipes but
+also is an expert in social networks.  In particular, Tim studies <a href="https://reddit.com">Reddit</a>
+and is interested in how people use the social media website.</p>
+</blockquote>
+<div class="thumbnail text-center">
+  <img src="static/img/homework12-reddit-groups.png" class="img-responsive">
+</div>
+
+<blockquote>
+<p>For this problem, he needs your help in determining how many <strong>isolated
+groups</strong> there are in a <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a> of users.  To keep things anonymous, he
+assigns each user a number and then forms links between users who share a
+subreddit. </p>
+<p>Given <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graphs</a> such as those on above, you are to print out the
+<strong>members of each group</strong> (<em>in sorted order</em>).</p>
+</blockquote>
+<p>Here is an example of <code>reddit_groups.py</code> in executing as a script:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ ./reddit_groups.py
+<span style="color: #666666">4</span>
+<span style="color: #666666">3</span>
+<span style="color: #666666">1</span> <span style="color: #666666">2</span>
+<span style="color: #666666">2</span> <span style="color: #666666">3</span>
+<span style="color: #666666">4</span> <span style="color: #666666">1</span>
+Graph <span style="color: #666666">1</span>:
+<span style="color: #666666">1</span> <span style="color: #666666">2</span> <span style="color: #666666">3</span> <span style="color: #666666">4</span>
+<span style="color: #666666">4</span>
+<span style="color: #666666">2</span>
+<span style="color: #666666">1</span> <span style="color: #666666">2</span>
+<span style="color: #666666">3</span> <span style="color: #666666">4</span>
+Graph <span style="color: #666666">2</span>:
+<span style="color: #666666">1</span> <span style="color: #666666">2</span>
+<span style="color: #666666">3</span> <span style="color: #666666">4</span>
+</code></pre></div>
+
+<h3 id="task-1-reddit_groupspy">Task 1: <code>reddit_groups.py</code><a class="headerlink" href="#task-1-reddit_groupspy" title="Permanent link">&para;</a></h3>
+<p>The <code>reddit_groups.py</code> <a href="https://www.python.org/">Python</a> script contains the <strong>functions</strong> you are to
+complete to solve this <strong>programming challenge</strong>:</p>
+<ol>
+<li>
+<p><code>walk_graph(graph: AdjacencyList, origin: int) -&gt; set[int]</code></p>
+<blockquote>
+<p>This function <strong>traverses</strong> the <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a> starting from the <code>origin</code> and
+returns the set of all <strong>visited</strong> <strong>vertices</strong>.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use <a href="https://en.wikipedia.org/wiki/Depth-first_search">depth first search</a> or <a href="https://en.wikipedia.org/wiki/Breadth-first_search">breadth first search</a> with the
+<code>frontier</code> and <code>visited</code> <a href="https://en.wikipedia.org/wiki/Data_structure">data structures</a>.
+</div></p>
+</li>
+<li>
+<p><code>find_groups(graph: AdjacencyList) -&gt; Iterator[list[int]]</code></p>
+<blockquote>
+<p>This function <em>generates</em> all the <strong>isolated groups</strong> in the <code>graph</code>.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use <code>walk_graph</code> from an <strong>unvisited</strong> vertex to find a group
+and then <code>yield</code> it <a href="https://docs.python.org/3/library/functions.html#sorted">sorted</a>.
+</div></p>
+</li>
+<li>
+<p><code>main(stream=sys.stdin) -&gt; None</code></p>
+<blockquote>
+<p>This function reads a <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a> from the <code>stream</code> into an <a href="https://en.wikipedia.org/wiki/Adjacency_list">adjacency
+list</a>, finds the <strong>isolated groups</strong> in the <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">graph</a>, and then prints each
+group out in sorted order.</p>
+</blockquote>
+<p><div class="alert alert-success" markdown="1">
+<strong>Hint</strong>: Use <a href="https://docs.python.org/3/library/functions.html#enumerate">enumerate</a> with <code>read_adjacency_lists</code>.
+</div></p>
+</li>
+</ol>
+<h3 id="task-2-testing_2">Task 2: Testing<a class="headerlink" href="#task-2-testing_2" title="Permanent link">&para;</a></h3>
+<p>As you implement <code>reddit_groups.py</code>, you can use the provided <a href="https://docs.python.org/3/library/doctest.html">doctests</a> to verify
+the correctness of your code:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run doctests</span>
+$ python3 -m doctest reddit_groups.py -v
+...
+<span style="color: #666666">3</span> items passed all tests:
+   <span style="color: #666666">1</span> tests <span style="color: #008000; font-weight: bold">in</span> reddit_groups.find_groups
+   <span style="color: #666666">1</span> tests <span style="color: #008000; font-weight: bold">in</span> reddit_groups.main
+   <span style="color: #666666">1</span> tests <span style="color: #008000; font-weight: bold">in</span> reddit_groups.walk_graph
+<span style="color: #666666">3</span> tests <span style="color: #008000; font-weight: bold">in</span> <span style="color: #666666">4</span> items.
+<span style="color: #666666">3</span> passed and <span style="color: #666666">0</span> failed.
+Test passed.
+</code></pre></div>
+
+<p>You can also use <code>make</code> to run both the <a href="https://docs.python.org/3/library/doctest.html">doctests</a> and the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run unit tests (and doctests)</span>
+$ make test-reddit-groups
+Testing reddit_groups ...
+test_00_doctest <span style="color: #666666">(</span>__main__.RedditGroupsTests<span style="color: #666666">)</span> ... ok
+test_01_mypy <span style="color: #666666">(</span>__main__.RedditGroupsTests<span style="color: #666666">)</span> ... ok
+test_02_walk_graph <span style="color: #666666">(</span>__main__.RedditGroupsTests<span style="color: #666666">)</span> ... ok
+test_03_find_groups <span style="color: #666666">(</span>__main__.RedditGroupsTests<span style="color: #666666">)</span> ... ok
+test_04_main <span style="color: #666666">(</span>__main__.RedditGroupsTests<span style="color: #666666">)</span> ... ok
+
+   Score <span style="color: #666666">4</span>.00 / <span style="color: #666666">4</span>.00
+  Status Success
+
+----------------------------------------------------------------------
+Ran <span style="color: #666666">5</span> tests <span style="color: #008000; font-weight: bold">in</span> <span style="color: #666666">0</span>.046s
+
+OK
+</code></pre></div>
+
+<p>To just run the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>, you can do the following:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run unit tests</span>
+$ ./reddit_groups_test.py -v
+...
+</code></pre></div>
+
+<p>To run a specific <a href="https://en.wikipedia.org/wiki/Unit_testing">unit test</a>, you can specify the <strong>method name</strong>:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># Run only mypy unit test</span>
+$ ./reddit_groups_test.py -v RedditGroupsTests.test_01_mypy
+...
+</code></pre></div>
+
+<h2 id="activity-4-quiz-2-points">Activity 4: Quiz (2 Points)<a class="headerlink" href="#activity-4-quiz-2-points" title="Permanent link">&para;</a></h2>
+<p>Once you have completed all the activities above, you are to complete the
+following <strong>reflection quiz</strong>:</p>
+<div id="quiz-questions"></div>
+
+<div id="quiz-responses"></div>
+
+<script src="static/js/dredd-quiz.js"></script>
+<script>
+loadQuiz('static/json/homework12.json');
+</script>
+
+<pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+<p>As with <a href="reading01.html">Reading 01</a>, you will need to store your answers in a
+<code>homework12/answers.json</code> file.  You can use the form above to generate the
+contents of this file, or you can write the <a href="https://json.org/">JSON</a> by hand.</p>
+<p>To check your quiz directly, you can use the <code>check.py</code> script:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>$ ../.scripts/check.py
+Checking homework12 quiz ...
+      Q1 <span style="color: #666666">0</span>.30
+      Q2 <span style="color: #666666">0</span>.40
+      Q3 <span style="color: #666666">0</span>.20
+      Q4 <span style="color: #666666">0</span>.80
+      Q5 <span style="color: #666666">0</span>.30
+   Score <span style="color: #666666">2</span>.00 / <span style="color: #666666">2</span>.00
+  Status Success
+</code></pre></div>
+
+<h2 id="leet-point-1-extra-credit-point">Leet Point (1 Extra Credit Point)<a class="headerlink" href="#leet-point-1-extra-credit-point" title="Permanent link">&para;</a></h2>
+<p>For <strong>extra credit</strong>, you are to solve the following <a href="https://leetcode.com/">LeetCode</a> problem in
+<a href="https://www.python.org/">Python</a>.</p>
+<blockquote>
+<p><a href="https://leetcode.com/problems/find-the-town-judge">997. Find the Town Judge</a></p>
+</blockquote>
+<p>To receive credit, you must pass on <a href="https://leetcode.com/">LeetCode</a> and achieve an <strong>Accepted</strong>
+submission.</p>
+<div class="alert alert-info">
+<h4 id="verification"><i class="fa fa-check"></i> Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h4>
+<p>To get credit for this Leet Point, show your solution and the <a href="https://leetcode.com/">LeetCode</a>
+acceptance page to a TA to verify (or attached a screenshot with both to your
+<strong>Pull Request</strong>).  You have up until <strong>two days after</strong> this assignment is
+due to verify your Leet Point.</p>
+</div>
+<div class="alert alert-success">
+<h4 id="self-service-extension"><i class="fa fa-calendar"></i> Self-Service Extension<a class="headerlink" href="#self-service-extension" title="Permanent link">&para;</a></h4>
+<p>Remember that you can always <strong>forgo</strong> this Leet Point for <strong>two extra days</strong>
+to do the homework.  That is, if you need an extension, you can simply skip
+the Leet Point and you will automatically have until Friday to complete the
+assignment for full credit.</p>
+<p>Just leave a note on your <strong>Pull Request</strong> of your intentions.</p>
+</div>
+<h2 id="submission">Submission<a class="headerlink" href="#submission" title="Permanent link">&para;</a></h2>
+<p>To submit your assignment, please commit your work to the <code>homework12</code> folder
+of your <code>homework12</code> branch in your <strong>assignments</strong> <a href="https://github.com">GitHub</a> repository:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic">#-----------------------------------------------------------------------</span>
+<span style="color: #3D7B7B; font-style: italic"># Make sure you have already completed Activity 0: Preparation</span>
+<span style="color: #3D7B7B; font-style: italic">#-----------------------------------------------------------------------</span>
+...
+$ git add graph.py                            <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 12: Activity 1&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add center_star.py                      <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 12: Activity 2&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add reddit_groups.py                    <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 12: Activity 3&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+$ git add answers.json                        <span style="color: #3D7B7B; font-style: italic"># Mark changes for commit</span>
+$ git commit -m <span style="color: #BA2121">&quot;Homework 12: Activity 4&quot;</span>     <span style="color: #3D7B7B; font-style: italic"># Record changes</span>
+...
+
+$ git push -u origin homework12               <span style="color: #3D7B7B; font-style: italic"># Push branch to GitHub</span>
+</code></pre></div>
+
+<div class="alert alert-danger">
+<h4 id="pull-request"><i class="fa fa-github"></i> Pull Request<a class="headerlink" href="#pull-request" title="Permanent link">&para;</a></h4>
+<p>Remember to create a <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a> and assign the appropriate TA from the
+<a href="reading12_tas.html">Reading 12 TA List</a>.</p>
+<p><strong>DO NOT MERGE</strong> your own <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a>.  The TAs use open <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request">Pull Request</a>s
+to keep track of which assignments to grade.  Closing them yourself will
+cause a delay in grading and confuse the TAs.</p>
+</div>
+
+
+	    <div class="row">
+		<hr/>
+
+		<footer class="text-center">
+		    <p class="text-muted">
+		    <small>
+		    Built using
+		    <a href="https://getbootstrap.com/">Bootstrap</a>,
+		    <a href="https://fontawesome.com/">Font Awesome</a>, and
+		    <a href="http://www.python.org/">Python</a>.
+		    <br/>
+		    &copy; 2023 <a href="http://www.nd.edu">University of Notre Dame</a>
+		    </small>
+		    </p>
+		</footer>
+	    </div>
+
+	</div> <!-- /container -->
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+    </body>
+</html>
+

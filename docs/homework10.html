@@ -484,7 +484,7 @@ than its children), continuously </em><em>swap</em><em> the current <a href="htt
 <li>
 <p>The order of the comparisons matter.  To have outputs consistent with
 the <a href="https://en.wikipedia.org/wiki/Unit_testing">unit tests</a>, you will want to do something like the following:</p>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #008000; font-weight: bold">if</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>data[index] <span style="color: #666666">&gt;</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>data[parent]:
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #008000; font-weight: bold">if</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>data[index] <span style="color: #666666">&gt;</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>data[smallest]:
     <span style="color: #3D7B7B; font-style: italic"># Perform swap</span>
 </code></pre></div>
 
