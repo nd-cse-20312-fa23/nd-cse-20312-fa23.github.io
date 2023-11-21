@@ -305,7 +305,7 @@ body:       |
   > For each graph, you are to output the **center vertex** of the **star
   graph** or output that there is no center.
 
-  Here is an example of `center_star.py` in executing as a script:
+  Here is an example of `center_star.py` executing as a script:
 
       :::bash
       $ ./center_star.py
@@ -350,6 +350,7 @@ body:       |
       :::bash
       # Run doctests
       $ python3 -m doctest center_star.py -v
+      ...
       2 items passed all tests:
          1 tests in center_star.find_center
          1 tests in center_star.main
@@ -411,7 +412,7 @@ body:       |
   > Given [graphs] such as those on above, you are to print out the
   **members of each group** (*in sorted order*).
 
-  Here is an example of `reddit_groups.py` in executing as a script:
+  Here is an example of `reddit_groups.py` executing as a script:
 
       :::bash
       $ ./reddit_groups.py
