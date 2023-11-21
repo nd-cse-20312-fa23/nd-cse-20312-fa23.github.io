@@ -1,0 +1,52 @@
+{
+    "q1": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <b>functions</b> in <tt>flights.py</tt> are true (select all that\napply)?</p>\n",
+        "responses": {
+            "find_v": "<tt>find_cheapest_flight_plan</tt> has an average <b>time complexity</b> of <tt>O(V)</tt>.",
+            "find_ve": "<tt>find_cheapest_flight_plan</tt> has an average <b>time complexity</b> of <tt>O(V+E)</tt>.",
+            "find_veloge": "<tt>find_cheapest_flight_plan</tt> has an average <b>time complexity</b> of <tt>O(V+ElogE)</tt>.",
+            "find_v2": "<tt>find_cheapest_flight_plan</tt> has an average <b>time complexity</b> of <tt>O(V^2)</tt>.",
+            "plan_v": "<tt>flight_plan</tt> has an average <b>time complexity</b> of <tt>O(V)</tt>.",
+            "plan_ve": "<tt>flight_plan</tt> has an average <b>time complexity</b> of <tt>O(V+E)</tt>.",
+            "plan_veloge": "<tt>flight_plan</tt> has an average <b>time complexity</b> of <tt>O(V+ElogE)</tt>.",
+            "plan_v2": "<tt>flight_plan</tt> has an average <b>time complexity</b> of <tt>O(V^2)</tt>."
+        }
+    },
+    "q2": {
+        "type": "blank",
+        "question": "\n<p>Download the following\n<tt><a href=\"https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/txt/flights.txt\">flights.txt</a></tt>\nfile:</p>\n\n<pre>\n$ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/txt/flights.txt\n</pre>\n\n<p>Use your <tt>flights.py</tt> script on the graph inputs in\n<tt>flights.txt</tt>:</p>\n\n<pre>\n$ ./flights.py < flights.txt\n</pre>\n\n<p>To answer the following questions:</p>\n\n<ol>\n  <li>What is the <b>cost</b> of going from <tt>1</tt> to <tt>10</tt>? ____</li>\n  <li>What is the <b>plan</b> to go from <tt>4</tt> to <tt>6</tt>? ____</li>\n</ol>\n\n<p></p>\n"
+    },
+    "q3": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>space complexities</b>\nof the <b>functions</b> in <tt>sim_city.py</tt> are true (select all that\napply)?</p>\n",
+        "responses": {
+            "build_v": "<tt>build_graph</tt> has an average <b>space complexity</b> of <tt>O(V)</tt>.",
+            "build_ve": "<tt>build_graph</tt> has an average <b>space complexity</b> of <tt>O(V+E)</tt>.",
+            "build_v2": "<tt>build_graph</tt> has an average <b>space complexity</b> of <tt>O(V^2)</tt>.",
+            "construct_v": "<tt>construct_mst</tt> has an average <b>space complexity</b> of <tt>O(V)</tt>.",
+            "construct_ve": "<tt>construct_mst</tt> has an average <b>space complexity</b> of <tt>O(V+E)</tt>.",
+            "construct_v2": "<tt>construct_mst</tt> has an average <b>space complexity</b> of <tt>O(V^2)</tt>."
+        }
+    },
+    "q4": {
+        "type": "blank",
+        "question": "\n<p>Download the following\n<tt><a href=\"https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/txt/sim_city.txt\">sim_city.txt</a></tt>\nfile:</p>\n\n<pre>\n$ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/txt/sim_city.txt\n</pre>\n\n<p>Use your <tt>sim_city.py</tt> script on the graph inputs in\n<tt>sim_city.txt</tt>:</p>\n\n<pre>\n$ ./sim_city.py < sim_city.txt\n</pre>\n\n<p>To answer the following questions:</p>\n\n<ol>\n  <li>What is the <b>MST</b> of the <b>graph</b>? ____</li>\n</ol>\n\n<p></p>\n"
+    },
+    "q5": {
+        "type": "multiple",
+        "question": "\n<p>Which of the following statements regarding the <b>time complexities</b>\nof the <b>functions</b> in <tt>passcode.py</tt> are true (select all that\napply)?</p>\n",
+        "responses": {
+            "degrees_v": "<tt>compute_degrees</tt> has an average <b>time complexity</b> of <tt>O(V)</tt>.",
+            "degrees_ve": "<tt>compute_degrees</tt> has an average <b>time complexity</b> of <tt>O(V+E)</tt>.",
+            "degrees_v2": "<tt>compute_degrees</tt> has an average <b>time complexity</b> of <tt>O(V^2)</tt>.",
+            "tsort_v": "<tt>topological_sort</tt> has an average <b>time complexity</b> of <tt>O(V)</tt>.",
+            "tsort_ve": "<tt>topological_sort</tt> has an average <b>time complexity</b> of <tt>O(V+E)</tt>.",
+            "tsort_v2": "<tt>topological_sort</tt> has an average <b>time complexity</b> of <tt>O(V^2)</tt>."
+        }
+    },
+    "q6": {
+        "type": "blank",
+        "question": "\n<p>Download the following\n<tt><a href=\"https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/txt/passcode.txt\">passcode.txt</a></tt>\nfile:</p>\n\n<pre>\n$ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/txt/passcode.txt\n</pre>\n\n<p>Use your <tt>passcode.py</tt> script on the graph inputs in\n<tt>passcode.txt</tt>:</p>\n\n<pre>\n$ ./passcode.py < passcode.txt\n</pre>\n\n<p>To answer the following questions:</p>\n\n<ol>\n  <li>What is the <b>original passcode</b>? ____</li>\n</ol>\n\n<p></p>\n"
+    }
+}
