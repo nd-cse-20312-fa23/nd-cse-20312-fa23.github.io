@@ -1,0 +1,740 @@
+title:      "Homework 13: Graphs (Algorithms)"
+icon:       fa-code
+navigation:
+  - name: "Home"
+    link: "index.html"
+    icon: "fa-sitemap"
+internal:
+external:
+body:       |
+
+  The goal of this homework assignment is to allow you explore three different
+  [algorithms] that work on [graphs]: [Dijkstra's Algorithm], [Prim's Algorithm],
+  [Kahn's Algorithm].  You will need to implement each of these [algorithms] to
+  solve **three programming challenges**, described below.
+
+  For this assignment, you are to do your work in the `homework13` folder of
+  your **assignments** [GitHub] repository and push your work by **noon,
+  Wednesday, December 6**.
+
+  [data structures]: https://en.wikipedia.org/wiki/Data_structure
+  [Python]: https://www.python.org/
+  [graph]: https://en.wikipedia.org/wiki/Graph_(abstract_data_type)
+  [graphs]: https://en.wikipedia.org/wiki/Graph_(abstract_data_type)
+  [algorithms]: https://en.wikipedia.org/wiki/Algorithm
+  [Dijkstra's Algorithm]: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+  [Prim's Algorithm]: https://en.wikipedia.org/wiki/Prim%27s_algorithm
+  [Kahn's Algorithm]: https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm
+
+  ## Activity 0: Preparation
+
+  Before starting this homework assignment, you should first perform a `git
+  pull` to retrieve any changes in your remote [GitHub] repository:
+
+      :::bash
+      $ cd path/to/repository                   # Go to assignments repository
+
+      $ git switch master                       # Make sure we are in master branch
+
+      $ git pull --rebase                       # Get any remote changes not present locally
+
+  Next, create a new branch for this assignment:
+
+      :::bash
+      $ git checkout -b homework13              # Create homework13 branch and check it out
+
+  ### Task 1: Skeleton Code
+
+  To help you get started, the instructor has provided you with the following [skeleton code]:
+
+      :::bash
+      # Go to assignments repository
+      $ cd path/to/assignments/repository
+
+      # -----------------------------------------------------
+      # MAKE SURE YOU ARE NOT INSIDE THE homework13 DIRECTORY
+      # -----------------------------------------------------
+      # MAKE SURE YOU ARE AT THE TOP-LEVEL DIRECTORY
+      # -----------------------------------------------------
+
+      # Download skeleton code tarball
+      $ curl -LO https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework13.tar.gz
+
+      # Extract skeleton code tarball
+      $ tar xzvf homework13.tar.gz
+
+  Once downloaded and extracted, you should see the following files in your
+  `homework13` directory:
+
+      :::bash
+      homework13
+          \_ Makefile         # This is the Makefile for building all the assignment artifacts
+          \_ flights.py       # This is the Python module for the Flights programming challenge
+          \_ passcode.py      # This is the Python script for the Passcode programming challenge
+          \_ sim_city.py      # This is the Python script for the Sim City programming challenge
+
+  [skeleton code]: https://www3.nd.edu/~pbui/teaching/cse.20312.fa23/static/tar/homework13.tar.gz
+
+  ### Task 2: Initial Import
+
+  Now that the files are extracted into the `homework13` folder, you can
+  **commit** them to your [git] repository:
+
+      :::bash
+      # Go into homework13 folder
+      $ cd homework13
+
+      # Add and commit initial skeleton files
+      $ git add Makefile                            # Mark changes for commit
+      $ git add *.py
+      $ git commit -m "Homework 13: Initial Import" # Record changes
+
+  ### Task 3: Unit Tests
+
+  After downloading and extracting these files, you can run the `make` command
+  to run the tests.
+
+      :::bash
+      # Run all tests (will trigger automatic download)
+      $ make
+
+  You will notice that the `Makefile` downloads three additional test scripts:
+
+      :::bash
+      homework13
+        \_ flights_test.py    # This is the Python unit test for the Flights programming challenge
+        \_ passcode_test.py   # This is the Python unit test for the Passcode programming challenge
+        \_ sim_city_test.py   # This is the Python unit test for the Sim City programming challenge
+
+  In addition to the embedded [doctests] in the [skeleton code], you will be
+  using these [unit tests] to verify the correctness and behavior of your code.
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-download"></i> Automatic Downloads
+
+  The `test` scripts are automatically downloaded by the `Makefile`, so any
+  modifications you do to them will be lost when you run `make` again.
+  Likewise, because they are automatically downloaded, you do not need to `add`
+  or `commit` them to your [git] repository.
+
+  </div>
+
+  The details on what you need to implement for this assignment are described
+  in the following sections.
+
+  [doctests]: https://docs.python.org/3/library/doctest.html
+
+  ## Activity 1: Flights (4 Points)
+
+  For the first activity, you are to use [Dijkstra's Algorithm] to solve the
+  following **programming challenge**:
+
+  > The semester is finally (almost) done and that means you get to go home! 
+  Unfortunately, air travel is a bit chaotic at the moment and [Anthony Travel]
+  needs you to help them **plan flights** for students by determining the
+  **flight plan** with the **lowest price** from a **origin** city to a
+  **destination** city.
+
+  <div class="thumbnail text-center">
+    <img src="static/img/homework13-flights.png" class="img-responsive">
+  </div>
+
+  > That is, given a series of flights in the form of: `source`, `target`,
+  `price`, find the **path** with the lowest overall cost from the **origin**
+  to the **destination**.
+
+  Here is an example of `flights.py` executing as a script:
+
+      :::bash
+      $ ./flights.py
+      0 2 3
+      0 1 100
+      1 2 50
+      0 2 365
+      Cost: $150, Plan: 0 -> 1 -> 2
+
+  [Anthony Travel]: https://www.anthonytravel.com/
+
+  ### Task 1: `flights.py`
+
+  The `flights.py` [Python] script contains the **functions** you are to
+  complete to solve this **programming challenge**:
+
+  1. `read_graph(stream=sys.stdin) -> Optional[tuple[int, int, Graph]]`
+
+      > This function reads an **origin**, a **destination**, and a set of
+      **edges** from the `stream`, creates a `Graph` based on the **edges**,
+      and returns the **origin**, **destination**, and  `Graph`.  If there is
+      no data in the `stream`, then `None` is returned.
+
+      <div class="alert alert-success" markdown="1">
+      **Hint**: Use a [defaultdict] to make an [adjacency list] from the `stream`.
+      </div>
+
+  2. `find_cheapest_flight_plan(origin: int, destination: int, graph: Graph) -> tuple[int, Plan]`
+
+      > This function uses [Dijkstra's algorithm] to find the flight plan with
+      the lowest overall cost from the `origin` to the `destination` and
+      returns the lowest cost and the `Plan` (ie. **edges** in the form of a
+      [dict] where the `key` is the `target` and the `value` is the `source`).
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use the **frontier** based traversal algorithm with a [heapq] to
+        implement [Dijkstra's algorithm].  Be sure to check if you have reached
+        the `destination` and remove the `origin` **self-edge** from the `Plan`
+        (ie. `visited` [dict]).
+
+      </div>
+
+  3. `flight_plan(origin: int, destination: int, plan: Plan) -> Iterator[int]`
+
+      > This function **recursively** generates the vertices to visit from
+      `origin` to `destination` according to the specified `plan`.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Think carefully about the **base case** for **recursively**
+        reconstructing the path from the `origin` to the `destination` and use
+        `yield` or `yield from` appropriately.
+
+      </div>
+
+  4. `main(stream=sys.stdin) -> None`
+
+      > This function reads an **origin**, a **destination**, and a set of
+      **edges** from the `stream`, creates a `Graph` based on the **edges**,
+      finds the cheapest flight `Plan` from the **origin** to the
+      **destination**, and then prints out the overall **cost** and **path**
+      used in the `Plan`.  This is repeated until the end of the `stream` is
+      reached.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use the [walrus operator] with `read_graph` and the [str.join]
+        method as appropriate.
+
+      </div>
+
+  [defaultdict]: https://docs.python.org/3/library/collections.html#collections.defaultdict
+  [adjacency list]: https://en.wikipedia.org/wiki/Adjacency_list
+  [dict]: https://docs.python.org/3/library/stdtypes.html#dict
+  [heapq]: https://docs.python.org/3/library/heapq.html
+  [walrus operator]: https://realpython.com/lessons/assignment-expressions/
+  [str.join]: https://docs.python.org/3/library/stdtypes.html#str.join
+
+  <div class="alert alert-warning" markdown="1">
+  #### <i class="fa fa-warning"></i> DocTests
+
+  You may notice that in addition to the usual comments and <tt>TODOs</tt>, the
+  [docstrings] of each method also contains a few [doctests].
+
+  You are **not** to modify these [doctests] and must keep them in-place.  They
+  are used to verify the correctness of your code.
+
+  Your code goes **below** the [docstrings], where the <tt>TODO</tt> and
+  <tt>pass</tt> commands are (you may remove the <tt>pass</tt> once you
+  complete the method).
+
+  </div>
+
+  [docstrings]: https://peps.python.org/pep-0257/
+
+  ### Task 2: Testing
+
+  As you implement `flights.py`, you can use the provided [doctests] to verify the
+  correctness of your code:
+
+      :::bash
+      # Run doctests
+      $ python3 -m doctest flights.py -v
+      ...
+      4 items passed all tests:
+         1 tests in flights.find_cheapest_flight_plan
+         1 tests in flights.flight_plan
+         1 tests in flights.main
+         1 tests in flights.read_graph
+      4 tests in 5 items.
+      4 passed and 0 failed.
+      Test passed.
+
+  You can also use `make` to run both the [doctests] and the [unit tests]:
+
+      :::bash
+      # Run unit tests (and doctests)
+      $ make test-flights
+      Testing flights ...
+      test_00_doctest (__main__.FlightsTests) ... ok
+      test_01_mypy (__main__.FlightsTests) ... ok
+      test_02_read_graph (__main__.FlightsTests) ... ok
+      test_03_find_cheapest_flight_plan (__main__.FlightsTests) ... ok
+      test_04_flight_plan (__main__.FlightsTests) ... ok
+      test_05_main (__main__.FlightsTests) ... ok
+
+         Score 4.00 / 4.00
+        Status Success
+
+      ----------------------------------------------------------------------
+      Ran 6 tests in 0.048s
+
+      OK
+
+  To just run the [unit tests], you can do the following:
+
+      :::bash
+      # Run unit tests
+      $ ./flights_test.py -v
+      ...
+
+  To run a specific [unit test], you can specify the **method name**:
+
+      :::bash
+      # Run only mypy unit test
+      $ ./flights_test.py -v FlightsTests.test_01_mypy
+      ...
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-repeat"></i> Iterative Development
+
+  You should practice [iterative development]. That is, rather than writing a
+  bunch of code and then debugging it all at once, you should concentrate on
+  one function at a time and then test that **one thing at a time**. The provided
+  [unit tests] allow you to check on the correctness of the individual functions
+  without implementing everything at once. Take advantage of this and build one
+  thing at a time.
+
+  </div>
+
+  [iterative development]: https://en.wikipedia.org/wiki/Iterative_and_incremental_development
+  [unit test]: https://en.wikipedia.org/wiki/Unit_testing
+  [unit tests]: https://en.wikipedia.org/wiki/Unit_testing
+
+  ## Activity 2: Sim City (3 Points)
+
+  For the second activity, you are to use [Prim's Algorithm] to solve the
+  following **programming challenge**:
+
+  > Recalling your youth, you remember spending long hours playing [Sim City].
+  In this game you had the privilege and honor of building a city to your exact
+  specifications and desires. You could build airports, sports stadiums,
+  schools, industrial factories, residential homes, and more. It was your job
+  to keep the citizens of your metropolis happy and prosperous.
+
+  > Unfortunately, to pay for all of these construction projects, you had to
+  tax your people. Even in the virtual world, people hate taxes and want you to
+  spend their hard-earned income wisely. In particular, they would demand that
+  you build roads to connect every building, but in the most cost efficient
+  way.
+
+  <div class="thumbnail text-center">
+    <img src="static/img/homework13-simcity.png" class="img-responsive">
+  </div>
+
+  > Now that you have had some training in [graph] algorithms, you can easily
+  tackle the problem of connecting every building in your city to every other
+  building using the **minimum amount of road**. Given the coordinates of the
+  buildings in a city, you are to connect them such that all buildings are
+  reachable by road, while minimizing the amount of pavement you must lay down
+  to make the connections.
+
+  > For each set of building locations, output the **minimum total amount of
+  road** that must be constructed to connect all the buildings to **two decimal
+  places**. 
+
+  Here is an example of `sim_city.py` executing as a script:
+
+      :::bash
+      $ ./sim_city.py
+      3
+      1.0 1.0
+      2.0 2.0
+      2.0 4.0
+      MST: 3.41
+
+  [Sim City]: https://www.ea.com/games/simcity
+
+  ### Task 1: `sim_city.py`
+
+  The `sim_city.py` [Python] script contains the **functions** you are to
+  complete to solve this **programming challenge**:
+
+  1. `read_points(stream=sys.stdin) -> Points`
+
+      > This function reads a series of **points** into a [list], while given
+      each **point** an **numeric identifier** (ie. the first **point** is `0`,
+      the second **point** is `1`, etc.).
+
+      <div class="alert alert-success" markdown="1">
+      **Hints**: Make sure the coordinates are [floats].
+      </div>
+
+  2. `build_graph(points: Points) -> Graph`
+
+      > This function constructs a `Graph` (ie. [adjacency list]) from the
+      series of **points** and returns it.  The [adjacency list] uses the
+      [distance] between each **point** as the **weight** of the **edge**.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hints**: Carefully handle self-edges, and use [math.dist] to compute
+        the distance between two **points**.
+
+      </div>
+
+  3. `construct_mst(graph) -> Edges`
+
+      > This function uses [Prim's algorithm] to construct a **minimum spanning
+      tree** that connects all the points in the `Graph` with the minimum
+      amount of pavement and returns the `Edges` in the resulting [MST].
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use the **frontier** based traversal algorithm with a [heapq] to
+        implement [Prim's algorithm].  Be sure to check if you have reached the
+        `destination` and remove the `origin` **self-edge** from the `Edges`
+        (ie. `visited` [dict]).
+
+      </div>
+
+  4. `main(stream=sys.stdin) -> None`
+
+      > This function reads in a set of **points** from the `stream`,
+      constructs a `Graph`, computes the [MST] of the `Graph`, and then prints
+      out the total cost of the **edges** in the resulting [MST]. This is
+      repeated until the end of the `stream` is reached.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use the [walrus operator] with `read_points` and the [sum]
+        function on the resulting `Edges` from `construct_mst`.
+
+      </div>
+
+  [list]: https://docs.python.org/3/library/stdtypes.html#list
+  [floats]: https://docs.python.org/3/library/functions.html#float
+  [distance]: https://en.wikipedia.org/wiki/Euclidean_distance
+  [math.dist]: https://docs.python.org/3/library/math.html#math.dist
+  [MST]: https://en.wikipedia.org/wiki/Minimum_spanning_tree
+  [sum]: https://docs.python.org/3/library/functions.html#sum
+
+  ### Task 2: Testing
+
+  As you implement `sim_city.py`, you can use the provided [doctests] to verify
+  the correctness of your code:
+
+      :::bash
+      # Run doctests
+      $ python3 -m doctest sim_city.py -v
+      ...
+      4 items passed all tests:
+         1 tests in sim_city.build_graph
+         1 tests in sim_city.construct_mst
+         1 tests in sim_city.main
+         1 tests in sim_city.read_points
+      4 tests in 5 items.
+      4 passed and 0 failed.
+      Test passed.
+
+  You can also use `make` to run both the [doctests] and the [unit tests]:
+
+      :::bash
+      # Run unit tests (and doctests)
+      $ make test-sim-city
+      Testing sim_city ...
+      test_00_doctest (__main__.SimCityTests) ... ok
+      test_01_mypy (__main__.SimCityTests) ... ok
+      test_02_read_points (__main__.SimCityTests) ... ok
+      test_03_build_graph (__main__.SimCityTests) ... ok
+      test_04_construct_mst (__main__.SimCityTests) ... ok
+      test_05_main (__main__.SimCityTests) ... ok
+
+         Score 3.00 / 3.00
+        Status Success
+
+      ----------------------------------------------------------------------
+      Ran 6 tests in 0.048s
+
+      OK
+
+  To just run the [unit tests], you can do the following:
+
+      :::bash
+      # Run unit tests
+      $ ./sim_city_test.py -v
+      ...
+
+  To run a specific [unit test], you can specify the **method name**:
+
+      :::bash
+      # Run only mypy unit test
+      $ ./sim_city_test.py -v SimCityTests.test_01_mypy
+      ...
+
+  ## Activity 3: Passcode (3 Points)
+
+  For the third activity, you are to use [Kahn's Algorithm] to solve the
+  following **programming challenge**:
+
+  > Like most high security research facilities, many of the rooms in the
+  Cushing and Fitzpatrick require a secret number code to enter. Usually, a
+  single passcode is given to all the users of a particular room.
+  Unfortunately, in this day and age of camera phones and drones, it is easy
+  for intruders to snoop on people entering in the **passcode**.
+
+  > In an effort to thwart passcode snoopers, the building security team has
+  implemented a new passcode mechanism: instead of entering the whole passcode,
+  the user must enter in three random numbers from the original door code.
+  For instance, if the passcode was **2468135**, the user may be asked to
+  enter in the **2nd**, **4th**, and **5th** numbers: **481**. This shorter
+  sequence (**2nd**, **4th**, **5th**) changes each time, so just watching
+  someone enter in the door code will not guarantee entry to the snooper.
+  Moreover, it helps prevent divulging the complete passcode.
+
+  <div class="thumbnail text-center">
+    <img src="static/img/homework13-passcode.png" class="img-responsive">
+  </div>
+
+  > Being the **black hat** that you are, however, you decide that this
+  security arrangement is weak and plan on cracking the code to the
+  instructor's office.  To do so, you have carefully monitored a series of
+  successful entries and recorded them in a text file. Knowing that the three
+  random numbers are always asked for in order and that the digits in the
+  passcode are unique (due to limitations to the security software), your next
+  step is to analyze these entries and produce the original passcode.
+
+  Here is an example of `passcode.py` executing as a script:
+
+      :::bash
+      $ ./passcode.py
+      352
+      154
+      542
+      315
+      152
+      31542
+
+  ### Task 1: `passcode.py`
+
+  The `passcode.py` [Python] script contains the **functions** you are to
+  complete to solve this **programming challenge**:
+
+  1. `read_graph(stream=sys.stdin) -> Graph`
+
+      > This function reads the short passcode samples from the `stream`,
+      constructs an [adjacency set], and returns it.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Draw a picture of the **relationship** between each digit in
+      the short passcode samples.
+
+      </div>
+
+  2. `compute_degrees(graph: Graph) -> Degrees`
+
+      > This function computes the **incoming degree** of each **vertex** in
+      the `Graph` and returns a [dict] with the **degrees**.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use a [defaultdict] to store the **degrees**.
+
+      </div>
+
+  3. `find_passcode(graph: Graph) -> list[int]`
+
+      > This function uses [Kahn's algorithm] to perform a [topological sort]
+      of the `Graph` and returns [list] of the **vertices** visited.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use the **frontier** based traversal algorithm with a [deque]
+        to implement [Kahn's algorithm].
+
+      </div>
+
+  4. `main(stream=sys.stdin) -> None`
+
+      > This function reads in short passcode samples, finds the original
+      passcode, and prints it out.
+
+      <div class="alert alert-success" markdown="1">
+
+      **Hint**: Use the [str.join] appropriately.
+
+      </div>
+
+  [adjacency set]: https://en.wikipedia.org/wiki/Adjacency_list
+  [topological sort]: https://en.wikipedia.org/wiki/Topological_sorting
+  [deque]: https://docs.python.org/3/library/collections.html#collections.deque
+
+  ### Task 2: Testing
+
+  As you implement `passcode.py`, you can use the provided [doctests] to verify
+  the correctness of your code:
+
+      :::bash
+      # Run doctests
+      $ python3 -m doctest passcode.py -v
+      ...
+      4 items passed all tests:
+         1 tests in passcode.compute_degrees
+         1 tests in passcode.find_passcode
+         1 tests in passcode.main
+         1 tests in passcode.read_graph
+      4 tests in 5 items.
+      4 passed and 0 failed.
+      Test passed.
+
+  You can also use `make` to run both the [doctests] and the [unit tests]:
+
+      :::bash
+      # Run unit tests (and doctests)
+      $ make test-passcode
+      Testing passcode ...
+      test_00_doctest (__main__.PasscodeTests) ... ok
+      test_01_mypy (__main__.PasscodeTests) ... ok
+      test_02_read_graph (__main__.PasscodeTests) ... ok
+      test_03_compute_degrees (__main__.PasscodeTests) ... ok
+      test_04_find_passcode (__main__.PasscodeTests) ... ok
+      test_05_main (__main__.PasscodeTests) ... ok
+
+         Score 3.00 / 3.00
+        Status Success
+
+      ----------------------------------------------------------------------
+      Ran 6 tests in 0.045s
+
+      OK
+
+  To just run the [unit tests], you can do the following:
+
+      :::bash
+      # Run unit tests
+      $ ./passcode_test.py -v
+      ...
+
+  To run a specific [unit test], you can specify the **method name**:
+
+      :::bash
+      # Run only mypy unit test
+      $ ./passcode_test.py -v PasscodeTests.test_01_mypy
+      ...
+
+  ## Activity 4: Quiz (2 Points)
+
+  Once you have completed all the activities above, you are to complete the
+  following **reflection quiz**:
+
+  <div id="quiz-questions"></div>
+
+  <div id="quiz-responses"></div>
+
+  <script src="static/js/dredd-quiz.js"></script>
+  <script>
+  loadQuiz('static/json/homework13.json');
+  </script>
+
+  <pre style="display: none;" id="dr-container" class="codehilite"><code id="dredd-response"></code></pre>
+
+  As with [Reading 01], you will need to store your answers in a
+  `homework13/answers.json` file.  You can use the form above to generate the
+  contents of this file, or you can write the [JSON] by hand.
+
+  To check your quiz directly, you can use the `check.py` script:
+
+      :::bash
+      $ ../.scripts/check.py
+      Checking homework13 quiz ...
+            Q1 0.40
+            Q2 0.40
+            Q3 0.40
+            Q4 0.20
+            Q5 0.40
+            Q6 0.20
+         Score 2.00 / 2.00
+        Status Success
+
+  ## Leet Point (1 Extra Credit Point)
+
+  For **extra credit**, you are to solve the following [LeetCode] problem in
+  [Python].
+
+  > [797. All Paths From Source to Target](https://leetcode.com/problems/all-paths-from-source-to-target)
+
+  To receive credit, you must pass on [LeetCode] and achieve an **Accepted**
+  submission.
+
+  <div class="alert alert-info" markdown="1">
+  #### <i class="fa fa-check"></i> Verification
+
+  To get credit for this Leet Point, show your solution and the [LeetCode]
+  acceptance page to a TA to verify (or attached a screenshot with both to your
+  **Pull Request**).  You have up until **two days after** this assignment is
+  due to verify your Leet Point.
+
+  </div>
+
+  <div class="alert alert-success" markdown="1">
+  #### <i class="fa fa-calendar"></i> Self-Service Extension
+
+  Remember that you can always **forgo** this Leet Point for **two extra days**
+  to do the homework.  That is, if you need an extension, you can simply skip
+  the Leet Point and you will automatically have until Friday to complete the
+  assignment for full credit.
+
+  Just leave a note on your **Pull Request** of your intentions.
+
+  </div>
+
+  [LeetCode]: https://leetcode.com/
+
+  ## Submission
+
+  To submit your assignment, please commit your work to the `homework13` folder
+  of your `homework13` branch in your **assignments** [GitHub] repository:
+
+      :::bash
+      #-----------------------------------------------------------------------
+      # Make sure you have already completed Activity 0: Preparation
+      #-----------------------------------------------------------------------
+      ...
+      $ git add flights.py                          # Mark changes for commit
+      $ git commit -m "Homework 13: Activity 1"     # Record changes
+      ...
+      $ git add sim_city.py                         # Mark changes for commit
+      $ git commit -m "Homework 13: Activity 2"     # Record changes
+      ...
+      $ git add passcode.py                         # Mark changes for commit
+      $ git commit -m "Homework 13: Activity 3"     # Record changes
+      ...
+      $ git add answers.json                        # Mark changes for commit
+      $ git commit -m "Homework 13: Activity 4"     # Record changes
+      ...
+
+      $ git push -u origin homework13               # Push branch to GitHub
+
+  <div class="alert alert-danger" markdown="1">
+  #### <i class="fa fa-github"></i> Pull Request
+
+  Remember to create a [Pull Request] and assign the appropriate TA from the
+  [Reading 13 TA List].
+
+  **DO NOT MERGE** your own [Pull Request].  The TAs use open [Pull Request]s
+  to keep track of which assignments to grade.  Closing them yourself will
+  cause a delay in grading and confuse the TAs.
+
+  </div>
+
+  [git]: https://git-scm.com/
+  [commit]: https://git-scm.com/docs/git-commit
+  [push]: https://git-scm.com/docs/git-push
+  [GitHub]: https://github.com
+  [Linux]:  https://kernel.org
+  [branch]: https://git-scm.com/docs/git-branch
+  [add]: https://git-scm.com/docs/git-add
+  [Pull Request]:  https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request
+  [Reading 01]:  reading01.html
+  [Reading 13 TA List]: reading13_tas.html
+  [curl]: http://man7.org/linux/man-pages/man1/curl.1.html
+  [JSON]: https://json.org/
