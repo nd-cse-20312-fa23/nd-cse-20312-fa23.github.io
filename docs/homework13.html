@@ -353,10 +353,9 @@ tree</strong> that connects all the points in the <code>Graph</code> with the mi
 amount of pavement and returns the <code>Edges</code> in the resulting <a href="https://en.wikipedia.org/wiki/Minimum_spanning_tree">MST</a>.</p>
 </blockquote>
 <div class="alert alert-success" markdown="1">
-<p><strong>Hint</strong>: Use the <strong>frontier</strong> based traversal algorithm with a <a href="https://docs.python.org/3/library/heapq.html">heapq</a> to
-  implement <a href="https://en.wikipedia.org/wiki/Prim%27s_algorithm">Prim's algorithm</a>.  Be sure to check if you have reached the
-  <code>destination</code> and remove the <code>origin</code> <strong>self-edge</strong> from the <code>Edges</code>
-  (ie. <code>visited</code> <a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>).</p>
+<p><strong>Hint</strong>: Use the <strong>frontier</strong> based traversal algorithm with a <a href="https://docs.python.org/3/library/heapq.html">heapq</a>
+  to implement <a href="https://en.wikipedia.org/wiki/Prim%27s_algorithm">Prim's algorithm</a>.  Be sure to remove the <code>origin</code>
+  <strong>self-edge</strong> from the <code>Edges</code> (ie. <code>visited</code> <a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>).</p>
 </div>
 </li>
 <li>
