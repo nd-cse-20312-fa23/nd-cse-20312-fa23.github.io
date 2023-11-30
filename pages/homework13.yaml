@@ -389,10 +389,9 @@ body:       |
 
       <div class="alert alert-success" markdown="1">
 
-      **Hint**: Use the **frontier** based traversal algorithm with a [heapq] to
-        implement [Prim's algorithm].  Be sure to check if you have reached the
-        `destination` and remove the `origin` **self-edge** from the `Edges`
-        (ie. `visited` [dict]).
+      **Hint**: Use the **frontier** based traversal algorithm with a [heapq]
+        to implement [Prim's algorithm].  Be sure to remove the `origin`
+        **self-edge** from the `Edges` (ie. `visited` [dict]).
 
       </div>
 
