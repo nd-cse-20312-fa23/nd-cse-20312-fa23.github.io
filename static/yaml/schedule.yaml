@@ -406,6 +406,9 @@
         topics:         Review
         assignment:     Homework 13
         idea:           Sim City, Passcodes
+        items:
+          - name:       Slides R02
+            link:       https://docs.google.com/presentation/d/1jEVG7L8bFA4Ga0yfdYKiYMM3CesTomD71HbYihaM9Cc/edit?usp=sharing
 
       - date:           Thu 12/14
         items:
